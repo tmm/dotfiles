@@ -1,0 +1,15 @@
+# Setting PATH for Python 2.7
+# The orginal version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+export PATH
+
+# The greatest command ever
+alias tfm='cd /Users/thomasmeagher'
+# Open in Sublime
+alias sublime='/Users/thomasmeagher/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+
+
+# Added by Canopy installer on 2016-02-22
+# VIRTUAL_ENV_DISABLE_PROMPT can be set to '' to make the bash prompt show that Canopy is active, otherwise 1
+alias activate_canopy="source '/Users/thomasmeagher/Library/Enthought/Canopy_64bit/User/bin/activate'"
+VIRTUAL_ENV_DISABLE_PROMPT=1 source '/Users/thomasmeagher/Library/Enthought/Canopy_64bit/User/bin/activate'
