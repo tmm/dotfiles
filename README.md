@@ -1,3 +1,3 @@
 # dotfiles
 
-My system dotfiles.
+My dotfiles. No symbolic links.

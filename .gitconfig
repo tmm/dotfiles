@@ -1,14 +1,11 @@
 [user]
   name = Tom Meagher
   email = thom.meagher@gmail.com
-
 [core]
   excludesfile = ~/.gitignore
-  editor = subl
-
+  editor = subl -n -w
 [color]
   ui = auto
-
 [alias]
   ga='git add'
   gc='git commit'
@@ -16,9 +13,9 @@
   gl='git log --decorate --graph --oneline'
   gp='git push'
   gs='git status'
-
 [push]
   default = simple
-
 [hub]
   default = https
+[credential]
+	helper = osxkeychain
