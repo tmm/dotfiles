@@ -1,0 +1,24 @@
+[user]
+  name = Tom Meagher
+  email = thom.meagher@gmail.com
+
+[core]
+  excludesfile = ~/.gitignore
+  editor = sublime -n -w
+
+[color]
+  ui = auto
+
+[alias]
+  ga='git add'
+  gc='git commit'
+  gd='git diff'
+  gl='git log --decorate --graph --oneline'
+  gp='git push'
+  gs='git status'
+
+[push]
+  default = simple
+
+[hub]
+  default = https
