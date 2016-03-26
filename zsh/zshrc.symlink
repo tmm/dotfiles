@@ -1,0 +1,21 @@
+export ZSH=/Users/thomasmeagher/.oh-my-zsh
+
+ZSH_THEME="robbyrussell"
+plugins=(git)
+
+# User configuration
+
+export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin"
+source $ZSH/oh-my-zsh.sh
+
+# all of our zsh files
+typeset -U config_files
+config_files=($HOME/.dotfiles/**/*.zsh)
+
+# load zsh files
+for file in ${(M)config_files}
+do
+  source $file
+done
+
+unset config_files
