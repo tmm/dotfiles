@@ -1,0 +1,5 @@
+alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/"
+alias tfm="cd ~"
+alias wpi="cd ~/Documents/wpi/2016-2017"
+alias lsd="ls -a | grep '^\.'"
+alias byword="open /Applications/Byword.app"

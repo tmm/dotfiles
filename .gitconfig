@@ -2,17 +2,16 @@
   name = Tom Meagher
   email = thom.meagher@gmail.com
 [core]
-  excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore_global
   editor = subl -n -w
 [color]
   ui = auto
 [alias]
-  ga='git add'
-  gc='git commit'
-  gd='git diff'
-  gl='git log --decorate --graph --oneline'
-  gp='git push'
-  gs='git status'
+  a = add -A
+  c = commit -m
+  l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  p = push
+  s = status -s
 [push]
   default = simple
 [hub]
