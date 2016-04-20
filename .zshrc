@@ -3,8 +3,9 @@ export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/local/bi
 PIP_REQUIRE_VIRTUALENV=true
 
 export ZSH=$HOME/.oh-my-zsh
+plugins=(osx web-search wd brew gem)
+ZSH_CUSTOM=$HOME/.zsh_custom
 ZSH_THEME="tom"
-plugins=(osx web-search wd)
 
 source .aliases
 source $ZSH/oh-my-zsh.sh
