@@ -1,0 +1,8 @@
+alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/"
+alias tfm="cd ~"
+alias lsd="ls -d .*"
+alias byword="open /Applications/Byword.app"
+alias zshrc="$EDITOR ~/.zshrc"
+alias open="open ."
+alias cu="carthage update --platform iOS"
+alias cb="carthage build --platform iOS"

@@ -1,4 +1,0 @@
-alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/"
-alias tfm="cd ~"
-alias lsd="ls -a | grep '^\.'"
-alias byword="open /Applications/Byword.app"
