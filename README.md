@@ -6,12 +6,20 @@ Inspired by [@kylef](https://github.com/kylef/)'s [Organising dotfiles in a git 
 
 ## Installation
 
+Cloning the repo:
+
 ```shell
-alias home="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-home init
-home remote add origin https://github.com/tmm/dotfiles
-home fetch
-home checkout master
+$ alias home="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+$ home init
+$ home remote add origin https://github.com/tmm/dotfiles
+$ home fetch
+$ home checkout master
+```
+
+Installing tools:
+
+```shell
+$ make
 ```
 
 ## License

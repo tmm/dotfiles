@@ -3,7 +3,7 @@
   email = thom.meagher@gmail.com
 [core]
   excludesfile = ~/.gitignore_global
-  editor = subl -n -w
+  editor = vim
 [color]
   ui = auto
 [alias]
