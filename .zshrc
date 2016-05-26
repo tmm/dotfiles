@@ -2,6 +2,7 @@ PIP_REQUIRE_VIRTUALENV=true
 
 export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin"
 export ZSH=$HOME/.oh-my-zsh
+export PATH="$HOME/anaconda/bin:$PATH"
 
 plugins=(osx web-search wd pip brew gem)
 ZSH_CUSTOM=$HOME/.zsh

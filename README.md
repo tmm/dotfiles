@@ -10,7 +10,7 @@ Cloning the repo:
 
 ```shell
 $ alias home="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-$ home init
+$ home init .dotfiles
 $ home remote add origin https://github.com/tmm/dotfiles
 $ home fetch
 $ home checkout master
