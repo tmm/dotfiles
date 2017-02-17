@@ -1,0 +1,23 @@
+[user]
+  name = Tom Meagher
+  email = thom.meagher@gmail.com
+  signingkey = C981FCAD
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = vim
+[color]
+  ui = auto
+[alias]
+  a = add -A
+  c = commit -m
+  l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  p = push
+  s = status -s
+[push]
+  default = simple
+[hub]
+  default = https
+[credential]
+  helper = osxkeychain
+[commit]
+  gpgsign = true
