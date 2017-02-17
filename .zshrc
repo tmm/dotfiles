@@ -1,6 +1,7 @@
 export ZSH=$HOME/.oh-my-zsh
 
 plugins=(git)
+
 ZSH_CUSTOM=$HOME/.zsh
 ZSH_THEME="tom"
 
