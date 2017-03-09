@@ -3,6 +3,7 @@ tap 'homebrew/bundle'
 
 brew 'git'
 brew 'gnupg2'
+brew 'pyenv'
 brew 'python'
 brew 'python3'
 brew 'vim'
