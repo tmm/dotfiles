@@ -20,3 +20,6 @@ export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec
 export PATH=$SPARK_HOME/bin:$PATH
 export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
 export PYTHONPATH=$SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
+
+# LLVM
+export LLVM_CONFIG=/usr/local/opt/llvm/bin/llvm-config
