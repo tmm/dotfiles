@@ -7,3 +7,6 @@ ZSH_THEME="tom"
 
 source $ZSH_CUSTOM/aliases.sh
 source $ZSH/oh-my-zsh.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source $ZSH_CUSTOM/zsh-interactive-cd.plugin.zsh

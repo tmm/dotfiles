@@ -1,6 +1,7 @@
 tap 'caskroom/cask'
 tap 'homebrew/bundle'
 
+brew 'fzf'
 brew 'git'
 brew 'gnupg2'
 brew 'pyenv'
