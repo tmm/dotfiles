@@ -23,3 +23,7 @@ export PYTHONPATH=$SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
 
 # LLVM
 export LLVM_CONFIG=/usr/local/opt/llvm/bin/llvm-config
+
+# MongoDB
+export MONGO_PATH=/usr/local/bin/mongodb
+export PATH=$MONGO_PATH/bin:$PATH

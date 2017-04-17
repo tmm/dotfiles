@@ -7,6 +7,7 @@ brew 'gnupg2'
 brew 'pyenv'
 brew 'python'
 brew 'python3'
+brew 'thefuck'
 brew 'vim'
 brew 'wget'
 
