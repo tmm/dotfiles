@@ -1,6 +1,7 @@
 [user]
   name = Tom Meagher
   email = thom.meagher@gmail.com
+	signingkey = CB9EF786D308D589
 
 [core]
   excludesfile = ~/.gitignore
@@ -33,3 +34,6 @@
 
 [credential]
   helper = osxkeychain
+  
+[commit]
+	gpgsign = true
