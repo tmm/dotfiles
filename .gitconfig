@@ -4,7 +4,7 @@
 	signingkey = CB9EF786D308D589
 
 [core]
-  excludesfile = ~/.gitignore
+	excludesfile = /Users/tom/.gitignore
   editor = vim
 
 [color]
@@ -37,3 +37,9 @@
   
 [commit]
 	gpgsign = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
