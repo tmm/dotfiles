@@ -1,9 +1,11 @@
 # OS X
+.ssh
 .DS_Store
 
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
 
-.Rhistory
+# Profiles that may or may not contain secrets
 .zprofile-kit
+.zprofile-vs
