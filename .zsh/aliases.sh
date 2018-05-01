@@ -6,7 +6,7 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/"
 
 # Git
 alias ga="git add -A"
-alias gac="git add -A && git commit -m "
+alias gac="git add -A && git commit -m"
 alias gb="git branch"
 alias gbd="git branch -D"
 alias gc="git commit -m"
