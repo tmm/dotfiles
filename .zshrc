@@ -23,8 +23,7 @@ source $ZSH_CUSTOM/zsh-interactive-cd.plugin.zsh
 eval $(thefuck --alias merp)
 
 source ~/.zprofile
-# source ~/.zprofile-kit
-source ~/.zprofile-vs
+source ~/.zprofile-patreon
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

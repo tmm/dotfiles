@@ -14,18 +14,18 @@ Cloning the repo:
 > home checkout master
 ```
 
+Install [`Oh My Zsh`](https://github.com/robbyrussell/oh-my-zsh):
+
+```shell
+> sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
 Install [Homebrew](https://brew.sh/) and [`Brewfile`](https://github.com/tmm/dotfiles/blob/master/Brewfile) dependencies:
 
 ```shell
 > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 > brew tap homebrew/bundle
 > brew bundle
-```
-
-Install [`Oh My Zsh`](https://github.com/robbyrussell/oh-my-zsh):
-
-```shell
-> sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
 And that's it! `~tom` is ready to go!
