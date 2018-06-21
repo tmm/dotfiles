@@ -24,6 +24,7 @@ eval $(thefuck --alias merp)
 
 source ~/.zprofile
 source ~/.zprofile-patreon
+source ~/.zprofile-kit
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -33,3 +34,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "/usr/local/opt/nvm/nvm.sh"
+
+eval "$(jenv init -)" # Load jenv
