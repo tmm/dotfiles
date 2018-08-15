@@ -21,6 +21,7 @@ alias gs="git status"
 alias gss="git status -s"
 alias gst="git status --untracked-files=no"
 alias gsu="git status -uno"
+alias gd="stree"
 
 # Docker
 alias dps="docker ps "
