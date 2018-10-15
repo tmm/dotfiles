@@ -1,0 +1,8 @@
+{
+  "alfredsnippet" : {
+    "snippet" : "import { get } from 'utilities\/get'\n",
+    "uid" : "CC069459-F946-4969-9CB4-999427FA2526",
+    "name" : "get",
+    "keyword" : "iget"
+  }
+}

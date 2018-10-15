@@ -1,3 +1,4 @@
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH=$HOME/.oh-my-zsh
 
 plugins=(
@@ -20,11 +21,10 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source $ZSH_CUSTOM/zsh-interactive-cd.plugin.zsh
 
-eval $(thefuck --alias merp)
-
 source ~/.zprofile
 source ~/.zprofile-patreon
 source ~/.zprofile-kit
+source ~/.zprofile-budget
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -37,3 +37,4 @@ export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
 eval "$(jenv init -)" # Load jenv
+eval $(thefuck --alias merp)
