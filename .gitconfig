@@ -1,6 +1,6 @@
 [user]
-  name = Tom Meagher
-  email = thom.meagher@gmail.com
+	name = Tom Meagher
+	email = thom.meagher@gmail.com
 	signingkey = CB9EF786D308D589
 
 [core]
@@ -37,6 +37,7 @@
   
 [commit]
 	gpgsign = true
+	template = /Users/tom/.stCommitMsg
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
