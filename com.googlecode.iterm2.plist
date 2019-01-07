@@ -698,7 +698,7 @@ patreon:Restore Window Arrangement</string>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string>wd react &amp;&amp; xrr &amp;&amp; xtr</string>
+			<string>wd react &amp;&amp; xtr</string>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -3118,7 +3118,7 @@ patreon:Restore Window Arrangement</string>
 							<array>
 								<dict>
 									<key>Is Active</key>
-									<integer>1</integer>
+									<integer>0</integer>
 									<key>Session</key>
 									<dict>
 										<key>Bookmark</key>
@@ -3316,6 +3316,8 @@ patreon:Restore Window Arrangement</string>
 												<key>Red Component</key>
 												<real>0.90237069129943848</real>
 											</dict>
+											<key>Bound Hosts</key>
+											<array/>
 											<key>Character Encoding</key>
 											<integer>4</integer>
 											<key>Close Sessions On End</key>
@@ -3385,7 +3387,7 @@ patreon:Restore Window Arrangement</string>
 											<key>Idle Code</key>
 											<integer>0</integer>
 											<key>Initial Text</key>
-											<string>wd react &amp;&amp; xrr &amp;&amp; xtr</string>
+											<string>wd c &amp;&amp; xs</string>
 											<key>Jobs to Ignore</key>
 											<array>
 												<string>rlogin</string>
@@ -3678,7 +3680,7 @@ patreon:Restore Window Arrangement</string>
 											<key>Mouse Reporting</key>
 											<true/>
 											<key>Name</key>
-											<string>patreon react</string>
+											<string>patreon sync</string>
 											<key>Non Ascii Font</key>
 											<string>Monaco 12</string>
 											<key>Non-ASCII Anti Aliased</key>
@@ -3720,7 +3722,7 @@ patreon:Restore Window Arrangement</string>
 											<key>Send Code When Idle</key>
 											<false/>
 											<key>Shortcut</key>
-											<string>R</string>
+											<string>S</string>
 											<key>Silence Bell</key>
 											<false/>
 											<key>Sync Title</key>
@@ -3791,7 +3793,7 @@ patreon:Restore Window Arrangement</string>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/tmeagher</string>
+											<string>/Users/tmeagher/_code/patreon/patreon_react_features</string>
 										</dict>
 										<key>Hosts</key>
 										<array/>
@@ -3799,15 +3801,13 @@ patreon:Restore Window Arrangement</string>
 										<true/>
 										<key>Program</key>
 										<dict>
-											<key>Command</key>
-											<string>login -fp "tmeagher"</string>
 											<key>Type</key>
-											<string>Command</string>
+											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
 										<integer>38</integer>
 										<key>Session Default Name</key>
-										<string>patreon react</string>
+										<string>patreon sync</string>
 										<key>Session GUID</key>
 										<string>D6ACA13F-AF51-4299-BFB8-09F981710FEE</string>
 										<key>Session Name</key>
@@ -4475,9 +4475,9 @@ patreon:Restore Window Arrangement</string>
 											<string>/Users/tom</string>
 										</dict>
 										<key>Bookmark Name</key>
-										<string>Default</string>
+										<string>default</string>
 										<key>Columns</key>
-										<integer>84</integer>
+										<integer>57</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -4528,9 +4528,9 @@ patreon:Restore Window Arrangement</string>
 										<key>height</key>
 										<real>685</real>
 										<key>width</key>
-										<real>682</real>
+										<real>466</real>
 										<key>x</key>
-										<real>0.0</real>
+										<real>467</real>
 										<key>y</key>
 										<real>686</real>
 									</dict>
@@ -4758,8 +4758,6 @@ patreon:Restore Window Arrangement</string>
 												<key>Red Component</key>
 												<real>0.90237069129943848</real>
 											</dict>
-											<key>Bound Hosts</key>
-											<array/>
 											<key>Character Encoding</key>
 											<integer>4</integer>
 											<key>Close Sessions On End</key>
@@ -5195,9 +5193,9 @@ patreon:Restore Window Arrangement</string>
 											<string>/Users/tom</string>
 										</dict>
 										<key>Bookmark Name</key>
-										<string>Default</string>
+										<string>default</string>
 										<key>Columns</key>
-										<integer>84</integer>
+										<integer>62</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -5280,13 +5278,13 @@ patreon:Restore Window Arrangement</string>
 				<key>TerminalGuid</key>
 				<string>pty-F4DC8B00-0102-4A66-8AD3-1833C520C4E5</string>
 				<key>Width</key>
-				<real>682</real>
+				<real>1440</real>
 				<key>Window Type</key>
 				<integer>0</integer>
 				<key>X Origin</key>
-				<real>1872</real>
-				<key>Y Origin</key>
 				<real>0.0</real>
+				<key>Y Origin</key>
+				<real>1762</real>
 			</dict>
 		</array>
 	</dict>
