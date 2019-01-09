@@ -31,6 +31,7 @@ alias dcb="docker-compose build "
 alias dcu="docker-compose up "
 alias ds="docker stop "
 alias dr="docker rm "
+alias dsr='ds $(dps -a -q) && dr $(dps -a -q)'
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
