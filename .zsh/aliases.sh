@@ -25,12 +25,14 @@ alias gsu="git status -uno"
 alias gd="stree"
 
 # Docker
-alias dps="docker ps "
-alias dex="docker exec -it "
-alias dcb="docker-compose build "
-alias dcu="docker-compose up "
-alias ds="docker stop "
-alias dr="docker rm "
+alias dc="docker-compose"
+alias dcb="docker-compose build"
+alias dcu="docker-compose up"
+alias dex="docker exec -it"
+alias dl="docker logs"
+alias dps="docker ps"
+alias dr="docker rm"
+alias ds="docker stop"
 alias dsr='ds $(dps -a -q) && dr $(dps -a -q)'
 
 # Show/hide hidden files in Finder
