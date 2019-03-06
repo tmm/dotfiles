@@ -23,7 +23,7 @@ source $ZSH_CUSTOM/zsh-interactive-cd.plugin.zsh
 
 source ~/.zprofile
 # source ~/.zprofile-patreon
-source ~/.zprofile-kit
+# source ~/.zprofile-kit
 source ~/.zprofile-wilbur
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

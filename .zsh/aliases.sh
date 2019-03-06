@@ -35,6 +35,9 @@ alias dr="docker rm"
 alias ds="docker stop"
 alias dsr='ds $(dps -a -q) && dr $(dps -a -q)'
 
+# Terraform
+alias tf="terraform"
+
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
