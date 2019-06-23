@@ -6,5 +6,6 @@
 .Spotlight-V100
 .Trashes
 
-# Profiles that may or may not contain secrets
+# May or may not contain secrets
+.private
 .zprofile-*

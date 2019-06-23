@@ -14,24 +14,10 @@ Cloning the repo:
 > home checkout master
 ```
 
-Install [`Oh My Zsh`](https://github.com/robbyrussell/oh-my-zsh):
+Run `bootstrap.sh`:
 
 ```shell
-> sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-```
-
-Install [Homebrew](https://brew.sh/) and [`Brewfile`](https://github.com/tmm/dotfiles/blob/master/Brewfile) dependencies:
-
-```shell
-> /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-> brew tap homebrew/bundle
-> brew bundle
-```
-
-Make macOS just the way I like it:
-
-```shell
-> bash .macos
+> ./bootstrap.sh
 ```
 
 Set up [Keybase.io, GPG, & Git to sign commits on GitHub](https://github.com/pstadler/keybase-gpg-github)
