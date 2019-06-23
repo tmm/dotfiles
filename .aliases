@@ -1,0 +1,45 @@
+#!/usr/bin/env zsh
+
+# Easier navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias tom='cd ~'
+
+# Shortcuts
+alias g='git'
+alias home='git --work-tree=$HOME --git-dir=$HOME/.dotfiles/'
+
+# List hidden files
+alias lsd='ls -d .*'
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Show/hide hidden files in finder
+alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
+alias hide='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
+
+# Get week number
+alias week='date +%V'
+
+# Google Chrome
+alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+
+# Docker
+alias dc='docker-compose'
+alias dcb='docker-compose build'
+alias dcu='docker-compose up'
+alias dex='docker exec -it'
+alias dl='docker logs'
+alias dps='docker ps'
+alias dr='docker rm'
+alias ds='docker stop'
+alias dsr='ds $(dps -a -q) && dr $(dps -a -q)'

@@ -34,17 +34,9 @@ Make macOS just the way I like it:
 > bash .macos
 ```
 
+Set up [Keybase.io, GPG, & Git to sign commits on GitHub](https://github.com/pstadler/keybase-gpg-github)
+
 And that's it! `~tom` is ready to go!
-
----
-
-<details>
-    <summary>P.S. Some manual things that might also need doing (Click to expand)</summary>
-    ✅ Install <a href="https://developer.apple.com/xcode/">Xcode</a><br>
-    ✅ Install <a href="https://www.bywordapp.com/">Byword</a> from App Store<br>
-    ✅ Install <a href="http://dayoneapp.com/">Day One</a> from App Store<br>
-    ✅ Set up <a href="https://github.com/pstadler/keybase-gpg-github">Keybase.io, GPG, & Git to sign commits on GitHub</a><br>
-</details>
 
 ## Colophon
 

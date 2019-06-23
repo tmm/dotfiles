@@ -7,6 +7,4 @@
 .Trashes
 
 # Profiles that may or may not contain secrets
-.zprofile-kit
-.zprofile-patreon
-.zprofile-wilbur
+.zprofile-*

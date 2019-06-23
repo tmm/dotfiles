@@ -3,14 +3,40 @@
 	email = thom.meagher@gmail.com
 	signingkey = CB9EF786D308D589
 
+[credential]
+  helper = osxkeychain
+  
+[commit]
+	gpgsign = true
+  template = ~/.gitmessage
+
 [core]
-	excludesfile = /Users/tom/.gitignore
-  editor = vim
+	excludesfile = ~/.gitignore
+  editor = code --wait
 
 [color]
   ui = auto
 
+[push]
+  default = current
+
+[merge]
+  tool = vscode
+
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+
+[diff]
+  tool = vscode
+
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+
 [alias]
+  # ==========================
+	# Basic commands
+  # ==========================
+  
   a = add -A
   b = branch
   bd = branch -D
@@ -18,29 +44,49 @@
   ch = checkout
   chb = checkout -b
   chm = checkout master
+  d = diff
   f = fetch
-  l = log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset" --abbrev-commit
   p = push
-  pl = pull
   s = status -s
   st = status --untracked-files=no
-  su = status -uno
 
-[push]
-  default = simple
+  # ==========================
+  # Advanced commands
+  # ==========================
 
-[hub]
-  default = https
-
-[credential]
-  helper = osxkeychain
+	# List aliases
+	aliases = config --get-regexp alias
   
-[commit]
-	gpgsign = true
-	template = /Users/tom/.stCommitMsg
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  # Amend currently staged files to latest commit
+  amend = commit --amend --reuse-message=HEAD
+
+  # Copy branch name
+  bc = "!echo "$(git rev-parse --abbrev-ref HEAD)" | pbcopy; echo `tput setaf 5`"Branch name copied to clipboard!"`tput sgr0`"
+
+  # Commit all changes
+  ca = !git add -A && git commit -av
+
+	# List contributors with number of commits
+	contributors = shortlog --summary --numbered
+
+	# Remove branches already merged with master
+	# a.k.a. ‘delete merged’
+	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+  # Switch to a branch, creating it if necessary
+	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+	# View abbreviated SHA, description, and history graph of the latest 20 commits
+  l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+  # Pull in remote changes for current repository and all its submodules
+	pl = "!git pull; git submodule foreach git pull origin master"
+
+  # Switch to a branch, creating it if necessary
+	pr = "!open $(git remote -v | grep origin | grep push | cut -f 2 | cut -d ' ' -f 1 | sed -e 's/.git$//g')/pull/new/$(git rev-parse --abbrev-ref HEAD)"
+
+	# Interactive rebase with the given number of latest commits
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+  # Cleaner unstage
+  unstage = reset HEAD --
