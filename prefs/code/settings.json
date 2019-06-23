@@ -50,5 +50,5 @@
     },
     "emmet.triggerExpansionOnTab": true,
     "editor.formatOnSave": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 4
 }

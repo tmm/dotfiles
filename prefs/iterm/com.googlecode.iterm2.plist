@@ -430,7 +430,7 @@ patreon:Restore Window Arrangement</string>
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>291 351 796 486 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>244 180 954 656 0 0 1440 877 </string>
+	<string>720 0 714 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>-2560 404 570 1391 -2560 377 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -509,12 +509,16 @@ patreon:Restore Window Arrangement</string>
 			</dict>
 			<key>Ansi 15 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>1</real>
+				<real>0.831756591796875</real>
+				<key>Color Space</key>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>1</real>
+				<real>0.831756591796875</real>
 				<key>Red Component</key>
-				<real>1</real>
+				<real>0.831756591796875</real>
 			</dict>
 			<key>Ansi 2 Color</key>
 			<dict>
@@ -579,13 +583,13 @@ patreon:Restore Window Arrangement</string>
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0</real>
+				<real>0.40000000000000002</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.40000000000000002</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.40000000000000002</real>
 			</dict>
 			<key>Ansi 9 Color</key>
 			<dict>
