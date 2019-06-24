@@ -1,7 +1,8 @@
 [user]
 	name = Tom Meagher
 	email = thom.meagher@gmail.com
-	signingkey = CB9EF786D308D589
+	signingkey = 252537643642E204
+	team = @Patreon/merch
 
 [github]
 	user = tmm
@@ -11,7 +12,6 @@
 
 [commit]
 	gpgsign = true
-	template = ~/.gitmessage
 
 [core]
 	excludesfile = ~/.gitignore
@@ -42,16 +42,31 @@
 
 	a = add -A
 	b = branch
-	bd = branch -D
-	c = commit
-	cm = commit -m
+	c = commit -m
 	ch = checkout
-	chb = checkout -b
-	chm = checkout master
 	d = diff
 	f = fetch
 	p = push
-	s = status -s
+	pl = pull
+	s = status
+
+	# ==========================
+	# Intermediate commands
+	# ==========================
+
+	# Adds only update files
+  au = add --update
+
+	# Commit all changes
+	ca = !git add -A && git commit -avm
+
+	# Checks out master branch
+	chm = checkout master
+
+	# View abbreviated SHA, description, and history graph of the latest 20 commits
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	
+	# Displays status of tracked files
 	st = status --untracked-files=no
 
 	# ==========================
@@ -64,14 +79,17 @@
 	# Amend currently staged files to latest commit
 	amend = commit --amend --reuse-message=HEAD
 
-	# Copy branch name
-	bc = "!echo "$(git rev-parse --abbrev-ref HEAD)" | pbcopy; echo `tput setaf 5`"Branch name copied to clipboard!"`tput sgr0`"
+	# Current branch name
+	branch-name = rev-parse --abbrev-ref HEAD
 
-	# Commit all changes
-	ca = !git add -A && git commit -av
+	# Copy branch name
+	copy-branch = "!echo "$(git branch-name)" | pbcopy; echo `tput setaf 5`"Branch name copied to clipboard!"`tput sgr0`"
 
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
+
+	# Discard changes in a (list of) file(s) in working tree
+  discard = checkout --
 
 	# Remove branches already merged with master
 	# a.k.a. ‘delete merged’
@@ -80,17 +98,23 @@
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
-	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+  # Show the log of my week
+  log-my-week  = "!git log --author $(git config user.email) --format=oneline --since '1 week ago'"
 
 	# Pull in remote changes for current repository and all its submodules
-	pl = "!git pull; git submodule foreach git pull origin master"
+	pull-all = "!git pull; git submodule foreach git pull origin master"
 
-	# Switch to a branch, creating it if necessary
-	pr = "!open $(git remote -v | grep origin | grep push | cut -f 2 | cut -d ' ' -f 1 | sed -e 's/.git$//g')/pull/new/$(git rev-parse --abbrev-ref HEAD)"
+	# Open a pull request on GitHub for current branch
+	pr = "!open $(git remote -v | grep origin | grep push | cut -f 2 | cut -d ' ' -f 1 | sed -e 's/.git$//g')/pull/new/$(git branch-name)"
 
-	# Interactive rebase with the given number of latest commits
+	# Pushes and sets current branch upstream
+	publish = "!git push -u origin $(git branch-name)"
+
+	# Interactive rebase with given number of latest commits
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
 
+	# Undo last commit
+	undo = reset --soft HEAD^
+	
 	# Cleaner unstage
 	unstage = reset HEAD --
