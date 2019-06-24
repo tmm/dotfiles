@@ -3,6 +3,9 @@
 	email = thom.meagher@gmail.com
 	signingkey = CB9EF786D308D589
 
+[github]
+	user = tmm
+
 [credential]
 	helper = osxkeychain
 
@@ -40,7 +43,8 @@
 	a = add -A
 	b = branch
 	bd = branch -D
-	c = commit -m
+	c = commit
+	cm = commit -m
 	ch = checkout
 	chb = checkout -b
 	chm = checkout master

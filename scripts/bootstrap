@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+# Create a hard link for code settings
+ln -hf prefs/code/settings.json Library/Application\ Support/Code/User/settings.json
