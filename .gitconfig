@@ -55,13 +55,16 @@
 	# ==========================
 
 	# Adds only update files
-  au = add --update
+	au = add --update
 
 	# Commit all changes
 	ca = !git add -A && git commit -avm
 
 	# Checks out master branch
 	chm = checkout master
+
+	# Discard changes in a (list of) file(s) in working tree
+	discard = checkout --
 
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
@@ -98,8 +101,8 @@
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
-  # Show the log of my week
-  log-my-week  = "!git log --author $(git config user.email) --format=oneline --since '1 week ago'"
+	# Show the log of my week
+	log-my-week = "!git log --author $(git config user.email) --format=oneline --since '1 week ago'"
 
 	# Pull in remote changes for current repository and all its submodules
 	pull-all = "!git pull; git submodule foreach git pull origin master"
