@@ -67,7 +67,14 @@ The installation guide to setup on a new macOS.
     ./scripts/bootstrap
     ```
 
-1. Setup 1Password and sync passwords.
+1. Import GPG key:
+
+    ```sh
+    keybase pgp export -q 72072EC3ED191086 | gpg --import
+    keybase pgp export -q 72072EC3ED191086 --secret | gpg --allow-secret-key-import --import
+    ```
+
+1. Setup 1Password
 
 And that's it! `~tom` is ready to go!
 
@@ -94,11 +101,12 @@ And that's it! `~tom` is ready to go!
 
 Inspired by:
 
--   [@kylef](https://github.com/kylef/)'s [Organising dotfiles in a git repository](https://fuller.li/posts/organising-dotfiles-in-a-git-repository/)
--   [thoughtbot](https://thoughtbot.com/)'s [Brewfile: a Gemfile, but for Homebrew](https://robots.thoughtbot.com/brewfile-a-gemfile-but-for-homebrew)
--   [@mathiasbynens](https://github.com/mathiasbynens)' [`.macos`](https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
--   [@MikeMcQuaid](https://github.com/MikeMcQuaid)'s [`strap`](https://github.com/MikeMcQuaid/strap)
--   [@vinkla](https://github.com/vinkla)'s [`dotfiles`](https://github.com/vinkla/dotfiles)
+-   [Organising dotfiles in a git repository](https://fuller.li/posts/organising-dotfiles-in-a-git-repository/)
+-   [Brewfile: a Gemfile, but for Homebrew](https://robots.thoughtbot.com/brewfile-a-gemfile-but-for-homebrew)
+-   [Set up Keybase.io, GPG & Git to sign commits on GitHub](https://github.com/pstadler/keybase-gpg-github)
+-   [@mathiasbynens' `.macos`](https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
+-   [@MikeMcQuaid's `strap`](https://github.com/MikeMcQuaid/strap)
+-   [@vinkla's `dotfiles`](https://github.com/vinkla/dotfiles)
 
 ## License
 
