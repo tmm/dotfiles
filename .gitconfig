@@ -1,8 +1,7 @@
 [user]
 	name = Tom Meagher
 	email = thom.meagher@gmail.com
-	signingkey = 252537643642E204
-	team = @Patreon/merch
+	signingKey = 72072EC3ED191086
 
 [github]
 	user = tmm
