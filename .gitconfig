@@ -45,6 +45,7 @@
 	ch = checkout
 	d = diff
 	f = fetch
+	l = log
 	p = push
 	pl = pull
 	s = status
@@ -65,9 +66,12 @@
 	# Discard changes in a (list of) file(s) in working tree
 	discard = checkout --
 
-	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	# View abbreviated SHA, author, description, and time ago of the latest 20 commits
+	log-recent = log --pretty=oneline -n 20 --abbrev-commit --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative
 	
+	# Force push
+	pf = push --force
+
 	# Displays status of tracked files
 	st = status --untracked-files=no
 
@@ -101,7 +105,7 @@
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
 	# Show the log of my week
-	log-my-week = "!git log --author $(git config user.email) --format=oneline --since '1 week ago'"
+	log-my-week = "!git log --author $(git config user.email) --format=oneline --pretty=format:'%Cred%h%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --since '1 week ago'"
 
 	# Pull in remote changes for current repository and all its submodules
 	pull-all = "!git pull; git submodule foreach git pull origin master"
