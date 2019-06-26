@@ -1,7 +1,6 @@
 #!/bin/zsh
 
 source ~/.zprofile
-source ~/.zprofile-patreon
 
 # Load nvm
 export NVM_DIR="$HOME/.nvm"

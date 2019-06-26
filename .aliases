@@ -9,13 +9,14 @@ alias tom='cd ~'
 
 # Shortcuts
 alias g='git'
+alias t='tmux'
 alias home='git --work-tree=$HOME --git-dir=$HOME/.dotfiles/'
-
-# List hidden files
-alias lsd='ls -d .*'
 
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# List hidden files
+alias lsd='ls -d .*'
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
@@ -37,12 +38,13 @@ alias week='date +%V'
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 
 # Docker
+alias d='docker'
 alias dc='docker-compose'
-alias dcb='docker-compose build'
-alias dcu='docker-compose up'
-alias dex='docker exec -it'
-alias dl='docker logs'
-alias dps='docker ps'
-alias dr='docker rm'
-alias ds='docker stop'
+alias dcb='dc build'
+alias dcu='dc up'
+alias dex='d exec -it'
+alias dl='d logs'
+alias dps='d ps'
+alias dr='d rm'
+alias ds='d stop'
 alias dsr='ds $(dps -a -q) && dr $(dps -a -q)'
