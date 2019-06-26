@@ -18,6 +18,8 @@ ZSH_THEME="tom"
 
 plugins=(
 	history
+	man
+	sudo
 	wd
 	# Custom plugins (`~/.omz/plugins`)
 	zsh-autosuggestions
