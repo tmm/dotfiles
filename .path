@@ -1,1 +1,9 @@
+#!/bin/zsh
+
 export PATH="/usr/local/bin:$PATH"
+
+# Add rust to `$PATH`
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Add `~/bin` to `$PATH`
+export PATH="$HOME/bin:$PATH"

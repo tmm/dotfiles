@@ -36,4 +36,3 @@ cask 'visual-studio-code'
 
 mas "Xcode", id: 497799835
 mas "Day One", id: 1055511498
-mas "Downlink", id: 1454269192

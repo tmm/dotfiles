@@ -2,6 +2,7 @@
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "editor.fontSize": 14,
+    "terminal.integrated.fontSize": 14,
     "workbench.statusBar.feedback.visible": false,
     "workbench.colorTheme": "Dracula",
     "workbench.startupEditor": "newUntitledFile",
@@ -33,7 +34,8 @@
         "statusBar.background": "#000000",
         "statusBar.noFolderBackground": "#000000",
         "debugToolBar.background": "#000000",
-        "notifications.background": "#000000"
+        "notifications.background": "#000000",
+        "terminal.background": "#000000"
     },
     "workbench.activityBar.visible": false,
     "[python]": {
