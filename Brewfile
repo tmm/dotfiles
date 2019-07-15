@@ -26,7 +26,6 @@ cask 'font-fira-code'
 cask 'google-chrome'
 cask 'hyperdock'
 cask 'iterm2'
-cask 'itsycal'
 cask 'keybase'
 cask 'notion'
 cask 'postgres'
@@ -36,3 +35,4 @@ cask 'visual-studio-code'
 
 mas "Xcode", id: 497799835
 mas "Day One", id: 1055511498
+mas "Dato", id: 1470584107
