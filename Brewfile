@@ -13,6 +13,7 @@ brew 'openssl'
 brew 'pyenv-virtualenv'
 brew 'pyenv'
 brew 'tmux'
+brew 'wifi-password'
 brew 'yarn'
 brew 'zsh'
 
