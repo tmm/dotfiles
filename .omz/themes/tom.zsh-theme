@@ -18,6 +18,13 @@ user_name() {
   fi
 }
 
+venv() {
+  # Check if the current directory running via Virtualenv
+  [ -n "$VIRTUAL_ENV" ] || return
+
+  echo "($VIRTUAL_ENV:t)"
+}
+
 # Prompt format:
 #
 # # USER at MACHINE in DIRECTORY on BRANCH STATE
@@ -35,4 +42,5 @@ $(user_name) \
 %{$fg[white]%}in \
 %{$terminfo[bold]$fg[yellow]%}${CURRENT_DIR}%{$reset_color%}\
 ${GIT_INFO}
+$(venv) \
 %{$terminfo[bold]$fg[white]%}${PROMPT_PREFIX} %{$reset_color%}"
