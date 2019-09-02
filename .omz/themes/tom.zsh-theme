@@ -20,9 +20,9 @@ user_name() {
 
 venv() {
   # Check if the current directory running via Virtualenv
-  [ -n "$VIRTUAL_ENV" ] || return
-
-  echo "($VIRTUAL_ENV:t)"
+  if [[ "$VIRTUAL_ENV" ]]; then
+    echo "($VIRTUAL_ENV:t) "
+  fi
 }
 
 # Prompt format:
@@ -42,5 +42,5 @@ $(user_name) \
 %{$fg[white]%}in \
 %{$terminfo[bold]$fg[yellow]%}${CURRENT_DIR}%{$reset_color%}\
 ${GIT_INFO}
-$(venv) \
+$(venv)\
 %{$terminfo[bold]$fg[white]%}${PROMPT_PREFIX} %{$reset_color%}"
