@@ -16,6 +16,7 @@ ZSH_THEME="tom"
 plugins=(
 	history
 	man
+	pipenv
 	sudo
 	wd
 	# Custom plugins (`~/.omz/plugins`)

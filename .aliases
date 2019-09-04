@@ -37,12 +37,6 @@ alias week='date +%V'
 # Google Chrome
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 
-# Django
-alias dj='python manage.py'
-alias djr='python manage.py runserver'
-alias djmm='python manage.py makemigrations'
-alias djm='python manage.py migrate'
-
 # Docker
 alias d='docker'
 alias dc='docker-compose'
