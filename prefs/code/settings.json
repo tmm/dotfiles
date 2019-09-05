@@ -52,5 +52,8 @@
     },
     "emmet.triggerExpansionOnTab": true,
     "editor.formatOnSave": true,
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false,
+    "terminal.integrated.copyOnSelection": true,
+    "workbench.panel.defaultLocation": "right",
+    "files.autoSave": "afterDelay"
 }
