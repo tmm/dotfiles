@@ -10,17 +10,14 @@ brew 'gpg'
 brew 'nvm'
 brew 'mas'
 brew 'openssl'
-brew 'pyenv-virtualenv'
 brew 'pyenv'
 brew 'tmux'
-brew 'wifi-password'
 brew 'yarn'
 brew 'zsh'
 
 cask '1password'
 cask 'alfred'
 cask 'bartender'
-cask 'docker'
 cask 'figma'
 cask 'flux'
 cask 'font-fira-code'
@@ -34,6 +31,6 @@ cask 'postico'
 cask 'sip'
 cask 'visual-studio-code'
 
-mas "Xcode", id: 497799835
-mas "Day One", id: 1055511498
 mas "Dato", id: 1470584107
+mas "Day One", id: 1055511498
+mas "Xcode", id: 497799835
