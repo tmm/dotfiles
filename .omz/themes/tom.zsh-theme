@@ -27,13 +27,13 @@ venv() {
 
 # Prompt format:
 #
-# # USER at MACHINE in DIRECTORY on BRANCH STATE
-# > COMMAND
+# # USER at MACHINE in DIRECTORY on BRANCH STATE[GIT STATUS]
+# (VENV) > COMMAND
 #
 # For example:
 #
 # # tom at mac.local in ~ on master*
-# >
+# (venv) >
 PROMPT="
 %{$terminfo[bold]$fg[white]%}#%{$reset_color%} \
 $(user_name) \
