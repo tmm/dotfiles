@@ -3,6 +3,7 @@ cask_args appdir: "/Applications"
 tap 'caskroom/cask'
 tap 'caskroom/fonts'
 tap 'homebrew/bundle'
+tap 'danielbayley/alfred'
 
 brew 'fzf'
 brew 'git'
@@ -18,6 +19,7 @@ brew 'zsh'
 
 cask '1password'
 cask 'alfred'
+cask 'alfred-numi'
 cask 'alfred-things'
 cask 'bartender'
 cask 'caffeine'
