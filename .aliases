@@ -37,6 +37,9 @@ alias week='date +%V'
 # Google Chrome
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 
+# iPhone Simulator
+alias iphone='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
+
 # Docker
 alias d='docker'
 alias dc='docker-compose'
