@@ -34,9 +34,6 @@ alias hide='defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 # Get week number
 alias week='date +%V'
 
-# Google Chrome
-alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-
 # iPhone Simulator
 alias iphone='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
 
