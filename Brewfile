@@ -30,7 +30,6 @@ cask 'font-fira-code'
 cask 'hyperdock'
 cask 'iterm2'
 cask 'keybase'
-cask 'notion'
 cask 'numi'
 cask 'postgres'
 cask 'postico'
@@ -39,5 +38,4 @@ cask 'visual-studio-code'
 
 mas "Dato", id: 1470584107
 mas "Day One", id: 1055511498
-mas "Things 3", id: 904280696
 mas "Xcode", id: 497799835
