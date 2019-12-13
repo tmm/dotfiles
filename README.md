@@ -2,7 +2,7 @@
 
 My dotfiles with no symbolic links or set up scripts.
 
-<img width="550" alt="screenshot" src="https://user-images.githubusercontent.com/6759464/60097430-64a8a680-9721-11e9-8bd8-12d580b1641d.png">
+<img width="550" alt="screenshot" src="https://user-images.githubusercontent.com/6759464/70762497-bc15ef80-1d1e-11ea-821e-e53a46caf0a7.png">
 
 ## Installation
 
@@ -96,6 +96,11 @@ And that's it! `~tom` is ready to go!
         plugin-name
     )
     ```
+
+## Manual things
+
+-   [Dash Alfred Workflow](https://github.com/Kapeli/Dash-Alfred-Workflow)
+-   [Emoji Alfred Workflow](https://github.com/jsumners/alfred-emoji)
 
 ## Colophon
 
