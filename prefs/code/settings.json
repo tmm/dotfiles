@@ -7,7 +7,6 @@
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "editor.fontSize": 14,
-    "editor.formatOnSave": true,
     "editor.multiCursorModifier": "ctrlCmd",
     "emmet.includeLanguages": {
         "javascript": "javascriptreact"
