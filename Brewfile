@@ -1,8 +1,8 @@
 cask_args appdir: "/Applications"
 
 tap 'caskroom/cask'
-tap 'caskroom/fonts'
 tap 'homebrew/bundle'
+tap 'homebrew/cask-fonts'
 tap 'danielbayley/alfred'
 
 brew 'fzf'
@@ -20,7 +20,6 @@ brew 'zsh'
 cask '1password'
 cask 'alfred'
 cask 'alfred-numi'
-cask 'alfred-things'
 cask 'bartender'
 cask 'caffeine'
 cask 'figma'
@@ -30,14 +29,13 @@ cask 'font-fira-code'
 cask 'hyperdock'
 cask 'iterm2'
 cask 'keybase'
-cask 'notion'
 cask 'numi'
 cask 'postgres'
 cask 'postico'
 cask 'sip'
+cask 'spotify'
 cask 'visual-studio-code'
 
 mas "Dato", id: 1470584107
 mas "Day One", id: 1055511498
-mas "Things 3", id: 904280696
 mas "Xcode", id: 497799835
