@@ -1,13 +1,39 @@
 {
+    "breadcrumbs.enabled": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.detectIndentation": false,
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "editor.fontSize": 14,
-    "terminal.integrated.fontSize": 14,
-    "workbench.statusBar.feedback.visible": false,
-    "workbench.colorTheme": "Dracula",
-    "workbench.startupEditor": "newUntitledFile",
+    "editor.formatOnSave": true,
     "editor.multiCursorModifier": "ctrlCmd",
-    "window.zoomLevel": 0,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "emmet.triggerExpansionOnTab": true,
+    "eslint.options": {
+        "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+        ]
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+    ],
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "javascript.validate.enable": false,
+    "python.linting.pylintEnabled": false,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.fontSize": 14,
+    "typescript.validate.enable": false,
+    "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
         "editor.background": "#000000",
         "input.background": "#000000",
@@ -37,23 +63,10 @@
         "notifications.background": "#000000",
         "terminal.background": "#000000"
     },
-    "workbench.activityBar.visible": false,
+    "workbench.colorTheme": "Dracula",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.panel.defaultLocation": "right",
     "[python]": {
         "editor.formatOnPaste": false
     },
-    "prettier.tslintIntegration": true,
-    "breadcrumbs.enabled": true,
-    "prettier.htmlWhitespaceSensitivity": "strict",
-    "prettier.semi": false,
-    "prettier.tabWidth": 4,
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "emmet.includeLanguages": {
-        "javascript": "javascriptreact"
-    },
-    "emmet.triggerExpansionOnTab": true,
-    "editor.formatOnSave": true,
-    "editor.detectIndentation": false,
-    "terminal.integrated.copyOnSelection": true,
-    "workbench.panel.defaultLocation": "right",
-    "files.autoSave": "afterDelay"
 }
