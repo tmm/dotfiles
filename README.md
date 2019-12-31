@@ -101,6 +101,7 @@ And that's it! `~tom` is ready to go!
 
 -   [Dash Alfred Workflow](https://github.com/Kapeli/Dash-Alfred-Workflow)
 -   [Emoji Alfred Workflow](https://github.com/jsumners/alfred-emoji)
+-   [Alfred Spotify Mini Player](http://alfred-spotify-mini-player.com/)
 
 ## Colophon
 
