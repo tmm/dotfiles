@@ -97,11 +97,12 @@ And that's it! `~tom` is ready to go!
     )
     ```
 
-## Manual things
+## Alfred Workflows
 
--   [Dash Alfred Workflow](https://github.com/Kapeli/Dash-Alfred-Workflow)
--   [Emoji Alfred Workflow](https://github.com/jsumners/alfred-emoji)
--   [Alfred Spotify Mini Player](http://alfred-spotify-mini-player.com/)
+-   [Dash](https://github.com/Kapeli/Dash-Alfred-Workflow)
+-   [Emoji](https://github.com/jsumners/alfred-emoji)
+-   [Spotify Mini Player](http://alfred-spotify-mini-player.com/)
+-   [TimeZones](https://github.com/jaroslawhartman/TimeZones-Alfred)
 
 ## Colophon
 

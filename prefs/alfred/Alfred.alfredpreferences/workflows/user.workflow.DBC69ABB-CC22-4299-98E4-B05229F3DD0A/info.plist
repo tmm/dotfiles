@@ -1,0 +1,1284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>carlosnz.timezones2</string>
+	<key>connections</key>
+	<dict>
+		<key>16D7BCC0-AD0A-49B7-98F2-5FC3444910B1</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4D7626AC-9354-4ABF-B95D-9224BCC91DDA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>1A535FEC-66A2-47AD-9B58-99755BEE3DAA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C9B8E082-CCA2-4C0B-9B4F-501369C0B4DA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3E37F651-EEB7-451F-B0AD-28710998F443</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>075CB49C-D3B5-4699-9B92-B421D704333D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>4D7626AC-9354-4ABF-B95D-9224BCC91DDA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>66A14357-6BF2-48B9-8B55-A5B426EEE69E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>7C2B2778-8AEE-4861-9E54-DD7E3C7B49F7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4D5D6C9D-E596-4EB1-A0A7-634814560B7F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>814F7D3F-03F9-4248-8308-ECA4D3792F3F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E8F7A1D7-00B7-44A7-9C43-3AFA322C666E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>942CCE71-9883-4AB2-A558-B5A44993DF3B</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>BC542037-8795-4FE1-8534-AF381F4197FC</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>9740FE97-5B7D-4D30-9EF3-5D845C5CA7DC</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>075CB49C-D3B5-4699-9B92-B421D704333D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>AAA84F5F-2F96-4126-A840-9CD676BDD208</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>075CB49C-D3B5-4699-9B92-B421D704333D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>BD27CF53-3880-47C9-9AAC-4B443E7BA1BD</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F15F2405-5743-4407-9BFF-A45E6783BA88</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C0EA86FF-9C54-4A0D-B7A5-3ED5CA9F5675</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4D5D6C9D-E596-4EB1-A0A7-634814560B7F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C30DCDAB-4A04-4B8C-8DBD-2BEF53E15F31</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C0EA86FF-9C54-4A0D-B7A5-3ED5CA9F5675</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C9B8E082-CCA2-4C0B-9B4F-501369C0B4DA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8681E6DB-55BB-4796-BE89-9BD5551E64BF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>D8D3E88A-E982-4F27-B3AA-46DAD6C5D87F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7C2B2778-8AEE-4861-9E54-DD7E3C7B49F7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>DBA4F782-B7E9-486E-92A4-D06655FFE839</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3E37F651-EEB7-451F-B0AD-28710998F443</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E3AE529B-21B7-4E17-A447-94A184AF6066</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F8514F2E-D28D-4DC7-A39C-D2B71716F48C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E8F7A1D7-00B7-44A7-9C43-3AFA322C666E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>075CB49C-D3B5-4699-9B92-B421D704333D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F15F2405-5743-4407-9BFF-A45E6783BA88</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>942CCE71-9883-4AB2-A558-B5A44993DF3B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>AAA84F5F-2F96-4126-A840-9CD676BDD208</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string>Remove this locale</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>9740FE97-5B7D-4D30-9EF3-5D845C5CA7DC</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Toggle Favourite flag for this city</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F8514F2E-D28D-4DC7-A39C-D2B71716F48C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8681E6DB-55BB-4796-BE89-9BD5551E64BF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Carl Smith (@CarlosNZ). Updated by Jarek Hartman</string>
+	<key>description</key>
+	<string>A World Clock for Alfred</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>TimeZones</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alignment</key>
+				<integer>0</integer>
+				<key>backgroundcolor</key>
+				<string></string>
+				<key>fadespeed</key>
+				<integer>0</integer>
+				<key>fillmode</key>
+				<integer>0</integer>
+				<key>font</key>
+				<string></string>
+				<key>largetypetext</key>
+				<string>{query}</string>
+				<key>textcolor</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.largetype</string>
+			<key>uid</key>
+			<string>BC542037-8795-4FE1-8534-AF381F4197FC</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>tz</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Fetching time data...</string>
+				<key>script</key>
+				<string>./timezone_list.sh "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Display current time in various worldwide locations</string>
+				<key>title</key>
+				<string>TimeZones</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>F15F2405-5743-4407-9BFF-A45E6783BA88</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>17</integer>
+				<key>hotmod</key>
+				<integer>1310720</integer>
+				<key>hotstring</key>
+				<string>T</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>BD27CF53-3880-47C9-9AAC-4B443E7BA1BD</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>echo "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>942CCE71-9883-4AB2-A558-B5A44993DF3B</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>./remove_city.sh "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>AAA84F5F-2F96-4126-A840-9CD676BDD208</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Timezones</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>075CB49C-D3B5-4699-9B92-B421D704333D</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>./toggle_fav_city.sh "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>9740FE97-5B7D-4D30-9EF3-5D845C5CA7DC</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>./add_city.sh "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>3E37F651-EEB7-451F-B0AD-28710998F443</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>timezone add</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Fetching time data...</string>
+				<key>script</key>
+				<string>#$city=$(echo "{query}" | sed 's/ /_/g')
+
+./timezone_get_city.sh "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>List of matching cities (keep typing city name)</string>
+				<key>title</key>
+				<string>Add a new city</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>DBA4F782-B7E9-486E-92A4-D06655FFE839</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>./move.sh</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>8FB97B65-0E08-4EC2-A78E-EB05887599EF</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>timezone move</string>
+				<key>subtext</key>
+				<string>Change storage location for your Timezone list</string>
+				<key>text</key>
+				<string>Move Timezone list</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>814F7D3F-03F9-4248-8308-ECA4D3792F3F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>./move.sh</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>E8F7A1D7-00B7-44A7-9C43-3AFA322C666E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>timezone 24h</string>
+				<key>subtext</key>
+				<string>Change displayed time format to 24h (e.g. 15:00)</string>
+				<key>text</key>
+				<string>Change time format to 24h</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C30DCDAB-4A04-4B8C-8DBD-2BEF53E15F31</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>script</key>
+				<string>./changeParameter.sh "TIME_FORMAT" "24h"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C0EA86FF-9C54-4A0D-B7A5-3ED5CA9F5675</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>Format changed!</string>
+				<key>title</key>
+				<string>TImeZones</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>4D5D6C9D-E596-4EB1-A0A7-634814560B7F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>script</key>
+				<string>./changeParameter.sh "TIME_FORMAT" "12h"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7C2B2778-8AEE-4861-9E54-DD7E3C7B49F7</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>timezone 12h</string>
+				<key>subtext</key>
+				<string>Change displayed time format to 12h (e.g. 3:00 pm)</string>
+				<key>text</key>
+				<string>Change time format to 12h (am/pm)</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>D8D3E88A-E982-4F27-B3AA-46DAD6C5D87F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>timezone sort off</string>
+				<key>subtext</key>
+				<string>Results will not be sorted and will follow order from timezones.txt</string>
+				<key>text</key>
+				<string>Disable result sorting</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>E3AE529B-21B7-4E17-A447-94A184AF6066</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>Changed results sorting!</string>
+				<key>title</key>
+				<string>TImeZones</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>8681E6DB-55BB-4796-BE89-9BD5551E64BF</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>script</key>
+				<string>./changeParameter.sh "SORTING" "n"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>F8514F2E-D28D-4DC7-A39C-D2B71716F48C</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>script</key>
+				<string>./changeParameter.sh "SORTING" "y"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C9B8E082-CCA2-4C0B-9B4F-501369C0B4DA</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>timezone sort on</string>
+				<key>subtext</key>
+				<string>Results will be sorted with Favourites on the top</string>
+				<key>text</key>
+				<string>Enable result sorting</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>1A535FEC-66A2-47AD-9B58-99755BEE3DAA</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>timezone edit</string>
+				<key>subtext</key>
+				<string>You can edit your configuration file</string>
+				<key>text</key>
+				<string>Edit file with defined cities</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>16D7BCC0-AD0A-49B7-98F2-5FC3444910B1</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>Now you can edit your file. Don't break it!</string>
+				<key>title</key>
+				<string>TImeZones</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>66A14357-6BF2-48B9-8B55-A5B426EEE69E</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>open "$alfred_workflow_data/timezones.txt"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>4D7626AC-9354-4ABF-B95D-9224BCC91DDA</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>TimeZones v2.15
+1 September 2019
+
+
+
+=====
+USAGE
+=====
+
+Keyword: tz (or hotkey) - bring up the list of saved cities with their respective current times. (Keep typing the name of a place for a one-off lookup.)
+
+Keyword: tz &lt;time&gt; - (where &lt;time&gt; is HH, HHMM or HH:MM) - convert provided time into time of your cities.
+
+Keyword: tz &lt;part of city name&gt; - searches for a city in your cities that matches that name and shows the current time.
+
+Keyword: tz &lt;date&gt; &lt;time&gt; - (where &lt;time&gt; is as above and &lt;date&gt; is 'today' [short: 't'], or 'tomorrow' [short: 'tm'], or &lt;number of days&gt;d what means to add the number of days to current date, or one of dd, mmdd, yymmdd, yyyymmdd to give an absolute date) - convert provided date and time into time of your cities.
+
+Keyword: tz &lt;source city&gt; &lt;date&gt; &lt;time&gt; - (where &lt;time&gt; and &lt;date&gt; are as above and &lt;source city&gt; is used to search in your city list) - assumes that date and time is given in the timezone of provided source city and converts it into time of your (other) cities.
+
+Keyword: timezone add [your city] - add your city to the list. (To remove a city, option-select it from the main list.)
+
+Keyword: timezone edit - open for edit of cities file.
+
+Keyword: timezone move - move the saved cities file (timezones.txt) to a location of your choice (so you can sync it in your Dropbox or whatever you want).
+
+Keyword: timezone 12h, timezone 24h - change format of displayed time.
+
+=======
+CREDITS
+=======
+
+GeoIP2 City and Country CSV Databases: https://dev.maxmind.com/geoip/geoip2/geoip2-city-country-csv-databases/
+
+Flag icons from: http://www.free-country-flags.com
+(Creative Commons Attribution-ShareAlike 3.0 Unported License.)
+
+Icon design by Logo Open Stock (modified from original) http://www.logoopenstock.com
+
+OneUpdater https://github.com/vitorgalvao/alfred-workflows/tree/master/OneUpdater
+
+
+=========
+CHANGELOG
+=========
+
+All issues tracked on GitHub https://github.com/jaroslawhartman/TimeZones-Alfred/issues
+
+v2.15
+1 September 2019
+* Missing flag for Åland (#29)
+
+v2.14
+1 September 2019
+* Reverted handling of Dropbox timezones.txt (#23)
+* Asking wheither override when an existing timezones.txt in the new location (#27)
+
+v2.13
+26 August 2019
+* Fixed an issue when more than 7 TimeZones (#28)
+
+
+v2.11-2.12
+14 August 2019
+* Added option to disable sorting - when disabled, it will follow order from timezones.txt (#9)
+
+
+v2.10
+11 June 2019
+* Netherlands' flag does not display properly (#24)
+
+v2.9
+5 June 2019
+* Improved compatiblity with Alfred 4 (#19)
+
+v2.8
+31 May 2019
+* Swap the pin/unpin as they were inversed #21
+
+v2.7
+30 May 2019
+* Improved compatiblity with Alfred 4
+
+v2.6
+11 May 2019
+* Updated bundleID in order to sumbit to http://www.packal.org
+
+v2.5
+17 March 2019
+* zero-padding of hours in 24h format (solves #14)
+* no padding of hours in 12h format (solves #14)
+* sorting by favourite, resulting time ascending (that is west to east), city name (solves partly #9)
+* added feature for adjusting source date and timezone (solves #13, #15)
+
+v2.4
+16 December 2018
+New feature #9: Favourite (pinned) cities (fixes)
+
+v2.3
+9 November 2018
+New feature #9: Favourite (pinned) cities
+
+v2.2
+9 November 2018
+Fixed version number.
+
+
+v2.1
+6 November 2018
+Fix for issue #4 - cannot add a new city
+Fix for issue #5 - remove dependency to Growl
+
+v2.0
+22 September 2018
+Fixes after google deprecating their map APIs.
+
+
+v1.9
+4 May 2017
+
+* Configurable 12h/24h format. Keywords to switch "timezone 24h", "timezone 12h".
+
+v1.8
+15 October 2016
+
+* Migration to Alfred 3
+* Converting any time to all pre-defined time zones
+* Enabling 24-hrs time format
+* Displaying phone country code
+
+v1.7a
+4 August 2015
+
+* New 256x256px icon. That’s it.
+
+v1.7
+22 March 2014
+
+* City List now always shows in the same order. (Achieved by removing “uid” parameter.)
+
+v1.61a
+16 March 2014
+
+*Removed Alleyoop update.json file. That’s all.
+
+v1.61
+2 April 2013
+
+*Small fix for Netherlands flag matching.
+
+v1.6
+31 March 2013
+
+* Now supports custom "one-off" lookups for places you don't want to permanently add to your main list. Just keep typing the place name after the "tz" keyword (or hotkey) - as soon as it doesn't match any of the places in your list, it will look up the custom place you've entered.
+* Added support for phyllisstein's Alleyoop auto-updater. (http://www.alfredforum.com/topic/1582-alleyoop-update-alfred-workflows/)
+* [EXPERIMENTAL] - support for autocomplete for adding place names. You'll need to add a keyword yourself to the script filter if you want to try it out. The reason I haven't enabled it by default is that I've found it kind of slow and I'm not sure it's actually an improvement over the current method. Let me know what you think.
+* Added (unofficial) Antarctica flag to flag repository. (Try tz south pole. ;) )
+
+v1.5  
+28 March 2013
+
+* Major overhaul to now use Google's Geocoding API and Timezone API to acquire the required data. Should be a **lot** more reliable and consistent, as well as more flexible with input names.
+* Flag icons! The workflow compares the returned country name with a bundled repository of flag icons and does a simple name match. Please report any missing or incorrect flag errors you encounter so I can improve the workflow.
+* More data retrieved and displayed, including Timezone name, country, etc.
+* When doing a full "update", a text file is saved to the Desktop showing which cities have changed.
+* General enhancements and tweaks.
+
+v1.4  
+20 Mar 2013
+
+* You can now move your list of saved cities to a file location of your choice (eg. Dropbox, to sync between machines). Keyword: timezone move
+
+v1.3  
+18 Feb 2013
+
+* Fixes to account for changes to the Wolfram Alpha API
+* When doing a full "update", it won't fail the whole update if one city fails. A list of failed updates is saved to your Desktop.
+
+v1.2  
+4 Feb 2013
+
+* fixes to make "update" work better/properly/at all.
+
+v1.1  
+3 Feb 2013
+
+* Fixed the problem with cities with half-hour UTC offsets (eg. Adelaide—UTC+10.5, New Delhi—UTC+5.5
+* You can search the list of displayed cities (useful if you've got a lot) — just start typing after the "tz"
+* Hotkey to launch the list (set to Ctrl-Z by default)
+
+v1.0  
+2 Feb 2013
+
+* Initial release</string>
+	<key>uidata</key>
+	<dict>
+		<key>075CB49C-D3B5-4699-9B92-B421D704333D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
+			<key>ypos</key>
+			<real>120</real>
+		</dict>
+		<key>16D7BCC0-AD0A-49B7-98F2-5FC3444910B1</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>1280</integer>
+		</dict>
+		<key>1A535FEC-66A2-47AD-9B58-99755BEE3DAA</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>1040</integer>
+		</dict>
+		<key>3E37F651-EEB7-451F-B0AD-28710998F443</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>410</integer>
+		</dict>
+		<key>4D5D6C9D-E596-4EB1-A0A7-634814560B7F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>690</integer>
+			<key>ypos</key>
+			<integer>740</integer>
+		</dict>
+		<key>4D7626AC-9354-4ABF-B95D-9224BCC91DDA</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>1280</integer>
+		</dict>
+		<key>66A14357-6BF2-48B9-8B55-A5B426EEE69E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>690</integer>
+			<key>ypos</key>
+			<integer>1280</integer>
+		</dict>
+		<key>7C2B2778-8AEE-4861-9E54-DD7E3C7B49F7</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>800</integer>
+		</dict>
+		<key>814F7D3F-03F9-4248-8308-ECA4D3792F3F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>560</integer>
+		</dict>
+		<key>8681E6DB-55BB-4796-BE89-9BD5551E64BF</key>
+		<dict>
+			<key>xpos</key>
+			<integer>690</integer>
+			<key>ypos</key>
+			<integer>920</integer>
+		</dict>
+		<key>8FB97B65-0E08-4EC2-A78E-EB05887599EF</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>560</integer>
+		</dict>
+		<key>942CCE71-9883-4AB2-A558-B5A44993DF3B</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>9740FE97-5B7D-4D30-9EF3-5D845C5CA7DC</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<integer>250</integer>
+		</dict>
+		<key>AAA84F5F-2F96-4126-A840-9CD676BDD208</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<real>120</real>
+		</dict>
+		<key>BC542037-8795-4FE1-8534-AF381F4197FC</key>
+		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
+			<key>ypos</key>
+			<integer>10</integer>
+		</dict>
+		<key>BD27CF53-3880-47C9-9AAC-4B443E7BA1BD</key>
+		<dict>
+			<key>xpos</key>
+			<integer>100</integer>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>C0EA86FF-9C54-4A0D-B7A5-3ED5CA9F5675</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>680</integer>
+		</dict>
+		<key>C30DCDAB-4A04-4B8C-8DBD-2BEF53E15F31</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>680</integer>
+		</dict>
+		<key>C9B8E082-CCA2-4C0B-9B4F-501369C0B4DA</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>1040</integer>
+		</dict>
+		<key>D8D3E88A-E982-4F27-B3AA-46DAD6C5D87F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>800</integer>
+		</dict>
+		<key>DBA4F782-B7E9-486E-92A4-D06655FFE839</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>410</integer>
+		</dict>
+		<key>E3AE529B-21B7-4E17-A447-94A184AF6066</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>920</integer>
+		</dict>
+		<key>E8F7A1D7-00B7-44A7-9C43-3AFA322C666E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>560</integer>
+		</dict>
+		<key>F15F2405-5743-4407-9BFF-A45E6783BA88</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>F8514F2E-D28D-4DC7-A39C-D2B71716F48C</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>920</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>2.15</string>
+	<key>webaddress</key>
+	<string>https://jhartman.pl/tag/time-zones/</string>
+</dict>
+</plist>

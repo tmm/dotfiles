@@ -1,0 +1,5 @@
+#Version2.0|||||1
+Beijing|China|Asia/Shanghai|CN|86|1
+Bengaluru|India|Asia/Kolkata|IN|91|1
+London|United Kingdom|Europe/London|GB|44|1
+New York|United States|America/New_York|US|1|0
