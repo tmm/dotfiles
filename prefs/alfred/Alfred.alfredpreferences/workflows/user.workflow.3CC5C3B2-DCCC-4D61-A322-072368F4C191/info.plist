@@ -88,6 +88,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>CBBC593B-C603-4B7A-8023-28EE34CA85E4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>72D9F53C-2F43-447A-8012-CA07801C1407</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>F2578320-696B-4844-AE63-6A9B88C77B26</key>
 		<array>
 			<dict>
@@ -460,6 +473,37 @@
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>5</integer>
+				<key>hotmod</key>
+				<integer>1310720</integer>
+				<key>hotstring</key>
+				<string>G</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>CBBC593B-C603-4B7A-8023-28EE34CA85E4</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>1. Call `gh-token` to generate personal access token.
@@ -564,6 +608,13 @@ NOTE: This is an experimental feature that may not work as expected, if you find
 			<integer>280</integer>
 			<key>ypos</key>
 			<integer>440</integer>
+		</dict>
+		<key>CBBC593B-C603-4B7A-8023-28EE34CA85E4</key>
+		<dict>
+			<key>xpos</key>
+			<integer>95</integer>
+			<key>ypos</key>
+			<integer>645</integer>
 		</dict>
 		<key>CE432EBB-9EC4-4951-BD09-36414AF0AD62</key>
 		<dict>
