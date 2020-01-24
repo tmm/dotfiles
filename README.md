@@ -1,12 +1,8 @@
 # dotfiles
 
-My dotfiles with no symbolic links or set up scripts.
-
-<img width="550" alt="screenshot" src="https://user-images.githubusercontent.com/6759464/70762497-bc15ef80-1d1e-11ea-821e-e53a46caf0a7.png">
+My dotfiles stored in a bare git repo.
 
 ## Installation
-
-The installation guide to setup on a new macOS.
 
 1. Fetch `dotfiles`:
 
@@ -74,9 +70,7 @@ The installation guide to setup on a new macOS.
     keybase pgp export -q 72072EC3ED191086 --secret | gpg --allow-secret-key-import --import
     ```
 
-1. Setup 1Password
-
-And that's it! `~tom` is ready to go!
+1. Setup 1Password and `~tom` is ready to go!
 
 ## Adding new `zsh` plugins
 
@@ -99,22 +93,18 @@ And that's it! `~tom` is ready to go!
 
 ## Alfred Workflows
 
--   [Dash](https://github.com/Kapeli/Dash-Alfred-Workflow)
--   [Emoji](https://github.com/jsumners/alfred-emoji)
--   [Spotify Mini Player](http://alfred-spotify-mini-player.com/)
--   [TimeZones](https://github.com/jaroslawhartman/TimeZones-Alfred)
+A bunch of installed workflows and their hotkeys.
 
-## Colophon
+-   `⌃⌘W` [Dash](https://github.com/Kapeli/Dash-Alfred-Workflow)
+-   `⌃⌘E` [Emoji](https://github.com/jsumners/alfred-emoji)
+-   `⌃⌘G` [GitHub Repos](https://github.com/edgarjs/alfred-github-repos)
+-   `⌃⌘N` [Numi](https://github.com/nikolaeu/Numi)
+-   `⌃⌘S` [Spotify Mini Player](http://alfred-spotify-mini-player.com/)
+-   `⌃⌘T` [TimeZones](https://github.com/jaroslawhartman/TimeZones-Alfred)
+-   `⌃⌘C` [VS Code](https://github.com/nightgrey/alfred-open-vsc-project)
 
-Inspired by:
-
--   [Organising dotfiles in a git repository](https://fuller.li/posts/organising-dotfiles-in-a-git-repository/)
--   [Brewfile: a Gemfile, but for Homebrew](https://robots.thoughtbot.com/brewfile-a-gemfile-but-for-homebrew)
--   [Set up Keybase.io, GPG & Git to sign commits on GitHub](https://github.com/pstadler/keybase-gpg-github)
--   [@mathiasbynens' `.macos`](https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
--   [@MikeMcQuaid's `strap`](https://github.com/MikeMcQuaid/strap)
--   [@vinkla's `dotfiles`](https://github.com/vinkla/dotfiles)
+See [Packal](http://www.packal.org/) for more.
 
 ## License
 
-[MIT](LICENSE) © [Tom Meagher](https://meagher.co)
+[MIT](.github/LICENSE) © [Tom Meagher](https://meagher.co)

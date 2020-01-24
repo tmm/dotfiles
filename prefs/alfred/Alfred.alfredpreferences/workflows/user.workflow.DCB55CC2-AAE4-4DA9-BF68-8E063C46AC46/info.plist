@@ -4,8 +4,6 @@
 <dict>
 	<key>bundleid</key>
 	<string>com.nikolaeu.numi</string>
-	<key>category</key>
-	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>0585AA0B-F34A-42D5-8A43-41E0F1B15994</key>
