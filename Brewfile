@@ -29,7 +29,7 @@ cask 'font-fira-code'
 cask 'hyperdock'
 cask 'iterm2'
 cask 'keybase'
-cask 'monitorcontrol
+cask 'monitorcontrol'
 cask 'numi'
 cask 'postgres'
 cask 'postico'
