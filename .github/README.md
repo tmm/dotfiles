@@ -27,7 +27,7 @@ My dotfiles stored in a bare git repo.
     sudo xcodebuild -license
     ```
 
-1. Install [Homebrew](https://brew.sh/) and [Brewfile](Brewfile) dependencies:
+1. Install [Homebrew](https://brew.sh/) and [Brewfile](../Brewfile) dependencies:
 
     ```sh
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
