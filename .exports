@@ -9,3 +9,5 @@ export GPG_TTY=$(tty);
 # Create `pipenv` virtualenv inside project’s directory
 # https://docs.pipenv.org/en/latest/install/#virtualenv-mapping-caveat
 export PIPENV_VENV_IN_PROJECT=1
+
+export NVM_DIR="$HOME/.nvm"

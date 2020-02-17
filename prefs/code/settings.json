@@ -63,6 +63,7 @@
         "terminal.background": "#000000"
     },
     "workbench.colorTheme": "Dracula",
+    "workbench.editor.enablePreview": false,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.panel.defaultLocation": "right",
     "[python]": {

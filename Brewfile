@@ -39,4 +39,5 @@ cask 'visual-studio-code'
 
 mas "Dato", id: 1470584107
 mas "Day One", id: 1055511498
+mas "Endel", id: 1484348796
 mas "Xcode", id: 497799835
