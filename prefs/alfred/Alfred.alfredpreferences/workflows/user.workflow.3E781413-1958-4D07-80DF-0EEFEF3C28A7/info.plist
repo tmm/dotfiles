@@ -65,6 +65,7 @@
 				<false/>
 			</dict>
 		</array>
+<<<<<<< Updated upstream
 		<key>dash_keyword_apple</key>
 		<array>
 			<dict>
@@ -93,6 +94,9 @@
 			</dict>
 		</array>
 		<key>dash_keyword_css</key>
+=======
+		<key>dash_keyword_alembic</key>
+>>>>>>> Stashed changes
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -146,6 +150,7 @@
 				<string></string>
 			</dict>
 		</array>
+<<<<<<< Updated upstream
 		<key>dash_keyword_html</key>
 		<array>
 			<dict>
@@ -254,6 +259,8 @@
 				<string></string>
 			</dict>
 		</array>
+=======
+>>>>>>> Stashed changes
 		<key>dash_keyword_python3</key>
 		<array>
 			<dict>
@@ -281,7 +288,7 @@
 				<string></string>
 			</dict>
 		</array>
-		<key>dash_keyword_react</key>
+		<key>dash_keyword_sqlalchemy</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -362,7 +369,7 @@
 				<string></string>
 			</dict>
 		</array>
-		<key>dash_keyword_vue</key>
+		<key>dash_keyword_terraform</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -635,6 +642,7 @@ That said, you can edit anything else within this workflow (including adding new
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
+<<<<<<< Updated upstream
 				<integer>0</integer>
 				<key>runningsubtext</key>
 				<string>Please read what's in the "Script:" section below</string>
@@ -657,6 +665,63 @@ That said, you can edit anything else within this workflow (including adding new
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>dash_note_readme</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+=======
+				<integer>110</integer>
+				<key>keyword</key>
+				<string>alembic</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+>>>>>>> Stashed changes
+				<integer>0</integer>
+				<key>runningsubtext</key>
+				<string>Please read what's in the "Script:" section below</string>
+				<key>script</key>
+<<<<<<< Updated upstream
+				<string>Dash dynamically updates this workflow with docset and search profile keywords.
+
+Do not try to change the keywords from within Alfred, as Dash will overwrite your changes. If you want to change a keyword, change it from within Dash (in Preferences &gt; Docsets).
+
+That said, you can edit anything else within this workflow (including adding new triggers/actions/hotkeys).</string>
+				<key>subtext</key>
+				<string>Please read what's in the "Script:" section below</string>
+				<key>title</key>
+				<string>PLEASE README</string>
+=======
+				<string>./dashAlfredWorkflow "alembic:{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search Alembic for "{query}"</string>
+				<key>title</key>
+				<string>Search Alembic</string>
+>>>>>>> Stashed changes
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+<<<<<<< Updated upstream
+			<string>dash_note_readme</string>
+=======
+			<string>dash_keyword_alembic</string>
+>>>>>>> Stashed changes
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -697,37 +762,7 @@ That said, you can edit anything else within this workflow (including adding new
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
-				<integer>0</integer>
-				<key>runningsubtext</key>
-				<string>Please read what's in the "Script:" section below</string>
-				<key>script</key>
-				<string>Dash dynamically updates this workflow with docset and search profile keywords.
-
-Do not try to change the keywords from within Alfred, as Dash will overwrite your changes. If you want to change a keyword, change it from within Dash (in Preferences &gt; Docsets).
-
-That said, you can edit anything else within this workflow (including adding new triggers/actions/hotkeys).</string>
-				<key>subtext</key>
-				<string>Please read what's in the "Script:" section below</string>
-				<key>title</key>
-				<string>PLEASE README</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>dash_note_readme</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
+<<<<<<< Updated upstream
 				<integer>0</integer>
 				<key>runningsubtext</key>
 				<string>Please read what's in the "Script:" section below</string>
@@ -962,6 +997,8 @@ That said, you can edit anything else within this workflow (including adding new
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
+=======
+>>>>>>> Stashed changes
 				<integer>110</integer>
 				<key>keyword</key>
 				<string>python3</string>
@@ -993,15 +1030,35 @@ That said, you can edit anything else within this workflow (including adding new
 				<key>escaping</key>
 				<integer>110</integer>
 				<key>keyword</key>
+<<<<<<< Updated upstream
 				<string>react</string>
 				<key>runningsubtext</key>
 				<string>Searching for "{query}"</string>
 				<key>script</key>
 				<string>./dashAlfredWorkflow "react:{query}"</string>
+=======
+				<string>sqlalchemy</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for "{query}"</string>
+				<key>script</key>
+				<string>./dashAlfredWorkflow "sqlalchemy:{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+>>>>>>> Stashed changes
 				<key>subtext</key>
-				<string>Search React for "{query}"</string>
+				<string>Search SQLAlchemy for "{query}"</string>
 				<key>title</key>
-				<string>Search React</string>
+				<string>Search SQLAlchemy</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -1010,7 +1067,7 @@ That said, you can edit anything else within this workflow (including adding new
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>dash_keyword_react</string>
+			<string>dash_keyword_sqlalchemy</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -1052,6 +1109,7 @@ That said, you can edit anything else within this workflow (including adding new
 				<integer>110</integer>
 				<key>keyword</key>
 				<string>terraform</string>
+<<<<<<< Updated upstream
 				<key>runningsubtext</key>
 				<string>Searching for "{query}"</string>
 				<key>script</key>
@@ -1061,6 +1119,13 @@ That said, you can edit anything else within this workflow (including adding new
 				<key>title</key>
 				<string>Search Terraform</string>
 				<key>type</key>
+=======
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+>>>>>>> Stashed changes
 				<integer>0</integer>
 				<key>withspace</key>
 				<true/>
@@ -1084,11 +1149,19 @@ That said, you can edit anything else within this workflow (including adding new
 				<key>runningsubtext</key>
 				<string>Searching for "{query}"</string>
 				<key>script</key>
+<<<<<<< Updated upstream
 				<string>./dashAlfredWorkflow "vue:{query}"</string>
+=======
+				<string>./dashAlfredWorkflow "terraform:{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+>>>>>>> Stashed changes
 				<key>subtext</key>
-				<string>Search Vue.js for "{query}"</string>
+				<string>Search Terraform for "{query}"</string>
 				<key>title</key>
-				<string>Search Vue.js</string>
+				<string>Search Terraform</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -1097,7 +1170,7 @@ That said, you can edit anything else within this workflow (including adding new
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>dash_keyword_vue</string>
+			<string>dash_keyword_terraform</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -1152,31 +1225,32 @@ The keyword is either a docset keyword (defined in Preferences &gt; Docsets) or 
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
-		<key>dash_keyword_apple</key>
+		<key>dash_keyword_alembic</key>
 		<dict>
 			<key>ypos</key>
 			<integer>930</integer>
 		</dict>
-		<key>dash_keyword_css</key>
+		<key>dash_keyword_django</key>
 		<dict>
 			<key>ypos</key>
 			<integer>1050</integer>
 		</dict>
-		<key>dash_keyword_django</key>
+		<key>dash_keyword_python3</key>
 		<dict>
 			<key>ypos</key>
 			<integer>1170</integer>
 		</dict>
-		<key>dash_keyword_html</key>
+		<key>dash_keyword_sqlalchemy</key>
 		<dict>
 			<key>ypos</key>
 			<integer>1290</integer>
 		</dict>
-		<key>dash_keyword_javascript</key>
+		<key>dash_keyword_terraform</key>
 		<dict>
 			<key>ypos</key>
 			<integer>1410</integer>
 		</dict>
+<<<<<<< Updated upstream
 		<key>dash_keyword_manpages</key>
 		<dict>
 			<key>ypos</key>
@@ -1212,6 +1286,8 @@ The keyword is either a docset keyword (defined in Preferences &gt; Docsets) or 
 			<key>ypos</key>
 			<integer>2250</integer>
 		</dict>
+=======
+>>>>>>> Stashed changes
 		<key>dash_note_readme</key>
 		<dict>
 			<key>ypos</key>

@@ -69,4 +69,18 @@
     "[python]": {
         "editor.formatOnPaste": false
     },
+    "window.zoomLevel": 0,
+    "terraform.indexing": {
+      "enabled": true,
+      "liveIndexing": false,
+      "delay": 500,
+      "exclude": [
+        ".terraform/**/*",
+        "**/.terraform/**/*"
+      ]
+    },
+    "terraform.languageServer": {
+      "enabled": false,
+      "args": []
+    },
 }

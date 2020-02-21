@@ -2,125 +2,53 @@
 	name = Tom Meagher
 	email = thom.meagher@gmail.com
 	signingKey = 72072EC3ED191086
-
 [github]
 	user = tmm
-
 [credential]
 	helper = osxkeychain
-
 [commit]
 	gpgsign = true
-
 [core]
-	excludesfile = ~/.gitignore
 	editor = code --wait
-
 [color]
 	ui = auto
-
 [push]
 	default = current
-
 [merge]
 	tool = vscode
-
 [mergetool "vscode"]
 	cmd = code --wait $MERGED
-
 [diff]
 	tool = vscode
-
 [difftool "vscode"]
 	cmd = code --wait --diff $LOCAL $REMOTE
-
 [alias]
-	# ==========================
-	# Basic commands
-	# ==========================
-
-	a = add -A
-	b = branch
-	c = commit -m
-	ch = checkout
-	d = diff
-	f = fetch
-	l = log
-	p = push
-	pl = pull
-	s = status
-
-	# ==========================
-	# Intermediate commands
-	# ==========================
-
-	# Adds only update files
-	au = add --update
-
-	# Commit all changes
-	ca = !git add -A && git commit -avm
-
-	# Checks out master branch
-	chm = checkout master
-
-	# Discard changes in a (list of) file(s) in working tree
-	discard = checkout --
-
-	# View abbreviated SHA, author, description, and time ago of the latest 20 commits
-	log-recent = log --pretty=oneline -n 20 --abbrev-commit --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative
-	
-	# Force push
-	pf = push --force
-
-	# Displays status of tracked files
-	st = status --untracked-files=no
-
-	# ==========================
-	# Advanced commands
-	# ==========================
-
-	# List aliases
-	aliases = config --get-regexp alias
-
-	# Amend currently staged files to latest commit
-	amend = commit --amend --reuse-message=HEAD
-
 	# Current branch name
 	branch-name = rev-parse --abbrev-ref HEAD
-
-	# Copy branch name
-	copy-branch = "!echo "$(git branch-name)" | pbcopy; echo `tput setaf 5`"Branch name copied to clipboard!"`tput sgr0`"
 
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
 
-	# Discard changes in a (list of) file(s) in working tree
-  discard = checkout --
+    # Switch to a branch, creating it if necessary
+    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
-	# Remove branches already merged with master
-	# a.k.a. ‘delete merged’
-	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-
-	# Switch to a branch, creating it if necessary
-	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
-
-	# Show the log of my week
-	log-my-week = "!git log --author $(git config user.email) --format=oneline --pretty=format:'%Cred%h%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --since '1 week ago'"
-
-	# Pull in remote changes for current repository and all its submodules
-	pull-all = "!git pull; git submodule foreach git pull origin master"
-
+	# View abbreviated SHA, author, description, and time ago of the latest 20 commits
+	log-recent = log --pretty=oneline -n 20 --abbrev-commit --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative
+    
 	# Open a pull request on GitHub for current branch
 	pr = "!open $(git remote -v | grep origin | grep push | cut -f 2 | cut -d ' ' -f 1 | sed -e 's/.git$//g')/pull/new/$(git branch-name)"
 
 	# Pushes and sets current branch upstream
 	publish = "!git push -u origin $(git branch-name)"
 
-	# Interactive rebase with given number of latest commits
-	reb = "!r() { git rebase -i HEAD~$1; }; r"
+	# Pull in remote changes for current repository and all its submodules
+	pull-all = "!git pull; git submodule foreach git pull origin master"
 
-	# Undo last commit
-	undo = reset --soft HEAD^
-	
-	# Cleaner unstage
-	unstage = reset HEAD --
+    # Interactive rebase with given number of latest commits
+    reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+    # Undo last commit
+    undo = reset --soft HEAD^
+
+    # Cleaner unstage
+    unstage = reset HEAD --
