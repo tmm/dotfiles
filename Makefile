@@ -8,7 +8,6 @@ OS := $(shell uname)
 all: $(OS) fish-packages
 
 Darwin: homebrew-packages
-Linux:
 
 $(BREW):
 	@echo Installing Homebrew
@@ -27,3 +26,6 @@ fish:
 .PHONY: fish-packages
 fish-packages:
 	@fish -c fisher
+
+macos:
+	@bash -c ./prefs/macos
