@@ -2,6 +2,7 @@ cask_args appdir: "/Applications"
 
 tap 'homebrew/bundle'
 tap 'caskroom/cask'
+tap 'homebrew/cask-fonts'
 
 brew 'fish'
 brew 'git'
@@ -21,6 +22,7 @@ cask 'dash'
 cask 'figma'
 cask 'firefox'
 cask 'flux'
+cask 'font-fira-code'
 cask 'hyperdock'
 cask 'iterm2'
 cask 'keybase'
