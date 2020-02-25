@@ -6,7 +6,7 @@ alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
 alias reload="exec $SHELL -l"
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-alias vrc="vim .vim/vimrc"
+alias vrc="vim ~/.vim/vimrc"
 
 # ==========================
 # Abbreviations
