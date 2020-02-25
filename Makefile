@@ -5,7 +5,7 @@ BREW_BUNDLE=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-bundle
 
 OS := $(shell uname)
 
-all: $(OS) fish-packages
+all: $(OS) vim-packages fish-packages
 
 Darwin: homebrew-packages
 
@@ -19,6 +19,10 @@ $(BREW_BUNDLE): $(BREW)
 .PHONY: homebrew-packages
 homebrew-packages: $(BREW_BUNDLE)
 	brew bundle
+
+.PHONY: vim-packages
+vim-packages:
+	@vim -c PlugUpgrade -c PlugInstall -c qall
 
 fish:
 	@chsh -s $(shell which fish)

@@ -1,0 +1,70 @@
+set nocompatible
+filetype off
+
+call plug#begin('~/.vim/plugged')
+
+" Basic
+Plug 'sjl/vitality.vim'
+Plug 'tpope/vim-sensible'
+
+" Language
+Plug 'dag/vim-fish'
+
+call plug#end()
+
+" Interface
+set number " Show line numbers
+set showmode " Show the mode in use
+set cursorline " Highlight current line
+set wrap " Turn on line wrapping
+"set textwidth=79 " Force wrap at 79 characters
+set colorcolumn=80 " Show a column at 80
+set title " Set the terminal title
+set visualbell " Disable beeping
+
+" Status Bar
+set laststatus=2 " Always show status bar
+" Highlight the status bar when in insert mode
+au InsertEnter * hi StatusLine ctermfg=235 ctermbg=10
+au InsertLeave * hi StatusLine ctermfg=15 ctermbg=240
+
+" Search
+set hlsearch " Highlight all search matches
+set incsearch " Highlight matches as you type
+set ignorecase
+set smartcase " Be case-sensitive if expression contains a capital letter
+
+" Formatting
+set tabstop=4 " Use 4 spaces to a tab
+set shiftwidth=4 " As above
+set expandtab " Expand tabs into spaces
+set showbreak=↪
+
+" Disabled arrow keys
+no <down> <Nop>
+no <left> <Nop>
+no <right> <Nop>
+no <up> <Nop>
+
+" Copy copy register to OS X general pasteboard
+function! PBCopy()
+  call system("pbcopy", getreg(""))
+endfunction
+
+" Paste from OS X general pasteboard to copy register
+function! PBPaste()
+  call setreg("", system("pbpaste"))
+endfunction
+
+" By the power of https://github.com/sjl/vitality.vim, copies and pastes
+" to the OS X pasteboard when switching between vim and other windows
+" (even in tmux)
+autocmd FocusLost * :call PBCopy()
+autocmd FocusGained * :call PBPaste()
+
+" Teach a Vim to fish...
+" https://github.com/dag/vim-fish#teach-a-vim-to-fish
+if &shell =~# 'fish$'
+  set shell=bash
+endif
+

@@ -6,6 +6,7 @@ alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
 alias reload="exec $SHELL -l"
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias vrc="vim .vim/vimrc"
 
 # ==========================
 # Abbreviations
@@ -31,3 +32,6 @@ set -x GPG_TTY (tty)
 # https://github.com/rafaelrinaldi/pure#configuration
 set pure_color_primary white
 set pure_color_success green
+
+eval (direnv hook fish)
+
