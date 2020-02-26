@@ -8,6 +8,7 @@ OS := $(shell uname)
 all: $(OS) vim-packages fish-packages
 
 Darwin: homebrew-packages
+Linux:
 
 $(BREW):
 	@echo Installing Homebrew
@@ -33,3 +34,8 @@ fish-packages:
 
 macos:
 	@bash -c ./prefs/macos
+
+gpg:
+	@keybase pgp export -q 72072EC3ED191086 | gpg --import
+	@keybase pgp export -q 72072EC3ED191086 --secret | gpg --allow-secret-key-import --import
+

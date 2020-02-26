@@ -20,9 +20,10 @@ Installing tools:
 make
 ```
 
-Change shell to [fish](https://fishshell.com/) and set up macOS defaults:
+Change shell to [fish](https://fishshell.com/), set up macOS defaults, and import GPG key:
 
 ```
 make fish
 make macos
+make gpg
 ```
