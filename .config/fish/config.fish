@@ -15,6 +15,7 @@ alias vrc="vim ~/.vim/vimrc"
 abbr g "git"
 abbr home "cd ~"
 abbr lsd "ls -d .*"
+abbr v "vim"
 
 # ==========================
 # Variables

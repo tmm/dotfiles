@@ -7,13 +7,18 @@ call plug#begin('~/.vim/plugged')
 Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-sensible'
 
+" Project
+Plug 'dense-analysis/ale'
+
 " Language
+Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish'
 
 call plug#end()
 
 " Interface
 set number " Show line numbers
+set relativenumber " Line numbers relative to cursor
 set showmode " Show the mode in use
 set cursorline " Highlight current line
 set wrap " Turn on line wrapping
@@ -21,6 +26,7 @@ set wrap " Turn on line wrapping
 set colorcolumn=80 " Show a column at 80
 set title " Set the terminal title
 set visualbell " Disable beeping
+set showcmd " Show the (partial) command as it's being typed
 
 " Status Bar
 set laststatus=2 " Always show status bar
