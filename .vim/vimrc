@@ -21,15 +21,19 @@ let mapleader=" "  " Map <leader> to space
 
 " Rapid editing for vimrc
 nmap <leader>rc :vsp $MYVIMRC<cr>
-cmap <leader>so :source $MYVIMRC<cr>
+nmap <leader>so :source $MYVIMRC<cr>
 
 " Pre-populate a split command with the current directory
 nmap <leader>v :vnew <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 
 " Map Commands
-nmap 0 ^  " Easy access to the start of the line
-nmap k gk " Move up by visible lines if current line is wrapped
-nmap j gj " Move down by visible lines if current line is wrapped
+
+" Easy access to the start of the line
+nmap 0 ^
+
+" Move up and down by visible lines if current line is wrapped
+nmap k gk
+nmap j gj
 
 " Interface
 set number         " Show line numbers
@@ -41,6 +45,7 @@ set colorcolumn=80 " Show a column at 80
 set title          " Set the terminal title
 set visualbell     " Disable beeping
 set showcmd        " Show the (partial) command as it's being typed
+set scrolloff=2    " Always show at least two lines above/below the cursor
 
 " Status Bar
 set laststatus=2 " Always show status bar
