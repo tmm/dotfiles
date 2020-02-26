@@ -2,14 +2,19 @@
     name = Tom Meagher
     email = tom@meagher.co
     signingKey = 72072EC3ED191086
+
 [commit]
     gpgsign = true
+
 [github]
     user = tmm
+
 [credential]
     helper = osxkeychain
+
 [core]
     editor = vim
+
 [alias]
     a = add
     aa = add --all
@@ -49,7 +54,9 @@
     undo = reset --soft HEAD^
     # Cleaner unstage
     unstage = reset HEAD --
+
 [color]
     ui = auto
+
 [push]
     default = current
