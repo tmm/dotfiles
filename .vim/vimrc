@@ -16,17 +16,31 @@ Plug 'dag/vim-fish'
 
 call plug#end()
 
+" Leader
+let mapleader=" "  " Map <leader> to space
+
+" Rapid editing for vimrc
+nmap <leader>rc :vsp $MYVIMRC<cr>
+cmap <leader>so :source $MYVIMRC<cr>
+
+" Pre-populate a split command with the current directory
+nmap <leader>v :vnew <C-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+
+" Map Commands
+nmap 0 ^  " Easy access to the start of the line
+nmap k gk " Move up by visible lines if current line is wrapped
+nmap j gj " Move down by visible lines if current line is wrapped
+
 " Interface
-set number " Show line numbers
+set number         " Show line numbers
 set relativenumber " Line numbers relative to cursor
-set showmode " Show the mode in use
-set cursorline " Highlight current line
-set wrap " Turn on line wrapping
-"set textwidth=79 " Force wrap at 79 characters
+set showmode       " Show the mode in use
+set cursorline     " Highlight current line
+set wrap           " Turn on line wrapping
 set colorcolumn=80 " Show a column at 80
-set title " Set the terminal title
-set visualbell " Disable beeping
-set showcmd " Show the (partial) command as it's being typed
+set title          " Set the terminal title
+set visualbell     " Disable beeping
+set showcmd        " Show the (partial) command as it's being typed
 
 " Status Bar
 set laststatus=2 " Always show status bar
@@ -35,18 +49,23 @@ au InsertEnter * hi StatusLine ctermfg=235 ctermbg=10
 au InsertLeave * hi StatusLine ctermfg=15 ctermbg=240
 
 " Search
-set hlsearch " Highlight all search matches
-set incsearch " Highlight matches as you type
+set hlsearch   " Highlight all search matches
+set incsearch  " Highlight matches as you type
 set ignorecase
-set smartcase " Be case-sensitive if expression contains a capital letter
+set smartcase  " Be case-sensitive if expression contains a capital letter
+
+" Backup
+set nobackup
+set nowritebackup
+set directory=$HOME/.vim/tmp//,. " Keep swap files in one place
 
 " Formatting
-set tabstop=4 " Use 4 spaces to a tab
+set tabstop=4    " Use 4 spaces to a tab
 set shiftwidth=4 " As above
-set expandtab " Expand tabs into spaces
+set expandtab    " Expand tabs into spaces
 set showbreak=↪
 
-" Disabled arrow keys
+" Disable arrow keys
 no <down> <Nop>
 no <left> <Nop>
 no <right> <Nop>
