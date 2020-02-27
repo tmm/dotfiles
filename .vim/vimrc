@@ -25,6 +25,11 @@ Plug 'dag/vim-fish'
 Plug 'itchyny/landscape.vim'
 Plug 'itchyny/lightline.vim'
 
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'rhysd/git-messenger.vim'
+
 call plug#end()
 
 " Leader
@@ -35,8 +40,8 @@ nmap <Leader>rc :vsp $MYVIMRC<CR>
 nmap <Leader>so :source $MYVIMRC<CR>
 
 " File Navigation / Search
-nmap <Leader>p :Files<CR>
-nmap <Leader>f :Rg<CR>
+nmap <C-p> :Files<CR>
+nmap <C-k> :Rg<CR>
 
 " Quick save
 nmap <C-s> :w<CR>
@@ -80,7 +85,19 @@ nmap <leader>rn <Plug>(coc-rename)
 
 " Interface
 color landscape
-let g:lightline = { 'colorscheme': 'landscape' }
+let g:lightline = {
+      \ 'colorscheme': 'landscape',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 set number         " Show line numbers
 set relativenumber " Line numbers relative to cursor
