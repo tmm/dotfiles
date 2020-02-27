@@ -21,6 +21,10 @@ Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish'
 
+" Appearance / Themes
+Plug 'itchyny/landscape.vim'
+Plug 'itchyny/lightline.vim'
+
 call plug#end()
 
 " Leader
@@ -46,7 +50,38 @@ nmap 0 ^
 nmap k gk
 nmap j gj
 
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
 " Interface
+color landscape
+let g:lightline = { 'colorscheme': 'landscape' }
+
 set number         " Show line numbers
 set relativenumber " Line numbers relative to cursor
 set showmode       " Show the mode in use
