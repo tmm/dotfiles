@@ -1,0 +1,9 @@
+{
+    "prettier.requireConfig": true,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "javascript", 
+        "javascriptreact"
+    ],
+    "prettier.eslintIntegration": true,
+    "eslint.autoFixOnSave": true
+}

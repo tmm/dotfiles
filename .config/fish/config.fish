@@ -21,7 +21,8 @@ abbr v "vim"
 # Variables
 # ==========================
 
-set -x EDITOR vim
+set -gx EDITOR vim
+set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --follow --ignore-file '~/.vim/vimignore'"
 set PIPENV_VENV_IN_PROJECT 1
 set NVM_DIR $HOME/.nvm
 
@@ -33,6 +34,10 @@ set -x GPG_TTY (tty)
 # https://github.com/rafaelrinaldi/pure#configuration
 set pure_color_primary white
 set pure_color_success green
+
+# ==========================
+# Other
+# ==========================
 
 eval (direnv hook fish)
 
