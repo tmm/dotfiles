@@ -12,6 +12,7 @@ alias vrc="vim ~/.vim/vimrc"
 # Abbreviations
 # ==========================
 
+abbr dot "h git"
 abbr g "git"
 abbr home "cd ~"
 abbr lsd "ls -d .*"

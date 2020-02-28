@@ -175,6 +175,11 @@
 				<key>date</key>
 				<date>2020-01-28T22:04:20Z</date>
 			</dict>
+			<key>http://kapeli.com/feeds/Vim.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2020-02-28T00:51:35Z</date>
+			</dict>
 			<key>http://kapeli.com/feeds/VueJS.xml</key>
 			<dict>
 				<key>date</key>
