@@ -22,7 +22,7 @@ abbr v "vim"
 # ==========================
 
 set -gx EDITOR vim
-set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --follow --ignore-file '~/.vim/vimignore'"
+set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --follow --glob '!.git/*'"
 set PIPENV_VENV_IN_PROJECT 1
 set NVM_DIR $HOME/.nvm
 
