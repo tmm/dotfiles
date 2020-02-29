@@ -6,6 +6,8 @@ alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
 alias reload="exec $SHELL -l"
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias frc="vim ~/.config/fish/config.fish"
+alias trc="vim ~/.tmux.conf"
 alias vrc="vim ~/.vim/vimrc"
 
 # ==========================

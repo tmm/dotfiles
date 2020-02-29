@@ -1,7 +1,7 @@
 [user]
     name = Tom Meagher
-    email = thom.meagher@gmail.com
-    signingKey = 72072EC3ED191086
+    email = tom@meagher.co
+	signingkey = tom@meagher.co
 
 [commit]
     gpgsign = true
@@ -14,6 +14,12 @@
 
 [core]
     editor = vim
+
+[diff]
+    tool = vimdiff
+
+[difftool]
+    prompt = false
 
 [alias]
     a = add
@@ -33,12 +39,13 @@
     contributors = shortlog --summary --numbered
     # Copy branch name
     copy-branch = "!echo "$(git branch-name)" | pbcopy; echo "Branch name copied to clipboard!""
-    d = diff
+    d = difftool
     # Discard changes in a (list of) file(s) in working tree
     discard = checkout --
     # Switch to a branch, creating it if necessary
     go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
-    log-recent = log --pretty=oneline -n 20 --abbrev-commit --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative # View abbreviated SHA, author, description, and time ago of the latest 20 commits
+    # View abbreviated SHA, author, description, and time ago of the latest 20 commits
+    log-recent = log --pretty=oneline -n 20 --abbrev-commit --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative 
     p = push
     pl = pull
     # Pull in remote changes for current repository and all its submodules

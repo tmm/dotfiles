@@ -13,8 +13,8 @@ Plug 'tpope/vim-sensible'
 " Editor
 Plug 'miyakogi/conoline.vim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-rooter'
-" Plug 'itchyny/vim-cursorword'
 Plug 'jiangmiao/auto-pairs'
 Plug 'godlygeek/tabular'
 
@@ -23,6 +23,7 @@ Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-abolish'
 
 " Appearance
 Plug 'itchyny/landscape.vim'
@@ -76,8 +77,17 @@ nmap <C-k> <C-w><C-k>
 nmap <C-l> <C-w><C-l>
 nmap <C-h> <C-w><C-h>
 
-" Easy access to the start of the line
-nmap 0 ^
+" H to move to the first character in a line
+nmap H ^
+" L to move to the last character in a line
+nmap L g_
+
+" Move down file lines
+nmap J 5j
+vmap J 5j
+" Move up file lines
+nmap K 5k
+vmap K 5k
 
 " Move up and down by visible lines if current line is wrapped
 nmap k gk
