@@ -1,31 +1,37 @@
 set nocompatible
+syntax enable
 filetype off
+
+" ============
+" Plugins
+" ============
 
 call plug#begin('~/.vim/plugged')
 
-" Basic
-Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
 
 " Editor
 Plug 'miyakogi/conoline.vim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'airblade/vim-rooter'
+Plug 'itchyny/vim-cursorword'
+Plug 'jiangmiao/auto-pairs'
+Plug 'godlygeek/tabular'
 
-" Navigation / Search
+" Commands
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+
+" Appearance
+Plug 'itchyny/landscape.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " Language
 Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish'
-
-" Appearance / Themes
-Plug 'itchyny/landscape.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'itchyny/vim-cursorword'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -33,10 +39,16 @@ Plug 'mhinz/vim-signify'
 Plug 'rhysd/git-messenger.vim'
 
 " Tmux
+Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
 
 call plug#end()
+
+
+" ============
+" Commands
+" ============
 
 " Leader
 let mapleader=" "  " Map <Leader> to space
@@ -45,23 +57,24 @@ let mapleader=" "  " Map <Leader> to space
 nmap <Leader>rc :vsp $MYVIMRC<CR>
 nmap <Leader>so :source $MYVIMRC<CR>
 
-" File Navigation / Search
-nmap <C-p> :Files<CR>
-nmap <C-k> :Rg<CR>
-
-" Easier Split Navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
 " Quick Save
-nmap <C-s> :w<CR>
-vmap <C-s> <Esc><C-s>gv
-imap <C-s> <Esc><C-s>
+nmap <Leader>w :w<cr>
 
 " Quick Quit
-nmap <C-q> :q<CR>
+nmap <Leader>q :q<CR>
+
+" FZF
+nmap <Leader>p :Files<CR>
+nmap <Leader>rg :Rg<CR>
+nmap <Leader>h :History<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>t :BTags<CR>
+
+" Easier Split Navigations
+nmap <C-j> <C-w><C-j>
+nmap <C-k> <C-w><C-k>
+nmap <C-l> <C-w><C-l>
+nmap <C-h> <C-w><C-h>
 
 " Easy access to the start of the line
 nmap 0 ^
@@ -82,9 +95,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <C-space> to trigger completion
-inoremap <silent><expr> <C-space> coc#refresh()
-
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -96,9 +106,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Symbol renaming
-nmap <leader>rn <Plug>(coc-rename)
+nmap <Leader>rn <Plug>(coc-rename)
 
+
+" ============
 " Interface
+" ============
+
 color landscape
 let g:lightline = {
       \ 'colorscheme': 'landscape',
@@ -165,6 +179,11 @@ set tabstop=4    " Use 4 spaces to a tab
 set shiftwidth=4 " As above
 set expandtab    " Expand tabs into spaces
 set showbreak=↪
+
+
+" ============
+" Random
+" ============
 
 " Disable arrow keys
 no <down> <Nop>
