@@ -43,9 +43,10 @@ tmux-packages:
 	@tmux kill-ses -t tmux-packages
 
 macos:
-	@bash -c ~/prefs/macos
+	@bash -c ~/.config/macos/config
 
 gpg:
+	@open /Applications/Keybase.app
 	@keybase pgp export -q 72072EC3ED191086 | gpg --import
 	@keybase pgp export -q 72072EC3ED191086 --secret | gpg --allow-secret-key-import --import
 

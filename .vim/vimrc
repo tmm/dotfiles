@@ -227,3 +227,6 @@ if &shell =~# 'fish$'
   set shell=bash
 endif
 
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
