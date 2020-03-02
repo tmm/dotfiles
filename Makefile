@@ -36,7 +36,7 @@ fish-packages:
 tmux-packages:
 	@rm -rf ~/.config/tmux/plugins/tpm
 	@git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-	@tmux new -s tmux-packages
+	@tmux new -d -s tmux-packages
 	@tmux source ~/.tmux.conf
 	@bash -c ~/.config/tmux/plugins/tpm/bin/install_plugins
 	@bash -c "~/.config/tmux/plugins/tpm/bin/update_plugins all"
