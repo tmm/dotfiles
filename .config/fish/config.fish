@@ -28,7 +28,6 @@ abbr v "vim"
 set -gx EDITOR vim
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --follow --glob '!.git/*'"
 set PIPENV_VENV_IN_PROJECT 1
-set NVM_DIR $HOME/.nvm
 
 # Avoid issues with `gpg` as installed via Homebrew
 # https://stackoverflow.com/a/42265848/96656
@@ -44,4 +43,5 @@ set pure_color_success green
 # ==========================
 
 eval (direnv hook fish)
+source /usr/local/opt/asdf/asdf.fish
 

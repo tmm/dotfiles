@@ -83,4 +83,5 @@
       "enabled": false,
       "args": []
     },
+    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
 }

@@ -3,7 +3,9 @@ cask_args appdir: "/Applications"
 tap 'homebrew/bundle'
 tap 'caskroom/cask'
 tap 'homebrew/cask-fonts'
+tap 'koekeishiya/formulae'
 
+brew 'asdf'
 brew 'direnv'
 brew 'fish'
 brew 'fzf'
@@ -11,10 +13,9 @@ brew 'git'
 brew 'gpg'
 brew 'hub'
 brew 'mas'
-brew 'nvm'
 brew 'openssl'
-brew 'pyenv'
 brew 'ripgrep'
+brew 'skhd'
 brew 'tmux'
 brew 'vim'
 
@@ -36,6 +37,7 @@ cask 'postgres'
 cask 'postico'
 cask 'sip'
 cask 'spotify'
+cask 'visual-studio-code'
 
 mas "Dato", id: 1470584107
 mas "Xcode", id: 497799835
