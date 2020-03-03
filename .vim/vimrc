@@ -42,7 +42,6 @@ Plug 'rhysd/git-messenger.vim'
 " Tmux
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'edkolev/tmuxline.vim'
 
 call plug#end()
 
@@ -156,6 +155,7 @@ set showcmd        " Show the (partial) command as it's being typed
 set scrolloff=2    " Always show at least two lines above/below the cursor
 set shortmess=Ia   " Disable start up message and abbreviate items
 set updatetime=300
+set noshowmode     " Hide redundant mode 
 
 " More natural split opening
 set splitbelow

@@ -1,6 +1,4 @@
 # General
 
-hyper - return : open /Applications/iTerm.app
-
 # open terminal, blazingly fast compared to iTerm/Hyper
-cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+shift + cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
