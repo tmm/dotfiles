@@ -1,4 +1,0 @@
-# General
-
-# open terminal, blazingly fast compared to iTerm/Hyper
-shift + cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~

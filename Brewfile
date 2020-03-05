@@ -1,9 +1,10 @@
+# vim:syntax=ruby
+
 cask_args appdir: "/Applications"
 
 tap 'homebrew/bundle'
 tap 'caskroom/cask'
 tap 'homebrew/cask-fonts'
-tap 'koekeishiya/formulae'
 
 brew 'asdf'
 brew 'direnv'
@@ -13,13 +14,10 @@ brew 'git'
 brew 'gpg'
 brew 'hub'
 brew 'mas'
-brew 'openssl'
 brew 'ripgrep'
-brew 'skhd'
 brew 'tmux'
 brew 'vim'
 
-cask '1password'
 cask 'alfred'
 cask 'bartender'
 cask 'contexts'
@@ -27,7 +25,7 @@ cask 'dash'
 cask 'figma'
 cask 'firefox'
 cask 'flux'
-cask 'font-input'
+cask 'font-jetbrains-mono'
 cask 'hyperdock'
 cask 'iterm2'
 cask 'keybase'
@@ -37,7 +35,9 @@ cask 'postgres'
 cask 'postico'
 cask 'sip'
 cask 'spotify'
-cask 'visual-studio-code'
 
+mas '1Password', id: 443987910
 mas "Dato", id: 1470584107
+mas 'Slack', id: 803453959
 mas "Xcode", id: 497799835
+
