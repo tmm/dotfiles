@@ -2,10 +2,7 @@ set nocompatible
 syntax enable
 filetype off
 
-" ============
-" Plugins
-" ============
-
+" Plugins {{{
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
@@ -25,7 +22,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 
 " Appearance
-Plug 'itchyny/landscape.vim'
+Plug 'nanotech/jellybeans.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -43,12 +40,9 @@ Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
+" }}}
 
-
-" ============
-" Commands
-" ============
-
+" Commands {{{
 " Leader
 let mapleader=" "  " Map <Leader> to space
 
@@ -116,14 +110,17 @@ nmap <silent> gr <Plug>(coc-references)
 " Symbol renaming
 nmap <Leader>rn <Plug>(coc-rename)
 
+" Disable arrow keys
+no <down> <Nop>
+no <left> <Nop>
+no <right> <Nop>
+no <up> <Nop>
+" }}}
 
-" ============
-" Interface
-" ============
-
-color landscape
+" Interface {{{
+color jellybeans
 let g:lightline = {
-      \ 'colorscheme': 'landscape',
+      \ 'colorscheme': 'jellybeans',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -135,7 +132,6 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
-
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=233
@@ -192,18 +188,9 @@ set tabstop=4    " Use 4 spaces to a tab
 set shiftwidth=4 " As above
 set expandtab    " Expand tabs into spaces
 set showbreak=↪
+" }}}
 
-
-" ============
-" Random
-" ============
-
-" Disable arrow keys
-no <down> <Nop>
-no <left> <Nop>
-no <right> <Nop>
-no <up> <Nop>
-
+" Random {{{
 " Copy copy register to OS X general pasteboard
 function! PBCopy()
   call system("pbcopy", getreg(""))
@@ -228,4 +215,5 @@ endif
 
 " Automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
+" }}}
 
