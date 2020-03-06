@@ -7,6 +7,7 @@ tap 'caskroom/cask'
 tap 'homebrew/cask-fonts'
 
 brew 'asdf'
+brew 'bat'
 brew 'direnv'
 brew 'fish'
 brew 'fzf'

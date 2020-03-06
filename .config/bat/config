@@ -1,0 +1,8 @@
+--theme="ansi-dark"
+
+# Show line numbers and Git modifications 
+--style="numbers,changes"
+
+# Use italic text on the terminal (not supported on all terminals)
+--italic-text=always
+
