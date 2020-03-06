@@ -152,7 +152,7 @@ set scrolloff=2    " Always show at least two lines above/below the cursor
 set shortmess=Ia   " Disable start up message and abbreviate items
 set updatetime=300
 set noshowmode     " Hide redundant mode 
-set spell spelllang=en_us
+set spelllang=en_us
 
 " More natural split opening
 set splitbelow

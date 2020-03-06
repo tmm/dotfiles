@@ -3,11 +3,11 @@
 # ==========================
 
 alias cat=bat
+alias frc="vim ~/.config/fish/config.fish"
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 alias reload="exec $SHELL -l"
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-alias frc="vim ~/.config/fish/config.fish"
 alias trc="vim ~/.tmux.conf"
 alias vrc="vim ~/.vim/vimrc"
 
@@ -21,6 +21,7 @@ abbr home "cd ~"
 abbr lsd "ls -d .*"
 abbr t "tmux"
 abbr v "vim"
+abbr x "devx"
 
 # ==========================
 # Variables
