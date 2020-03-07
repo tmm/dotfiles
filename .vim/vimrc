@@ -14,6 +14,7 @@ Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'godlygeek/tabular'
+Plug 'tpope/vim-vinegar'
 
 " Commands
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -63,6 +64,9 @@ nmap <Leader>rg :RG<CR>
 nmap <Leader>h :History<CR>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>t :BTags<CR>
+
+" Netrw
+nmap <Leader>e :Lexplore<CR>
 
 " Easier Split Navigations
 nmap <C-j> <C-w><C-j>
@@ -116,6 +120,14 @@ no <down> <Nop>
 no <left> <Nop>
 no <right> <Nop>
 no <up> <Nop>
+
+" Quickly move current line
+nmap [e :<c-u>execute 'move -1-'. v:count1<cr>
+nmap ]e :<c-u>execute 'move +'. v:count1<cr>
+
+" Quickly add empty lines
+nmap [<space> :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nmap ]<space> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 " }}}
 
 " Interface {{{
@@ -138,20 +150,21 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=233
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=234
 
-set signcolumn=yes " Always show the signcolumn
-set number         " Show line numbers
-set relativenumber " Line numbers relative to cursor
-set showmode       " Show the mode in use
-set cursorline     " Highlight current line
-set wrap           " Turn on line wrapping
-set colorcolumn=80 " Show a column at 80
-set title          " Set the terminal title
-set visualbell     " Disable beeping
-set showcmd        " Show the (partial) command as it's being typed
-set scrolloff=2    " Always show at least two lines above/below the cursor
-set shortmess=Ia   " Disable start up message and abbreviate items
 set updatetime=300
-set noshowmode     " Hide redundant mode 
+set signcolumn=yes    " Always show the signcolumn
+set number            " Show line numbers
+set relativenumber    " Line numbers relative to cursor
+set showmode          " Show the mode in use
+set cursorline        " Highlight current line
+set wrap              " Turn on line wrapping
+set colorcolumn=80    " Show a column at 80
+set title             " Set the terminal title
+set visualbell        " Disable beeping
+set showcmd           " Show the (partial) command as it's being typed
+set scrolloff=2       " Always show at least two lines above/below the cursor
+set shortmess=Ia      " Disable start up message and abbreviate items
+set clipboard=unnamed " y and p use system clipboard
+set noshowmode        " Hide redundant mode
 set spelllang=en_us
 
 " More natural split opening
@@ -194,13 +207,18 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " }}}
 
 " Random {{{
+" fzf Files with preview
+" https://github.com/junegunn/fzf.vim#example-customizing-files-command
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
+
 " Advanced ripgrep fzf integration
-" https://github.com/junegunn/fzf.vim/blob/master/README.md#example-advanced-ripgrep-integration
+" https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--layout=reverse']}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
@@ -222,13 +240,13 @@ endfunction
 autocmd FocusLost * :call PBCopy()
 autocmd FocusGained * :call PBPaste()
 
+" Automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
 " Teach a Vim to fish...
 " https://github.com/dag/vim-fish#teach-a-vim-to-fish
 if &shell =~# 'fish$'
   set shell=bash
 endif
-
-" Automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
 " }}}
 
