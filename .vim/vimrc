@@ -150,6 +150,12 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=233
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=234
 
+" Create a delicious salad dressing
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
 set updatetime=300
 set signcolumn=yes    " Always show the signcolumn
 set number            " Show line numbers

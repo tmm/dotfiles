@@ -1,13 +1,5 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": [
-        "javascript", 
-        "javascriptreact",
-        "json",
-        "python",
-        "yaml"
-    ],
     "prettier.requireConfig": true,
     "prettier.eslintIntegration": true,
-    "eslint.autoFixOnSave": true,
-    "yaml.format.enable": true
+    "eslint.autoFixOnSave": true
 }

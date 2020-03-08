@@ -24,7 +24,6 @@ homebrew-packages: $(BREW_BUNDLE)
 .PHONY: vim-packages
 vim-packages:
 	@vim -c PlugUpgrade -c PlugInstall -c qall
-	@vim -c "CocInstall -sync coc-json coc-prettier coc-eslint coc-tsserver|q"
 
 fish:
 	@chsh -s $(shell which fish)
