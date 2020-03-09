@@ -41,6 +41,12 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
+" Terraform
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'hashivim/vim-terraform'
+
 call plug#end()
 " }}}
 
@@ -151,6 +157,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=233
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=234
 
 " Create a delicious salad dressing
+let g:netrw_preview = 1
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
@@ -209,7 +216,7 @@ set tabstop=4    " Use 4 spaces to a tab
 set shiftwidth=4 " As above
 set expandtab    " Expand tabs into spaces
 set showbreak=↪
-set list listchars=tab:»·,trail:·,nbsp:·
+set list listchars=tab:▸\ ,trail:·
 " }}}
 
 " Random {{{
@@ -229,6 +236,10 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" vim-terraform
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
 
 " Copy copy register to OS X general pasteboard
 function! PBCopy()

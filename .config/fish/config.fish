@@ -29,7 +29,12 @@ abbr x "devx"
 
 set -gx EDITOR vim
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --follow --glob '!.git/*'"
-set PIPENV_VENV_IN_PROJECT 1
+set -gx PIPENV_VENV_IN_PROJECT 1
+
+# XDG Base Directory Specification
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+set -gx XDG_DATA_HOME $HOME/.local/share
+set -gx XDG_CONFIG_HOME $HOME/.config
 
 # Avoid issues with `gpg` as installed via Homebrew
 # https://stackoverflow.com/a/42265848/96656
