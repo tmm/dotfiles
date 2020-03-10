@@ -13,15 +13,15 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
-Plug 'godlygeek/tabular'
-Plug 'tpope/vim-vinegar'
+Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle','NERDTreeFind']  }
 
 " Commands
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat' | Plug 'kreskij/Repeatable.vim', { 'on': 'Repeatable'  }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
+Plug 'godlygeek/tabular'
 
 " Appearance
 Plug 'nanotech/jellybeans.vim'
@@ -71,8 +71,9 @@ nmap <Leader>h :History<CR>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>t :BTags<CR>
 
-" Netrw
-nmap <Leader>e :Lexplore<CR>
+" NERDTree
+nmap <Leader>e :NERDTreeToggle<CR>
+nmap <Leader>f :NERDTreeFind<CR>
 
 " Easier Split Navigations
 nmap <C-j> <C-w><C-j>
@@ -118,6 +119,12 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Quick fix
+nmap <silent> gf <Plug>(coc-fix-current)
+
+" Format buffer
+nmap <silent> gp <Plug>(coc-format)
+
 " Symbol renaming
 nmap <Leader>rn <Plug>(coc-rename)
 
@@ -128,12 +135,12 @@ no <right> <Nop>
 no <up> <Nop>
 
 " Quickly move current line
-nmap [e :<c-u>execute 'move -1-'. v:count1<cr>
-nmap ]e :<c-u>execute 'move +'. v:count1<cr>
+Repeatable nmap [e :<c-u>execute 'move -1-'. v:count1<cr>
+Repeatable nmap ]e :<c-u>execute 'move +'. v:count1<cr>
 
 " Quickly add empty lines
-nmap [<space> :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
-nmap ]<space> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+Repeatable nmap [<space> :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+Repeatable nmap ]<space> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 " }}}
 
 " Interface {{{
@@ -153,15 +160,14 @@ let g:lightline = {
       \ }
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=233
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=234
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+autocmd VimEnter,Colorscheme * :hi CocHighlightText ctermbg=236
 
-" Create a delicious salad dressing
-let g:netrw_preview = 1
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMinimalMenu = 1
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
 
 set updatetime=300
 set signcolumn=yes    " Always show the signcolumn
@@ -178,6 +184,7 @@ set scrolloff=2       " Always show at least two lines above/below the cursor
 set shortmess=Ia      " Disable start up message and abbreviate items
 set clipboard=unnamed " y and p use system clipboard
 set noshowmode        " Hide redundant mode
+set laststatus=2      " Always show status bar
 set spelllang=en_us
 
 " More natural split opening
@@ -194,17 +201,15 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
 
-" Status Bar
-set laststatus=2 " Always show status bar
-" Highlight the status bar when in insert mode
-au InsertEnter * hi StatusLine ctermfg=235 ctermbg=10
-au InsertLeave * hi StatusLine ctermfg=15 ctermbg=240
-
 " Search
 set hlsearch   " Highlight all search matches
 set incsearch  " Highlight matches as you type
 set ignorecase
 set smartcase  " Be case-sensitive if expression contains a capital letter
+
+" Completion
+set wildmenu                   " Better completion in the CLI
+set wildmode=longest:full,full " Completion settings
 
 " Backup
 set nobackup
