@@ -22,49 +22,28 @@
 [difftool]
     prompt = false
 
-[alias]
-    a = add
-    aa = add --all
-    # List aliases
-    aliases = config --get-regexp alias
-    amend = commit --amend --reuse-message=HEAD
-    au = add --update
-    b = branch
-    # Current branch name
-    branch-name = rev-parse --abbrev-ref HEAD
-    c = commit -m
-    ca = !git add -A && git commit -avm
-    ch = checkout
-    chm = checkout master
-    # List contributors with number of commits
-    contributors = shortlog --summary --numbered
-    # Copy branch name
-    copy-branch = "!echo "$(git branch-name)" | pbcopy; echo "Branch name copied to clipboard!""
-    d = difftool
-    # Discard changes in a (list of) file(s) in working tree
-    discard = checkout --
-    # Switch to a branch, creating it if necessary
-    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
-    # View abbreviated SHA, author, description, and time ago of the latest 20 commits
-    log-recent = log --pretty=oneline -n 20 --abbrev-commit --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative 
-    p = push
-    pl = pull
-    # Pull in remote changes for current repository and all its submodules
-    pl-all = "!git pull; git submodule foreach git pull origin master"
-    # Open a pull request on GitHub for current branch
-    pr = "!open $(git remote -v | grep origin | grep push | cut -f 2 | cut -d ' ' -f 1 | sed -e 's/.git$//g')/pull/new/$(git branch-name)"
-    # Pushes and sets current branch upstream
-    pub = "!git push -u origin $(git branch-name)"
-    # Interactive rebase with given number of latest commits
-    reb = "!r() { git rebase -i HEAD~$1; }; r"
-    s = status
-    # Undo last commit
-    undo = reset --soft HEAD^
-    # Cleaner unstage
-    unstage = reset HEAD --
-
 [color]
     ui = auto
 
 [push]
     default = current
+
+[alias]
+    a  = add
+    au = add --update
+    b  = branch
+    c  = commit -m
+    ch = checkout
+    d  = difftool
+    l  = log
+    p  = push
+    pl = pull
+    s  = status
+
+    amend   = commit --amend --reuse-message=HEAD
+    go      = "!go() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; go"
+    hist    = log --pretty=oneline --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --abbrev-commit
+    monkeys = shortlog --summary --numbered
+    undo    = reset --soft HEAD^
+    unstage = reset HEAD --
+
