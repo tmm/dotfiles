@@ -17,10 +17,11 @@ Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle','NERDTreeFind']  }
 
 " Commands
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-repeat' | Plug 'kreskij/Repeatable.vim', { 'on': 'Repeatable'  }
+Plug 'tpope/vim-repeat' | Plug 'kreskij/Repeatable.vim', { 'on': 'Repeatable' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-obsession'
 Plug 'godlygeek/tabular'
 
 " Appearance
@@ -66,8 +67,9 @@ nmap <Leader>q :q<CR>
 
 " FZF
 nmap <Leader>p :Files<CR>
-nmap <Leader>rg :RG<CR>
+nmap <Leader>rg :Rg<CR>
 nmap <Leader>h :History<CR>
+nmap <Leader>c :Commands<CR>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>t :BTags<CR>
 
@@ -110,8 +112,8 @@ function! s:check_back_space() abort
 endfunction
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+Repeatable nmap <silent> [g <Plug>(coc-diagnostic-prev)
+Repeatable nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
@@ -120,19 +122,24 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Quick fix
-nmap <silent> gf <Plug>(coc-fix-current)
+nmap <silent> gy <Plug>(coc-fix-current)
 
 " Format buffer
 nmap <silent> gp <Plug>(coc-format)
 
+" Use K to show documentation in preview window.
+" nmap <silent> gk :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 " Symbol renaming
 nmap <Leader>rn <Plug>(coc-rename)
-
-" Disable arrow keys
-no <down> <Nop>
-no <left> <Nop>
-no <right> <Nop>
-no <up> <Nop>
 
 " Quickly move current line
 Repeatable nmap [e :<c-u>execute 'move -1-'. v:count1<cr>
@@ -141,6 +148,12 @@ Repeatable nmap ]e :<c-u>execute 'move +'. v:count1<cr>
 " Quickly add empty lines
 Repeatable nmap [<space> :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 Repeatable nmap ]<space> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+
+" Disable arrow keys
+no <down> <Nop>
+no <left> <Nop>
+no <right> <Nop>
+no <up> <Nop>
 " }}}
 
 " Interface {{{
@@ -162,7 +175,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
-autocmd VimEnter,Colorscheme * :hi CocHighlightText ctermbg=236
 
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeMinimalMenu = 1
@@ -192,6 +204,7 @@ set splitbelow
 set splitright
 
 " Highlight the symbol and its references when holding the cursor.
+hi default CocHighlightText ctermbg=236
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Line behavior
@@ -240,7 +253,7 @@ function! RipgrepFzf(query, fullscreen)
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 " vim-terraform
 let g:terraform_align=1
