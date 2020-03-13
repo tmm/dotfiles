@@ -40,5 +40,5 @@ cask 'spotify'
 mas '1Password', id: 443987910
 mas 'Dato', id: 1470584107
 mas 'Slack', id: 803453959
-mas "Xcode", id: 497799835
+mas 'Xcode', id: 497799835
 
