@@ -36,10 +36,10 @@ defaults write NSGlobalDomain com.apple.trackpad.scaling -int 3
 defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
 # System Preferences > Keyboard > Key Repeat
-defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain KeyRepeat -int 1
 
 # System Preferences > Keyboard > Key Repeat
-defaults write NSGlobalDomain InitialKeyRepeat -int 50
+defaults write NSGlobalDomain InitialKeyRepeat -int 30
 
 # System Preferences > Bluetooth
 # Increase sound quality for Bluetooth headphones/headsets
