@@ -16,6 +16,7 @@ alias vrc="vim ~/.vim/vimrc"
 # ==========================
 
 abbr df "h git"
+abbr d "docker"
 abbr g "git"
 abbr home "cd ~"
 abbr lsd "ls -d .*"
@@ -29,7 +30,6 @@ abbr x "devx"
 
 set -gx EDITOR vim
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --follow --glob '!.git/*'"
-set -gx PIPENV_VENV_IN_PROJECT 1
 
 # XDG Base Directory Specification
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html

@@ -40,10 +40,11 @@
     pl = pull
     s  = status
 
-    amend   = commit --amend --reuse-message=HEAD
-    go      = "!go() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; go"
-    hist    = log --pretty=oneline --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --abbrev-commit
-    monkeys = shortlog --summary --numbered
-    undo    = reset --soft HEAD^
-    unstage = reset HEAD --
+    amend    = commit --amend --reuse-message=HEAD
+    go       = "!go() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; go"
+    hist     = log --pretty=oneline --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --abbrev-commit
+    monkeys  = shortlog --summary --numbered
+    pull-all = "!git pull; git submodule foreach git pull origin master"
+    undo     = reset --soft HEAD^
+    unstage  = reset HEAD --
 
