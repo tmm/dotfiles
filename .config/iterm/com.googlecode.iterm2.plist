@@ -387,10 +387,8 @@
 	<integer>2</integer>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Downloads</string>
+	<string>~/.config/iterm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{799, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -434,20 +432,22 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
-	<key>NSWindow Frame NSFontPanel</key>
-	<string>929 110 445 280 0 0 1440 878 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>880 744 799 448 0 0 2560 1440 </string>
+	<string>320 339 799 448 0 0 1440 900 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>2227 905 400 129 1920 -734 1080 1897 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 786 620 392 0 0 2560 1440 </string>
+	<string>410 381 620 392 0 0 1440 900 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>2544 376 606 469 1920 75 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>291 352 796 486 0 0 1440 877 </string>
+	<string>-1179 444 796 486 -1440 61 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1091 47 1448 902 0 0 2560 1440 </string>
+	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>310 200 730 492 0 0 1440 900 </string>
+	<string>369 242 730 492 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>678 160 1151 928 0 0 2560 1418 </string>
+	<string>386 141 650 452 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1108,43 +1108,36 @@
 	<key>NoSyncAllAppVersions</key>
 	<array>
 		<string>3.3.6</string>
-		<string>3.2.9</string>
+		<string>3.3.0</string>
 		<string>3.3.3</string>
 		<string>3.3.7</string>
 		<string>3.3.9</string>
-		<string>3.3.0</string>
+		<string>3.2.9</string>
 		<string>3.3.2</string>
 		<string>3.3.4</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
-		<string>JetBrains Mono</string>
+		<string>Fira Code</string>
+		<string>Input Mono</string>
 	</array>
-	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
-	<true/>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {2560, 1440}}</string>
+		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{951, 1113}</string>
+		<string>{255, 900}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
-	<true/>
-	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>806CC9AD-4D39-42C9-A0A6-B540FDD19331</string>
+	<string>9864CFBE-8F91-4D06-AB56-8922D3A98F7D</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>213</integer>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
+	<integer>179</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>586479881.10053504</real>
+	<real>586478645.63815999</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
 	<true/>
 	<key>NoSyncPermissionToShowTip</key>
@@ -1864,7 +1857,9 @@
 		</array>
 	</dict>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>521414554.889853</real>
+	<real>549834620.64360499</real>
+	<key>PMPrintingExpandedStateForPrint2</key>
+	<false/>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1899,7 +1894,9 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/tom/.config/iterm</string>
+	<string>/Users/tmeagher/.config/iterm</string>
+	<key>Print In Black And White</key>
+	<true/>
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>RightOption</key>
@@ -1952,11 +1949,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final_new.xml?shard=15</string>
+	<string>https://iterm2.com/appcasts/final_new.xml?shard=47</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-03-07T21:29:29Z</date>
+	<date>2020-03-11T16:06:10Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>

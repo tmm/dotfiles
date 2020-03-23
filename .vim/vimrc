@@ -13,7 +13,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle','NERDTreeFind']  }
+Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 
 " Commands
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -100,6 +100,9 @@ vmap K 5k
 nmap k gk
 nmap j gj
 
+" Yank to end of current line
+nmap Y y$
+
 " Use tab for trigger completion with characters ahead and navigate
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -129,7 +132,7 @@ nmap <silent> gy <Plug>(coc-fix-current)
 nmap <silent> gp <Plug>(coc-format)
 
 " Use K to show documentation in preview window.
-" nmap <silent> gk :call <SID>show_documentation()<CR>
+nmap <silent> gx :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -260,7 +263,7 @@ command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
 
-" Copy copy register to OS X general pasteboard
+" Copy register to OS X general pasteboard
 function! PBCopy()
   call system("pbcopy", getreg(""))
 endfunction
