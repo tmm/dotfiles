@@ -259,6 +259,10 @@ endfunction
 
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
+" git-messenger
+let g:git_messenger_always_into_popup = v:true
+let g:git_messenger_include_diff = "current"
+
 " vim-terraform
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
