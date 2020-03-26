@@ -15,12 +15,14 @@ alias vrc="vim ~/.vim/vimrc"
 # Abbreviations
 # ==========================
 
-abbr df "h git"
 abbr d "docker"
+abbr dc "docker-compose"
+abbr df "h git"
 abbr g "git"
 abbr home "cd ~"
 abbr lsd "ls -d .*"
 abbr t "tmux"
+abbr tf "terraform"
 abbr v "vim"
 abbr x "devx"
 

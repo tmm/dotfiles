@@ -47,7 +47,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'hashivim/vim-terraform'
+Plug 'hashivim/vim-terraform', { 'for': 'terraform'  }
 
 call plug#end()
 " }}}
