@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 
 " Editor
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
@@ -125,9 +125,6 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Quick fix
-nmap <silent> gy <Plug>(coc-fix-current)
-
 " Format buffer
 nmap <silent> gp <Plug>(coc-format)
 
@@ -144,6 +141,18 @@ endfunction
 
 " Symbol renaming
 nmap <Leader>rn <Plug>(coc-rename)
+
+" Remap keys for applying codeAction to the current line.
+nmap <Leader>ca  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <Leader>cf  <Plug>(coc-fix-current)
+
+" Introduce function text object
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
 
 " Quickly move current line
 Repeatable nmap [e :<c-u>execute 'move -1-'. v:count1<cr>
@@ -258,6 +267,13 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
+" Coc
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " git-messenger
 let g:git_messenger_always_into_popup = v:true
