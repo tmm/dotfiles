@@ -1,4 +1,10 @@
 {
+    "coc.preferences.jumpCommand": "drop",
+    "diagnostic.errorSign": ">>",
+    "diagnostic.warningSign": "!!",
+    "diagnostic.infoSign": "ii",
+    "diagnostic.hintSign": "hh",
+    "diagnostic.checkCurrentLine": true,
     "prettier.requireConfig": true,
     "prettier.eslintIntegration": true,
     "eslint.autoFixOnSave": true

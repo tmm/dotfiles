@@ -17,11 +17,12 @@ Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 
 " Commands
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-repeat' | Plug 'kreskij/Repeatable.vim', { 'on': 'Repeatable' }
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-unimpaired'
 Plug 'godlygeek/tabular'
 Plug 'justinmk/vim-sneak'
 
@@ -78,11 +79,11 @@ nmap <Leader>t :BTags<CR>
 nmap <Leader>e :NERDTreeToggle<CR>
 nmap <Leader>f :NERDTreeFind<CR>
 
-" Easier Split Navigations
-nmap <C-j> <C-w><C-j>
-nmap <C-k> <C-w><C-k>
-nmap <C-l> <C-w><C-l>
-nmap <C-h> <C-w><C-h>
+" " Easier Split Navigations
+" nmap <C-j> <C-w><C-j>
+" nmap <C-k> <C-w><C-k>
+" nmap <C-l> <C-w><C-l>
+" nmap <C-h> <C-w><C-h>
 
 " H to move to the first character in a line
 nmap H ^
@@ -116,8 +117,8 @@ function! s:check_back_space() abort
 endfunction
 
 " Use `[g` and `]g` to navigate diagnostics
-Repeatable nmap <silent> [g <Plug>(coc-diagnostic-prev)
-Repeatable nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
@@ -154,14 +155,6 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" Quickly move current line
-Repeatable nmap [e :<c-u>execute 'move -1-'. v:count1<cr>
-Repeatable nmap ]e :<c-u>execute 'move +'. v:count1<cr>
-
-" Quickly add empty lines
-Repeatable nmap [<space> :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
-Repeatable nmap ]<space> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
-
 " Disable arrow keys
 no <down> <Nop>
 no <left> <Nop>
@@ -191,6 +184,8 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeMinimalMenu = 1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeShowLineNumbers = 0
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
 
@@ -274,6 +269,11 @@ command! -nargs=0 Format :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Disable tmux navigator when zooming the Vim pane
+let g:tmux_navigator_disable_when_zoomed = 1
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 2
 
 " git-messenger
 let g:git_messenger_always_into_popup = v:true
