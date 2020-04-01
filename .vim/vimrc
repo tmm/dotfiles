@@ -25,6 +25,7 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 Plug 'godlygeek/tabular'
 Plug 'justinmk/vim-sneak'
+Plug 'svermeulen/vim-yoink'
 
 " Appearance
 Plug 'nanotech/jellybeans.vim'
@@ -73,17 +74,10 @@ nmap <Leader>rg :Rg<CR>
 nmap <Leader>h :History<CR>
 nmap <Leader>c :Commands<CR>
 nmap <Leader>b :Buffers<CR>
-nmap <Leader>t :BTags<CR>
 
 " NERDTree
 nmap <Leader>e :NERDTreeToggle<CR>
 nmap <Leader>f :NERDTreeFind<CR>
-
-" " Easier Split Navigations
-" nmap <C-j> <C-w><C-j>
-" nmap <C-k> <C-w><C-k>
-" nmap <C-l> <C-w><C-l>
-" nmap <C-h> <C-w><C-h>
 
 " H to move to the first character in a line
 nmap H ^
@@ -103,6 +97,16 @@ nmap j gj
 
 " Yank to end of current line
 nmap Y y$
+
+" Yoink mappings
+nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
+
+nmap y <plug>(YoinkYankPreserveCursorPosition)
+xmap y <plug>(YoinkYankPreserveCursorPosition)
 
 " Use tab for trigger completion with characters ahead and navigate
 imap <silent><expr> <TAB>
@@ -163,15 +167,17 @@ no <up> <Nop>
 " }}}
 
 " Interface {{{
-color jellybeans
+colorscheme jellybeans
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'filetype' ] ]
+      \   'left': [
+      \     ['mode', 'paste'],
+      \     ['gitbranch', 'readonly', 'filename', 'modified']],
+      \   'right': [
+      \     ['lineinfo'],
+      \     ['percent'],
+      \     ['filetype']]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead'
@@ -179,8 +185,8 @@ let g:lightline = {
       \ }
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+hi IndentGuidesOdd  ctermbg=234
+hi IndentGuidesEven ctermbg=235
 
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeMinimalMenu = 1
@@ -202,7 +208,7 @@ set visualbell        " Disable beeping
 set showcmd           " Show the (partial) command as it's being typed
 set scrolloff=2       " Always show at least two lines above/below the cursor
 set shortmess=Ia      " Disable start up message and abbreviate items
-set clipboard=unnamed " y and p use system clipboard
+set clipboard=unnamed " Use system clipboard
 set noshowmode        " Hide redundant mode
 set laststatus=2      " Always show status bar
 set spelllang=en_us
