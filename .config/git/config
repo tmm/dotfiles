@@ -30,6 +30,7 @@
 
 [alias]
     a  = add
+    aa = add .
     au = add --update
     b  = branch
     c  = commit -m
@@ -37,6 +38,7 @@
     d  = difftool
     l  = log
     p  = push
+    pf = push --force
     pl = pull
     s  = status
 

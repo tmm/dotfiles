@@ -54,4 +54,3 @@ set pure_color_success green
 eval (direnv hook fish)
 eval (hub alias -s)
 source /usr/local/opt/asdf/asdf.fish
-
