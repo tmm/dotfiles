@@ -1,10 +1,6 @@
-## dotfiles
-
-Tom Meagher's [.files](https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory)
-
 ## Installation
 
-Cloning the dotfiles:
+Clone the dotfiles:
 
 ```
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files.git"
@@ -14,7 +10,7 @@ h git fetch
 h git checkout master
 ```
 
-Installing tools:
+Install tools:
 
 ```
 make
