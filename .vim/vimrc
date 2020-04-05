@@ -1,62 +1,154 @@
-set nocompatible
-syntax enable
-filetype off
-filetype plugin indent on
-
-" Plugins {{{
+" Plug {{{
 call plug#begin('~/.vim/plugged')
 
+" General
 Plug 'tpope/vim-sensible'
 
-" Editor
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'mattn/emmet-vim'
-Plug 'airblade/vim-rooter'
-Plug 'jiangmiao/auto-pairs'
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
-Plug 'brooth/far.vim'
-
-" Commands
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-unimpaired'
-Plug 'godlygeek/tabular'
-Plug 'justinmk/vim-sneak'
-Plug 'svermeulen/vim-yoink'
-
 " Appearance
-Plug 'nanotech/jellybeans.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'nanotech/jellybeans.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 
-" Language
-Plug 'sheerun/vim-polyglot'
-Plug 'dag/vim-fish'
+" Editor
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
+Plug 'brooth/far.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
+
+" Commands
+Plug 'godlygeek/tabular'
+Plug 'mattn/emmet-vim'
+Plug 'svermeulen/vim-yoink'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
 " Git
-Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
-Plug 'rhysd/git-messenger.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 " Tmux
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
-" Terraform
+" Language
+Plug 'sheerun/vim-polyglot'
+Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+
+Plug 'dag/vim-fish', { 'for': 'fish'  }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform'  }
 
 call plug#end()
 " }}}
+" General {{{
+set nocompatible
+syntax enable
+filetype off
+filetype plugin indent on
 
-" Commands {{{
-" Leader
+set clipboard=unnamed " Use system clipboard
+set colorcolumn=80    " Show a column at 80
+set cursorline        " Highlight current line
+set hidden            " Handle multiple buffers better
+set laststatus=2      " Always show status bar
+set noshowmode        " Hide redundant mode
+set shortmess=Iac     " Disable start up message and abbreviate items
+set showcmd           " Show the (partial) command as it's being typed
+set signcolumn=yes    " Always show the signcolumn
+set spelllang=en_us
+set title             " Set the terminal title
+set updatetime=300
+set visualbell        " Disable beeping
+set wrap              " Turn on line wrapping
+
+" Line numbers
+set number            " Show line numbers
+set relativenumber    " Line numbers relative to cursor
+set scrolloff=2       " Always show at least two lines above/below the cursor
+
+" More natural split opening
+set splitbelow
+set splitright
+
+" Search
+set hlsearch   " Highlight all search matches
+set ignorecase
+set incsearch  " Highlight matches as you type
+set smartcase  " Be case-sensitive if expression contains a capital letter
+
+" Completion
+set wildmenu                   " Better command line completion
+set wildmode=longest:full,full " Completion settings
+
+" Backup
+set nobackup
+set nowritebackup
+set noswapfile 
+
+" Formatting
+set tabstop=4    " Use 4 spaces to a tab
+set shiftwidth=4 " As above
+set expandtab    " Expand tabs into spaces
+set showbreak=↪
+set list listchars=tab:▸\ ,trail:·
+" }}}
+" Appearance {{{
+colorscheme jellybeans
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [
+      \     ['mode', 'paste'],
+      \     ['gitbranch', 'readonly', 'filename', 'modified']],
+      \   'right': [
+      \     ['lineinfo'],
+      \     ['percent'],
+      \     ['filetype']]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd  ctermbg=234
+hi IndentGuidesEven ctermbg=235
+" }}}
+" Key Mappings {{{
+" H to move to the first character in a line
+nmap H ^
+" L to move to the last character in a line
+nmap L g_
+
+" Move down file lines
+nmap J 5j
+vmap J 5j
+" Move up file lines
+nmap K 5k
+vmap K 5k
+
+" Move up and down by visible lines if current line is wrapped
+nmap k gk
+nmap j gj
+
+" Yank to end of current line
+nmap Y y$
+
+" Disable arrow keys
+no <down> <Nop>
+no <left> <Nop>
+no <right> <Nop>
+no <up> <Nop>
+" }}}
+" Leader Commands {{{
 let mapleader=" "  " Map <Leader> to space
 
 " Rapid Editing Vimrc
@@ -80,35 +172,48 @@ nmap <Leader>b :Buffers<CR>
 nmap <Leader>e :NERDTreeToggle<CR>
 nmap <Leader>f :NERDTreeFind<CR>
 
-" H to move to the first character in a line
-nmap H ^
-" L to move to the last character in a line
-nmap L g_
+" Coc
+nmap <Leader>rn <Plug>(coc-rename)
+nmap <Leader>ca <Plug>(coc-codeaction)
+nmap <Leader>af <Plug>(coc-fix-current)
+" }}}
+" Plugins {{{
+" preservim/nerdtree
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMinimalMenu = 1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeShowLineNumbers = 0
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
 
-" Move down file lines
-nmap J 5j
-vmap J 5j
-" Move up file lines
-nmap K 5k
-vmap K 5k
+" brooth/far.vim
+let g:far#source = 'rg'
+let g:far#enable_undo = 1
 
-" Move up and down by visible lines if current line is wrapped
-nmap k gk
-nmap j gj
+" christoomey/vim-tmux-navigator
+let g:tmux_navigator_disable_when_zoomed = 1
+let g:tmux_navigator_save_on_switch = 2
 
-" Yank to end of current line
-nmap Y y$
+" hashivim/vim-terraform
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
 
-" Yoink mappings
+" svermeulen/vim-yoink
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
 nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-
 nmap p <plug>(YoinkPaste_p)
 nmap P <plug>(YoinkPaste_P)
-
 nmap y <plug>(YoinkYankPreserveCursorPosition)
 xmap y <plug>(YoinkYankPreserveCursorPosition)
 
+" dag/vim-fish
+" Teach a Vim to fish...
+" https://github.com/dag/vim-fish#teach-a-vim-to-fish
+if &shell =~# 'fish$'
+  set shell=bash
+endif
+" }}}
+" Coc {{{
 " Use tab for trigger completion with characters ahead and navigate
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -131,11 +236,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Format buffer
-nmap <silent> gp <Plug>(coc-format)
-
-" Use K to show documentation in preview window.
-nmap <silent> gx :call <SID>show_documentation()<CR>
+" Use S to show documentation in preview window.
+nmap <silent> S :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -145,13 +247,9 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Symbol renaming
-nmap <Leader>rn <Plug>(coc-rename)
-
-" Remap keys for applying codeAction to the current line.
-nmap <Leader>ca  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <Leader>cf  <Plug>(coc-fix-current)
+" Highlight the symbol and its references when holding the cursor
+hi default CocHighlightText ctermbg=236
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Introduce function text object
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -160,104 +258,40 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" Disable arrow keys
-no <down> <Nop>
-no <left> <Nop>
-no <right> <Nop>
-no <up> <Nop>
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " }}}
-
-" Interface {{{
-colorscheme jellybeans
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'active': {
-      \   'left': [
-      \     ['mode', 'paste'],
-      \     ['gitbranch', 'readonly', 'filename', 'modified']],
-      \   'right': [
-      \     ['lineinfo'],
-      \     ['percent'],
-      \     ['filetype']]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  ctermbg=234
-hi IndentGuidesEven ctermbg=235
-
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeMinimalMenu = 1
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeShowLineNumbers = 0
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
-
-set updatetime=300
-set signcolumn=yes    " Always show the signcolumn
-set number            " Show line numbers
-set relativenumber    " Line numbers relative to cursor
-set showmode          " Show the mode in use
-set cursorline        " Highlight current line
-set wrap              " Turn on line wrapping
-set colorcolumn=80    " Show a column at 80
-set title             " Set the terminal title
-set visualbell        " Disable beeping
-set showcmd           " Show the (partial) command as it's being typed
-set scrolloff=2       " Always show at least two lines above/below the cursor
-set shortmess=Ia      " Disable start up message and abbreviate items
-set clipboard=unnamed " Use system clipboard
-set noshowmode        " Hide redundant mode
-set laststatus=2      " Always show status bar
-set spelllang=en_us
-
-" More natural split opening
-set splitbelow
-set splitright
-
-" Highlight the symbol and its references when holding the cursor.
-hi default CocHighlightText ctermbg=236
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Line behavior
+" Autocommands {{{
+" Hybrid line numbers
+" Switch between relative and absolute line numbers based on mode
+" https://jeffkreeftmeijer.com/vim-number/
 :augroup numbertoggle
 :  autocmd!
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
 
-" Search
-set hlsearch   " Highlight all search matches
-set incsearch  " Highlight matches as you type
-set ignorecase
-set smartcase  " Be case-sensitive if expression contains a capital letter
+" By the power of https://github.com/sjl/vitality.vim, copies and pastes
+" to the OS X pasteboard when switching between vim and other windows
+" (even in tmux)
+autocmd FocusLost * :call PBCopy()
+autocmd FocusGained * :call PBPaste()
 
-" Completion
-set wildmenu                   " Better completion in the CLI
-set wildmode=longest:full,full " Completion settings
-
-" Backup
-set nobackup
-set nowritebackup
-set noswapfile 
-
-" Formatting
-set tabstop=4    " Use 4 spaces to a tab
-set shiftwidth=4 " As above
-set expandtab    " Expand tabs into spaces
-set showbreak=↪
-set list listchars=tab:▸\ ,trail:·
+" Automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
 " }}}
+" Commands {{{
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
-" Random {{{
 " fzf Files with preview
 " https://github.com/junegunn/fzf.vim#example-customizing-files-command
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
-
+" }}}
+" Functions {{{
 " Advanced ripgrep fzf integration
 " https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
 function! RipgrepFzf(query, fullscreen)
@@ -268,32 +302,6 @@ function! RipgrepFzf(query, fullscreen)
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
-
-" far.vim
-let g:far#source = 'rg'
-let g:far#enable_undo = 1
-
-" Coc
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Disable tmux navigator when zooming the Vim pane
-let g:tmux_navigator_disable_when_zoomed = 1
-" Write all buffers before navigating from Vim to tmux pane
-let g:tmux_navigator_save_on_switch = 2
-
-" git-messenger
-let g:git_messenger_always_into_popup = v:true
-let g:git_messenger_include_diff = 'current'
-
-" vim-terraform
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1
-
 " Copy register to OS X general pasteboard
 function! PBCopy()
   call system('pbcopy', getreg(''))
@@ -303,20 +311,5 @@ endfunction
 function! PBPaste()
   call setreg('', system('pbpaste'))
 endfunction
-
-" By the power of https://github.com/sjl/vitality.vim, copies and pastes
-" to the OS X pasteboard when switching between vim and other windows
-" (even in tmux)
-autocmd FocusLost * :call PBCopy()
-autocmd FocusGained * :call PBPaste()
-
-" Automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
-
-" Teach a Vim to fish...
-" https://github.com/dag/vim-fish#teach-a-vim-to-fish
-if &shell =~# 'fish$'
-  set shell=bash
-endif
 " }}}
-
+" vim:foldmethod=marker

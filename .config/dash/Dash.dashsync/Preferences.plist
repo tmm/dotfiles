@@ -191,6 +191,8 @@
 	</dict>
 	<key>isPinned</key>
 	<true/>
+	<key>menuIconBehavior</key>
+	<integer>1</integer>
 	<key>placeholderDelimiter</key>
 	<string>__</string>
 	<key>profiles</key>
