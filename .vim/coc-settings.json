@@ -7,5 +7,14 @@
     "diagnostic.checkCurrentLine": true,
     "prettier.requireConfig": true,
     "prettier.eslintIntegration": true,
-    "eslint.autoFixOnSave": true
+    "eslint.autoFixOnSave": true,
+    "snippets.extends": {
+        "javascriptreact": [
+            "javascript"
+        ],
+        "typescript": [
+            "javascript"
+        ]
+    },
+    "snippets.ultisnips.enable": true
 }
