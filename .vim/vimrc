@@ -45,6 +45,7 @@ Plug 'prabirshrestha/vim-lsp'
 
 Plug 'dag/vim-fish', { 'for': 'fish'  }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform'  }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 " Snippets
 Plug 'epilande/vim-es2015-snippets'
@@ -215,6 +216,9 @@ xmap y <plug>(YoinkYankPreserveCursorPosition)
 if &shell =~# 'fish$'
   set shell=bash
 endif
+
+" plasticboy/vim-markdown
+let g:vim_markdown_frontmatter = 1
 " }}}
 " Coc {{{
 " Use tab for trigger completion with characters ahead and navigate
@@ -301,6 +305,9 @@ autocmd FocusGained * :call PBPaste()
 
 " Automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
+
+" Turn on spell check, etc. for markdown files
+autocmd FileType markdown setlocal signcolumn=no spell textwidth=80 colorcolumn=+1
 " }}}
 " Commands {{{
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)

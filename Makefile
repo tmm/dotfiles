@@ -49,4 +49,3 @@ gpg:
 	@open /Applications/Keybase.app
 	@keybase pgp export -q 72072EC3ED191086 | gpg --import
 	@keybase pgp export -q 72072EC3ED191086 --secret | gpg --allow-secret-key-import --import
-
