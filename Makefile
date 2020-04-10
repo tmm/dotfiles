@@ -43,7 +43,7 @@ tmux-packages:
 	@tmux kill-ses -t tmux-packages
 
 macos:
-	@bash -c ~/.config/macos/config
+	@bash -c ~/.config/macos
 
 gpg:
 	@open /Applications/Keybase.app
