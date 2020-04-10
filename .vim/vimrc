@@ -67,7 +67,6 @@ set noshowmode        " Hide redundant mode
 set shortmess=Iac     " Disable start up message and abbreviate items
 set showcmd           " Show the (partial) command as it's being typed
 set signcolumn=yes    " Always show the signcolumn
-set spelllang=en_us
 set title             " Set the terminal title
 set updatetime=300
 set visualbell        " Disable beeping
@@ -103,6 +102,11 @@ set shiftwidth=4 " As above
 set expandtab    " Expand tabs into spaces
 set showbreak=↪
 set list listchars=tab:▸\ ,trail:·
+
+" Spelling
+set spellfile=~/.vim/spell/en.utf-8.add
+set spelllang=en_us
+set complete+=kspell " Autocomplete when spell check is on
 " }}}
 " Appearance {{{
 colorscheme jellybeans
@@ -293,7 +297,7 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " https://jeffkreeftmeijer.com/vim-number/
 :augroup numbertoggle
 :  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufEnter,FocusGained,InsertLeave * call SetRelativeNumber()
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
 
@@ -307,7 +311,11 @@ autocmd FocusGained * :call PBPaste()
 autocmd VimResized * :wincmd =
 
 " Turn on spell check, etc. for markdown files
-autocmd FileType markdown setlocal signcolumn=no spell textwidth=80 colorcolumn=+1
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd FileType markdown setlocal spell signcolumn=no textwidth=80 colorcolumn=+1
+
+" Spell-check Git messages
+autocmd FileType gitcommit setlocal spell
 " }}}
 " Commands {{{
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
@@ -326,6 +334,13 @@ function! RipgrepFzf(query, fullscreen)
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--layout=reverse']}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+" Set relativenumber only for certain files
+function! SetRelativeNumber()
+    if &filetype != 'nerdtree'
+        set relativenumber
+    endif
 endfunction
 
 " Copy register to OS X general pasteboard
