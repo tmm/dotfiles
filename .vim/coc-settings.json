@@ -5,9 +5,9 @@
     "diagnostic.infoSign": "ii",
     "diagnostic.hintSign": "hh",
     "diagnostic.checkCurrentLine": true,
+    "eslint.autoFixOnSave": true,
     "prettier.requireConfig": true,
     "prettier.eslintIntegration": true,
-    "eslint.autoFixOnSave": true,
     "snippets.extends": {
         "javascriptreact": [
             "javascript"
@@ -16,5 +16,6 @@
             "javascript"
         ]
     },
-    "snippets.ultisnips.enable": true
+    "snippets.ultisnips.enable": true,
+    "tailwindCSS.headwind.runOnSave": false
 }

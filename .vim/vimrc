@@ -20,13 +20,13 @@ Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 " Commands
 Plug 'godlygeek/tabular'
 Plug 'mattn/emmet-vim'
-Plug 'svermeulen/vim-yoink'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/YankRing.vim'
 
 " Git
 Plug 'mhinz/vim-signify'
@@ -184,6 +184,9 @@ nmap <Leader>f :NERDTreeFind<CR>
 nmap <Leader>rn <Plug>(coc-rename)
 nmap <Leader>ac <Plug>(coc-codeaction)
 nmap <Leader>af <Plug>(coc-fix-current)
+
+" YankRing
+nmap <Leader>y :YRShow<CR>
 " }}}
 " Plugins {{{
 " preservim/nerdtree
@@ -206,14 +209,6 @@ let g:tmux_navigator_save_on_switch = 2
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
 
-" svermeulen/vim-yoink
-nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-nmap p <plug>(YoinkPaste_p)
-nmap P <plug>(YoinkPaste_P)
-nmap y <plug>(YoinkYankPreserveCursorPosition)
-xmap y <plug>(YoinkYankPreserveCursorPosition)
-
 " dag/vim-fish
 " Teach a Vim to fish...
 " https://github.com/dag/vim-fish#teach-a-vim-to-fish
@@ -226,6 +221,15 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_folding_style_pythonic = 1
 " }}}
 " Coc {{{
+let g:coc_global_extensions = [
+    \ 'coc-css',
+    \ 'coc-eslint',
+    \ 'coc-json',
+    \ 'coc-snippets',
+    \ 'coc-tailwindcss',
+    \ 'coc-tsserver',
+    \ ]
+
 " Use tab for trigger completion with characters ahead and navigate
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
