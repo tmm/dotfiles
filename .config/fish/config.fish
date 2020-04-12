@@ -3,11 +3,13 @@
 # ==========================
 
 alias cat=bat
-alias frc="vim ~/.config/fish/config.fish"
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias ls=exa
 alias reload="exec $SHELL -l"
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+
+alias frc="vim ~/.config/fish/config.fish"
 alias trc="vim ~/.tmux.conf"
 alias vrc="vim ~/.vim/vimrc"
 
@@ -20,7 +22,7 @@ abbr dc "docker-compose"
 abbr df "h git"
 abbr g "git"
 abbr home "cd ~"
-abbr lsd "ls -d .*"
+abbr lsd "exa -a"
 abbr t "tmux"
 abbr tf "terraform"
 abbr v "vim"
@@ -46,6 +48,24 @@ set -x GPG_TTY (tty)
 # https://github.com/rafaelrinaldi/pure#configuration
 set pure_color_primary white
 set pure_color_success green
+
+# ==========================
+# Functions
+# ==========================
+
+# Auto start tmux if using direnv and z
+# https://github.com/direnv/direnv/wiki/Tmux-and-Fish
+function autotmux --on-variable TMUX_SESSION_NAME
+        if test -n "$TMUX_SESSION_NAME" #only if set
+    if test -z $TMUX #not if in TMUX
+      if tmux has-session -t $TMUX_SESSION_NAME
+        exec tmux new-session -t "$TMUX_SESSION_NAME"
+      else
+        exec tmux new-session -s "$TMUX_SESSION_NAME"
+      end
+    end
+  end
+end
 
 # ==========================
 # Other
