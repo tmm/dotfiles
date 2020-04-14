@@ -1,5 +1,3 @@
-## Installation
-
 Clone the dotfiles:
 
 ```
@@ -19,7 +17,8 @@ make
 Other commands:
 
 ```
-make fish  # Change shell to fish
-make macos # Set up macOS defaults
-make gpg   # Import GPG key from Keybase
+make alfred # Install Alfred workflows
+make fish   # Change shell to fish
+make macos  # Set up macOS defaults
+make gpg    # Import GPG key from Keybase
 ```

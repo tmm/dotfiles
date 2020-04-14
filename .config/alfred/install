@@ -1,0 +1,10 @@
+npm list -g awm || npm install -g awm
+
+awm install com.sirshanksalot.dark-mode-toggle
+awm install com.vdesabou.spotify.mini.player
+awm install carlosnz.timezones2
+awm install com.nikolaeu.numi
+
+echo "Install Emoji Workflow from https://git.io/Jfesa"
+echo "Install GitHub Workflow from https://git.io/Jfes2"
+echo "Install Dash Workflow from https://git.io/vdnqH"

@@ -172,9 +172,12 @@ nmap <Leader>q :q<CR>
 " FZF
 nmap <Leader>p :Files<CR>
 nmap <Leader>rg :Rg<CR>
-nmap <Leader>h :History<CR>
-nmap <Leader>c :Commands<CR>
 nmap <Leader>b :Buffers<CR>
+nmap <Leader>l :BLines<CR>
+nmap <Leader>c :Commands<CR>
+nmap <Leader>h :History<CR>
+nmap <Leader>: :History:<CR>
+nmap <Leader>H :Helptags<CR>
 
 " NERDTree
 nmap <Leader>e :NERDTreeToggle<CR>

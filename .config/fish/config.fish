@@ -26,6 +26,7 @@ abbr lsd "exa -a"
 abbr t "tmux"
 abbr tf "terraform"
 abbr v "vim"
+abbr vl "v -l"
 abbr x "devx"
 
 # ==========================
