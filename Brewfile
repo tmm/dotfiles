@@ -1,3 +1,5 @@
+# vim:syntax=ruby
+
 cask_args appdir: "/Applications"
 
 tap 'homebrew/bundle'
@@ -7,7 +9,6 @@ tap 'homebrew/cask-fonts'
 brew 'asdf'
 brew 'bat'
 brew 'direnv'
-brew 'docker'
 brew 'exa'
 brew 'fd'
 brew 'fish'
@@ -28,6 +29,7 @@ cask 'bartender'
 cask 'choosy'
 cask 'contexts'
 cask 'dash'
+cask 'docker'
 cask 'figma'
 cask 'firefox'
 cask 'flux'
@@ -47,5 +49,3 @@ mas '1Password', id: 443987910
 mas 'Dato', id: 1470584107
 mas 'Slack', id: 803453959
 mas 'Xcode', id: 497799835
-
-# vim:syntax=ruby

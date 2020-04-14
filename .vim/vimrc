@@ -19,6 +19,7 @@ Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 
 " Commands
 Plug 'godlygeek/tabular'
+Plug 'justinmk/vim-sneak'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -192,6 +193,9 @@ nmap <Leader>af <Plug>(coc-fix-current)
 nmap <Leader>y :YRShow<CR>
 " }}}
 " Plugins {{{
+" junegunn/fzf.vim
+let g:fzf_preview_window = 'right:50%'
+
 " preservim/nerdtree
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeMinimalMenu = 1
@@ -203,6 +207,9 @@ let g:NERDTreeDirArrowCollapsible = ''
 " brooth/far.vim
 let g:far#source = 'rg'
 let g:far#enable_undo = 1
+
+" justinmk/vim-sneak
+let g:sneak#label = 1
 
 " christoomey/vim-tmux-navigator
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -255,8 +262,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use S to show documentation in preview window.
-nmap <silent> S :call <SID>show_documentation()<CR>
+" Use \ to show documentation in preview window.
+nmap <silent> \ :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
