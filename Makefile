@@ -42,6 +42,9 @@ tmux-packages:
 	@bash -c "~/.config/tmux/plugins/tpm/bin/update_plugins all"
 	@tmux kill-ses -t tmux-packages
 
+alfred:
+	@bash -c ~/.config/alfred/install
+
 macos:
 	@bash -c ~/.config/macos
 
@@ -49,6 +52,3 @@ gpg:
 	@open /Applications/Keybase.app
 	@keybase pgp export -q 72072EC3ED191086 | gpg --import
 	@keybase pgp export -q 72072EC3ED191086 --secret | gpg --allow-secret-key-import --import
-
-alfred:
-	@bash -c ~/.config/alfred/install
