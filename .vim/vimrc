@@ -18,6 +18,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 
 " Commands
+Plug 'Asheq/close-buffers.vim'
 Plug 'godlygeek/tabular'
 Plug 'justinmk/vim-sneak'
 Plug 'mattn/emmet-vim'
@@ -179,6 +180,7 @@ nmap <Leader>c :Commands<CR>
 nmap <Leader>h :History<CR>
 nmap <Leader>: :History:<CR>
 nmap <Leader>H :Helptags<CR>
+nmap <Leader>F :Filetypes<CR>
 
 " NERDTree
 nmap <Leader>e :NERDTreeToggle<CR>
@@ -191,6 +193,9 @@ nmap <Leader>af <Plug>(coc-fix-current)
 
 " YankRing
 nmap <Leader>y :YRShow<CR>
+
+" close-buffers.vim
+nmap <Leader>d :Bdelete menu<CR>
 " }}}
 " Plugins {{{
 " junegunn/fzf.vim
