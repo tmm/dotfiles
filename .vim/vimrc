@@ -12,14 +12,14 @@ Plug 'nathanaelkane/vim-indent-guides'
 " Editor
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
-Plug 'brooth/far.vim'
+Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 
 " Commands
-Plug 'Asheq/close-buffers.vim'
-Plug 'godlygeek/tabular'
+Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] }
+Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tabu'] }
 Plug 'justinmk/vim-sneak'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-abolish'
@@ -28,7 +28,7 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-scripts/YankRing.vim'
+Plug 'vim-scripts/YankRing.vim', { 'on': ['YRShow'] }
 
 " Git
 Plug 'mhinz/vim-signify'
