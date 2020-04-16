@@ -45,9 +45,8 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
-Plug 'dag/vim-fish', { 'for': 'fish'  }
-Plug 'hashivim/vim-terraform', { 'for': 'terraform'  }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 
 " Snippets
 Plug 'epilande/vim-es2015-snippets'
@@ -57,12 +56,12 @@ call plug#end()
 " General {{{
 set nocompatible
 syntax enable
-filetype off
 filetype plugin indent on
 
 set clipboard=unnamed " Use system clipboard
 set colorcolumn=80    " Show a column at 80
 set cursorline        " Highlight current line
+set foldmethod=syntax " Syntax folding powered by sheerun/vim-polyglot
 set hidden            " Handle multiple buffers better
 set laststatus=2      " Always show status bar
 set noshowmode        " Hide redundant mode
@@ -224,16 +223,15 @@ let g:tmux_navigator_save_on_switch = 2
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
 
-" dag/vim-fish
-" Teach a Vim to fish...
-" https://github.com/dag/vim-fish#teach-a-vim-to-fish
-if &shell =~# 'fish$'
-  set shell=bash
-endif
-
 " plasticboy/vim-markdown
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_folding_style_pythonic = 1
+
+" Teach a Vim to fish
+" https://github.com/georgewitteman/vim-fish#teach-a-vim-to-fish
+if &shell =~# 'fish$'
+    set shell=bash
+endif
 " }}}
 " Coc {{{
 let g:coc_global_extensions = [
@@ -315,11 +313,11 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Hybrid line numbers
 " Switch between relative and absolute line numbers based on mode
 " https://jeffkreeftmeijer.com/vim-number/
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * call SetRelativeNumber()
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
+augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * call SetRelativeNumber()
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 " By the power of https://github.com/sjl/vitality.vim, copies and pastes
 " to the OS X pasteboard when switching between vim and other windows
@@ -336,6 +334,12 @@ autocmd FileType markdown setlocal spell signcolumn=no textwidth=80 colorcolumn=
 
 " Spell-check Git messages
 autocmd FileType gitcommit setlocal spell
+
+" Open all folds for certain file types
+augroup openfolds
+    autocmd!
+    autocmd FileType javascript,javascriptreact normal zR
+augroup END
 " }}}
 " Commands {{{
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
