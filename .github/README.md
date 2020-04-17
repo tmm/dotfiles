@@ -22,3 +22,6 @@ make fish   # Change shell to fish
 make macos  # Set up macOS defaults
 make gpg    # Import GPG key from Keybase
 ```
+
+[Download a classic macOS
+wallpaper.](https://512pixels.net/projects/default-mac-wallpapers-in-5k/)

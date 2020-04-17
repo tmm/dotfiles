@@ -61,7 +61,6 @@ filetype plugin indent on
 set clipboard=unnamed " Use system clipboard
 set colorcolumn=80    " Show a column at 80
 set cursorline        " Highlight current line
-set foldmethod=syntax " Syntax folding powered by sheerun/vim-polyglot
 set hidden            " Handle multiple buffers better
 set laststatus=2      " Always show status bar
 set noshowmode        " Hide redundant mode
@@ -72,6 +71,10 @@ set title             " Set the terminal title
 set updatetime=300
 set visualbell        " Disable beeping
 set wrap              " Turn on line wrapping
+
+" Syntax folding powered by sheerun/vim-polyglot
+set foldmethod=syntax
+set foldlevelstart=99
 
 " Line numbers
 set number            " Show line numbers
@@ -338,7 +341,7 @@ autocmd FileType gitcommit setlocal spell
 " Open all folds for certain file types
 augroup openfolds
     autocmd!
-    autocmd FileType javascript,javascriptreact normal zR
+    autocmd FileType vim,tmux normal zM
 augroup END
 " }}}
 " Commands {{{

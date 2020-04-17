@@ -57,15 +57,15 @@ set pure_color_success green
 # Auto start tmux if using direnv and z
 # https://github.com/direnv/direnv/wiki/Tmux-and-Fish
 function autotmux --on-variable TMUX_SESSION_NAME
-        if test -n "$TMUX_SESSION_NAME" #only if set
-    if test -z $TMUX #not if in TMUX
-      if tmux has-session -t $TMUX_SESSION_NAME
-        exec tmux new-session -t "$TMUX_SESSION_NAME"
-      else
-        exec tmux new-session -s "$TMUX_SESSION_NAME"
-      end
+    if test -n "$TMUX_SESSION_NAME" #only if set
+        if test -z $TMUX #not if in TMUX
+            if tmux has-session -t $TMUX_SESSION_NAME
+                exec tmux new-session -t "$TMUX_SESSION_NAME"
+            else
+                exec tmux new-session -s "$TMUX_SESSION_NAME"
+            end
+        end
     end
-  end
 end
 
 # ==========================
