@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 
 " General
 Plug 'tpope/vim-sensible'
+Plug 'vimwiki/vimwiki'
 
 " Appearance
 Plug 'itchyny/lightline.vim'
@@ -55,8 +56,8 @@ call plug#end()
 " }}}
 " General {{{
 set nocompatible
-syntax enable
 filetype plugin indent on
+syntax enable
 
 set clipboard=unnamed " Use system clipboard
 set colorcolumn=80    " Show a column at 80
@@ -200,6 +201,13 @@ nmap <Leader>y :YRShow<CR>
 nmap <Leader>d :Bdelete menu<CR>
 " }}}
 " Plugins {{{
+" vimwiki/vimwiki
+let g:vimwiki_list = [{
+            \ 'path': '~/.vim/vimwiki/',
+            \ 'auto_toc': 1,
+            \ 'syntax': 'markdown', 'ext': '.md',
+            \ }]
+
 " junegunn/fzf.vim
 let g:fzf_preview_window = 'right:50%'
 

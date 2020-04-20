@@ -151,7 +151,7 @@
 			<key>http://kapeli.com/feeds/Apple_API_Reference.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2019-11-28T15:46:30Z</date>
+				<date>2020-04-17T19:48:03Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/CSS.xml</key>
 			<dict>
@@ -166,12 +166,12 @@
 			<key>http://kapeli.com/feeds/HTML.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2019-11-28T15:47:32Z</date>
+				<date>2020-04-17T19:47:52Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/JavaScript.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2019-11-28T15:47:15Z</date>
+				<date>2020-04-17T19:48:09Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Man_Pages.xml</key>
 			<dict>
@@ -181,7 +181,7 @@
 			<key>http://kapeli.com/feeds/PostgreSQL.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-01-28T22:04:22Z</date>
+				<date>2020-04-17T19:47:36Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Python_3.xml</key>
 			<dict>
@@ -191,7 +191,7 @@
 			<key>http://kapeli.com/feeds/React.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2019-11-28T15:47:52Z</date>
+				<date>2020-04-17T19:47:41Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/SQLAlchemy.xml</key>
 			<dict>
@@ -201,12 +201,12 @@
 			<key>http://kapeli.com/feeds/Vim.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-02-28T00:51:35Z</date>
+				<date>2020-04-17T19:47:53Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/VueJS.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-01-24T22:14:16Z</date>
+				<date>2020-04-17T19:47:38Z</date>
 			</dict>
 		</dict>
 		<key>uninstalled</key>
