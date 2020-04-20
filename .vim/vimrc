@@ -176,6 +176,7 @@ nmap <Leader>q :q<CR>
 
 " vimwiki
 nmap <Leader>n <Plug>VimwikiMakeDiaryNote
+nmap <Leader>wp :Files ~/.vim/vimwiki<CR>
 
 " FZF
 nmap <Leader>p :Files<CR>
