@@ -174,6 +174,9 @@ nmap <Leader>w :silent w<CR>
 " Quick Quit
 nmap <Leader>q :q<CR>
 
+" vimwiki
+nmap <Leader>n <Plug>VimwikiMakeDiaryNote
+
 " FZF
 nmap <Leader>p :Files<CR>
 nmap <Leader>rg :Rg<CR>
