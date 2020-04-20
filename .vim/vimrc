@@ -177,6 +177,7 @@ nmap <Leader>q :q<CR>
 " vimwiki
 nmap <Leader>n <Plug>VimwikiMakeDiaryNote
 nmap <Leader>wp :Files ~/.vim/vimwiki<CR>
+nmap <Leader>wg :RgVimwiki<CR>
 
 " FZF
 nmap <Leader>p :Files<CR>
@@ -208,7 +209,6 @@ nmap <Leader>d :Bdelete menu<CR>
 " vimwiki/vimwiki
 let g:vimwiki_list = [{
             \ 'path': '~/.vim/vimwiki/',
-            \ 'auto_toc': 1,
             \ 'syntax': 'markdown', 'ext': '.md',
             \ }]
 
@@ -355,9 +355,16 @@ augroup openfolds
     autocmd!
     autocmd FileType vim,tmux normal zM
 augroup END
+
+" automatically update links on read diary
+augroup vimwikigroup
+    autocmd!
+    autocmd BufRead,BufNewFile diary.md VimwikiDiaryGenerateLinks
+augroup end
 " }}}
 " Commands {{{
-command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0, '.')
+command! -nargs=* -bang RgVimwiki call RipgrepFzf(<q-args>, <bang>0, '~/.vim/vimwiki')
 
 " fzf Files with preview
 " https://github.com/junegunn/fzf.vim#example-customizing-files-command
@@ -367,12 +374,12 @@ command! -bang -nargs=? -complete=dir Files
 " Functions {{{
 " Advanced ripgrep fzf integration
 " https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--layout=reverse']}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+function! RipgrepFzf(query, fullscreen, dir)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--layout=reverse'], 'dir': a:dir}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 " Set relativenumber only for certain files
