@@ -1,1 +1,1 @@
-[] Add default template (page title, created at)
+* [ ] Add default template (page title, created at)

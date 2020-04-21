@@ -23,8 +23,8 @@ Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] }
 Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tabu'] }
 Plug 'justinmk/vim-sneak'
 Plug 'mattn/emmet-vim'
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -256,6 +256,7 @@ let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-tailwindcss',
     \ 'coc-tsserver',
+    \ 'coc-vetur',
     \ ]
 
 " Use tab for trigger completion with characters ahead and navigate
