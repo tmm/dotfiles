@@ -41,6 +41,7 @@ cask 'postgres'
 cask 'postico'
 cask 'sip'
 cask 'spotify'
+cask 'tempo'
 cask 'time-out'
 
 mas '1Password', id: 443987910

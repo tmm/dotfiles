@@ -6,6 +6,7 @@ Plug 'tpope/vim-sensible'
 Plug 'vimwiki/vimwiki'
 
 " Appearance
+Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'nathanaelkane/vim-indent-guides'
