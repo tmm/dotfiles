@@ -4,7 +4,6 @@
     "diagnostic.warningSign": "!!",
     "diagnostic.infoSign": "ii",
     "diagnostic.hintSign": "hh",
-    "diagnostic.checkCurrentLine": true,
     "eslint.autoFixOnSave": true,
     "prettier.requireConfig": true,
     "prettier.eslintIntegration": true,
