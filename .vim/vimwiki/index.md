@@ -1,3 +1,4 @@
+* [ ] `Vim: Caught deadly signal ABRT`
 * [ ] [vim-tmux-runner](https://github.com/christoomey/vim-tmux-runner)
 * [ ] iTerm window closes when detaching from tmux session
 * [ ] Coc auto import
@@ -8,3 +9,5 @@
 * [ ] `<Leader> k` documentation https://github.com/jbranchaud/til/blob/master/vim/viewing-man-pages-with-man-vim.md
 * [ ] https://github.com/mbbill/undotree
 * [ ] Ctags
+* https://github.com/jiangmiao/auto-pairs
+* https://github.com/svermeulen/vim-subversive
