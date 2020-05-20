@@ -5,8 +5,9 @@
     "diagnostic.infoSign": "ii",
     "diagnostic.hintSign": "hh",
     "eslint.autoFixOnSave": true,
-    "prettier.requireConfig": true,
+    "prettier.disableSuccessMessage": true,
     "prettier.eslintIntegration": true,
+    "prettier.requireConfig": true,
     "snippets.extends": {
         "javascriptreact": [
             "javascript"
