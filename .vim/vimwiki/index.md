@@ -1,10 +1,12 @@
-* [ ] `Vim: Caught deadly signal ABRT`
-* [ ] [vim-tmux-runner](https://github.com/christoomey/vim-tmux-runner)
-* [ ] iTerm window closes when detaching from tmux session
-* [ ] Quick re-size Vim panes
-* [ ] FZF buffer preview
-* [ ] `<Leader> k` documentation https://github.com/jbranchaud/til/blob/master/vim/viewing-man-pages-with-man-vim.md
-* [ ] https://github.com/mbbill/undotree
-* [ ] Ctags
+* `Vim: Caught deadly signal ABRT`
+  ```
+  fish: 'vim' terminated by signal SIGSEGV (Address boundary error)
+  Vim: Caught deadly signal SEGV │Vim: Double signal, exiting
+  ```
+* https://github.com/christoomey/vim-tmux-runner
+* Quick re-size Vim panes
+* https://github.com/mbbill/undotree
 * https://github.com/jiangmiao/auto-pairs
 * https://github.com/svermeulen/vim-subversive
+* iTerm window closes when detaching from tmux session
+* https://github.com/cjbassi/gotop
