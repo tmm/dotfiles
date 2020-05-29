@@ -116,23 +116,6 @@ set complete+=kspell " Autocomplete when spell check is on
 " }}}
 " Appearance {{{
 colorscheme jellybeans
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'active': {
-      \   'left': [
-      \     ['mode', 'paste'],
-      \     ['gitbranch', 'readonly', 'filename']],
-      \   'right': [
-      \     ['lineinfo'],
-      \     ['percent'],
-      \     ['cocstatus', 'filetype']],
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'gitbranch': 'FugitiveHead',
-      \   'filename': 'LightlineFilename',
-      \ },
-      \ }
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  ctermbg=234
@@ -339,6 +322,80 @@ let g:coc_snippet_prev = '<C-k>'
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 " }}}
+" Lightline {{{
+let s:palette = g:lightline#colorscheme#jellybeans#palette
+let s:palette.normal.warning = [['#ffb964', '#30302c', 215, 236]]
+
+let g:lightline = {
+\  'colorscheme': 'jellybeans',
+\  'active': {
+\    'left': [
+\      ['mode', 'paste'],
+\      ['gitbranch', 'readonly', 'filename']],
+\    'right': [
+\      ['lineinfo'],
+\      ['percent'],
+\      ['coc_error', 'coc_warning', 'coc_hint', 'coc_info']],
+\  },
+\  'component_function': {
+\    'gitbranch'  : 'FugitiveHead',
+\    'filename'   : 'LightlineFilename',
+\  },
+\  'component_expand': {
+\    'coc_error'    : 'LightlineCocErrors',
+\    'coc_warning'  : 'LightlineCocWarnings',
+\    'coc_info'     : 'LightlineCocInfos',
+\    'coc_hint'     : 'LightlineCocHints',
+\    'coc_fix'      : 'LightlineCocFixes',
+\  },
+\ }
+
+let g:lightline.component_type = {
+\  'coc_error'    : 'error',
+\  'coc_warning'  : 'warning',
+\  'coc_info'     : 'tabsel',
+\  'coc_hint'     : 'middle',
+\  'coc_fix'      : 'middle',
+\ }
+
+" Trim space between filename and modified sign
+" https://github.com/itchyny/lightline.vim#can-i-trim-the-bar-between-the-filename-and-modified-sign
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' +' : ''
+  return filename . modified
+endfunction
+
+" Coc Lightline
+" https://github.com/neoclide/coc.nvim/issues/401#issuecomment-469051524
+function! s:lightline_coc_diagnostic(kind) abort
+  let info = get(b:, 'coc_diagnostic_info', 0)
+  if empty(info) || get(info, a:kind, 0) == 0
+    return ''
+  endif
+  let s = '●'
+  return printf('%s %d', s, info[a:kind])
+endfunction
+
+function! LightlineCocErrors() abort
+  return s:lightline_coc_diagnostic('error')
+endfunction
+
+function! LightlineCocWarnings() abort
+  return s:lightline_coc_diagnostic('warning')
+endfunction
+
+function! LightlineCocInfos() abort
+  return s:lightline_coc_diagnostic('information')
+endfunction
+
+function! LightlineCocHints() abort
+  return s:lightline_coc_diagnostic('hints')
+endfunction
+
+" Use auocmd to force lightline update.
+autocmd User CocDiagnosticChange call lightline#update()
+" }}}
 " Autocommands {{{
 " Hybrid line numbers
 " Switch between relative and absolute line numbers based on mode
@@ -412,14 +469,6 @@ endfunction
 " Paste from OS X general pasteboard to copy register
 function! PBPaste()
   call setreg('', system('pbpaste'))
-endfunction
-
-" Trim space between filename and modified sign
-" https://github.com/itchyny/lightline.vim#can-i-trim-the-bar-between-the-filename-and-modified-sign
-function! LightlineFilename()
-  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
-  let modified = &modified ? ' +' : ''
-  return filename . modified
 endfunction
 " }}}
 " vim:foldmethod=marker
