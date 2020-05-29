@@ -5,9 +5,6 @@
   fish: 'vim' terminated by signal SIGSEGV (Address boundary error)
   Vim: Caught deadly signal SEGV │Vim: Double signal, exiting
   ```
-* https://github.com/christoomey/vim-tmux-runner
-* Remove tmux plugin for restoring sessions - it's annoying
-* Quick re-size Vim panes
 
 ### Someday
 

@@ -5,7 +5,7 @@ BREW_BUNDLE=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-bundle
 
 OS := $(shell uname)
 
-all: $(OS) vim-packages fish-packages tmux-packages
+all: $(OS) vim-packages fish-packages tmux-packages git
 
 Darwin: homebrew-packages
 Linux:
@@ -47,6 +47,10 @@ alfred:
 
 macos:
 	@bash -c ~/.config/macos
+
+.PHONY: git
+git:
+	@env GIT_WORK_TREE=$(HOME) GIT_DIR=$(HOME)/.files git update-index --skip-worktree ~/.config/hub
 
 gpg:
 	@open /Applications/Keybase.app

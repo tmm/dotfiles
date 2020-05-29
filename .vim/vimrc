@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 
 " General
 Plug 'tpope/vim-sensible'
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 " Appearance
 Plug 'itchyny/lightline.vim'
@@ -39,6 +39,7 @@ Plug 'tpope/vim-rhubarb'
 " Tmux
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-runner'
 
 " Language
 Plug 'sheerun/vim-polyglot'
@@ -211,6 +212,7 @@ let g:vimwiki_list = [{
             \ 'path': '~/.vim/vimwiki/',
             \ 'syntax': 'markdown', 'ext': '.md',
             \ }]
+let g:vimwiki_table_mappings = 0
 
 " junegunn/fzf.vim
 let g:fzf_preview_window = 'right:50%'
