@@ -49,4 +49,3 @@
     pull-all = "!git pull; git submodule foreach git pull origin master"
     undo     = reset --soft HEAD^
     unstage  = reset HEAD --
-
