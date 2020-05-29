@@ -8,6 +8,7 @@
 
 ### Someday
 
+* https://github.com/liuchengxu/vista.vim
 * https://github.com/mbbill/undotree
 * https://github.com/jiangmiao/auto-pairs
 * https://github.com/svermeulen/vim-subversive

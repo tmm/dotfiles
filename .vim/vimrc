@@ -121,14 +121,16 @@ let g:lightline = {
       \ 'active': {
       \   'left': [
       \     ['mode', 'paste'],
-      \     ['gitbranch', 'readonly', 'filename', 'modified']],
+      \     ['gitbranch', 'readonly', 'filename']],
       \   'right': [
       \     ['lineinfo'],
       \     ['percent'],
-      \     ['filetype']],
+      \     ['cocstatus', 'filetype']],
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'cocstatus': 'coc#status',
+      \   'gitbranch': 'FugitiveHead',
+      \   'filename': 'LightlineFilename',
       \ },
       \ }
 let g:indent_guides_enable_on_vim_startup = 1
@@ -169,18 +171,16 @@ let mapleader=" "  " Map <Leader> to space
 nmap <Leader>rc :vsp $MYVIMRC<CR>
 nmap <Leader>so :source $MYVIMRC<CR>
 
-" Quick Save
+" Quick Save/Quit
 nmap <Leader>w :silent w<CR>
-
-" Quick Quit
 nmap <Leader>q :q<CR>
 
-" vimwiki
+" vimwiki/vimwiki
 nmap <Leader>n <Plug>VimwikiMakeDiaryNote
 nmap <Leader>wp :Files ~/.vim/vimwiki<CR>
 nmap <Leader>wg :RgVimwiki<CR>
 
-" FZF
+" junegunn/fzf.vim
 nmap <Leader>p :Files<CR>
 nmap <Leader>rg :Rg<CR>
 nmap <Leader>b :Buffers<CR>
@@ -191,20 +191,27 @@ nmap <Leader>: :History:<CR>
 nmap <Leader>H :Helptags<CR>
 nmap <Leader>F :Filetypes<CR>
 
-" NERDTree
+" preservim/nerdtree
 nmap <Leader>e :NERDTreeToggle<CR>
 nmap <Leader>f :NERDTreeFind<CR>
 
-" Coc
+" neoclide/coc.nvim
 nmap <Leader>rn <Plug>(coc-rename)
 nmap <Leader>ac <Plug>(coc-codeaction)
 nmap <Leader>af <Plug>(coc-fix-current)
 
-" YankRing
+" vim-scripts/YankRing.vim
 nmap <Leader>y :YRShow<CR>
 
 " close-buffers.vim
 nmap <Leader>d :Bdelete menu<CR>
+
+" christoomey/vim-tmux-runner
+nmap <Leader>t :VtrSendCommandToRunner<Space>
+nmap <Leader>va :VtrAttachToPane<Space>
+nmap <Leader>vf :VtrFocusRunner!<CR>
+nmap <Leader>vk :VtrKillRunner<CR>
+nmap <Leader>vo :VtrOpenRunner<CR>
 " }}}
 " Plugins {{{
 " vimwiki/vimwiki
@@ -236,6 +243,11 @@ let g:sneak#label = 1
 let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_save_on_switch = 2
 
+" christoomey/vim-tmux-runner
+let g:VtrGitCdUpOnOpen = 1
+let g:VtrOrientation = 'h'
+let g:VtrPercentage = 35
+
 " hashivim/vim-terraform
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
@@ -244,7 +256,7 @@ let g:terraform_fmt_on_save=1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_folding_style_pythonic = 1
 
-" Teach a Vim to fish
+" georgewitteman/vim-fish (via sheerun/vim-polyglot)
 " https://github.com/georgewitteman/vim-fish#teach-a-vim-to-fish
 if &shell =~# 'fish$'
     set shell=bash
@@ -400,6 +412,14 @@ endfunction
 " Paste from OS X general pasteboard to copy register
 function! PBPaste()
   call setreg('', system('pbpaste'))
+endfunction
+
+" Trim space between filename and modified sign
+" https://github.com/itchyny/lightline.vim#can-i-trim-the-bar-between-the-filename-and-modified-sign
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' +' : ''
+  return filename . modified
 endfunction
 " }}}
 " vim:foldmethod=marker
