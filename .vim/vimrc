@@ -192,6 +192,7 @@ nmap <Leader>d :Bdelete menu<CR>
 " christoomey/vim-tmux-runner
 nmap <Leader>t :VtrSendCommandToRunner<Space>
 nmap <Leader>va :VtrAttachToPane<Space>
+nmap <Leader>vc :VtrSendCtrlC<CR>
 nmap <Leader>vf :VtrFocusRunner!<CR>
 nmap <Leader>vk :VtrKillRunner<CR>
 nmap <Leader>vo :VtrOpenRunner<CR>

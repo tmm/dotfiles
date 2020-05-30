@@ -1,13 +1,4 @@
-### Now
-
-* `Vim: Caught deadly signal ABRT`
-  ```
-  fish: 'vim' terminated by signal SIGSEGV (Address boundary error)
-  Vim: Caught deadly signal SEGV │Vim: Double signal, exiting
-  ```
-
-### Someday
-
+* Replace hub with [GitHub CLI](https://cli.github.com)
 * https://github.com/liuchengxu/vista.vim
 * https://github.com/mbbill/undotree
 * https://github.com/jiangmiao/auto-pairs
