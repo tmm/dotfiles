@@ -204,13 +204,7 @@ let wiki1 = {
 \    'path': '~/.vim/vimwiki/',
 \    'syntax': 'markdown', 'ext': '.md',
 \  }
-let wiki2 = {
-\    'auto_toc': 1,
-\    'name': 'roam',
-\    'path': '~/.vim/vimwiki/roam/',
-\    'syntax': 'markdown', 'ext': '.md',
-\  }
-let g:vimwiki_list = [wiki1, wiki2]
+let g:vimwiki_list = [wiki1]
 let g:vimwiki_table_mappings = 0
 
 " junegunn/fzf.vim

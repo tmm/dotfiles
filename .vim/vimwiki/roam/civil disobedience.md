@@ -1,3 +1,0 @@
-# Civil disobedience
-
-[#protest](#protest)
