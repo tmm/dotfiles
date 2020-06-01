@@ -230,9 +230,8 @@ let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_save_on_switch = 2
 
 " christoomey/vim-tmux-runner
-let g:VtrGitCdUpOnOpen = 1
 let g:VtrOrientation = 'h'
-let g:VtrPercentage = 35
+let g:VtrPercentage = 25
 
 " hashivim/vim-terraform
 let g:terraform_align=1

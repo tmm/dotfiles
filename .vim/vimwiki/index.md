@@ -1,4 +1,5 @@
 * Replace hub with [GitHub CLI](https://cli.github.com)
+* https://github.com/christoomey/vim-sort-motion
 * https://github.com/bigH/git-fuzzy
 * https://github.com/liuchengxu/vista.vim
 * https://github.com/mbbill/undotree
