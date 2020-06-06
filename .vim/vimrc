@@ -7,6 +7,7 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 " Appearance
 Plug 'itchyny/lightline.vim'
+Plug 'machakann/vim-highlightedyank'
 Plug 'nanotech/jellybeans.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -81,7 +82,7 @@ set foldlevelstart=99
 " Line numbers
 set number            " Show line numbers
 set relativenumber    " Line numbers relative to cursor
-set scrolloff=2       " Always show at least two lines above/below the cursor
+set scrolloff=5       " Always show at least five lines above/below the cursor
 
 " More natural split opening
 set splitbelow
@@ -116,10 +117,15 @@ set complete+=kspell " Autocomplete when spell check is on
 " }}}
 " Appearance {{{
 colorscheme jellybeans
+
+" nathanaelkane/vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  ctermbg=234
 hi IndentGuidesEven ctermbg=235
+
+" machakann/vim-highlightedyank
+hi HighlightedyankRegion ctermbg=236
 " }}}
 " Key Mappings {{{
 " H to move to the first character in a line
@@ -140,6 +146,15 @@ nmap j gj
 
 " Yank to end of current line
 nmap Y y$
+
+" Center search results on screen
+nmap <silent> n nzz
+nmap <silent> N Nzz
+nmap <silent> * *zz
+nmap <silent> # #zz
+nmap <silent> g* g*zz
+nmap <C-o> <C-o>zz
+nmap <C-i> <C-i>zz
 
 " Disable arrow keys
 no <down> <Nop>
