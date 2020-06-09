@@ -16,6 +16,7 @@ Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }
 Plug 'jiangmiao/auto-pairs'
+Plug 'liuchengxu/vista.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 
@@ -97,6 +98,7 @@ set smartcase  " Be case-sensitive if expression contains a capital letter
 " Completion
 set wildmenu                   " Better command line completion
 set wildmode=longest:full,full " Completion settings
+set wildignore+=**/node_modules/**,**/dist/**,**_site/**,*.swp,*.png,*.jpg,*.gif,*.webp,*.jpeg,*.map
 
 " Backup
 set nobackup
@@ -193,6 +195,9 @@ nmap <Leader>F :Filetypes<CR>
 nmap <Leader>e :NERDTreeToggle<CR>
 nmap <Leader>f :NERDTreeFind<CR>
 
+" liuchengxu/vista.vim
+nmap <Leader>t :Vista!!<CR>
+
 " neoclide/coc.nvim
 nmap <Leader>rn <Plug>(coc-rename)
 nmap <Leader>ac <Plug>(coc-codeaction)
@@ -201,11 +206,11 @@ nmap <Leader>af <Plug>(coc-fix-current)
 " vim-scripts/YankRing.vim
 nmap <Leader>y :YRShow<CR>
 
-" close-buffers.vim
+" Asheq/close-buffers.vim
 nmap <Leader>d :Bdelete menu<CR>
 
 " christoomey/vim-tmux-runner
-nmap <Leader>t :VtrSendCommandToRunner<Space>
+nmap <Leader>v :VtrSendCommandToRunner<Space>
 nmap <Leader>va :VtrAttachToPane<Space>
 nmap <Leader>vc :VtrSendCtrlC<CR>
 nmap <Leader>vf :VtrFocusRunner!<CR>
@@ -232,6 +237,16 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeShowLineNumbers = 0
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
+
+" liuchengxu/vista.vim
+let g:vista_default_executive = 'coc'
+let g:vista_fzf_preview = ['right:50%']
+let g:vista_fzf_opt = ['--layout=reverse']
+let g:vista_update_on_text_changed = 1
+let g:vista#renderer#enable_icon = 0
+let g:vista_executive_for = {
+\    'vim': 'vim_lsp',
+\  }
 
 " brooth/far.vim
 let g:far#source = 'rg'
@@ -473,7 +488,7 @@ endfunction
 
 " Set relativenumber only for certain files
 function! SetRelativeNumber()
-    if &filetype != 'nerdtree'
+    if &filetype != 'nerdtree' && &filetype != 'vista'
         set relativenumber
     endif
 endfunction

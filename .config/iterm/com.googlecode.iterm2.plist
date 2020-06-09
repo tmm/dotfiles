@@ -707,7 +707,7 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 2560 1440 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>310 200 730 492 0 0 1440 900 </string>
+	<string>582 318 1440 884 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>678 160 1151 928 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
@@ -1350,7 +1350,7 @@
 			<key>Use Bright Bold</key>
 			<true/>
 			<key>Use Custom Window Title</key>
-			<false/>
+			<true/>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
@@ -1368,13 +1368,13 @@
 	<key>NoSyncAllAppVersions</key>
 	<array>
 		<string>3.3.6</string>
-		<string>3.3.4</string>
+		<string>3.2.9</string>
 		<string>3.3.3</string>
 		<string>3.3.7</string>
 		<string>3.3.9</string>
 		<string>3.3.0</string>
-		<string>3.2.9</string>
 		<string>3.3.2</string>
+		<string>3.3.4</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
@@ -1405,7 +1405,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>806CC9AD-4D39-42C9-A0A6-B540FDD19331</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>282</integer>
+	<integer>285</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2232,7 +2232,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-05-30T21:47:55Z</date>
+	<date>2020-06-09T01:47:19Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
