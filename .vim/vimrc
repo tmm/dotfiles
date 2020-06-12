@@ -7,7 +7,6 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 " Appearance
 Plug 'itchyny/lightline.vim'
-Plug 'machakann/vim-highlightedyank'
 Plug 'nanotech/jellybeans.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -16,7 +15,7 @@ Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }
 Plug 'jiangmiao/auto-pairs'
-Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 
@@ -31,7 +30,6 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-scripts/YankRing.vim', { 'on': ['YRShow'] }
 
 " Git
 Plug 'mhinz/vim-signify'
@@ -103,7 +101,7 @@ set wildignore+=**/node_modules/**,**/dist/**,**_site/**,*.swp,*.png,*.jpg,*.gif
 " Backup
 set nobackup
 set nowritebackup
-set noswapfile 
+set noswapfile
 
 " Formatting
 set tabstop=4    " Use 4 spaces to a tab
@@ -149,15 +147,6 @@ nmap j gj
 " Yank to end of current line
 nmap Y y$
 
-" Center search results on screen
-nmap <silent> n nzz
-nmap <silent> N Nzz
-nmap <silent> * *zz
-nmap <silent> # #zz
-nmap <silent> g* g*zz
-nmap <C-o> <C-o>zz
-nmap <C-i> <C-i>zz
-
 " Disable arrow keys
 no <down> <Nop>
 no <left> <Nop>
@@ -165,7 +154,7 @@ no <right> <Nop>
 no <up> <Nop>
 " }}}
 " Leader Commands {{{
-let mapleader=" "  " Map <Leader> to space
+let mapleader=" "  "
 
 " Rapid Editing Vimrc
 nmap <Leader>rc :vsp $MYVIMRC<CR>
@@ -202,9 +191,7 @@ nmap <Leader>t :Vista!!<CR>
 nmap <Leader>rn <Plug>(coc-rename)
 nmap <Leader>ac <Plug>(coc-codeaction)
 nmap <Leader>af <Plug>(coc-fix-current)
-
-" vim-scripts/YankRing.vim
-nmap <Leader>y :YRShow<CR>
+nmap <Leader>y  :<C-u>CocList -A --normal yank<cr>
 
 " Asheq/close-buffers.vim
 nmap <Leader>d :Bdelete menu<CR>
@@ -244,9 +231,6 @@ let g:vista_fzf_preview = ['right:50%']
 let g:vista_fzf_opt = ['--layout=reverse']
 let g:vista_update_on_text_changed = 1
 let g:vista#renderer#enable_icon = 0
-let g:vista_executive_for = {
-\    'vim': 'vim_lsp',
-\  }
 
 " brooth/far.vim
 let g:far#source = 'rg'
@@ -279,14 +263,16 @@ endif
 " }}}
 " Coc {{{
 let g:coc_global_extensions = [
-    \ 'coc-css',
-    \ 'coc-eslint',
-    \ 'coc-json',
-    \ 'coc-snippets',
-    \ 'coc-tailwindcss',
-    \ 'coc-tsserver',
-    \ 'coc-vetur',
-    \ ]
+\    'coc-css',
+\    'coc-eslint',
+\    'coc-json',
+\    'coc-snippets',
+\    'coc-tailwindcss',
+\    'coc-tsserver',
+\    'coc-vetur',
+\    'coc-vimlsp',
+\    'coc-yank',
+\  ]
 
 " Use tab for trigger completion with characters ahead and navigate
 imap <silent><expr> <TAB>
@@ -439,7 +425,7 @@ augroup numbertoggle
 augroup END
 
 " By the power of https://github.com/sjl/vitality.vim, copies and pastes
-" to the OS X pasteboard when switching between vim and other windows
+" to the masOS pasteboard when switching between vim and other windows
 " (even in tmux)
 autocmd FocusLost * :call PBCopy()
 autocmd FocusGained * :call PBPaste()
@@ -454,13 +440,13 @@ autocmd FileType markdown setlocal spell signcolumn=no textwidth=80 colorcolumn=
 " Spell-check Git messages
 autocmd FileType gitcommit setlocal spell
 
-" Open all folds for certain file types
+" Close all folds for certain file types
 augroup openfolds
     autocmd!
     autocmd FileType vim,tmux normal zM
 augroup END
 
-" automatically update links on read diary
+" Automatically update links on read diary
 augroup vimwikigroup
     autocmd!
     autocmd BufRead,BufNewFile diary.md VimwikiDiaryGenerateLinks
@@ -493,12 +479,12 @@ function! SetRelativeNumber()
     endif
 endfunction
 
-" Copy register to OS X general pasteboard
+" Copy register to macOS general pasteboard
 function! PBCopy()
   call system('pbcopy', getreg(''))
 endfunction
 
-" Paste from OS X general pasteboard to copy register
+" Paste from masOS general pasteboard to copy register
 function! PBPaste()
   call setreg('', system('pbpaste'))
 endfunction
