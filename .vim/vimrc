@@ -185,7 +185,7 @@ nmap <Leader>e :NERDTreeToggle<CR>
 nmap <Leader>f :NERDTreeFind<CR>
 
 " liuchengxu/vista.vim
-nmap <Leader>t :Vista!!<CR>
+nmap <Leader>t :Vista show<CR>
 
 " neoclide/coc.nvim
 nmap <Leader>rn <Plug>(coc-rename)
@@ -227,8 +227,7 @@ let g:NERDTreeDirArrowCollapsible = ''
 
 " liuchengxu/vista.vim
 let g:vista_default_executive = 'coc'
-let g:vista_fzf_preview = ['right:50%']
-let g:vista_fzf_opt = ['--layout=reverse']
+let g:vista_sidebar_width = 35
 let g:vista_update_on_text_changed = 1
 let g:vista#renderer#enable_icon = 0
 
