@@ -114,6 +114,12 @@ set list listchars=tab:▸\ ,trail:·
 set spellfile=~/.vim/spell/en.utf-8.add
 set spelllang=en_us
 set complete+=kspell " Autocomplete when spell check is on
+
+" georgewitteman/vim-fish (via sheerun/vim-polyglot)
+" https://github.com/georgewitteman/vim-fish#teach-a-vim-to-fish
+if &shell =~# 'fish$'
+    set shell=bash
+endif
 " }}}
 " Appearance {{{
 colorscheme jellybeans
@@ -185,7 +191,8 @@ nmap <Leader>e :NERDTreeToggle<CR>
 nmap <Leader>f :NERDTreeFind<CR>
 
 " liuchengxu/vista.vim
-nmap <Leader>t :Vista show<CR>
+nmap <Leader>t :Vista finder<CR>
+nmap <Leader>i :Vista show<CR>
 
 " neoclide/coc.nvim
 nmap <Leader>rn <Plug>(coc-rename)
@@ -230,6 +237,8 @@ let g:vista_default_executive = 'coc'
 let g:vista_sidebar_width = 35
 let g:vista_update_on_text_changed = 1
 let g:vista#renderer#enable_icon = 0
+let g:vista_fzf_preview = ['right:50%']
+let g:vista_fzf_opt = ['--layout=reverse']
 
 " brooth/far.vim
 let g:far#source = 'rg'
@@ -243,8 +252,8 @@ let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_save_on_switch = 2
 
 " christoomey/vim-tmux-runner
-let g:VtrOrientation = 'h'
-let g:VtrPercentage = 25
+let g:VtrOrientation = 'v'
+let g:VtrPercentage = 20
 
 " hashivim/vim-terraform
 let g:terraform_align=1
@@ -253,12 +262,6 @@ let g:terraform_fmt_on_save=1
 " plasticboy/vim-markdown
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_folding_style_pythonic = 1
-
-" georgewitteman/vim-fish (via sheerun/vim-polyglot)
-" https://github.com/georgewitteman/vim-fish#teach-a-vim-to-fish
-if &shell =~# 'fish$'
-    set shell=bash
-endif
 " }}}
 " Coc {{{
 let g:coc_global_extensions = [
