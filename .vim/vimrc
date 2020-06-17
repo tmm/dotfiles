@@ -436,7 +436,7 @@ autocmd FocusGained * :call PBPaste()
 autocmd VimResized * :wincmd =
 
 " Turn on spell check, etc. for markdown files
-autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.{md,mdx} set filetype=markdown
 autocmd FileType markdown setlocal spell signcolumn=no textwidth=80 colorcolumn=+1
 
 " Spell-check Git messages

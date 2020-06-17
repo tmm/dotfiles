@@ -45,6 +45,10 @@ set -gx XDG_CONFIG_HOME $HOME/.config
 # https://stackoverflow.com/a/42265848/96656
 set -x GPG_TTY (tty)
 
+# Turn off `brew` analytics
+# https://docs.brew.sh/Analytics#opting-out
+set HOMEBREW_NO_ANALYTICS 1
+
 # Pure
 # https://github.com/rafaelrinaldi/pure#configuration
 set pure_color_primary white
