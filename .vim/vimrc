@@ -167,7 +167,7 @@ nmap <Leader>rc :vsp $MYVIMRC<CR>
 nmap <Leader>so :source $MYVIMRC<CR>
 
 " Quick Save/Quit
-nmap <Leader>w :silent w<CR>
+nmap <Leader>w :w<CR>
 nmap <Leader>q :q<CR>
 
 " vimwiki/vimwiki

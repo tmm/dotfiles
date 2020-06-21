@@ -5,7 +5,6 @@
     "diagnostic.infoSign": ">>",
     "diagnostic.hintSign": ">>",
     "eslint.autoFixOnSave": true,
-    "prettier.disableSuccessMessage": true,
     "prettier.eslintIntegration": true,
     "prettier.requireConfig": true,
     "snippets.extends": {
