@@ -25,7 +25,6 @@ brew 'vim'
 cask 'alfred'
 cask 'bartender'
 cask 'caffeine'
-cask 'choosy'
 cask 'contexts'
 cask 'dash'
 cask 'figma-beta'
@@ -35,18 +34,16 @@ cask 'font-jetbrains-mono'
 cask 'hey'
 cask 'hyperdock'
 cask 'iterm2'
-cask 'keybase'
 cask 'monitorcontrol'
 cask 'numi'
 cask 'postgres'
 cask 'postico'
 cask 'sf-symbols'
 cask 'sip'
-cask 'spotify'
 
 mas '1Password', id: 1333542190
 mas 'Dato', id: 1470584107
-mas 'Slack', id: 803453959
+mas 'Quill', id: 1482364204
 mas 'Xcode', id: 497799835
 
 # vim:syntax=ruby
