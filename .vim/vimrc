@@ -179,7 +179,8 @@ nmap <Leader>wg :RgVimwiki<CR>
 nmap <Leader>p :Files<CR>
 nmap <Leader>rg :Rg<CR>
 nmap <Leader>b :Buffers<CR>
-nmap <Leader>l :BLines<CR>
+nmap <Leader>/ :BLines<CR>
+nmap <Leader>l :Lines<CR>
 nmap <Leader>c :Commands<CR>
 nmap <Leader>h :History<CR>
 nmap <Leader>: :History:<CR>
