@@ -25,3 +25,17 @@ make gpg    # Import GPG key from Keybase
 
 [Download a classic macOS
 wallpaper.](https://512pixels.net/projects/default-mac-wallpapers-in-5k/)
+
+<details>
+    <summary>Not automated yet</summary>
+
+<ul>
+   <li>Map Caps lock to Escape</li>
+   <li>Automatically show and hide the menu bar</li>
+   <li>Automatically show and hide the dock</li>
+   <li>Set trackpad tracking speed to fastest available</li>
+   <li>Set up <a href="https://1password.com">1Password</a></li>
+   <li>Set up <a href="https://www.alfredapp.com">Alfred</a></li>
+   <li>Set up <a href="https://contexts.co">Contexts</a></li>
+</ul>
+</details>
