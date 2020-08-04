@@ -89,17 +89,20 @@
 	<key>DHUserRepo</key>
 	<dict>
 		<key>installed</key>
+		<dict/>
+		<key>uninstalled</key>
 		<dict>
 			<key>Tailwind_CSS</key>
 			<dict>
 				<key>date</key>
-				<date>2020-07-22T21:06:33Z</date>
+				<date>2020-07-27T23:55:57Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
 					<array>
 						<string>tailwind</string>
 						<string>TailwindCSS</string>
+						<string>tailwind CSS</string>
 					</array>
 					<key>authorLinkHref</key>
 					<string>https://github.com/Kapeli/Dash-User-Contributions/tree/master/docsets/Tailwind_CSS#readme</string>
@@ -116,7 +119,7 @@
 			<key>Terraform</key>
 			<dict>
 				<key>date</key>
-				<date>2020-06-29T21:50:49Z</date>
+				<date>2020-07-27T23:55:57Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -134,8 +137,6 @@
 				</dict>
 			</dict>
 		</dict>
-		<key>uninstalled</key>
-		<dict/>
 	</dict>
 	<key>actuallyDarkWebView</key>
 	<true/>
@@ -151,66 +152,67 @@
 			<key>http://kapeli.com/feeds/Apple_API_Reference.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-04-17T19:48:03Z</date>
+				<date>2020-07-27T23:56:19Z</date>
 			</dict>
+		</dict>
+		<key>uninstalled</key>
+		<dict>
 			<key>http://kapeli.com/feeds/CSS.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2019-11-28T15:47:36Z</date>
+				<date>2020-07-27T23:55:57Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Django.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-07-22T21:06:36Z</date>
+				<date>2020-07-27T23:56:00Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/HTML.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-04-17T19:47:52Z</date>
+				<date>2020-07-27T23:55:57Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/JavaScript.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-04-17T19:48:09Z</date>
+				<date>2020-07-27T23:55:58Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Man_Pages.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2019-11-28T15:47:19Z</date>
+				<date>2020-07-27T23:55:57Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/PostgreSQL.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-04-17T19:47:36Z</date>
+				<date>2020-07-27T23:55:59Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Python_3.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2019-11-28T15:47:39Z</date>
+				<date>2020-07-27T23:55:58Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/React.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-04-17T19:47:41Z</date>
+				<date>2020-07-27T23:55:58Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/SQLAlchemy.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-01-28T22:04:20Z</date>
+				<date>2020-07-27T23:55:59Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Vim.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-04-17T19:47:53Z</date>
+				<date>2020-07-27T23:56:00Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/VueJS.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-04-17T19:47:38Z</date>
+				<date>2020-07-27T23:55:59Z</date>
 			</dict>
 		</dict>
-		<key>uninstalled</key>
-		<dict/>
 	</dict>
 	<key>isPinned</key>
 	<true/>
