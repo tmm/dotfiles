@@ -43,9 +43,9 @@ Plug 'christoomey/vim-tmux-runner'
 
 " Language
 Plug 'sheerun/vim-polyglot'
-Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
@@ -267,9 +267,11 @@ let g:vim_markdown_folding_style_pythonic = 1
 " Coc {{{
 let g:coc_global_extensions = [
 \    'coc-css',
+\    'coc-diagnostic',
 \    'coc-eslint',
 \    'coc-json',
 \    'coc-snippets',
+\    'coc-sourcekit',
 \    'coc-tailwindcss',
 \    'coc-tsserver',
 \    'coc-vetur',

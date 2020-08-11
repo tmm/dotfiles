@@ -5,8 +5,6 @@
     "diagnostic.infoSign": ">>",
     "diagnostic.hintSign": ">>",
     "eslint.autoFixOnSave": true,
-    "prettier.eslintIntegration": true,
-    "prettier.requireConfig": true,
     "snippets.extends": {
         "javascriptreact": [
             "javascript"
