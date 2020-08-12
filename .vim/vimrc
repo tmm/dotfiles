@@ -178,6 +178,7 @@ nmap <Leader>wg :RgVimwiki<CR>
 " junegunn/fzf.vim
 nmap <Leader>p :Files<CR>
 nmap <Leader>rg :Rg<CR>
+nmap <leader>* :Rg <C-R><C-W><CR>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>/ :BLines<CR>
 nmap <Leader>l :Lines<CR>
