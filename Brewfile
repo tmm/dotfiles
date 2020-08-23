@@ -41,6 +41,7 @@ cask 'postgres'
 cask 'postico'
 cask 'sf-symbols'
 cask 'sip'
+cask 'zoomus'
 
 mas '1Password', id: 1333542190
 mas 'Dato', id: 1470584107

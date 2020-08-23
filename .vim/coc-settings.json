@@ -4,6 +4,15 @@
     "diagnostic.warningSign": "!!",
     "diagnostic.infoSign": ">>",
     "diagnostic.hintSign": ">>",
+    "diagnostic-languageserver.formatters": {
+        "swiftlint": {
+            "command": "swiftlint",
+            "args": ["autocorrect"]
+        }
+    },
+    "diagnostic-languageserver.formatFiletypes": {
+        "swift": "swiftlint"
+    },
     "eslint.autoFixOnSave": true,
     "snippets.extends": {
         "javascriptreact": [
