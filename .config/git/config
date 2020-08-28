@@ -1,6 +1,10 @@
 [user]
     name = Tom Meagher
     email = tom@meagher.co
+    signingkey = tom@meagher.co
+
+[commit]
+    gpgsign = true
 
 [github]
     user = tmm
