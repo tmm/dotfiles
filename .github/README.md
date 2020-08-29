@@ -34,6 +34,7 @@ wallpaper.](https://512pixels.net/projects/default-mac-wallpapers-in-5k/)
    <li>Automatically show and hide the menu bar</li>
    <li>Automatically show and hide the dock</li>
    <li>Set trackpad tracking speed to fastest available</li>
+   <li>Configure SSH</li>
    <li>Set up <a href="https://1password.com">1Password</a></li>
    <li>Set up <a href="https://www.alfredapp.com">Alfred</a></li>
    <li>Set up <a href="https://contexts.co">Contexts</a></li>
