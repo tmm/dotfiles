@@ -54,6 +54,10 @@ set HOMEBREW_NO_ANALYTICS 1
 set pure_color_primary white
 set pure_color_success green
 
+# Add `pg_config` to path
+# https://fishshell.com/docs/current/tutorial.html?highlight=fish_user_path#path
+set -U fish_user_paths /Applications/Postgres.app/Contents/Versions/latest/bin $fish_user_paths
+
 # ==========================
 # Functions
 # ==========================

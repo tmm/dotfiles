@@ -28,6 +28,9 @@
 [push]
     default = current
 
+[pull]
+    rebase = false
+
 [alias]
     a  = add
     aa = add .

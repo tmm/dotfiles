@@ -271,6 +271,7 @@ let g:coc_global_extensions = [
 \    'coc-diagnostic',
 \    'coc-eslint',
 \    'coc-json',
+\    'coc-python',
 \    'coc-snippets',
 \    'coc-sourcekit',
 \    'coc-tailwindcss',
