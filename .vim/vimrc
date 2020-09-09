@@ -48,6 +48,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 
 " Snippets

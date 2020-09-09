@@ -29,6 +29,13 @@ abbr v "vim"
 abbr vl "v -l"
 abbr x "devx"
 
+abbr dsr "docker stop (docker ps -a -q) && docker rm (docker ps -a -q)" # Stops and removes all running containers
+abbr dex "docker exec -it"
+abbr dcu "docker-compose up -d"
+abbr dcub "docker-compose up -d --build"
+abbr dra "docker rmi (docker images -q) --force"
+abbr dl "docker logs -f"
+
 # ==========================
 # Variables
 # ==========================
