@@ -1,9 +1,8 @@
 ## Swift x Vim
 
 * Lint https://github.com/realm/SwiftLint
-* Go-to-definition https://github.com/klaaspieter/coc-sourcekit
+* Format https://github.com/nicklockwood/SwiftFormat
 * Run https://github.com/gfontenot/vim-xcode
-* Snippets https://github.com/kentaroi/ultisnips-swift
 
 ## Vim
 

@@ -26,7 +26,22 @@
 	<key>DHGitHubRepo</key>
 	<dict>
 		<key>installed</key>
-		<dict/>
+		<dict>
+			<key>vapor/vapor</key>
+			<dict>
+				<key>date</key>
+				<date>2020-10-05T21:36:56Z</date>
+				<key>entry</key>
+				<dict>
+					<key>name</key>
+					<string>vapor/vapor</string>
+					<key>platform</key>
+					<string>github</string>
+					<key>uniqueIdentifier</key>
+					<string>vapor/vapor</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>uninstalled</key>
 		<dict/>
 	</dict>
