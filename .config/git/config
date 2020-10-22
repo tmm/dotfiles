@@ -32,18 +32,19 @@
     rebase = false
 
 [alias]
-    a  = add
-    aa = add .
-    au = add --update
-    b  = branch
-    c  = commit -m
-    ch = checkout
-    d  = difftool
-    l  = log
-    p  = push
-    pf = push --force
-    pl = pull
-    s  = status
+    a   = add
+    aa  = add .
+    au  = add --update
+    b   = branch
+    c   = commit -m
+    ch  = checkout
+    d   = difftool
+    l   = log
+    p   = push
+    pf  = push --force
+    pl  = pull
+    plm = pull origin master
+    s   = status
 
     amend    = commit --amend --reuse-message=HEAD
     go       = "!go() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; go"
