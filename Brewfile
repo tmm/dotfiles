@@ -7,6 +7,7 @@ tap 'homebrew/cask-fonts'
 brew 'asdf'
 brew 'bat'
 brew 'direnv'
+brew 'docker'
 brew 'exa'
 brew 'fd'
 brew 'fish'
@@ -42,13 +43,11 @@ cask 'monitorcontrol'
 cask 'numi'
 cask 'postgres'
 cask 'postico'
-cask 'sf-symbols'
 cask 'sip'
 cask 'zoomus'
 
 mas '1Password', id: 1333542190
 mas 'Dato', id: 1470584107
-mas 'Quill', id: 1482364204
 mas 'Xcode', id: 497799835
 
 # vim:syntax=ruby

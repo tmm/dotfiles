@@ -26,7 +26,22 @@
 	<key>DHGitHubRepo</key>
 	<dict>
 		<key>installed</key>
-		<dict/>
+		<dict>
+			<key>vapor/vapor</key>
+			<dict>
+				<key>date</key>
+				<date>2020-10-15T19:20:44Z</date>
+				<key>entry</key>
+				<dict>
+					<key>name</key>
+					<string>vapor/vapor</string>
+					<key>platform</key>
+					<string>github</string>
+					<key>uniqueIdentifier</key>
+					<string>vapor/vapor</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>uninstalled</key>
 		<dict/>
 	</dict>
@@ -119,7 +134,7 @@
 			<key>Terraform</key>
 			<dict>
 				<key>date</key>
-				<date>2020-07-27T23:55:57Z</date>
+				<date>2020-09-20T17:10:42Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
