@@ -26,11 +26,13 @@
 	<key>DHGitHubRepo</key>
 	<dict>
 		<key>installed</key>
+		<dict/>
+		<key>uninstalled</key>
 		<dict>
 			<key>vapor/vapor</key>
 			<dict>
 				<key>date</key>
-				<date>2020-10-15T19:20:44Z</date>
+				<date>2020-10-20T20:37:03Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -42,8 +44,6 @@
 				</dict>
 			</dict>
 		</dict>
-		<key>uninstalled</key>
-		<dict/>
 	</dict>
 	<key>DHGoRepo</key>
 	<dict>
@@ -167,7 +167,7 @@
 			<key>http://kapeli.com/feeds/Apple_API_Reference.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2020-07-27T23:56:19Z</date>
+				<date>2020-10-20T20:38:57Z</date>
 			</dict>
 		</dict>
 		<key>uninstalled</key>
