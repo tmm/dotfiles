@@ -38,6 +38,7 @@ wallpaper.](https://512pixels.net/projects/default-mac-wallpapers-in-5k/)
    <li>Set up <a href="https://1password.com">1Password</a></li>
    <li>Set up <a href="https://www.alfredapp.com">Alfred</a></li>
    <li>Set up <a href="https://contexts.co">Contexts</a></li>
+   <li>Install <a href="https://v2.airbuddy.app/">AirBuddy</a></li>
    <li>Change background color to `#131415`</li>
 </ul>
 </details>
