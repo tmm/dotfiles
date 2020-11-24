@@ -106,8 +106,6 @@ set nowritebackup
 set noswapfile
 
 " Formatting
-set tabstop=4    " Use 4 spaces to a tab
-set shiftwidth=4 " As above
 set expandtab    " Expand tabs into spaces
 set showbreak=↪
 set list listchars=tab:▸\ ,trail:·
@@ -270,12 +268,11 @@ let g:vim_markdown_folding_style_pythonic = 1
 " Coc {{{
 let g:coc_global_extensions = [
 \    'coc-css',
-\    'coc-diagnostic',
 \    'coc-eslint',
 \    'coc-json',
 \    'coc-python',
 \    'coc-snippets',
-\    'coc-sourcekit',
+\    'coc-stylelint',
 \    'coc-tailwindcss',
 \    'coc-tsserver',
 \    'coc-vetur',

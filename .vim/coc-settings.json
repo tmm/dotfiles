@@ -1,5 +1,4 @@
 {
-    "coc.preferences.jumpCommand": "drop",
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "javascript",
@@ -8,21 +7,12 @@
         "typescript",
         "typescriptreact"
     ],
+    "coc.preferences.hoverTarget": "float",
+    "coc.preferences.jumpCommand": "split",
     "diagnostic.errorSign": ">>",
     "diagnostic.warningSign": "!!",
     "diagnostic.infoSign": ">>",
     "diagnostic.hintSign": ">>",
-    "diagnostic-languageserver.formatters": {
-        "swiftlint": {
-            "command": "swiftlint",
-            "args": [
-                "autocorrect"
-            ]
-        }
-    },
-    "diagnostic-languageserver.formatFiletypes": {
-        "swift": "swiftlint"
-    },
     "eslint.autoFixOnSave": true,
     "eslint.enable": true,
     "eslint.packageManager": "yarn",
