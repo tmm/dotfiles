@@ -1,7 +1,9 @@
+set nocompatible
+filetype plugin indent on
+syntax enable
 " Plug {{{
 call plug#begin('~/.vim/plugged')
     " General
-    Plug 'tpope/vim-sensible'
     Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
     " Appearance
@@ -14,13 +16,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'airblade/vim-rooter'
     Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }
     Plug 'jiangmiao/auto-pairs'
-    Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
     Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  }
 
     " Commands
     Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] }
-    Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tabu'] }
     Plug 'justinmk/vim-sneak'
     Plug 'mattn/emmet-vim'
     Plug 'tomtom/tcomment_vim'
@@ -42,48 +42,45 @@ call plug#begin('~/.vim/plugged')
     Plug 'christoomey/vim-tmux-runner'
 
     " Language
-    Plug 'sheerun/vim-polyglot'
-    Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
-
-    Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+    Plug 'sheerun/vim-polyglot'
+"
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
     Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 
     " Snippets
     Plug 'epilande/vim-es2015-snippets'
     Plug 'epilande/vim-react-snippets'
-    Plug 'kentaroi/ultisnips-swift'
 call plug#end()
 " }}}
 " General {{{
-set nocompatible
-filetype plugin indent on
-syntax enable
-
+set autoindent
+set autoread
 set clipboard=unnamed " Use system clipboard
 set colorcolumn=80    " Show a column at 80
 set cursorline        " Highlight current line
+set encoding=utf-8
 set hidden            " Handle multiple buffers better
+set history=1000
 set laststatus=2      " Always show status bar
 set noshowmode        " Hide redundant mode
+set ruler             " Show line and column number
 set shortmess=Iac     " Disable start up message and abbreviate items
 set showcmd           " Show the (partial) command as it's being typed
 set signcolumn=yes    " Always show the signcolumn
+set smarttab
 set title             " Set the terminal title
 set updatetime=300
 set visualbell        " Disable beeping
 set wrap              " Turn on line wrapping
 
-" Syntax folding powered by sheerun/vim-polyglot
-set foldmethod=syntax
-set foldlevelstart=99
-
 " Line numbers
 set number            " Show line numbers
 set relativenumber    " Line numbers relative to cursor
-set scrolloff=5       " Always show at least five lines above/below the cursor
+set scrolloff=5       " Always show at least five lines above/below cursor
+set sidescrolloff=5   " Always show at least five columns left/right cursor
+set display+=lastline
 
 " More natural split opening
 set splitbelow
@@ -98,7 +95,8 @@ set smartcase  " Be case-sensitive if expression contains a capital letter
 " Completion
 set wildmenu                   " Better command line completion
 set wildmode=longest:full,full " Completion settings
-set wildignore+=**/node_modules/**,**/dist/**,**_site/**,*.swp,*.png,*.jpg,*.gif,*.webp,*.jpeg,*.map
+set wildignore+=**/node_modules/**,**/dist/**,**_site/**
+set wildignore+=*.swp,*.png,*.jpg,*.gif,*.webp,*.jpeg,*.map
 
 " Backup
 set nobackup
@@ -108,11 +106,12 @@ set noswapfile
 " Formatting
 set expandtab    " Expand tabs into spaces
 set showbreak=↪
-set list listchars=tab:▸\ ,trail:·
+set listchars=tab:▸\ ,trail:·
 
 " Spelling
 set spellfile=~/.vim/spell/en.utf-8.add
 set spelllang=en_us
+set complete-=i
 set complete+=kspell " Autocomplete when spell check is on
 
 " georgewitteman/vim-fish (via sheerun/vim-polyglot)
@@ -147,11 +146,14 @@ nmap K 5k
 vmap K 5k
 
 " Move up and down by visible lines if current line is wrapped
-nmap k gk
 nmap j gj
+nmap k gk
 
 " Yank to end of current line
 nmap Y y$
+
+" Visually select the text that was last edited/pasted (Vimcast#26).
+nmap gV `[v`]
 
 " Disable arrow keys
 no <down> <Nop>
@@ -167,51 +169,45 @@ nmap <Leader>rc :vsp $MYVIMRC<CR>
 nmap <Leader>so :source $MYVIMRC<CR>
 
 " Quick Save/Quit
-nmap <Leader>w :w<CR>
-nmap <Leader>q :q<CR>
+nmap <silent><Leader>w :w<CR>
+nmap <silent><Leader>q :q<CR>
 
 " vimwiki/vimwiki
-nmap <Leader>n <Plug>VimwikiMakeDiaryNote
-nmap <Leader>wp :Files ~/.vim/vimwiki<CR>
-nmap <Leader>wg :RgVimwiki<CR>
+nmap <silent><Leader>n <Plug>VimwikiMakeDiaryNote
+nmap <silent><Leader>wg :RgVimwiki<CR>
 
 " junegunn/fzf.vim
-nmap <Leader>p :Files<CR>
-nmap <Leader>rg :Rg<CR>
-nmap <leader>* :Rg <C-R><C-W><CR>
-nmap <Leader>b :Buffers<CR>
-nmap <Leader>/ :BLines<CR>
-nmap <Leader>l :Lines<CR>
-nmap <Leader>c :Commands<CR>
-nmap <Leader>h :History<CR>
-nmap <Leader>: :History:<CR>
-nmap <Leader>H :Helptags<CR>
-nmap <Leader>F :Filetypes<CR>
+nmap <silent><Leader>p :Files<CR>
+nmap <silent><Leader>rg :Rg<CR>
+nmap <silent><leader>* :Rg <C-R><C-W><CR>
+nmap <silent><Leader>b :Buffers<CR>
+nmap <silent><Leader>/ :BLines<CR>
+nmap <silent><Leader>l :Lines<CR>
+nmap <silent><Leader>c :Commands<CR>
+nmap <silent><Leader>h :History<CR>
+nmap <silent><Leader>: :History:<CR>
+nmap <silent><Leader>F :Filetypes<CR>
 
 " preservim/nerdtree
-nmap <Leader>e :NERDTreeToggle<CR>
-nmap <Leader>f :NERDTreeFind<CR>
-
-" liuchengxu/vista.vim
-nmap <Leader>t :Vista finder<CR>
-nmap <Leader>i :Vista show<CR>
+nmap <silent><Leader>e :NERDTreeToggle<CR>
+nmap <silent><Leader>f :NERDTreeFind<CR>
 
 " neoclide/coc.nvim
-nmap <Leader>rn <Plug>(coc-rename)
-nmap <Leader>ac <Plug>(coc-codeaction)
-nmap <Leader>af <Plug>(coc-fix-current)
-nmap <Leader>y  :<C-u>CocList -A --normal yank<cr>
+nmap <silent><Leader>rn <Plug>(coc-rename)
+nmap <silent><Leader>ac <Plug>(coc-codeaction)
+nmap <silent><Leader>af <Plug>(coc-fix-current)
+nmap <silent><Leader>y  :<C-u>CocList -A --normal yank<CR>
 
 " Asheq/close-buffers.vim
-nmap <Leader>d :Bdelete menu<CR>
+nmap <silent><Leader>d :Bdelete menu<CR>
 
 " christoomey/vim-tmux-runner
-nmap <Leader>v :VtrSendCommandToRunner<Space>
-nmap <Leader>va :VtrAttachToPane<Space>
-nmap <Leader>vc :VtrSendCtrlC<CR>
-nmap <Leader>vf :VtrFocusRunner!<CR>
-nmap <Leader>vk :VtrKillRunner<CR>
-nmap <Leader>vo :VtrOpenRunner<CR>
+nmap <silent><Leader>v :VtrSendCommandToRunner<Space>
+nmap <silent><Leader>va :VtrAttachToPane<Space>
+nmap <silent><Leader>vc :VtrSendCtrlC<CR>
+nmap <silent><Leader>vf :VtrFocusRunner!<CR>
+nmap <silent><Leader>vk :VtrKillRunner<CR>
+nmap <silent><Leader>vo :VtrOpenRunner<CR>
 " }}}
 " Plugins {{{
 " vimwiki/vimwiki
@@ -225,6 +221,7 @@ let g:vimwiki_table_mappings = 0
 
 " junegunn/fzf.vim
 let g:fzf_preview_window = 'right:50%'
+let $FZF_DEFAULT_OPTS = '--layout=reverse'
 
 " preservim/nerdtree
 let g:NERDTreeMinimalUI = 1
@@ -233,14 +230,6 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeShowLineNumbers = 0
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
-
-" liuchengxu/vista.vim
-let g:vista_default_executive = 'coc'
-let g:vista_sidebar_width = 35
-let g:vista_update_on_text_changed = 1
-let g:vista#renderer#enable_icon = 0
-let g:vista_fzf_preview = ['right:50%']
-let g:vista_fzf_opt = ['--layout=reverse']
 
 " brooth/far.vim
 let g:far#source = 'rg'
@@ -260,19 +249,12 @@ let g:VtrPercentage = 20
 " hashivim/vim-terraform
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
-
-" plasticboy/vim-markdown
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_folding_style_pythonic = 1
 " }}}
 " Coc {{{
 let g:coc_global_extensions = [
-\    'coc-css',
 \    'coc-eslint',
 \    'coc-json',
-\    'coc-python',
 \    'coc-snippets',
-\    'coc-stylelint',
 \    'coc-tailwindcss',
 \    'coc-tsserver',
 \    'coc-vetur',
@@ -439,24 +421,8 @@ autocmd FocusGained * :call PBPaste()
 " Automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
 
-" Turn on spell check, etc. for markdown files
-autocmd BufRead,BufNewFile *.{md,mdx} set filetype=markdown
-autocmd FileType markdown setlocal spell signcolumn=no textwidth=80 colorcolumn=+1
-
-" Spell-check Git messages
-autocmd FileType gitcommit setlocal spell
-
-" Close all folds for certain file types
-augroup openfolds
-    autocmd!
-    autocmd FileType vim,tmux normal zM
-augroup END
-
-" Automatically update links on read diary
-augroup vimwikigroup
-    autocmd!
-    autocmd BufRead,BufNewFile diary.md VimwikiDiaryGenerateLinks
-augroup end
+" Auto reload if file was changed somewhere else (for autoread) merp
+autocmd CursorHold * checktime
 " }}}
 " Commands {{{
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0, '.')
@@ -465,7 +431,7 @@ command! -nargs=* -bang RgVimwiki call RipgrepFzf(<q-args>, <bang>0, '~/.vim/vim
 " fzf Files with preview
 " https://github.com/junegunn/fzf.vim#example-customizing-files-command
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 " }}}
 " Functions {{{
 " Advanced ripgrep fzf integration
@@ -474,13 +440,13 @@ function! RipgrepFzf(query, fullscreen, dir)
     let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--layout=reverse'], 'dir': a:dir}
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command], 'dir': a:dir}
     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 " Set relativenumber only for certain files
 function! SetRelativeNumber()
-    if &filetype != 'nerdtree' && &filetype != 'vista'
+    if &filetype != 'nerdtree'
         set relativenumber
     endif
 endfunction

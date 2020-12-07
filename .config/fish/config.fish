@@ -41,7 +41,7 @@ abbr dl "docker logs -f"
 # ==========================
 
 set -gx EDITOR vim
-set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --follow --glob '!.git/*'"
+set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --glob '!.git/**'"
 
 # XDG Base Directory Specification
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html

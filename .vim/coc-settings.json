@@ -1,12 +1,4 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": [
-        "css",
-        "javascript",
-        "javascriptreact",
-        "json",
-        "typescript",
-        "typescriptreact"
-    ],
     "coc.preferences.hoverTarget": "float",
     "coc.preferences.jumpCommand": "split",
     "diagnostic.errorSign": ">>",
