@@ -3,7 +3,6 @@
 # ==========================
 
 set -gx EDITOR nvim
-set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --glob '!.git/**'"
 
 # XDG Base Directory Specification
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html

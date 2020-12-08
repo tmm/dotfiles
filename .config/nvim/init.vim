@@ -135,7 +135,7 @@ nmap <silent><Leader>vk :VtrKillRunner<CR>
 nmap <silent><Leader>vo :VtrOpenRunner<CR>
 
 " junegunn/fzf.vim (https://github.com/junegunn/fzf.vim)
-nmap <silent><Leader>p :Files<CR>
+nmap <expr><silent><Leader>p fugitive#head() != '' ? ':GFiles --cached --others --exclude-standard<CR>' : ':Files<CR>'
 nmap <silent><Leader>rg :Rg<CR>
 nmap <silent><leader>* :Rg <C-R><C-W><CR>
 nmap <silent><Leader>b :Buffers<CR>
@@ -189,7 +189,7 @@ let g:terraform_align       = 1
 let g:terraform_fmt_on_save = 1
 
 " junegunn/fzf.vim (https://github.com/junegunn/fzf.vim)
-let g:fzf_preview_window = 'right:50%'
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**'"
 let $FZF_DEFAULT_OPTS    = '--layout=reverse'
 
@@ -407,6 +407,8 @@ augroup END
 autocmd CursorHold * checktime
 " }}}
 " Commands {{{
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0, '.')
 " }}}
 " Functions {{{
@@ -422,7 +424,7 @@ endfunction
 
 " Set relativenumber only for certain files
 function! SetRelativeNumber()
-    if &filetype != 'nerdtree'
+    if &filetype != 'nerdtree' && &filetype != 'fzf'
         set relativenumber
     endif
 endfunction
