@@ -5,7 +5,7 @@ BREW_BUNDLE=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-bundle
 
 OS := $(shell uname)
 
-all: $(OS) vim-packages fish-packages tmux-packages
+all: $(OS) fish-packages vim-packages tmux-packages
 
 Darwin: homebrew-packages
 Linux:
@@ -23,7 +23,10 @@ homebrew-packages: $(BREW_BUNDLE)
 
 .PHONY: vim-packages
 vim-packages:
-	@vim -c PlugUpgrade -c PlugInstall -c qall
+	@python3 -m pip install --user --upgrade pynvim
+	@curl -fsSLo $$XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	@nvim -c PlugUpgrade -c PlugInstall -c qall
 
 fish:
 	@chsh -s $(shell which fish)
@@ -34,19 +37,19 @@ fish-packages:
 
 .PHONY: tmux-packages
 tmux-packages:
-	@rm -rf ~/.config/tmux/plugins/tpm
-	@git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+	@rm -rf $$XDG_CONFIG_HOME/tmux/plugins/tpm
+	@git clone https://github.com/tmux-plugins/tpm $$XDG_CONFIG_HOME/tmux/plugins/tpm
 	@tmux new -d -s tmux-packages
-	@tmux source ~/.config/tmux/tmux.conf
-	@bash -c ~/.config/tmux/plugins/tpm/bin/install_plugins
-	@bash -c "~/.config/tmux/plugins/tpm/bin/update_plugins all"
+	@tmux source $$XDG_CONFIG_HOME/tmux/tmux.conf
+	@bash -c $$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/install_plugins
+	@bash -c "$$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/update_plugins all"
 	@tmux kill-ses -t tmux-packages
 
 alfred:
-	@bash -c ~/.config/alfred/install
+	@bash -c $$XDG_CONFIG_HOME/alfred/install
 
 macos:
-	@bash -c ~/.config/macos
+	@bash -c $$XDG_CONFIG_HOME/macos/config
 
 gpg:
 	@open /Applications/Keybase.app

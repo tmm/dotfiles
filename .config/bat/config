@@ -1,4 +1,4 @@
---theme="ansi-dark"
+--theme="OneHalfDark"
 
 # Show line numbers and Git modifications 
 --style="numbers,changes"

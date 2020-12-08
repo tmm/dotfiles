@@ -18,10 +18,9 @@ brew 'gpg'
 brew 'httpie'
 brew 'jq'
 brew 'mas'
+brew 'nvim'
 brew 'ripgrep'
 brew 'tmux'
-brew 'v'
-brew 'vim'
 
 cask 'alfred'
 cask 'bartender'
@@ -47,9 +46,8 @@ cask 'sip'
 cask 'zoomus'
 
 mas '1Password', id: 1333542190
-mas 'Dato', id: 1470584107
-mas 'Day One', id: 1055511498
-mas 'Paprika', id: 1303222628
-mas 'Xcode', id: 497799835
-
+mas 'Dato',      id: 1470584107
+mas 'Day One',   id: 1055511498
+mas 'Paprika',   id: 1303222628
+mas 'Xcode',     id: 497799835
 # vim:syntax=ruby

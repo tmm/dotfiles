@@ -1,7 +1,6 @@
 npm list -g awm || npm install -g awm
 
 awm install com.sirshanksalot.dark-mode-toggle
-awm install com.vdesabou.spotify.mini.player
 awm install com.nikolaeu.numi
 awm install co.bluehelix.imessage-2fa
 
