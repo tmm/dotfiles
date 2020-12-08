@@ -1,22 +1,25 @@
-" Preload {{{
-let g:polyglot_disabled = ['fish']
-" }}}
 " Plug {{{
 call plug#begin(stdpath('data') . '/plugged')
+" Settings before loading plugins
+let g:polyglot_disabled = ['fish']
+
 " Appearance
 Plug 'itchyny/lightline.vim'           " Statusline (https://github.com/itchyny/lightline.vim)
 Plug 'nathanaelkane/vim-indent-guides' " Display indents (https://github.com/nathanaelkane/vim-indent-guides)
-Plug 'sonph/onehalf', { 'rtp': 'vim' } " Colorscheme (https://github.com/sonph/onehalf)
+Plug 'morhetz/gruvbox'                 " Colorscheme (https://github.com/morhetz/gruvbox)
 
 " IDE
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'                      " Fuzzy finder (https://github.com/junegunn/fzf.vim)
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'                                                  " Fuzzy finder (https://github.com/junegunn/fzf.vim)
 Plug 'airblade/vim-rooter'                                               " Change working dir to project root (https://github.com/airblade/vim-rooter)
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                         " Find and replace (https://github.com/brooth/far.vim)
 Plug 'jiangmiao/auto-pairs'                                              " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }                        " Intellisense engine (https://github.com/neoclide/coc.nvim)
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  } " Tree explorer (https://github.com/preservim/nerdtree)
+Plug 'vimwiki/vimwiki'                                                   " Personal wiki (https://github.com/vimwiki/vimwiki)
 
 " Commands
+Plug 'AndrewRadev/splitjoin.vim'                      " Toggle single and multi-line (https://github.com/AndrewRadev/splitjoin.vim)
 Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] } " Close buffers (https://github.com/Asheq/close-buffers.vim)
 Plug 'junegunn/vim-easy-align'                        " Align whitespace (https://github.com/junegunn/vim-easy-align)
 Plug 'mattn/emmet-vim'                                " Emmet for vim (https://github.com/mattn/emmet-vim)
@@ -100,6 +103,9 @@ nmap Y y$
 " Visually select the text that was last edited/pasted (Vimcast#26).
 nmap gV `[v`]
 
+" Replay macro
+nmap Q @q
+
 " Disable arrow keys
 no <down> <Nop>
 no <left> <Nop>
@@ -149,8 +155,17 @@ nmap <silent><Leader>y  :<C-u>CocList -A --normal yank<CR>
 " preservim/nerdtree (https://github.com/preservim/nerdtree)
 nmap <silent><Leader>e :NERDTreeToggle<CR>
 nmap <silent><Leader>f :NERDTreeFind<CR>
+
+" vimwiki/vimwiki (https://github.com/vimwiki/vimwiki)
+nmap <silent><Leader>n <Plug>VimwikiMakeDiaryNote
 " }}}
 " Plugin Settings {{{
+" AndrewRadev/splitjoin.vim (https://github.com/AndrewRadev/splitjoin.vim)
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+nmap gss :SplitjoinSplit<CR>
+nmap gsj :SplitjoinJoin<CR>
+
 " brooth/far.vim (https://github.com/brooth/far.vim)
 let g:far#source      = 'rg'
 let g:far#enable_undo = 1
@@ -197,14 +212,23 @@ let g:NERDTreeDirArrowExpandable  = ''
 let g:NERDTreeDirArrowCollapsible = ''
 let g:NERDTreeStatusline          = '%#NonText#'
 
-" sonph/onehalf (https://github.com/sonph/onehalf)
-colorscheme onehalfdark
+" morhetz/gruvbox (https://github.com/morhetz/gruvbox)
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_sign_column = 'bg0'
+let g:gruvbox_color_column = 'bg0'
+let g:gruvbox_invert_selection = 0
+set termguicolors
+" Must be after gruvbox options
+colorscheme gruvbox
 
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
+" vimwiki/vimwiki (https://github.com/vimwiki/vimwiki)
+let wiki1 = {
+\    'auto_toc': 1,
+\    'path': '~/.config/nvim/vimwiki/',
+\    'syntax': 'markdown', 'ext': '.md',
+\ }
+let g:vimwiki_list = [wiki1]
+let g:vimwiki_table_mappings = 0
 " }}}
 " Coc {{{
 let g:coc_global_extensions = [
@@ -216,9 +240,6 @@ let g:coc_global_extensions = [
 \    'coc-vimlsp',
 \    'coc-yank',
 \ ]
-
-" Floating window background color
-hi CocFloating ctermbg=0
 
 " Use tab for trigger completion with characters ahead and navigate
 imap <silent><expr> <TAB>
@@ -302,12 +323,14 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " }}}
 " Lightline {{{
 let g:lightline = {
-\   'colorscheme': 'onehalfdark',
+\   'colorscheme': 'gruvbox',
 \   'active': {
 \     'left': [
+\       [],
 \       ['mode', 'paste'],
 \       ['gitbranch', 'readonly', 'filename']],
 \     'right': [
+\       [],
 \       ['lineinfo'],
 \       ['percent'],
 \       ['coc_error', 'coc_warning', 'coc_hint', 'coc_info']],

@@ -3,7 +3,6 @@
 * https://github.com/lambdalisue/fern.vim
 * https://github.com/mbbill/undotree
 * https://github.com/svermeulen/vim-subversive
-* https://github.com/junegunn/vim-easy-align
 
 ## Swift x Vim
 
@@ -15,5 +14,4 @@
 
 ## Other
 
-* https://github.com/Spotifyd/spotifyd
 * Switch from Keybase to [Keys.pub](https://keys.pub)
