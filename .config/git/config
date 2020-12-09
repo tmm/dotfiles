@@ -1,6 +1,6 @@
 [user]
-    name = Tom Meagher
-    email = tom@meagher.co
+    name       = Tom Meagher
+    email      = tom@meagher.co
     signingkey = tom@meagher.co
 
 [commit]
@@ -13,7 +13,7 @@
     helper = osxkeychain
 
 [core]
-    editor = vim
+    editor       = vim
     excludesfile = ~/.config/git/ignore_global
 
 [diff]

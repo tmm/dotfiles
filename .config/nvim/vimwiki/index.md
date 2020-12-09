@@ -15,3 +15,5 @@
 ## Other
 
 * Switch from Keybase to [Keys.pub](https://keys.pub)
+* Fix: Coc scroll float window
+* FZF preview slow

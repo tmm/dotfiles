@@ -30,17 +30,17 @@ set -U fish_user_paths /Applications/Postgres.app/Contents/Versions/latest/bin $
 # Aliases
 # ==========================
 
-alias cat=bat
-alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-alias ls=exa
-alias reload="exec $SHELL -l"
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias vim=nvim
+alias cat    = bat
+alias h      = "env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
+alias hide   = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias ls     = exa
+alias reload = "exec $SHELL -l"
+alias show   = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias vim    = nvim
 
-alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
-alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
-alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
+alias frc = "nvim $XDG_CONFIG_HOME/fish/config.fish"
+alias trc = "nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
+alias vrc = "nvim $XDG_CONFIG_HOME/nvim/init.vim"
 
 # ==========================
 # Abbreviations

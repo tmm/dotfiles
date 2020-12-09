@@ -192,6 +192,10 @@ let g:terraform_fmt_on_save = 1
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**'"
 let $FZF_DEFAULT_OPTS    = '--layout=reverse'
+" nvim unsets `COLORTERM` which is needed for `bat` fzf preview
+" https://github.com/sharkdp/bat/issues/634#issuecomment-524453561
+let $COLORTERM = 'truecolor'
+
 
 " junegunn/vim-easy-align (https://github.com/junegunn/vim-easy-align)
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -213,12 +217,13 @@ let g:NERDTreeDirArrowCollapsible = ''
 let g:NERDTreeStatusline          = '%#NonText#'
 
 " morhetz/gruvbox (https://github.com/morhetz/gruvbox)
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_sign_column = 'bg0'
-let g:gruvbox_color_column = 'bg0'
+let g:gruvbox_contrast_dark    = 'hard'
+let g:gruvbox_sign_column      = 'bg0'
+let g:gruvbox_color_column     = 'bg0'
 let g:gruvbox_invert_selection = 0
-set termguicolors
+
 " Must be after gruvbox options
+set termguicolors
 colorscheme gruvbox
 
 " vimwiki/vimwiki (https://github.com/vimwiki/vimwiki)
