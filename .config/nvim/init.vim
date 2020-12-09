@@ -1,8 +1,5 @@
 " Plug {{{
 call plug#begin(stdpath('data') . '/plugged')
-" Settings before loading plugins
-let g:polyglot_disabled = ['fish']
-
 " Appearance
 Plug 'itchyny/lightline.vim'           " Statusline (https://github.com/itchyny/lightline.vim)
 Plug 'nathanaelkane/vim-indent-guides' " Display indents (https://github.com/nathanaelkane/vim-indent-guides)
@@ -15,6 +12,7 @@ Plug 'airblade/vim-rooter'                                               " Chang
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                         " Find and replace (https://github.com/brooth/far.vim)
 Plug 'jiangmiao/auto-pairs'                                              " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }                        " Intellisense engine (https://github.com/neoclide/coc.nvim)
+Plug 'norcalli/nvim-colorizer.lua'                                       " Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  } " Tree explorer (https://github.com/preservim/nerdtree)
 Plug 'vimwiki/vimwiki'                                                   " Personal wiki (https://github.com/vimwiki/vimwiki)
 
@@ -22,6 +20,7 @@ Plug 'vimwiki/vimwiki'                                                   " Perso
 Plug 'AndrewRadev/splitjoin.vim'                      " Toggle single and multi-line (https://github.com/AndrewRadev/splitjoin.vim)
 Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] } " Close buffers (https://github.com/Asheq/close-buffers.vim)
 Plug 'junegunn/vim-easy-align'                        " Align whitespace (https://github.com/junegunn/vim-easy-align)
+Plug 'justinmk/vim-sneak'                             " Faster motions (https://github.com/justinmk/vim-sneak)
 Plug 'mattn/emmet-vim'                                " Emmet for vim (https://github.com/mattn/emmet-vim)
 Plug 'tomtom/tcomment_vim'                            " Commenting (https://github.com/tomtom/tcomment_vim)
 Plug 'tpope/vim-abolish'                              " Word manipulation (https://github.com/tpope/vim-abolish)
@@ -76,6 +75,7 @@ set spelllang=en_us
 set spellfile=$XDG_CONFIG_HOME/nvim/spell/en.utf-8.add
 set splitbelow                 " More natural split opening
 set splitright
+set termguicolors              " Support for true color (https://github.com/termstandard/colors)
 set title                      " Set the terminal title
 set updatetime=300             " Shorten update time
 set visualbell                 " Disable beeping
@@ -135,7 +135,7 @@ nmap <silent><Leader>vk :VtrKillRunner<CR>
 nmap <silent><Leader>vo :VtrOpenRunner<CR>
 
 " junegunn/fzf.vim (https://github.com/junegunn/fzf.vim)
-nmap <expr><silent><Leader>p fugitive#head() != '' ? ':GFiles --cached --others --exclude-standard<CR>' : ':Files<CR>'
+nmap <silent><Leader>p :Files<CR>
 nmap <silent><Leader>rg :Rg<CR>
 nmap <silent><leader>* :Rg <C-R><C-W><CR>
 nmap <silent><Leader>b :Buffers<CR>
@@ -158,11 +158,12 @@ nmap <silent><Leader>f :NERDTreeFind<CR>
 
 " vimwiki/vimwiki (https://github.com/vimwiki/vimwiki)
 nmap <silent><Leader>n <Plug>VimwikiMakeDiaryNote
+nmap <silent><Leader>wg :RgVimwiki<CR>
 " }}}
 " Plugin Settings {{{
 " AndrewRadev/splitjoin.vim (https://github.com/AndrewRadev/splitjoin.vim)
 let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping = ''
+let g:splitjoin_join_mapping  = ''
 nmap gss :SplitjoinSplit<CR>
 nmap gsj :SplitjoinJoin<CR>
 
@@ -192,10 +193,6 @@ let g:terraform_fmt_on_save = 1
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**'"
 let $FZF_DEFAULT_OPTS    = '--layout=reverse'
-" nvim unsets `COLORTERM` which is needed for `bat` fzf preview
-" https://github.com/sharkdp/bat/issues/634#issuecomment-524453561
-let $COLORTERM = 'truecolor'
-
 
 " junegunn/vim-easy-align (https://github.com/junegunn/vim-easy-align)
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -203,9 +200,15 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" justinmk/vim-sneak (https://github.com/justinmk/vim-sneak)
+let g:sneak#label = 1
+
 " nathanaelkane/vim-indent-guides (https://github.com/nathanaelkane/vim-indent-guides)
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes     = ['help', 'nerdtree']
+
+" norcalli/nvim-colorizer.lua (https://github.com/norcalli/nvim-colorizer.lua)
+lua require'colorizer'.setup({ '*' }, { hsl_fn = true })
 
 " preservim/nerdtree (https://github.com/preservim/nerdtree)
 let g:NERDTreeMinimalUI           = 1
@@ -221,9 +224,7 @@ let g:gruvbox_contrast_dark    = 'hard'
 let g:gruvbox_sign_column      = 'bg0'
 let g:gruvbox_color_column     = 'bg0'
 let g:gruvbox_invert_selection = 0
-
 " Must be after gruvbox options
-set termguicolors
 colorscheme gruvbox
 
 " vimwiki/vimwiki (https://github.com/vimwiki/vimwiki)
@@ -232,7 +233,7 @@ let wiki1 = {
 \    'path': '~/.config/nvim/vimwiki/',
 \    'syntax': 'markdown', 'ext': '.md',
 \ }
-let g:vimwiki_list = [wiki1]
+let g:vimwiki_list           = [wiki1]
 let g:vimwiki_table_mappings = 0
 " }}}
 " Coc {{{
@@ -408,6 +409,9 @@ augroup numbertoggle
     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
+" Automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
 " Auto reload if file was changed somewhere else (for autoread)
 autocmd CursorHold * checktime
 " }}}
@@ -415,6 +419,8 @@ autocmd CursorHold * checktime
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0, '.')
+command! -nargs=* -bang RgVimwiki
+    \ call RipgrepFzf(<q-args>, <bang>0, '~/.vim/vimwiki')
 " }}}
 " Functions {{{
 " Advanced ripgrep fzf integration

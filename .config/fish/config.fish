@@ -24,23 +24,26 @@ set pure_color_success green
 
 # Add `pg_config` to path
 # https://fishshell.com/docs/current/tutorial.html?highlight=fish_user_path#path
-set -U fish_user_paths /Applications/Postgres.app/Contents/Versions/latest/bin $fish_user_paths
+set PG_CONFIG /Applications/Postgres.app/Contents/Versions/latest/bin
+# Only add `PG_CONFIG` to `fish_user_paths` once
+# https://github.com/fish-shell/fish-shell/issues/5834#issuecomment-485070486
+contains $PG_CONFIG $fish_user_paths; or set -Ua fish_user_paths $PG_CONFIG $fish_user_paths
 
 # ==========================
 # Aliases
 # ==========================
 
-alias cat    = bat
-alias h      = "env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
-alias hide   = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-alias ls     = exa
-alias reload = "exec $SHELL -l"
-alias show   = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias vim    = nvim
+alias cat=bat
+alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias ls=exa
+alias reload="exec $SHELL -l"
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias vim=nvim
 
-alias frc = "nvim $XDG_CONFIG_HOME/fish/config.fish"
-alias trc = "nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
-alias vrc = "nvim $XDG_CONFIG_HOME/nvim/init.vim"
+alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
+alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
+alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
 
 # ==========================
 # Abbreviations
