@@ -8,12 +8,13 @@ Plug 'morhetz/gruvbox'                 " Colorscheme (https://github.com/morhetz
 " IDE
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                                                  " Fuzzy finder (https://github.com/junegunn/fzf.vim)
-Plug 'airblade/vim-rooter'                                               " Change working dir to project root (https://github.com/airblade/vim-rooter)
+Plug 'airblade/vim-rooter'                                               " Change directory to project root (https://github.com/airblade/vim-rooter)
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                         " Find and replace (https://github.com/brooth/far.vim)
 Plug 'jiangmiao/auto-pairs'                                              " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }                        " Intellisense engine (https://github.com/neoclide/coc.nvim)
 Plug 'norcalli/nvim-colorizer.lua'                                       " Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  } " Tree explorer (https://github.com/preservim/nerdtree)
+Plug 'rhysd/git-messenger.vim'                                           " Commit messages under cursor (https://github.com/rhysd/git-messenger.vim)
 Plug 'vimwiki/vimwiki'                                                   " Personal wiki (https://github.com/vimwiki/vimwiki)
 
 " Commands
@@ -208,7 +209,12 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes     = ['help', 'nerdtree']
 
 " norcalli/nvim-colorizer.lua (https://github.com/norcalli/nvim-colorizer.lua)
-lua require'colorizer'.setup({ '*' }, { hsl_fn = true })
+lua require'colorizer'.setup({
+\   '*';
+\ }, {
+\   hsl_fn = true;
+\   names = false;
+\ })
 
 " preservim/nerdtree (https://github.com/preservim/nerdtree)
 let g:NERDTreeMinimalUI           = 1

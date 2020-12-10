@@ -4,45 +4,46 @@ tap 'homebrew/bundle'
 tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
 
-brew 'asdf'
-brew 'bat'
-brew 'direnv'
+brew 'asdf'                # Version manager (https://github.com/asdf-vm/asdf)
+brew 'bat'                 # Better `cat` (https://github.com/sharkdp/bat)
+brew 'direnv'              # Project-based env variables (https://github.com/direnv/direnv)
 brew 'docker'
-brew 'exa'
-brew 'fd'
-brew 'fish'
-brew 'fzf'
-brew 'gh'
+brew 'dockutil'            # Manage dock items (https://github.com/kcrawford/dockutil)
+brew 'exa'                 # Better `ls` (https://github.com/ogham/exa)
+brew 'fd'                  # Better `find` (https://github.com/sharkdp/fd)
+brew 'fish'                # More friendly shell (https://fishshell.com)
+brew 'fzf'                 # Fuzzy finder (https://github.com/junegunn/fzf)
+brew 'gh'                  # GitHub CLI (https://cli.github.com)
 brew 'git'
 brew 'gpg'
-brew 'httpie'
-brew 'jq'
-brew 'mas'
-brew 'nvim'
-brew 'ripgrep'
-brew 'tmux'
+brew 'httpie'              # HTTP CLI (https://github.com/httpie/httpie)
+brew 'jq'                  # JSON CLI (https://github.com/stedolan/jq)
+brew 'mas'                 # App Store CLI (https://github.com/mas-cli/mas)
+brew 'nvim'                # Better `vim` (https://github.com/neovim/neovim)
+brew 'ripgrep'             # Better `grep` (https://github.com/BurntSushi/ripgrep)
+brew 'tmux'                # Terminal multiplexer (https://github.com/tmux/tmux)
 
-cask 'alfred'
-cask 'bartender'
-cask 'caffeine'
-cask 'choosy'
-cask 'contexts'
-cask 'daisydisk'
-cask 'dash'
+cask 'alfred'              # Better Spotlight (https://www.alfredapp.com)
+cask 'bartender'           # Clean up menu bar (https://www.macbartender.com)
+cask 'caffeine'            # Prevent sleep (https://intelliscapesolutions.com/apps/caffeine)
+cask 'choosy'              # Choose where links open (https://www.choosyosx.com)
+cask 'contexts'            # Better `cmd + tab` (https://contexts.co)
+cask 'daisydisk'           # Better disk utility (https://daisydiskapp.com)
+cask 'dash'                # Doc browser (https://kapeli.com/dash)
 cask 'dropbox'
 cask 'figma-beta'
 cask 'firefox'
-cask 'flux'
-cask 'font-jetbrains-mono'
+cask 'flux'                # Stop blue light (https://justgetflux.com)
+cask 'font-jetbrains-mono' # Programming font (https://github.com/JetBrains/JetBrainsMono)
 cask 'hey'
-cask 'hyperdock'
-cask 'iterm2'
+cask 'hyperdock'           # Window manager (https://bahoom.com/hyperdock)
+cask 'iterm2'              # Better Terminal.app (https://iterm2.com)
 cask 'keybase'
-cask 'monitorcontrol'
-cask 'numi'
-cask 'postgres'
-cask 'postico'
-cask 'sip'
+cask 'monitorcontrol'      # Control external monitor (https://github.com/MonitorControl/MonitorControl)
+cask 'numi'                # Programmable calculator (https://github.com/nikolaeu/numi)
+cask 'postgres'            # Fastest PostgreSQL setup (https://postgresapp.com)
+cask 'postico'             # Moder PostgreSQL client (https://eggerapps.at/postico)
+cask 'sip'                 # Color picker (https://sipapp.io)
 cask 'zoomus'
 
 mas '1Password', id: 1333542190

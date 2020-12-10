@@ -34,16 +34,23 @@ contains $PG_CONFIG $fish_user_paths; or set -Ua fish_user_paths $PG_CONFIG $fis
 # ==========================
 
 alias cat=bat
+alias find=fd
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 alias ls=exa
 alias reload="exec $SHELL -l"
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias vim=nvim
 
 alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
 alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
+
+# Hide/show hidden files in Finder
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # ==========================
 # Abbreviations

@@ -1,6 +1,10 @@
+# Guide for changing preferences
+# https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
+echo "Let's set up this macOS."
 
 # Ask for the administrator password upfront
 sudo -v
@@ -8,19 +12,20 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-###############################################################################
-# General                                                                     #
-###############################################################################
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# System Preferences > General > Highlight color:
+# System Preferences > General > Highlight color
 defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
+
+# System Preferences > General > Click in the scrollbar to: Jump to the spot that's clicked
+defaults write -globalDomain AppleScrollerPagingBehavior -bool true
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # System Preferences > Language & Region > Time format
 defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
 
-###############################################################################
-# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
-###############################################################################
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # System Preferences > Trackpad > Scroll & Zoom > Scroll direction: Natural
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
@@ -35,19 +40,21 @@ defaults write NSGlobalDomain com.apple.trackpad.scaling -int 3
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
 defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 # System Preferences > Keyboard > Key Repeat
 defaults write NSGlobalDomain KeyRepeat -int 1
 
 # System Preferences > Keyboard > Key Repeat
-defaults write NSGlobalDomain InitialKeyRepeat -int 30
+defaults write NSGlobalDomain InitialKeyRepeat -int 20
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # System Preferences > Bluetooth
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
-###############################################################################
-# Finder                                                                      #
-###############################################################################
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Finder > Preferences > Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -73,21 +80,16 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-###############################################################################
-# Dock, Dashboard, and hot corners                                            #
-###############################################################################
+# Disable warning when emptying trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # System Preferences > Dock > Size
 defaults write com.apple.dock tilesize -int 32
 
 # System Preferences > Dock > Minimize windows using: Scale effect
 defaults write com.apple.dock mineffect -string "scale"
-
-# System Preferences > Dock
-# Wipe all (default) app icons from the Dock
-# This is only really useful when setting up a new Mac, or if you don’t use
-# the Dock to launch apps.
-defaults write com.apple.dock persistent-apps -array
 
 # System Preferences > Dock
 # Disable Dashboard
@@ -103,20 +105,46 @@ defaults write com.apple.dock autohide-time-modifier -float 0.5
 # System Preferences > Dock > Automatically hide and show the Dock (delay)
 defaults write com.apple.dock autohide-delay -float 0
 
-###############################################################################
-# Kill affected applications                                                  #
-###############################################################################
+# System Preferences > Dock > Show indicators for open applications
+defaults write com.apple.dock show-process-indicators -bool true
 
+if [[ -f ".dock" && $1 != '--force' ]];
+then
+	echo "Dock already created; use --force to override"
+	exit 1
+fi
+
+dockutil --no-restart --remove all
+dockutil --no-restart --add "/Applications/Firefox.app"
+dockutil --no-restart --add "/Applications/iTerm.app"
+dockutil --no-restart --add "~/Downloads" --section others --sort name --view list
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# Hide menubar
+defaults write NSGlobalDomain _HIHideMenuBar -bool false
+
+# Appearance: Dark
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+
+# Accent color: Blue
+defaults write NSGlobalDomain AppleAquaColorVariant -int 1
+
+# Unhide ~/Library
+chflags nohidden ~/Library
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# Kill affected applications 
 for app in "Dock" \
 	"Finder"; do
 	killall "${app}" &> /dev/null
 done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
 
-###############################################################################
-# Developer                                                                   #
-###############################################################################
+echo "Done."
+echo "Some of these changes require a logout/restart to take effect."
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Remove All Unavailable Simulators
 xcrun simctl delete unavailable
-

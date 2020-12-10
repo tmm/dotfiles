@@ -17,28 +17,20 @@ make
 Other commands:
 
 ```
-make alfred # Install Alfred workflows
-make fish   # Change shell to fish
-make macos  # Set up macOS defaults
-make gpg    # Import GPG key from Keybase
+make alfred            # Install Alfred workflows
+make fish              # Change shell to fish
+make fish-packages     # Install fish packages with fisher
+make gpg               # Import GPG key from Keybase
+make homebrew-packages # Install with homebrew, cask, mas
+make macos             # Set up macOS defaults
+make tmux-packages     # Install tmux packages with tpm
+make vim-packages      # Install vim packages with plug
 ```
 
-[Download a classic macOS
-wallpaper.](https://512pixels.net/projects/default-mac-wallpapers-in-5k/)
+Not automated yet:
 
-<details>
-    <summary>Not automated yet</summary>
-
-<ul>
-   <li>Map Caps lock to Escape</li>
-   <li>Automatically show and hide the menu bar</li>
-   <li>Automatically show and hide the dock</li>
-   <li>Set trackpad tracking speed to fastest available</li>
-   <li>Configure SSH</li>
-   <li>Set up <a href="https://1password.com">1Password</a></li>
-   <li>Set up <a href="https://www.alfredapp.com">Alfred</a></li>
-   <li>Set up <a href="https://contexts.co">Contexts</a></li>
-   <li>Install <a href="https://v2.airbuddy.app/">AirBuddy</a></li>
-   <li>Change background color to #131415</li>
-</ul>
-</details>
+* Set up [1Password](https://1password.com)
+* Configure SSH
+* Change background color to #131415 or [classic macOS wallpaper](https://512pixels.net/projects/default-mac-wallpapers-in-5k/)
+* Map `Caps Lock` to `Escape` (System Preferences > Keyboard > Modifier Keys)
+* Install [AirBuddy](https://v2.airbuddy.app)
