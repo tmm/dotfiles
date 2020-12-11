@@ -13,7 +13,7 @@
     helper = osxkeychain
 
 [core]
-    editor       = vim
+    editor       = nvim
     excludesfile = ~/.config/git/ignore_global
 
 [diff]

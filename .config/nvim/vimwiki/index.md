@@ -1,11 +1,10 @@
 ## Vim
 
 * https://github.com/lambdalisue/fern.vim
-* https://github.com/mbbill/undotree
 * https://github.com/svermeulen/vim-subversive
 * https://github.com/Shougo/dein.vim
 
-## iTerm x Vim x Bat Dark/Light Mode
+## Dark/Light Mode: iTerm x Vim x Bat 
 
 * https://github.com/neovim/neovim/issues/13010
 * https://old.reddit.com/r/neovim/comments/femk6t/finally_got_neovim_to_listen_for_transitions/
@@ -22,4 +21,4 @@
 ## Other
 
 * Switch from Keybase to [Keys.pub](https://keys.pub)
-* Fix: Coc scroll float window
+* Coc scroll float window

@@ -1,55 +1,56 @@
 " Plug {{{
 call plug#begin(stdpath('data') . '/plugged')
 " Appearance
-Plug 'itchyny/lightline.vim'           " Statusline (https://github.com/itchyny/lightline.vim)
-Plug 'nathanaelkane/vim-indent-guides' " Display indents (https://github.com/nathanaelkane/vim-indent-guides)
-Plug 'morhetz/gruvbox'                 " Colorscheme (https://github.com/morhetz/gruvbox)
+Plug 'itchyny/lightline.vim'                                            " Statusline (https://github.com/itchyny/lightline.vim)
+Plug 'nathanaelkane/vim-indent-guides'                                  " Display indents (https://github.com/nathanaelkane/vim-indent-guides)
+Plug 'morhetz/gruvbox'                                                  " Colorscheme (https://github.com/morhetz/gruvbox)
 
 " IDE
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'                                                  " Fuzzy finder (https://github.com/junegunn/fzf.vim)
-Plug 'airblade/vim-rooter'                                               " Change directory to project root (https://github.com/airblade/vim-rooter)
-Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                         " Find and replace (https://github.com/brooth/far.vim)
-Plug 'jiangmiao/auto-pairs'                                              " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }                        " Intellisense engine (https://github.com/neoclide/coc.nvim)
-Plug 'norcalli/nvim-colorizer.lua'                                       " Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']  } " Tree explorer (https://github.com/preservim/nerdtree)
-Plug 'rhysd/git-messenger.vim'                                           " Commit messages under cursor (https://github.com/rhysd/git-messenger.vim)
-Plug 'vimwiki/vimwiki'                                                   " Personal wiki (https://github.com/vimwiki/vimwiki)
+Plug 'junegunn/fzf.vim'                                                 " Fuzzy finder (https://github.com/junegunn/fzf.vim)
+Plug 'airblade/vim-rooter'                                              " Change directory to project root (https://github.com/airblade/vim-rooter)
+Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                        " Find and replace (https://github.com/brooth/far.vim)
+Plug 'jiangmiao/auto-pairs'                                             " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
+Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeToggle'] }   " Undo history visualizer (https://github.com/mbbill/undotree)
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }                       " Intellisense engine (https://github.com/neoclide/coc.nvim)
+Plug 'norcalli/nvim-colorizer.lua'                                      " Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
+Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } " Tree explorer (https://github.com/preservim/nerdtree)
+Plug 'rhysd/git-messenger.vim'                                          " Commit messages under cursor (https://github.com/rhysd/git-messenger.vim)
+Plug 'vimwiki/vimwiki'                                                  " Personal wiki (https://github.com/vimwiki/vimwiki)
 
 " Commands
-Plug 'AndrewRadev/splitjoin.vim'                      " Toggle single and multi-line (https://github.com/AndrewRadev/splitjoin.vim)
-Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] } " Close buffers (https://github.com/Asheq/close-buffers.vim)
-Plug 'junegunn/vim-easy-align'                        " Align whitespace (https://github.com/junegunn/vim-easy-align)
-Plug 'justinmk/vim-sneak'                             " Faster motions (https://github.com/justinmk/vim-sneak)
-Plug 'mattn/emmet-vim'                                " Emmet for vim (https://github.com/mattn/emmet-vim)
-Plug 'tomtom/tcomment_vim'                            " Commenting (https://github.com/tomtom/tcomment_vim)
-Plug 'tpope/vim-abolish'                              " Word manipulation (https://github.com/tpope/vim-abolish)
-Plug 'tpope/vim-obsession'                            " Update session automatically (https://github.com/tpope/vim-obsession)
-Plug 'tpope/vim-repeat'                               " Better repeat commands (https://github.com/tpope/vim-repeat)
-Plug 'tpope/vim-surround'                             " Simple quoting/parenthesizing (https://github.com/tpope/vim-surround)
-Plug 'tpope/vim-unimpaired'                           " Handy bracket mappings (https://github.com/tpope/vim-unimpaired)
+Plug 'AndrewRadev/splitjoin.vim'                                        " Toggle single and multi-line (https://github.com/AndrewRadev/splitjoin.vim)
+Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] }                   " Close buffers (https://github.com/Asheq/close-buffers.vim)
+Plug 'junegunn/vim-easy-align'                                          " Align whitespace (https://github.com/junegunn/vim-easy-align)
+Plug 'justinmk/vim-sneak'                                               " Faster motions (https://github.com/justinmk/vim-sneak)
+Plug 'mattn/emmet-vim'                                                  " Emmet for vim (https://github.com/mattn/emmet-vim)
+Plug 'tomtom/tcomment_vim'                                              " Commenting (https://github.com/tomtom/tcomment_vim)
+Plug 'tpope/vim-abolish'                                                " Word manipulation (https://github.com/tpope/vim-abolish)
+Plug 'tpope/vim-obsession'                                              " Update session automatically (https://github.com/tpope/vim-obsession)
+Plug 'tpope/vim-repeat'                                                 " Better repeat commands (https://github.com/tpope/vim-repeat)
+Plug 'tpope/vim-surround'                                               " Simple quoting/parenthesizing (https://github.com/tpope/vim-surround)
+Plug 'tpope/vim-unimpaired'                                             " Handy bracket mappings (https://github.com/tpope/vim-unimpaired)
 
 " Git
-Plug 'mhinz/vim-signify'  " Diff sign column (https://github.com/mhinz/vim-signify)
-Plug 'tpope/vim-fugitive' " Git wrapper (https://github.com/tpope/vim-fugitive)
-Plug 'tpope/vim-rhubarb'  " vim-fugitive GitHub extension (https://github.com/tpope/vim-rhubarb)
+Plug 'mhinz/vim-signify'                                                " Diff sign column (https://github.com/mhinz/vim-signify)
+Plug 'tpope/vim-fugitive'                                               " Git wrapper (https://github.com/tpope/vim-fugitive)
+Plug 'tpope/vim-rhubarb'                                                " vim-fugitive GitHub extension (https://github.com/tpope/vim-rhubarb)
 
 " Tmux
-Plug 'christoomey/vim-tmux-navigator' " Move between tmux panes and vim splits (https://github.com/christoomey/vim-tmux-navigator)
-Plug 'christoomey/vim-tmux-runner'    " Control tmux from vim (https://github.com/christoomey/vim-tmux-runner)
+Plug 'christoomey/vim-tmux-navigator'                                   " Move between tmux panes and vim splits (https://github.com/christoomey/vim-tmux-navigator)
+Plug 'christoomey/vim-tmux-runner'                                      " Control tmux from vim (https://github.com/christoomey/vim-tmux-runner)
 
 " Language
-Plug 'mattn/vim-lsp-settings' " Config for vim-lsp (https://github.com/mattn/vim-lsp-settings)
-Plug 'prabirshrestha/vim-lsp' " Language server protocol (https://github.com/prabirshrestha/vim-lsp)
-Plug 'sheerun/vim-polyglot'   " Syntax highlighting (https://github.com/sheerun/vim-polyglot)
+Plug 'mattn/vim-lsp-settings'                                           " Config for vim-lsp (https://github.com/mattn/vim-lsp-settings)
+Plug 'prabirshrestha/vim-lsp'                                           " Language server protocol (https://github.com/prabirshrestha/vim-lsp)
+Plug 'sheerun/vim-polyglot'                                             " Syntax highlighting (https://github.com/sheerun/vim-polyglot)
 
-Plug 'tmhedberg/SimpylFold', { 'for': 'python' }      " Python code folding (https://github.com/tmhedberg/SimpylFold)
-Plug 'hashivim/vim-terraform', { 'for': 'terraform' } " Terraform integration (https://github.com/hashivim/vim-terraform)
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }                        " Python code folding (https://github.com/tmhedberg/SimpylFold)
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }                   " Terraform integration (https://github.com/hashivim/vim-terraform)
 
 " Snippets
-Plug 'epilande/vim-es2015-snippets' " (https://github.com/epilande/vim-es2015-snippets)
-Plug 'epilande/vim-react-snippets'  " (https://github.com/epilande/vim-react-snippets)
+Plug 'epilande/vim-es2015-snippets'                                     " (https://github.com/epilande/vim-es2015-snippets)
+Plug 'epilande/vim-react-snippets'                                      " (https://github.com/epilande/vim-react-snippets)
 call plug#end()
 " }}}
 " General {{{
@@ -147,6 +148,9 @@ nmap <silent><Leader>h :History<CR>
 nmap <silent><Leader>: :History:<CR>
 nmap <silent><Leader>F :Filetypes<CR>
 
+" mbbill/undotree (https://github.com/mbbill/undotree)
+nmap <silent><Leader>u :UndotreeToggle \| UndotreeFocus<CR>
+
 " neoclide/coc.nvim (https://github.com/neoclide/coc.nvim)
 nmap <silent><Leader>rn <Plug>(coc-rename)
 nmap <silent><Leader>ac <Plug>(coc-codeaction)
@@ -203,6 +207,11 @@ nmap ga <Plug>(EasyAlign)
 
 " justinmk/vim-sneak (https://github.com/justinmk/vim-sneak)
 let g:sneak#label = 1
+
+" mbbill/undotree (https://github.com/mbbill/undotree)
+let g:undotree_WindowLayout = 2
+set undodir=$XDG_CONFIG_HOME/nvim/undo
+set undofile
 
 " nathanaelkane/vim-indent-guides (https://github.com/nathanaelkane/vim-indent-guides)
 let g:indent_guides_enable_on_vim_startup = 1
@@ -441,7 +450,10 @@ endfunction
 
 " Set relativenumber only for certain files
 function! SetRelativeNumber()
-    if &filetype != 'nerdtree' && &filetype != 'fzf'
+    if &filetype != 'nerdtree' &&
+        \ &filetype != 'fzf' &&
+        \ &filetype != 'undotree' &&
+        \ &filetype != 'diff'
         set relativenumber
     endif
 endfunction
