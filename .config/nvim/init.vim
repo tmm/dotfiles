@@ -253,8 +253,10 @@ let g:vimwiki_table_mappings = 0
 " }}}
 " Coc {{{
 let g:coc_global_extensions = [
+\    'coc-css',
 \    'coc-eslint',
 \    'coc-json',
+\    'coc-python',
 \    'coc-snippets',
 \    'coc-tailwindcss',
 \    'coc-tsserver',
