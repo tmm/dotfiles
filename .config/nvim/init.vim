@@ -11,11 +11,13 @@ Plug 'junegunn/fzf.vim'                                                 " Fuzzy 
 Plug 'airblade/vim-rooter'                                              " Change directory to project root (https://github.com/airblade/vim-rooter)
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                        " Find and replace (https://github.com/brooth/far.vim)
 Plug 'jiangmiao/auto-pairs'                                             " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
+Plug 'liuchengxu/vim-which-key'                                         " Show keybindings (https://github.com/liuchengxu/vim-which-key)
 Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeToggle'] }   " Undo history visualizer (https://github.com/mbbill/undotree)
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }                       " Intellisense engine (https://github.com/neoclide/coc.nvim)
 Plug 'norcalli/nvim-colorizer.lua'                                      " Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } " Tree explorer (https://github.com/preservim/nerdtree)
 Plug 'rhysd/git-messenger.vim'                                          " Commit messages under cursor (https://github.com/rhysd/git-messenger.vim)
+Plug 'vim-test/vim-test'                                                " Run tests quickly (https://github.com/vim-test/vim-test)
 Plug 'vimwiki/vimwiki'                                                  " Personal wiki (https://github.com/vimwiki/vimwiki)
 
 " Commands
@@ -59,6 +61,8 @@ set colorcolumn=80             " Show a column at 80
 set complete+=kspell           " Autocomplete when spell check is on
 set cursorline                 " Highlight current line
 set expandtab                  " Expand tabs into spaces
+set foldmethod=syntax
+set foldlevelstart=1           " Some folds closed
 set hidden                     " Handle multiple buffers better
 set nobackup
 set noshowmode                 " Hide redundant mode
@@ -148,6 +152,9 @@ nmap <silent><Leader>h :History<CR>
 nmap <silent><Leader>: :History:<CR>
 nmap <silent><Leader>F :Filetypes<CR>
 
+" liuchengxu/vim-which-key (https://github.com/liuchengxu/vim-which-key)
+nmap <silent><Leader> :WhichKey '<Space>'<CR>
+
 " mbbill/undotree (https://github.com/mbbill/undotree)
 nmap <silent><Leader>u :UndotreeToggle \| UndotreeFocus<CR>
 
@@ -160,6 +167,13 @@ nmap <silent><Leader>y  :<C-u>CocList -A --normal yank<CR>
 " preservim/nerdtree (https://github.com/preservim/nerdtree)
 nmap <silent><Leader>e :NERDTreeToggle<CR>
 nmap <silent><Leader>f :NERDTreeFind<CR>
+
+" vim-test/vim-test (https://github.com/vim-test/vim-test)
+nmap <silent><Leader>tn :TestNearest<CR>
+nmap <silent><Leader>tf :TestFile<CR>
+nmap <silent><Leader>ts :TestSuite<CR>
+nmap <silent><Leader>tl :TestLast<CR>
+nmap <silent><Leader>tg :TestVisit<CR>
 
 " vimwiki/vimwiki (https://github.com/vimwiki/vimwiki)
 nmap <silent><Leader>n <Plug>VimwikiMakeDiaryNote
@@ -208,6 +222,9 @@ nmap ga <Plug>(EasyAlign)
 " justinmk/vim-sneak (https://github.com/justinmk/vim-sneak)
 let g:sneak#label = 1
 
+" liuchengxu/vim-which-key (https://github.com/liuchengxu/vim-which-key)
+let g:which_key_use_floating_win = 1
+
 " mbbill/undotree (https://github.com/mbbill/undotree)
 let g:undotree_WindowLayout = 2
 set undodir=$XDG_CONFIG_HOME/nvim/undo
@@ -241,6 +258,9 @@ let g:gruvbox_color_column     = 'bg0'
 let g:gruvbox_invert_selection = 0
 " Must be after gruvbox options
 colorscheme gruvbox
+
+" vim-test/vim-test (https://github.com/vim-test/vim-test)
+let test#strategy = 'vtr'
 
 " vimwiki/vimwiki (https://github.com/vimwiki/vimwiki)
 let wiki1 = {
