@@ -12,6 +12,7 @@ Plug 'airblade/vim-rooter'                                              " Change
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                        " Find and replace (https://github.com/brooth/far.vim)
 Plug 'jiangmiao/auto-pairs'                                             " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
 Plug 'liuchengxu/vim-which-key'                                         " Show keybindings (https://github.com/liuchengxu/vim-which-key)
+Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }                        " Tag and symbol viewer (https://github.com/liuchengxu/vista.vim)
 Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeToggle'] }   " Undo history visualizer (https://github.com/mbbill/undotree)
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }                       " Intellisense engine (https://github.com/neoclide/coc.nvim)
 Plug 'norcalli/nvim-colorizer.lua'                                      " Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
@@ -155,6 +156,10 @@ nmap <silent><Leader>F :Filetypes<CR>
 " liuchengxu/vim-which-key (https://github.com/liuchengxu/vim-which-key)
 nmap <silent><Leader> :WhichKey '<Space>'<CR>
 
+" liuchengxu/vista.vim (https://github.com/liuchengxu/vista.vim)
+nmap <Leader>t :Vista finder<CR>
+nmap <Leader>i :Vista show<CR>
+
 " mbbill/undotree (https://github.com/mbbill/undotree)
 nmap <silent><Leader>u :UndotreeToggle \| UndotreeFocus<CR>
 
@@ -224,6 +229,12 @@ let g:sneak#label = 1
 
 " liuchengxu/vim-which-key (https://github.com/liuchengxu/vim-which-key)
 let g:which_key_use_floating_win = 1
+
+" liuchengxu/vista.vim (https://github.com/liuchengxu/vista.vim)
+let g:vista_default_executive      = 'coc'
+let g:vista_sidebar_width          = 35
+let g:vista_update_on_text_changed = 1
+let g:vista#renderer#enable_icon   = 0
 
 " mbbill/undotree (https://github.com/mbbill/undotree)
 let g:undotree_WindowLayout = 2
@@ -457,7 +468,7 @@ command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0, '.')
 command! -nargs=* -bang RgVimwiki
-    \ call RipgrepFzf(<q-args>, <bang>0, '~/.vim/vimwiki')
+    \ call RipgrepFzf(<q-args>, <bang>0, '~/.config/nvim/vimwiki')
 " }}}
 " Functions {{{
 " Advanced ripgrep fzf integration
@@ -475,7 +486,8 @@ function! SetRelativeNumber()
     if &filetype != 'nerdtree' &&
         \ &filetype != 'fzf' &&
         \ &filetype != 'undotree' &&
-        \ &filetype != 'diff'
+        \ &filetype != 'diff' &&
+        \ &filetype != 'vista'
         set relativenumber
     endif
 endfunction
