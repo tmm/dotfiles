@@ -47,6 +47,7 @@ cask 'sip'                 # Color picker (https://sipapp.io)
 cask 'zoomus'
 
 mas '1Password', id: 1333542190
+mas 'Craft',     id: 1487937127
 mas 'Dato',      id: 1470584107
 mas 'Day One',   id: 1055511498
 mas 'Paprika',   id: 1303222628

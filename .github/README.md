@@ -21,10 +21,10 @@ make alfred            # Install Alfred workflows
 make fish              # Change shell to fish
 make fish-packages     # Install fish packages with fisher
 make gpg               # Import GPG key from Keybase
-make homebrew-packages # Install with homebrew, cask, mas
+make homebrew-packages # Install tools with homebrew, cask, mas
 make macos             # Set up macOS defaults
 make tmux-packages     # Install tmux packages with tpm
-make vim-packages      # Install vim packages with plug
+make vim-packages      # Install vim packages with vim-plug
 ```
 
 Not automated yet:

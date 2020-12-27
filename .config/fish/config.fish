@@ -40,6 +40,7 @@ alias ls=exa
 alias reload="exec $SHELL -l"
 alias vim=nvim
 
+# Quick edit config files
 alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
 alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
@@ -65,7 +66,7 @@ abbr lsd "exa -d .*"
 abbr t "tmux"
 abbr tf "terraform"
 abbr v "nvim"
-abbr x "devx"
+abbr y "yarn"
 
 abbr dsr "docker stop (docker ps -a -q) && docker rm (docker ps -a -q)" # Stops and removes all running containers
 abbr dex "docker exec -it"
