@@ -1,4 +1,4 @@
-Clone the dotfiles:
+## Set up
 
 ```
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
@@ -8,15 +8,10 @@ h git fetch
 h git checkout master
 ```
 
-Install tools:
+## Commands
 
 ```
-make
-```
-
-Other commands:
-
-```
+make                   # Bootstrap setup
 make alfred            # Install Alfred workflows
 make fish              # Change shell to fish
 make fish-packages     # Install fish packages with fisher
@@ -27,7 +22,7 @@ make tmux-packages     # Install tmux packages with tpm
 make vim-packages      # Install vim packages with vim-plug
 ```
 
-Not automated yet:
+## Not automated yet
 
 * Set up [1Password](https://1password.com)
 * Configure SSH
