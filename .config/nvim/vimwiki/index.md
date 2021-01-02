@@ -23,3 +23,4 @@
 
 * Switch from Keybase to [Keys.pub](https://keys.pub)
 * Coc scroll float window
+* New window manager https://github.com/ianyh/Amethyst

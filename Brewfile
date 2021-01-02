@@ -28,6 +28,7 @@ cask 'bartender'           # Clean up menu bar (https://www.macbartender.com)
 cask 'caffeine'            # Prevent sleep (https://intelliscapesolutions.com/apps/caffeine)
 cask 'choosy'              # Choose where links open (https://www.choosyosx.com)
 cask 'contexts'            # Better `cmd + tab` (https://contexts.co)
+cask 'craft'
 cask 'daisydisk'           # Better disk utility (https://daisydiskapp.com)
 cask 'dash'                # Doc browser (https://kapeli.com/dash)
 cask 'dropbox'
@@ -51,5 +52,6 @@ mas 'Craft',     id: 1487937127
 mas 'Dato',      id: 1470584107
 mas 'Day One',   id: 1055511498
 mas 'Paprika',   id: 1303222628
+mas 'Things',    id: 904280696
 mas 'Xcode',     id: 497799835
 # vim:syntax=ruby
