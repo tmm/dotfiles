@@ -122,7 +122,7 @@ dockutil --no-restart --add "~/Downloads" --section others --sort name --view li
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Hide menubar
-defaults write NSGlobalDomain _HIHideMenuBar -bool false
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
 # Appearance: Dark
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"

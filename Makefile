@@ -1,8 +1,6 @@
 PIP=PIP_REQUIRE_VIRTUALENV=false pip
 
-BREW=/usr/local/bin/brew
-BREW_BUNDLE=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-bundle
-
+BREW := $(shell [ $$(uname -m) = arm64 ] && echo /opt/homebrew || echo /usr/local)/bin/brew
 OS := $(shell uname)
 
 all: $(OS) fish-packages vim-packages tmux-packages
@@ -12,13 +10,10 @@ Linux:
 
 $(BREW):
 	@echo Installing Homebrew
-	@ruby -e "`curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install`"
-
-$(BREW_BUNDLE): $(BREW)
-	brew tap Homebrew/bundle
+	@sudo curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
 
 .PHONY: homebrew-packages
-homebrew-packages: $(BREW_BUNDLE)
+homebrew-packages: $(BREW)
 	brew bundle
 
 .PHONY: vim-packages
@@ -28,7 +23,9 @@ vim-packages:
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	@nvim -c PlugUpgrade -c PlugInstall -c qall
 
+.PHONY: fish
 fish:
+	@if ! grep -q "$(shell which fish)" /etc/shells; then echo $(shell which fish) | sudo tee -a /etc/shells; fi;
 	@chsh -s $(shell which fish)
 
 .PHONY: fish-packages
@@ -51,6 +48,7 @@ alfred:
 macos:
 	@bash -c $$XDG_CONFIG_HOME/macos/config
 
+.PHONY: gpg
 gpg:
 	@open /Applications/Keybase.app
 	@keybase pgp export -q 72072EC3ED191086 | gpg --import

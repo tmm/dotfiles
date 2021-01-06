@@ -16,6 +16,7 @@ set -x GPG_TTY (tty)
 # Turn off `brew` analytics
 # https://docs.brew.sh/Analytics#opting-out
 set HOMEBREW_NO_ANALYTICS 1
+set HOMEBREW_NO_EMOJI 1
 
 # Pure
 # https://github.com/rafaelrinaldi/pure#configuration
@@ -28,6 +29,15 @@ set PG_CONFIG /Applications/Postgres.app/Contents/Versions/latest/bin
 # Only add `PG_CONFIG` to `fish_user_paths` once
 # https://github.com/fish-shell/fish-shell/issues/5834#issuecomment-485070486
 contains $PG_CONFIG $fish_user_paths; or set -Ua fish_user_paths $PG_CONFIG $fish_user_paths
+
+# Set homebrew path
+switch (uname -m)
+case arm64
+    set BREW /opt/homebrew/bin
+case x86_64
+    set BREW /usr/local/bin
+end
+contains $BREW $fish_user_paths; or set -Ua fish_user_paths $BREW $fish_user_paths
 
 # ==========================
 # Aliases
@@ -79,5 +89,4 @@ abbr dl "docker logs -f"
 # Other
 # ==========================
 
-eval (direnv hook fish)
-source /usr/local/opt/asdf/asdf.fish
+direnv hook fish | source

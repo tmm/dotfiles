@@ -28,7 +28,6 @@ cask 'bartender'           # Clean up menu bar (https://www.macbartender.com)
 cask 'caffeine'            # Prevent sleep (https://intelliscapesolutions.com/apps/caffeine)
 cask 'choosy'              # Choose where links open (https://www.choosyosx.com)
 cask 'contexts'            # Better `cmd + tab` (https://contexts.co)
-cask 'craft'
 cask 'daisydisk'           # Better disk utility (https://daisydiskapp.com)
 cask 'dash'                # Doc browser (https://kapeli.com/dash)
 cask 'dropbox'
