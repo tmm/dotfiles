@@ -1,11 +1,8 @@
-npm list -g awm || npm install -g awm
-
-awm install com.sirshanksalot.dark-mode-toggle
-awm install com.nikolaeu.numi
-awm install co.bluehelix.imessage-2fa
-
-echo "Install Emoji Workflow from https://git.io/Jfesa"
-echo "Install GitHub Workflow from https://git.io/Jfes2"
+echo "Install Dark Mode Workflow from https://git.io/JLxg8"
 echo "Install Dash Workflow from https://git.io/vdnqH"
 echo "Install Do Not Disturb Workflow from https://git.io/JJ3OQ"
+echo "Install Emoji Workflow from https://git.io/JLAiW"
+echo "Install GitHub Workflow from https://git.io/lZclzg"
+echo "Install Numi Workflow from https://git.io/JLxgn"
 echo "Install Things Workflow from https://git.io/JL5xW"
+echo "Install iMessage 2FA Workflow from https://git.io/JLxgG"
