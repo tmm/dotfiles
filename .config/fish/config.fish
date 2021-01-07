@@ -39,6 +39,11 @@ case x86_64
 end
 contains $BREW $fish_user_paths; or set -Ua fish_user_paths $BREW $fish_user_paths
 
+# Move `asdf` config
+# https://asdf-vm.com/#/core-configuration?id=environment-variables
+set -gx ASDF_CONFIG_FILE $XDG_CONFIG_HOME/asdf/config
+set -gx ASDF_DATA_DIR $HOME/.asdf
+
 # ==========================
 # Aliases
 # ==========================
@@ -90,3 +95,4 @@ abbr dl "docker logs -f"
 # ==========================
 
 direnv hook fish | source
+source /usr/local/opt/asdf/asdf.fish
