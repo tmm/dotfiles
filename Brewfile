@@ -44,7 +44,6 @@ cask 'numi'                # Programmable calculator (https://github.com/nikolae
 cask 'postgres'            # Fastest PostgreSQL setup (https://postgresapp.com)
 cask 'postico'             # Moder PostgreSQL client (https://eggerapps.at/postico)
 cask 'sip'                 # Color picker (https://sipapp.io)
-cask 'zoomus'
 
 mas '1Password', id: 1333542190
 mas 'Craft',     id: 1487937127
