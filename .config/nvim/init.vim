@@ -185,6 +185,10 @@ nmap <silent><Leader>n <Plug>VimwikiMakeDiaryNote
 nmap <silent><Leader>wg :RgVimwiki<CR>
 " }}}
 " Plugin Settings {{{
+" neovim
+" https://github.com/neovim/neovim/wiki/FAQ#python-support-isnt-working
+let g:python3_host_prog = $ASDF_DATA_DIR.'/shims/python3'
+
 " AndrewRadev/splitjoin.vim (https://github.com/AndrewRadev/splitjoin.vim)
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping  = ''
