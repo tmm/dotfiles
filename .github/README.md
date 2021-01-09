@@ -26,6 +26,6 @@ make vim-packages      # Install vim packages with vim-plug
 
 * Set up [1Password](https://1password.com)
 * Configure SSH
-* Change background color to #131415 or [classic macOS wallpaper](https://512pixels.net/projects/default-mac-wallpapers-in-5k/)
 * Map `Caps Lock` to `Escape` (System Preferences > Keyboard > Modifier Keys)
-* Install [AirBuddy](https://v2.airbuddy.app)
+
+https://www.craft.do/s/dgb68JxSefmpSJ

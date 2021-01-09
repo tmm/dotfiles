@@ -95,4 +95,3 @@ abbr dl "docker logs -f"
 # ==========================
 
 direnv hook fish | source
-source /usr/local/opt/asdf/asdf.fish
