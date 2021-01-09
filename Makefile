@@ -20,7 +20,7 @@ homebrew-packages: $(BREW)
 vim-packages:
 	@python3 -m pip install --user --upgrade pynvim
 	@curl -fsSLo $$XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim?latest
 	@nvim -c PlugUpgrade -c PlugInstall -c qall
 
 .PHONY: fish
@@ -30,7 +30,9 @@ fish:
 
 .PHONY: fish-packages
 fish-packages:
-	@fish -c fisher
+	@curl -fsSLo $$XDG_CONFIG_HOME/fish/functions/fisher.fish --create-dirs \
+		https://raw.githubusercontent.com/jorgebucaran/fisher/main/fisher.fish?latest
+	@fish -c "fisher update"
 
 .PHONY: tmux-packages
 tmux-packages:
