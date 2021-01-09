@@ -18,6 +18,10 @@ set -x GPG_TTY (tty)
 set HOMEBREW_NO_ANALYTICS 1
 set HOMEBREW_NO_EMOJI 1
 
+# Turn off `next.js` telemetry
+# https://nextjs.org/telemetry
+set NEXT_TELEMETRY_DISABLED 1
+
 # Pure
 # https://github.com/rafaelrinaldi/pure#configuration
 set pure_color_primary white
@@ -31,7 +35,7 @@ set PG_CONFIG /Applications/Postgres.app/Contents/Versions/latest/bin
 contains $PG_CONFIG $fish_user_paths; or set -Ua fish_user_paths $PG_CONFIG $fish_user_paths
 
 # Set homebrew path
-switch (uname -m)
+switch (arch)
 case arm64
     set BREW /opt/homebrew/bin
 case x86_64
@@ -95,3 +99,4 @@ abbr dl "docker logs -f"
 # ==========================
 
 direnv hook fish | source
+source (brew --prefix)/opt/asdf/asdf.fish

@@ -10,6 +10,7 @@
 * https://github.com/neovim/neovim/issues/13010
 * https://old.reddit.com/r/neovim/comments/femk6t/finally_got_neovim_to_listen_for_transitions/
 * https://gist.github.com/maxbucknell/6f111b2a04132ab922f29cf631abd58b
+* https://github.com/sharkdp/bat#dark-mode
 
 ## Swift x Vim
 

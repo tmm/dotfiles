@@ -6,6 +6,7 @@ tap 'homebrew/cask-fonts'
 
 brew 'asdf'                # Version manager (https://github.com/asdf-vm/asdf)
 brew 'bat'                 # Better `cat` (https://github.com/sharkdp/bat)
+brew 'diff-so-fancy'       # Readable diffs (https://github.com/so-fancy/diff-so-fancy)
 brew 'direnv'              # Project-based env variables (https://github.com/direnv/direnv)
 brew 'docker'
 brew 'dockutil'            # Manage dock items (https://github.com/kcrawford/dockutil)
