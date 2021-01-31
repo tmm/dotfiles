@@ -18,7 +18,7 @@ set -x GPG_TTY (tty)
 set HOMEBREW_NO_ANALYTICS 1
 set HOMEBREW_NO_EMOJI 1
 
-# Turn off `next.js` telemetry
+# Turn off `Next.js` telemetry
 # https://nextjs.org/telemetry
 set NEXT_TELEMETRY_DISABLED 1
 
@@ -54,6 +54,7 @@ set -gx ASDF_DATA_DIR $HOME/.asdf
 
 alias cat=bat
 alias find=fd
+alias fup="echo $fish_user_paths | tr \" \" \"\n\" | nl"
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
 alias ls=exa
 alias reload="exec $SHELL -l"
