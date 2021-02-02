@@ -52,5 +52,6 @@ mas 'Dato',      id: 1470584107
 mas 'Day One',   id: 1055511498
 mas 'Paprika',   id: 1303222628
 mas 'Things',    id: 904280696
+mas 'Tweetbot',  id: 1384080005
 mas 'Xcode',     id: 497799835
 # vim:syntax=ruby
