@@ -24,6 +24,7 @@ Plug 'vimwiki/vimwiki'                                                  " Person
 " Commands
 Plug 'AndrewRadev/splitjoin.vim'                                        " Toggle single and multi-line (https://github.com/AndrewRadev/splitjoin.vim)
 Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] }                   " Close buffers (https://github.com/Asheq/close-buffers.vim)
+Plug 'drzel/vim-repo-edit', { 'on': ['RepoEdit'] }                      " Browse GitHub repos locally (https://github.com/drzel/vim-repo-edit) 
 Plug 'junegunn/vim-easy-align'                                          " Align whitespace (https://github.com/junegunn/vim-easy-align)
 Plug 'justinmk/vim-sneak'                                               " Faster motions (https://github.com/justinmk/vim-sneak)
 Plug 'mattn/emmet-vim'                                                  " Emmet for vim (https://github.com/mattn/emmet-vim)

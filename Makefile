@@ -30,8 +30,7 @@ fish:
 
 .PHONY: fish-packages
 fish-packages:
-	@curl -fsSLo $$XDG_CONFIG_HOME/fish/functions/fisher.fish --create-dirs \
-		https://raw.githubusercontent.com/jorgebucaran/fisher/main/fisher.fish?latest
+	@curl -fsSLo $$XDG_CONFIG_HOME/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 	@fish -c "fisher update"
 
 .PHONY: tmux-packages

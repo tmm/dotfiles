@@ -27,4 +27,4 @@ make vim-packages       # Install vim packages with vim-plug
 * Set up [1Password](https://1password.com)
 * Configure SSH
 * Map `Caps Lock` to `Escape` (System Preferences > Keyboard > Modifier Keys)
-* Nitpicky details: https://www.craft.do/s/dgb68JxSefmpSJ
+* [Nitpicky details](https://www.craft.do/s/dgb68JxSefmpSJ)
