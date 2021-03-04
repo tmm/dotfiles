@@ -30,9 +30,7 @@ set pure_color_success green
 # Add `pg_config` to path
 # https://fishshell.com/docs/current/tutorial.html?highlight=fish_user_path#path
 set PG_CONFIG /Applications/Postgres.app/Contents/Versions/latest/bin
-# Only add `PG_CONFIG` to `fish_user_paths` once
-# https://github.com/fish-shell/fish-shell/issues/5834#issuecomment-485070486
-contains $PG_CONFIG $fish_user_paths; or set -Ua fish_user_paths $PG_CONFIG $fish_user_paths
+fish_add_path $PG_CONFIG
 
 # Set homebrew path
 switch (arch)
@@ -41,7 +39,7 @@ case arm64
 case x86_64
     set BREW /usr/local/bin
 end
-contains $BREW $fish_user_paths; or set -Ua fish_user_paths $BREW $fish_user_paths
+fish_add_path $BREW
 
 # Move `asdf` config
 # https://asdf-vm.com/#/core-configuration?id=environment-variables
