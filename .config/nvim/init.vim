@@ -51,10 +51,6 @@ Plug 'sheerun/vim-polyglot'                                             " Syntax
 
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }                        " Python code folding (https://github.com/tmhedberg/SimpylFold)
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }                   " Terraform integration (https://github.com/hashivim/vim-terraform)
-
-" Snippets
-Plug 'epilande/vim-es2015-snippets'                                     " (https://github.com/epilande/vim-es2015-snippets)
-Plug 'epilande/vim-react-snippets'                                      " (https://github.com/epilande/vim-react-snippets)
 call plug#end()
 " }}}
 " General {{{
