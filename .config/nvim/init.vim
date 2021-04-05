@@ -158,7 +158,7 @@ nmap <silent><Leader>F :Filetypes<CR>
 nmap <silent><Leader> :WhichKey '<Space>'<CR>
 
 " liuchengxu/vista.vim (https://github.com/liuchengxu/vista.vim)
-nmap <Leader>t :Vista finder<CR>
+nmap <Leader>t :Vista finder coc<CR>
 nmap <Leader>i :Vista show<CR>
 
 " mbbill/undotree (https://github.com/mbbill/undotree)
@@ -240,6 +240,9 @@ let g:vista_default_executive      = 'coc'
 let g:vista_sidebar_width          = 35
 let g:vista_update_on_text_changed = 1
 let g:vista#renderer#enable_icon   = 0
+
+" mattn/vim-lsp-settings (https://github.com/mattn/vim-lsp-settings)
+let g:lsp_settings_servers_dir = $XDG_DATA_HOME.'/vim-lsp-settings/servers'
 
 " mbbill/undotree (https://github.com/mbbill/undotree)
 let g:undotree_WindowLayout = 2

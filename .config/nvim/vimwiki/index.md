@@ -4,6 +4,7 @@
 * https://github.com/svermeulen/vim-subversive
 * https://github.com/Shougo/dein.vim
 * https://github.com/michaeljsmith/vim-indent-object
+* https://github.com/simeji/winresizer
 
 ## Dark/Light Mode: iTerm x Vim x Bat 
 
