@@ -299,6 +299,10 @@ let g:coc_global_extensions = [
 \    'coc-yank',
 \ ]
 
+let g:snippets = {
+\   'userSnippetsDirectory': $XDG_CONFIG_HOME.'/nvim/ultisnips',
+\ }
+
 " Use tab for trigger completion with characters ahead and navigate
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :

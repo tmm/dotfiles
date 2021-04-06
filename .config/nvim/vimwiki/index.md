@@ -1,10 +1,11 @@
 ## Vim
 
+* coc-snippets and ultisnips play nice
+* https://github.com/simeji/winresizer
 * https://github.com/lambdalisue/fern.vim
 * https://github.com/svermeulen/vim-subversive
 * https://github.com/Shougo/dein.vim
 * https://github.com/michaeljsmith/vim-indent-object
-* https://github.com/simeji/winresizer
 
 ## Dark/Light Mode: iTerm x Vim x Bat 
 
