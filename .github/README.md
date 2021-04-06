@@ -22,7 +22,7 @@ make tmux-packages      # Install tmux packages with tpm
 make vim-packages       # Install vim packages with vim-plug
 ```
 
-## Not automated yet
+## Not automated
 
 * Set up [1Password](https://1password.com)
 * Configure SSH

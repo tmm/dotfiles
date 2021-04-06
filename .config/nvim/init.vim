@@ -18,6 +18,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }                       " Intell
 Plug 'norcalli/nvim-colorizer.lua'                                      " Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } " Tree explorer (https://github.com/preservim/nerdtree)
 Plug 'rhysd/git-messenger.vim'                                          " Commit messages under cursor (https://github.com/rhysd/git-messenger.vim)
+Plug 'simeji/winresizer'                                                " Window resizer (https://github.com/simeji/winresizer)
 Plug 'vim-test/vim-test'                                                " Run tests quickly (https://github.com/vim-test/vim-test)
 Plug 'vimwiki/vimwiki'                                                  " Personal wiki (https://github.com/vimwiki/vimwiki)
 
