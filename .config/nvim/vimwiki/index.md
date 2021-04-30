@@ -3,6 +3,7 @@
 * coc-snippets and ultisnips play nice
 * https://github.com/svermeulen/vim-subversive
 * https://github.com/michaeljsmith/vim-indent-object
+* https://github.com/wellle/tmux-complete.vim
 * https://github.com/lambdalisue/fern.vim
 * https://github.com/Shougo/dein.vim
 
