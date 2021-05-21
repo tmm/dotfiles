@@ -10,6 +10,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                                                 " Fuzzy finder (https://github.com/junegunn/fzf.vim)
 Plug 'airblade/vim-rooter'                                              " Change directory to project root (https://github.com/airblade/vim-rooter)
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                        " Find and replace (https://github.com/brooth/far.vim)
+Plug 'christoomey/vim-sort-motion'                                      " Sort using objects and motions (https://github.com/christoomey/vim-sort-motion)
 Plug 'jiangmiao/auto-pairs'                                             " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
 Plug 'liuchengxu/vim-which-key'                                         " Show keybindings (https://github.com/liuchengxu/vim-which-key)
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }                        " Tag and symbol viewer (https://github.com/liuchengxu/vista.vim)
@@ -50,8 +51,8 @@ Plug 'mattn/vim-lsp-settings'                                           " Config
 Plug 'prabirshrestha/vim-lsp'                                           " Language server protocol (https://github.com/prabirshrestha/vim-lsp)
 Plug 'sheerun/vim-polyglot'                                             " Syntax highlighting (https://github.com/sheerun/vim-polyglot)
 
-Plug 'tmhedberg/SimpylFold', { 'for': 'python' }                        " Python code folding (https://github.com/tmhedberg/SimpylFold)
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }                   " Terraform integration (https://github.com/hashivim/vim-terraform)
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }                        " Python code folding (https://github.com/tmhedberg/SimpylFold)
 call plug#end()
 " }}}
 " General {{{
@@ -190,8 +191,8 @@ let g:python3_host_prog = $ASDF_DATA_DIR.'/shims/python3'
 " AndrewRadev/splitjoin.vim (https://github.com/AndrewRadev/splitjoin.vim)
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping  = ''
-nmap gss :SplitjoinSplit<CR>
-nmap gsj :SplitjoinJoin<CR>
+nmap gS :SplitjoinSplit<CR>
+nmap gJ :SplitjoinJoin<CR>
 
 " brooth/far.vim (https://github.com/brooth/far.vim)
 let g:far#source      = 'rg'
