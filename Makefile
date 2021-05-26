@@ -43,9 +43,6 @@ tmux-packages:
 	@bash -c "$$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/update_plugins all"
 	@tmux kill-ses -t tmux-packages
 
-alfred:
-	@bash -c $$XDG_CONFIG_HOME/alfred/install
-
 macos:
 	@bash -c $$XDG_CONFIG_HOME/macos/config
 

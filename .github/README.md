@@ -12,7 +12,6 @@ h git checkout master
 
 ```
 make                    # Bootstrap setup
-make alfred             # Install Alfred workflows
 make fish               # Change shell to fish
 make fish-packages      # Install fish packages with fisher
 make gpg                # Import GPG key from Keybase

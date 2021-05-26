@@ -24,7 +24,6 @@ brew 'nvim'                # Better `vim` (https://github.com/neovim/neovim)
 brew 'ripgrep'             # Better `grep` (https://github.com/BurntSushi/ripgrep)
 brew 'tmux'                # Terminal multiplexer (https://github.com/tmux/tmux)
 
-cask 'alfred'              # Better Spotlight (https://www.alfredapp.com)
 cask 'bartender'           # Clean up menu bar (https://www.macbartender.com)
 cask 'caffeine'            # Prevent sleep (https://intelliscapesolutions.com/apps/caffeine)
 cask 'choosy'              # Choose where links open (https://www.choosyosx.com)
@@ -44,6 +43,7 @@ cask 'monitorcontrol'      # Control external monitor (https://github.com/Monito
 cask 'numi'                # Programmable calculator (https://github.com/nikolaeu/numi)
 cask 'postgres'            # Fastest PostgreSQL setup (https://postgresapp.com)
 cask 'postico'             # Moder PostgreSQL client (https://eggerapps.at/postico)
+cask 'raycast'             # Better Spotlight (https://raycast.com)
 cask 'sip'                 # Color picker (https://sipapp.io)
 
 mas '1Password', id: 1333542190
