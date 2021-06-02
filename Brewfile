@@ -31,11 +31,12 @@ cask 'contexts'            # Better `cmd + tab` (https://contexts.co)
 cask 'daisydisk'           # Better disk utility (https://daisydiskapp.com)
 cask 'dash'                # Doc browser (https://kapeli.com/dash)
 cask 'dropbox'
+cask 'discord'
 cask 'figma-beta'
 cask 'firefox'
 cask 'flux'                # Stop blue light (https://justgetflux.com)
 cask 'font-jetbrains-mono' # Programming font (https://github.com/JetBrains/JetBrainsMono)
-cask 'hey'
+cask 'hey'                 # Email with custom domains (https://www.hey.com)
 cask 'hyperdock'           # Window manager (https://bahoom.com/hyperdock)
 cask 'iterm2'              # Better Terminal.app (https://iterm2.com)
 cask 'keybase'
