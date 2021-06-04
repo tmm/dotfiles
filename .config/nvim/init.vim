@@ -167,6 +167,9 @@ nmap <silent><Leader>rn <Plug>(coc-rename)
 nmap <silent><Leader>ac <Plug>(coc-codeaction)
 nmap <silent><Leader>af <Plug>(coc-fix-current)
 nmap <silent><Leader>y  :<C-u>CocList -A --normal yank<CR>
+" coc-react-refactor (https://github.com/fannheyward/coc-react-refactor)
+xmap <silent><Leader>ar <Plug>(coc-codeaction-selected)
+nmap <silent><Leader>ar <Plug>(coc-codeaction-selected)
 
 " preservim/nerdtree (https://github.com/preservim/nerdtree)
 nmap <silent><Leader>e :NERDTreeToggle<CR>
@@ -294,6 +297,7 @@ let g:coc_global_extensions = [
 \    'coc-eslint',
 \    'coc-json',
 \    'coc-python',
+\    'coc-react-refactor',
 \    'coc-snippets',
 \    'coc-tailwindcss',
 \    'coc-tsserver',

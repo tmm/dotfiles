@@ -6,8 +6,8 @@
     "diagnostic.infoSign": ">>",
     "diagnostic.hintSign": ">>",
     "eslint.autoFixOnSave": true,
-    "eslint.enable": true,
     "eslint.packageManager": "yarn",
+    "react-refactor.produceClass": false,
     "snippets.extends": {
         "javascriptreact": [
             "javascript"
