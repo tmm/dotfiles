@@ -52,6 +52,7 @@ Plug 'prabirshrestha/vim-lsp'                                           " Langua
 Plug 'sheerun/vim-polyglot'                                             " Syntax highlighting (https://github.com/sheerun/vim-polyglot)
 
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }                   " Terraform integration (https://github.com/hashivim/vim-terraform)
+Plug 'pantharshit00/vim-prisma', { 'for': 'prisma' }                    " Prisma integration (https://github.com/pantharshit00/vim-prisma)
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }                        " Python code folding (https://github.com/tmhedberg/SimpylFold)
 call plug#end()
 " }}}

@@ -53,6 +53,5 @@ mas '1Password', id: 1333542190
 mas 'Craft',     id: 1487937127
 mas 'Dato',      id: 1470584107
 mas 'Things',    id: 904280696
-mas 'Tweetbot',  id: 1384080005
 mas 'Xcode',     id: 497799835
 # vim:syntax=ruby
