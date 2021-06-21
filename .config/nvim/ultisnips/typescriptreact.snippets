@@ -2,7 +2,7 @@
 extends typescript
 
 snippet i.r "Import react" w
-import React from 'react'
+import * as React from 'react'
 endsnippet
 
 snippet pt "Props type" w
@@ -12,8 +12,8 @@ type Props = {
 endsnippet
 
 snippet fc "Function component" w
-${2:export }const ${3:Component}${4:: React.FC<Props>} = (${5:props}) => {
-	return ${6:<div>merp</div>}
+${2:export }const ${3:Component} = (${4:props}) => {
+	return ${5}
 }
 endsnippet
 
