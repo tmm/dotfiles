@@ -5,7 +5,7 @@ alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
 h git init
 h git remote add origin https://github.com/tmm/dotfiles.git
 h git fetch
-h git checkout master
+h git checkout main
 ```
 
 ## Commands

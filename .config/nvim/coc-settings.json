@@ -1,6 +1,6 @@
 {
     "coc.preferences.hoverTarget": "float",
-    "coc.preferences.jumpCommand": "split",
+    "coc.preferences.jumpCommand": "edit",
     "diagnostic.errorSign": ">>",
     "diagnostic.warningSign": "!!",
     "diagnostic.infoSign": ">>",
