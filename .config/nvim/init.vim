@@ -3,7 +3,7 @@ call plug#begin(stdpath('data') . '/plugged')
 " Appearance
 Plug 'itchyny/lightline.vim'                                            " Statusline (https://github.com/itchyny/lightline.vim)
 Plug 'nathanaelkane/vim-indent-guides'                                  " Display indents (https://github.com/nathanaelkane/vim-indent-guides)
-Plug 'morhetz/gruvbox'                                                  " Colorscheme (https://github.com/morhetz/gruvbox)
+Plug 'morhetz/gruvbox'                                                  " Color scheme (https://github.com/morhetz/gruvbox)
 
 " IDE
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -20,6 +20,7 @@ Plug 'norcalli/nvim-colorizer.lua'                                      " Colori
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } " Tree explorer (https://github.com/preservim/nerdtree)
 Plug 'rhysd/git-messenger.vim'                                          " Commit messages under cursor (https://github.com/rhysd/git-messenger.vim)
 Plug 'simeji/winresizer'                                                " Window resizer (https://github.com/simeji/winresizer)
+Plug 'tpope/vim-sleuth'                                                 " Auto adjust shiftwidth, etc. (https://github.com/tpope/vim-sleuth)
 Plug 'vim-test/vim-test'                                                " Run tests quickly (https://github.com/vim-test/vim-test)
 Plug 'vimwiki/vimwiki'                                                  " Personal wiki (https://github.com/vimwiki/vimwiki)
 
@@ -72,7 +73,6 @@ set noswapfile
 set number                     " Show line numbers
 set relativenumber             " Line numbers relative to cursor
 set scrolloff=5                " Always show at least five lines above/below cursor
-set shiftwidth=4               " Indent four spaces
 set shortmess=Iac              " Disable start up message and abbreviate items
 set showbreak=↪
 set sidescrolloff=5            " Always show at least five columns left/right cursor
