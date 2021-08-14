@@ -1,14 +1,10 @@
 # Based on https://github.com/epilande/vim-react-snippets
 extends typescript
 
-snippet i.r "Import react" w
-import * as React from 'react'
-endsnippet
-
 snippet pt "Props type" w
 type Props = {
-	$1: $2$0
-}
+	$1: $2
+}$0
 endsnippet
 
 snippet fc "Function component" w
@@ -18,49 +14,54 @@ ${2:export }const ${3:Component} = (${4:props}) => {
 endsnippet
 
 snippet us.cb "useCallback" w
-useCallback(
-	() => {
-		$1
-	},
-	[$2],
-)$0
+const $1 = React.useCallback(() => {
+	$2
+}, [$3])$0
 endsnippet
 
 snippet us.e "useEffect" w
-useEffect(() => {
+React.useEffect(() => {
   $1
-})$0
+}, ${3:[]})$0
 endsnippet
 
 snippet us.er "useEffect with return" w
-useEffect(() => {
+React.useEffect(() => {
 	$1
 	return () => {
 		$2
 	}
-})$0
+}, ${3:[]})$0
 endsnippet
 
 snippet us.m "useMemo" w
-const $1 = useMemo(() => {
+const $1 = React.useMemo(() => {
   $2
 }, [$3])$0
 endsnippet
 
 snippet us.r "useReducer" w
-const $1Reducer = (state, action) => {
+type State = {}
+const initialState: State = {}
+
+type Action = { type: 'default' }
+const reducer = (state: State, action: Action) => {
 	switch (action.type) {
-		default:
+		case 'default':
 			return state
 	}
 }
-const [$1, dispatch] = useReducer($1Reducer, ${2:${VISUAL:initialState}})$0
+
+const [state, dispatch] = React.useReducer<React.Reducer<State, Action>>(reducer, initialState)$0
 endsnippet
 
 snippet us.rf "useRef" w
-const $1 = useRef($2)$0
+const $1 = React.useRef${2:<string>}($2)$0
 endsnippet
 
 snippet us.s "useState" w
-const [$1, set${1/\w+\s*/\u$0/g}] = useState${2:<string>}(${3:''})$0
+type State = {}
+const initialState: State = {}
+
+const [state, setState] = React.useState<State>(initialState)$0
 endsnippet
