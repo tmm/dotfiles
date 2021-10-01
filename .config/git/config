@@ -1,58 +1,59 @@
 [user]
-    name       = Tom Meagher
-    email      = tom@meagher.co
-    signingkey = tom@meagher.co
+  name       = Tom Meagher
+  email      = tom@meagher.co
+  signingkey = tom@meagher.co
 
 [commit]
-    gpgsign = true
+  gpgsign = true
 
 [github]
-    user = tmm
+  user = tmm
 
 [credential]
-    helper = osxkeychain
+  helper = osxkeychain
 
 [core]
-    editor       = nvim
-    excludesfile = ~/.config/git/ignore_global
-    pager        = diff-so-fancy | less --tabs=4 -RFX
+  editor       = nvim
+  excludesfile = ~/.config/git/ignore_global
+  pager        = diff-so-fancy | less --tabs=4 -RFX
 
 [diff]
-    tool = vimdiff
+  tool = vimdiff
 
 [difftool]
-    prompt = false
+  prompt = false
 
 [color]
-    ui = auto
+  ui = auto
 
 [push]
-    default = current
+  default = current
 
 [pull]
-    rebase = false
+  rebase = false
 
 [alias]
-    a   = add
-    aa  = add .
-    au  = add --update
-    b   = branch
-    c   = commit -m
-    ch  = checkout
-    d   = difftool
-    l   = log
-    p   = push
-    pf  = push --force
-    pl  = pull
-    plm = pull origin master
-    s   = status
+  a   = add
+  aa  = add .
+  au  = add --update
+  b   = branch
+  c   = commit -m
+  ch  = checkout
+  d   = difftool
+  l   = log
+  p   = push
+  pf  = push --force
+  pl  = pull
+  plm = pull origin main
+  s   = status
 
-    amend    = commit --amend --reuse-message=HEAD
-    go       = "!go() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; go"
-    hist     = log --pretty=oneline --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --abbrev-commit
-    monkeys  = shortlog --summary --numbered
-    pull-all = "!git pull; git submodule foreach git pull origin master"
-    undo     = reset --soft HEAD^
-    unstage  = reset HEAD --
+  amend    = commit --amend --reuse-message=HEAD
+  go       = "!go() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; go"
+  hist     = log --pretty=oneline --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --abbrev-commit
+  monkeys  = shortlog --summary --numbered
+  pull-all = "!git pull; git submodule foreach git pull origin main"
+  undo     = reset --soft HEAD^
+  unstage  = reset HEAD --
+
 [init]
 	defaultBranch = main
