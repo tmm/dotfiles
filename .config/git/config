@@ -38,6 +38,7 @@
   au  = add --update
   b   = branch
   c   = commit -m
+  cn  = commit --no-verify -m
   ch  = checkout
   d   = difftool
   l   = log
