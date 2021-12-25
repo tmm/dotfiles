@@ -12,17 +12,6 @@ $(BREW):
 	@echo Installing Homebrew
 	@sudo curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
 
-.PHONY: homebrew-packages
-homebrew-packages: $(BREW)
-	brew bundle
-
-.PHONY: vim-packages
-vim-packages:
-	@python3 -m pip install --user --upgrade pynvim
-	@curl -fsSLo $$XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim?latest
-	@nvim -c PlugUpgrade -c PlugInstall -c qall
-
 .PHONY: fish
 fish:
 	@if ! grep -q "$(shell which fish)" /etc/shells; then echo $(shell which fish) | sudo tee -a /etc/shells; fi;
@@ -32,6 +21,24 @@ fish:
 fish-packages:
 	@curl -fsSLo $$XDG_CONFIG_HOME/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 	@fish -c "fisher update"
+
+.PHONY: gpg
+gpg:
+	@open /Applications/Keybase.app
+	@keybase pgp export -q 72072EC3ED191086 | gpg --import
+	@keybase pgp export -q 72072EC3ED191086 --secret | gpg --allow-secret-key-import --import
+
+.PHONY: homebrew-packages
+homebrew-packages: $(BREW)
+	brew bundle
+
+.PHONY: npm
+npm-packages: $(BREW)
+	@fnm install
+	@npm i -g @antfu/ni pnpm
+
+macos:
+	@bash -c $$XDG_CONFIG_HOME/macos/config
 
 .PHONY: tmux-packages
 tmux-packages:
@@ -43,11 +50,10 @@ tmux-packages:
 	@bash -c "$$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/update_plugins all"
 	@tmux kill-ses -t tmux-packages
 
-macos:
-	@bash -c $$XDG_CONFIG_HOME/macos/config
+.PHONY: vim-packages
+vim-packages:
+	@python3 -m pip install --user --upgrade pynvim
+	@curl -fsSLo $$XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim?latest
+	@nvim -c PlugUpgrade -c PlugInstall -c qall
 
-.PHONY: gpg
-gpg:
-	@open /Applications/Keybase.app
-	@keybase pgp export -q 72072EC3ED191086 | gpg --import
-	@keybase pgp export -q 72072EC3ED191086 --secret | gpg --allow-secret-key-import --import

@@ -99,3 +99,6 @@ abbr dl "docker logs -f"
 
 direnv hook fish | source
 source (brew --prefix)/opt/asdf/asdf.fish
+
+set -gx PNPM_HOME "/Users/tom/.local/share/pnpm"
+set -gx PATH "$PNPM_HOME" $PATH

@@ -13,6 +13,7 @@ brew 'dockutil'              # Manage dock items (https://github.com/kcrawford/d
 brew 'exa'                   # Better `ls` (https://github.com/ogham/exa)
 brew 'fd'                    # Better `find` (https://github.com/sharkdp/fd)
 brew 'fish'                  # More friendly shell (https://fishshell.com)
+brew 'fnm'                   # Fast Node.js version manager (https://github.com/Schniz/fnm)
 brew 'fzf'                   # Fuzzy finder (https://github.com/junegunn/fzf)
 brew 'gh'                    # GitHub CLI (https://cli.github.com)
 brew 'git'
