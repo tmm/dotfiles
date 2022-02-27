@@ -10,7 +10,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                                                 " Fuzzy finder (https://github.com/junegunn/fzf.vim)
 Plug 'airblade/vim-rooter'                                              " Change directory to project root (https://github.com/airblade/vim-rooter)
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farr'] }                        " Find and replace (https://github.com/brooth/far.vim)
-Plug 'christoomey/vim-sort-motion'                                      " Sort using objects and motions (https://github.com/christoomey/vim-sort-motion)
 Plug 'jiangmiao/auto-pairs'                                             " Insert syntax in pairs (https://github.com/jiangmiao/auto-pairs)
 Plug 'liuchengxu/vim-which-key'                                         " Show keybindings (https://github.com/liuchengxu/vim-which-key)
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }                        " Tag and symbol viewer (https://github.com/liuchengxu/vista.vim)
@@ -27,7 +26,6 @@ Plug 'vimwiki/vimwiki'                                                  " Person
 " Commands
 Plug 'AndrewRadev/splitjoin.vim'                                        " Toggle single and multi-line (https://github.com/AndrewRadev/splitjoin.vim)
 Plug 'Asheq/close-buffers.vim', { 'on': ['Bdelete'] }                   " Close buffers (https://github.com/Asheq/close-buffers.vim)
-Plug 'drzel/vim-repo-edit', { 'on': ['RepoEdit'] }                      " Browse GitHub repos locally (https://github.com/drzel/vim-repo-edit) 
 Plug 'junegunn/vim-easy-align'                                          " Align whitespace (https://github.com/junegunn/vim-easy-align)
 Plug 'justinmk/vim-sneak'                                               " Faster motions (https://github.com/justinmk/vim-sneak)
 Plug 'mattn/emmet-vim'                                                  " Emmet for vim (https://github.com/mattn/emmet-vim)
@@ -48,11 +46,7 @@ Plug 'christoomey/vim-tmux-navigator'                                   " Move b
 Plug 'christoomey/vim-tmux-runner'                                      " Control tmux from vim (https://github.com/christoomey/vim-tmux-runner)
 
 " Language
-Plug 'mattn/vim-lsp-settings'                                           " Config for vim-lsp (https://github.com/mattn/vim-lsp-settings)
-Plug 'prabirshrestha/vim-lsp'                                           " Language server protocol (https://github.com/prabirshrestha/vim-lsp)
 Plug 'sheerun/vim-polyglot'                                             " Syntax highlighting (https://github.com/sheerun/vim-polyglot)
-
-Plug 'hashivim/vim-terraform', { 'for': 'terraform' }                   " Terraform integration (https://github.com/hashivim/vim-terraform)
 Plug 'pantharshit00/vim-prisma', { 'for': 'prisma' }                    " Prisma integration (https://github.com/pantharshit00/vim-prisma)
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }                        " Python code folding (https://github.com/tmhedberg/SimpylFold)
 call plug#end()
@@ -72,7 +66,7 @@ set nowritebackup
 set noswapfile
 set number                     " Show line numbers
 set relativenumber             " Line numbers relative to cursor
-set scrolloff=5                " Always show at least five lines above/below cursor
+set scrolloff=4                " Always show at least four lines above/below cursor
 set shortmess=Iac              " Disable start up message and abbreviate items
 set showbreak=↪
 set sidescrolloff=5            " Always show at least five columns left/right cursor
@@ -134,7 +128,7 @@ nmap <silent><Leader>q :q<CR>
 nmap <silent><Leader>d :Bdelete menu<CR>
 
 " christoomey/vim-tmux-runner (https://github.com/christoomey/vim-tmux-runner)
-nmap <silent><Leader>v :VtrSendCommandToRunner<Space>
+nmap <silent><Leader>vv :VtrSendCommandToRunner<Space>
 nmap <silent><Leader>va :VtrAttachToPane<Space>
 nmap <silent><Leader>vc :VtrSendCtrlC<CR>
 nmap <silent><Leader>vf :VtrFocusRunner!<CR>
@@ -213,7 +207,7 @@ let g:VtrPercentage  = 20
 " georgewitteman/vim-fish via sheerun/vim-polyglot (https://github.com/sheerun/vim-polyglot)
 " https://github.com/georgewitteman/vim-fish#teach-a-vim-to-fish
 if &shell =~# 'fish$'
-    set shell=bash
+  set shell=bash
 endif
 
 " hashivim/vim-terraform (https://github.com/hashivim/vim-terraform)
@@ -242,9 +236,6 @@ let g:vista_default_executive      = 'coc'
 let g:vista_sidebar_width          = 35
 let g:vista_update_on_text_changed = 1
 let g:vista#renderer#enable_icon   = 0
-
-" mattn/vim-lsp-settings (https://github.com/mattn/vim-lsp-settings)
-let g:lsp_settings_servers_dir = $XDG_DATA_HOME.'/vim-lsp-settings/servers'
 
 " mbbill/undotree (https://github.com/mbbill/undotree)
 let g:undotree_WindowLayout = 2
@@ -285,25 +276,25 @@ let test#strategy = 'vtr'
 
 " vimwiki/vimwiki (https://github.com/vimwiki/vimwiki)
 let wiki1 = {
-\    'auto_toc': 1,
-\    'path': '~/.config/nvim/vimwiki/',
-\    'syntax': 'markdown', 'ext': '.md',
+\   'auto_toc': 1,
+\   'path': '~/.config/nvim/vimwiki/',
+\   'syntax': 'markdown', 'ext': '.md',
 \ }
 let g:vimwiki_list           = [wiki1]
 let g:vimwiki_table_mappings = 0
 " }}}
 " Coc {{{
 let g:coc_global_extensions = [
-\    'coc-css',
-\    'coc-eslint',
-\    'coc-json',
-\    'coc-python',
-\    'coc-react-refactor',
-\    'coc-snippets',
-\    'coc-tailwindcss',
-\    'coc-tsserver',
-\    'coc-vimlsp',
-\    'coc-yank',
+\   'coc-css',
+\   'coc-eslint',
+\   'coc-json',
+\   'coc-python',
+\   'coc-react-refactor',
+\   'coc-snippets',
+\   'coc-tailwindcss',
+\   'coc-tsserver',
+\   'coc-vimlsp',
+\   'coc-yank',
 \ ]
 
 let g:snippets = {
@@ -312,14 +303,14 @@ let g:snippets = {
 
 " Use tab for trigger completion with characters ahead and navigate
 imap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <C-Space> to trigger completion
@@ -339,11 +330,11 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent> \ :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor
@@ -436,28 +427,28 @@ endfunction
 " Coc Lightline
 " https://github.com/neoclide/coc.nvim/issues/401#issuecomment-469051524
 function! s:lightline_coc_diagnostic(kind) abort
-    let info = get(b:, 'coc_diagnostic_info', 0)
-    if empty(info) || get(info, a:kind, 0) == 0
-        return ''
-    endif
-    let s = '●'
-    return printf('%s %d', s, info[a:kind])
+  let info = get(b:, 'coc_diagnostic_info', 0)
+  if empty(info) || get(info, a:kind, 0) == 0
+    return ''
+  endif
+  let s = '●'
+  return printf('%s %d', s, info[a:kind])
 endfunction
 
 function! LightlineCocErrors() abort
-    return s:lightline_coc_diagnostic('error')
+  return s:lightline_coc_diagnostic('error')
 endfunction
 
 function! LightlineCocWarnings() abort
-    return s:lightline_coc_diagnostic('warning')
+  return s:lightline_coc_diagnostic('warning')
 endfunction
 
 function! LightlineCocInfos() abort
-    return s:lightline_coc_diagnostic('information')
+  return s:lightline_coc_diagnostic('information')
 endfunction
 
 function! LightlineCocHints() abort
-    return s:lightline_coc_diagnostic('hints')
+  return s:lightline_coc_diagnostic('hints')
 endfunction
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
@@ -467,9 +458,9 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 " Switch between relative and absolute line numbers based on mode
 " https://jeffkreeftmeijer.com/vim-number/
 augroup numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * call SetRelativeNumber()
-    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * call SetRelativeNumber()
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
 " Automatically rebalance windows on vim resize
@@ -480,31 +471,31 @@ autocmd CursorHold * checktime
 " }}}
 " Commands {{{
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0, '.')
 command! -nargs=* -bang RgVimwiki
-    \ call RipgrepFzf(<q-args>, <bang>0, '~/.config/nvim/vimwiki')
+  \ call RipgrepFzf(<q-args>, <bang>0, '~/.config/nvim/vimwiki')
 " }}}
 " Functions {{{
 " Advanced ripgrep fzf integration
 " https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
 function! RipgrepFzf(query, fullscreen, dir)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command], 'dir': a:dir}
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command], 'dir': a:dir}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 " Set relativenumber only for certain files
 function! SetRelativeNumber()
-    if &filetype != 'nerdtree' &&
-        \ &filetype != 'fzf' &&
-        \ &filetype != 'undotree' &&
-        \ &filetype != 'diff' &&
-        \ &filetype != 'vista'
-        set relativenumber
-    endif
+  if &filetype != 'nerdtree' &&
+    \ &filetype != 'fzf' &&
+    \ &filetype != 'undotree' &&
+    \ &filetype != 'diff' &&
+    \ &filetype != 'vista'
+    set relativenumber
+  endif
 endfunction
 " }}}
 " vim:foldmethod=marker

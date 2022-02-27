@@ -30,6 +30,7 @@ cask 'caffeine'              # Prevent sleep (https://intelliscapesolutions.com/
 cask 'choosy'                # Choose where links open (https://www.choosyosx.com)
 cask 'cleanshot'             # Better screenshots (https://cleanshot.com)
 cask 'contexts'              # Better `cmd + tab` (https://contexts.co)
+cask 'cron'                  # Better Calendar.app (https://cron.app)
 cask 'daisydisk'             # Better disk utility (https://daisydiskapp.com)
 cask 'dash'                  # Doc browser (https://kapeli.com/dash)
 cask 'dropbox'
@@ -55,6 +56,7 @@ cask 'sip'                   # Color picker (https://sipapp.io)
 mas '1Password', id: 1333542190
 mas 'Craft',     id: 1487937127
 mas 'Dato',      id: 1470584107
+mas 'Day One',   id: 1055511498
 mas 'OpenIn',    id: 1547147101
 mas 'Xcode',     id: 497799835
 # vim:syntax=ruby

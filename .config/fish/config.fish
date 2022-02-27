@@ -35,9 +35,9 @@ fish_add_path $PG_CONFIG
 # Set homebrew path
 switch (arch)
 case arm64
-    set BREW /opt/homebrew/bin
+  set BREW /opt/homebrew/bin
 case x86_64
-    set BREW /usr/local/bin
+  set BREW /usr/local/bin
 end
 fish_add_path $BREW
 
@@ -81,6 +81,7 @@ abbr df "h git"
 abbr g "git"
 abbr home "cd ~"
 abbr lsd "exa -d .*"
+abbr p "pnpm"
 abbr t "tmux"
 abbr tf "terraform"
 abbr v "nvim"
@@ -99,6 +100,7 @@ abbr dl "docker logs -f"
 
 direnv hook fish | source
 source (brew --prefix)/opt/asdf/asdf.fish
+fnm env | source
 
 set -gx PNPM_HOME "/Users/tom/.local/share/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH

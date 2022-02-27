@@ -57,4 +57,4 @@
   unstage  = reset HEAD --
 
 [init]
-	defaultBranch = main
+  defaultBranch = main

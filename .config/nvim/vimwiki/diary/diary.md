@@ -1,6 +1,26 @@
 
 # Diary
 
+## 2022
+
+### February
+
+- [vimdiff cheat sheet](2022-02-27)
+
+## 2021
+
+### May
+
+- [Insert mode edit mappings](2021-05-17)
+
+### April
+
+- [2021-04-05](2021-04-05)
+
+### January
+
+- [2021-01-11](2021-01-11)
+
 ## 2020
 
 ### December

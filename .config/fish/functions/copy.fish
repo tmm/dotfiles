@@ -1,3 +1,3 @@
 function copy
-    pbcopy $argv
+  pbcopy $argv
 end

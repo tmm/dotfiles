@@ -3,7 +3,7 @@
 *.un~
 Session.vim
 
-# OS X
+# macOS
 .DS_Store
 
 # Thumbnails
@@ -18,3 +18,4 @@ venv/
 
 # direnv
 .envrc
+.env
