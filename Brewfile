@@ -52,6 +52,5 @@ mas '1Password', id: 1333542190
 mas 'Craft',     id: 1487937127
 mas 'Dato',      id: 1470584107
 mas 'Day One',   id: 1055511498
-mas 'OpenIn',    id: 1547147101
 mas 'Xcode',     id: 497799835
 # vim:syntax=ruby
