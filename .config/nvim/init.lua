@@ -7,13 +7,35 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 require('packer').startup(function(use)
-  use 'norcalli/nvim-colorizer.lua' -- Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
-  use 'tpope/vim-abolish'           -- Word manipulation (https://github.com/tpope/vim-abolish)
-  use 'tpope/vim-obsession'         -- Update session automatically (https://github.com/tpope/vim-obsession)
-  use 'tpope/vim-repeat'            -- Better repeat commands (https://github.com/tpope/vim-repeat)
-  use 'tpope/vim-surround'          -- Simple quoting/parenthesizing (https://github.com/tpope/vim-surround)
-  use 'tpope/vim-unimpaired'        -- Handy bracket mappings (https://github.com/tpope/vim-unimpaired)
-  use 'wbthomason/packer.nvim'      -- Plugin manager (https://github.com/wbthomason/packer.nvim)
+  use 'airblade/vim-rooter'            -- Change directory to project root (https://github.com/airblade/vim-rooter)
+  use 'christoomey/vim-tmux-navigator' -- Move between tmux panes and vim splits (https://github.com/christoomey/vim-tmux-navigator)
+  use 'christoomey/vim-tmux-runner'    -- Control tmux from vim (https://github.com/christoomey/vim-tmux-runner)
+  use 'norcalli/nvim-colorizer.lua'    -- Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
+  use 'simeji/winresizer'              -- Window resizer (https://github.com/simeji/winresizer)
+  use 'tpope/vim-abolish'              -- Word manipulation (https://github.com/tpope/vim-abolish)
+  use 'tpope/vim-obsession'            -- Update session automatically (https://github.com/tpope/vim-obsession)
+  use 'tpope/vim-repeat'               -- Better repeat commands (https://github.com/tpope/vim-repeat)
+  use 'tpope/vim-surround'             -- Simple quoting/parenthesizing (https://github.com/tpope/vim-surround)
+  use 'tpope/vim-unimpaired'           -- Handy bracket mappings (https://github.com/tpope/vim-unimpaired)
+  use 'wbthomason/packer.nvim'         -- Plugin manager (https://github.com/wbthomason/packer.nvim)
+
+  -- [[
+  -- dynamic theme (gruvbox)
+  -- lsp (coc)
+  -- fuzzy find (fzf)
+  -- file browser (nerdtree)
+  -- status line (lightline)
+  -- indent guidelines (vim-indent-guidelines)
+  -- git signs (vim-signify)
+  -- git (vim-fugitive)
+  -- fast motion (vim-sneak)
+  -- comments (tcomment_vim)
+  -- autopairs (auto-pairs)
+  -- buffer management
+  -- easy align
+  -- undotree
+  -- syntax highlighting (vim-polyglot)
+  -- ]]
 
   if packer_bootstrap then
     require('packer').sync()
@@ -105,6 +127,14 @@ keymap('n', '<Leader>so', ':source $MYVIMRC<CR>', silent)
 keymap('n', '<Leader>w', ':w<CR>', silent)
 keymap('n', '<Leader>q', ':q<CR>', silent)
 
+-- christoomey/vim-tmux-runner (https://github.com/christoomey/vim-tmux-runner)
+keymap('n', '<Leader>vv', ':VtrSendCommandToRunner<Space>', silent)
+keymap('n', '<Leader>va', ':VtrAttachToPane<Space>', silent)
+keymap('n', '<Leader>vc', ':VtrSendCtrlC<CR>', silent)
+keymap('n', '<Leader>vf', ':VtrFocusRunner!<CR>', silent)
+keymap('n', '<Leader>vk', ':VtrKillRunner<CR>', silent)
+keymap('n', '<Leader>vo', ':VtrOpenRunner<CR>', silent)
+
 ----------------------------------------------------
 -- Autocommands
 ----------------------------------------------------
@@ -132,9 +162,27 @@ au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
   group = number_toggle,
 })
 
+-- Highlight on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 200 })
+  end
+})
+
 ----------------------------------------------------
 -- Plugin Settings
 ----------------------------------------------------
+
+-- airblade/vim-rooter (https://github.com/airblade/vim-rooter)
+vim.g.rooter_patterns = {'.git', 'Makefile'}
+
+-- christoomey/vim-tmux-navigator (https://github.com/christoomey/vim-tmux-navigator)
+vim.g.tmux_navigator_disable_when_zoomed = 1
+vim.g.tmux_navigator_save_on_switch      = 2
+
+-- christoomey/vim-tmux-runner (https://github.com/christoomey/vim-tmux-runner)
+vim.g.VtrOrientation = 'v'
+vim.g.VtrPercentage  = 20
 
 -- norcalli/nvim-colorizer.lua (https://github.com/norcalli/nvim-colorizer.lua)
 require('colorizer').setup(

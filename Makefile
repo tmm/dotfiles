@@ -53,7 +53,6 @@ tmux-packages:
 .PHONY: vim-packages
 vim-packages:
 	@python3 -m pip install --user --upgrade pynvim
-	@curl -fsSLo $$XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim?latest
-	@nvim -c PlugUpgrade -c PlugInstall -c qall
+	@nvim -c qall
+	@nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 

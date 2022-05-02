@@ -61,7 +61,7 @@ alias vim=nvim
 # Quick edit config files
 alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
 alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
-alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
+alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.lua"
 
 # Hide/show hidden files in Finder
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
@@ -83,7 +83,6 @@ abbr home "cd ~"
 abbr lsd "exa -d .*"
 abbr p "pnpm"
 abbr t "tmux"
-abbr tf "terraform"
 abbr v "nvim"
 abbr y "yarn"
 
