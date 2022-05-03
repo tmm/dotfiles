@@ -8,30 +8,31 @@ end
 
 require('packer').startup(function(use)
 
-  use 'airblade/vim-rooter'                 -- Change directory to project root (https://github.com/airblade/vim-rooter)
-  use 'christoomey/vim-tmux-navigator'      -- Move between tmux panes and vim splits (https://github.com/christoomey/vim-tmux-navigator)
-  use 'christoomey/vim-tmux-runner'         -- Control tmux from vim (https://github.com/christoomey/vim-tmux-runner)
-  use 'junegunn/vim-easy-align'             -- Align whitespace (https://github.com/junegunn/vim-easy-align)
-  use 'Asheq/close-buffers.vim'             -- Close buffers (https://github.com/Asheq/close-buffers.vim)
-  use 'lewis6991/gitsigns.nvim'             -- Git decorations (https://github.com/lewis6991/gitsigns.nvim)
-  use 'lukas-reineke/indent-blankline.nvim' -- Display indents (https://github.com/nathanaelkane/vim-indent-guides)
-  use 'mbbill/undotree'                     -- Undo history visualizer (https://github.com/mbbill/undotree)
-  use 'norcalli/nvim-colorizer.lua'         -- Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
-  use 'numToStr/Comment.nvim'               -- Commenting (https://github.com/numToStr/Comment.nvim)
-  use 'nvim-lua/plenary.nvim'               -- Lua functions (https://github.com/nvim-lua/plenary.nvim)
-  use 'nvim-lua/popup.nvim'                 -- Pop up API (https://github.com/nvim-lua/popup.nvim)
-  use 'simeji/winresizer'                   -- Window resizer (https://github.com/simeji/winresizer)
-  use 'tpope/vim-abolish'                   -- Word manipulation (https://github.com/tpope/vim-abolish)
-  use 'tpope/vim-fugitive'                  -- Git wrapper (https://github.com/tpope/vim-fugitive)
-  use 'tpope/vim-obsession'                 -- Update session automatically (https://github.com/tpope/vim-obsession)
-  use 'tpope/vim-repeat'                    -- Better repeat commands (https://github.com/tpope/vim-repeat)
-  use 'tpope/vim-surround'                  -- Simple quoting/parenthesizing (https://github.com/tpope/vim-surround)
-  use 'tpope/vim-unimpaired'                -- Handy bracket mappings (https://github.com/tpope/vim-unimpaired)
-  use 'wbthomason/packer.nvim'              -- Plugin manager (https://github.com/wbthomason/packer.nvim)
-  use 'windwp/nvim-autopairs'               -- Insert syntax in pairs (https://github.com/windwp/nvim-autopairs)
+  use 'airblade/vim-rooter'                         -- Change directory to project root (https://github.com/airblade/vim-rooter)
+  use 'christoomey/vim-tmux-navigator'              -- Move between tmux panes and vim splits (https://github.com/christoomey/vim-tmux-navigator)
+  use 'christoomey/vim-tmux-runner'                 -- Control tmux from vim (https://github.com/christoomey/vim-tmux-runner)
+  use 'junegunn/vim-easy-align'                     -- Align whitespace (https://github.com/junegunn/vim-easy-align)
+  use 'lewis6991/gitsigns.nvim'                     -- Git decorations (https://github.com/lewis6991/gitsigns.nvim)
+  use 'lukas-reineke/indent-blankline.nvim'         -- Display indents (https://github.com/nathanaelkane/vim-indent-guides)
+  use 'mbbill/undotree'                             -- Undo history visualizer (https://github.com/mbbill/undotree)
+  use 'norcalli/nvim-colorizer.lua'                 -- Colorizer (https://github.com/norcalli/nvim-colorizer.lua)
+  use 'numToStr/Comment.nvim'                       -- Commenting (https://github.com/numToStr/Comment.nvim)
+  use 'nvim-lua/plenary.nvim'                       -- Lua functions (https://github.com/nvim-lua/plenary.nvim)
+  use 'nvim-lua/popup.nvim'                         -- Pop up API (https://github.com/nvim-lua/popup.nvim)
+  use 'simeji/winresizer'                           -- Window resizer (https://github.com/simeji/winresizer)
+  use 'tpope/vim-abolish'                           -- Word manipulation (https://github.com/tpope/vim-abolish)
+  use 'tpope/vim-fugitive'                          -- Git wrapper (https://github.com/tpope/vim-fugitive)
+  use 'tpope/vim-obsession'                         -- Update session automatically (https://github.com/tpope/vim-obsession)
+  use 'tpope/vim-repeat'                            -- Better repeat commands (https://github.com/tpope/vim-repeat)
+  use 'tpope/vim-surround'                          -- Simple quoting/parenthesizing (https://github.com/tpope/vim-surround)
+  use 'tpope/vim-unimpaired'                        -- Handy bracket mappings (https://github.com/tpope/vim-unimpaired)
+  use 'wbthomason/packer.nvim'                      -- Plugin manager (https://github.com/wbthomason/packer.nvim)
+  use 'windwp/nvim-autopairs'                       -- Insert syntax in pairs (https://github.com/windwp/nvim-autopairs)
+  use 'Asheq/close-buffers.vim'                     -- Close buffers (https://github.com/Asheq/close-buffers.vim)
+  use 'JoosepAlviste/nvim-ts-context-commentstring' -- Treesitter commentstring (https://github.com/JoosepAlviste/nvim-ts-context-commentstring)
 
   use {
-    'nvim-telescope/telescope.nvim',        -- Fuzzy finder (https://github.com/nvim-telescope/telescope.nvim)
+    'nvim-telescope/telescope.nvim',                -- Fuzzy finder (https://github.com/nvim-telescope/telescope.nvim)
     requires = {
       {'nvim-lua/plenary.nvim'},
       {'nvim-lua/popup.nvim'},
@@ -39,7 +40,7 @@ require('packer').startup(function(use)
   }
 
   use {
-    'nvim-treesitter/nvim-treesitter',
+    'nvim-treesitter/nvim-treesitter',              -- Syntax (https://github.com/nvim-treesitter/nvim-treesitter)
     run = ':TSUpdate',
   }
   
@@ -211,11 +212,11 @@ require('gitsigns').setup {
   on_attach = function(bufnr) 
     local gs = package.loaded.gitsigns 
     keymap('n', '<Leader>gb', gs.toggle_current_line_blame, silent)
-  end
+  end,
 }
 
 -- lukas-reineke/indent-blankline.nvim (https://github.com/nathanaelkane/vim-indent-guides)
-require('indent_blankline').setup()
+require('indent_blankline').setup {}
 
 -- mbbill/undotree (https://github.com/mbbill/undotree)
 vim.g.undotree_WindowLayout = 2
@@ -229,12 +230,46 @@ require('colorizer').setup(
 )
 
 -- numToStr/Comment.nvim (https://github.com/numToStr/Comment.nvim)
-require('Comment').setup()
+require('Comment').setup {
+  pre_hook = function(ctx)
+    -- Only calculate commentstring for tsx filetypes
+    if vim.bo.filetype == 'typescriptreact' then
+      local U = require('Comment.utils')
+
+      -- Determine whether to use linewise or blockwise commentstring
+      local type = ctx.ctype == U.ctype.line and '__default' or '__multiline'
+
+      -- Determine the location where to calculate commentstring from
+      local location = nil
+      if ctx.ctype == U.ctype.block then
+        location = require('ts_context_commentstring.utils').get_cursor_location()
+      elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+        location = require('ts_context_commentstring.utils').get_visual_start_location()
+      end
+
+      return require('ts_context_commentstring.internal').calculate_commentstring({
+        key = type,
+        location = location,
+      })
+    end
+  end,
+}
 
 -- nvim-telescope/telescope.nvim (https://github.com/nvim-telescope/telescope.nvim)
 require('telescope').setup {}
 
 -- windwp/nvim-autopairs (https://github.com/windwp/nvim-autopairs)
 local npairs = require('nvim-autopairs')
-npairs.setup()
+npairs.setup {}
 -- npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
+
+-- JoosepAlviste/nvim-ts-context-commentstring (https://github.com/JoosepAlviste/nvim-ts-context-commentstring)
+require('nvim-treesitter.configs').setup {
+  autopairs = { enable = true },
+  context_commentstring = {
+    enable = true
+  },
+  ensure_installed = {
+    'tsx',
+  },
+}
