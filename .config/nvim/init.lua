@@ -31,6 +31,11 @@ require('packer').startup(function(use)
   use 'Asheq/close-buffers.vim'                     -- Close buffers (https://github.com/Asheq/close-buffers.vim)
   use 'JoosepAlviste/nvim-ts-context-commentstring' -- Treesitter commentstring (https://github.com/JoosepAlviste/nvim-ts-context-commentstring)
 
+  use 'hrsh7th/nvim-cmp'                            -- Completions (https://github.com/hrsh7th/nvim-cmp)
+  use 'hrsh7th/cmp-nvim-lsp'                        -- LSP client (https://github.com/hrsh7th/cmp-nvim-lsp)
+  use 'hrsh7th/cmp-buffer'                          -- Buffer words (https://github.com/hrsh7th/cmp-buffer)
+  use 'hrsh7th/cmp-path'                            -- File system paths (https://github.com/hrsh7th/cmp-path)
+
   use {
     'nvim-telescope/telescope.nvim',                -- Fuzzy finder (https://github.com/nvim-telescope/telescope.nvim)
     requires = {
@@ -43,6 +48,7 @@ require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter',              -- Syntax (https://github.com/nvim-treesitter/nvim-treesitter)
     run = ':TSUpdate',
   }
+
   
   if packer_bootstrap then
     require('packer').sync()
@@ -70,11 +76,16 @@ set.signcolumn     = 'yes'                 -- Always show the signcolumn
 set.smartcase      = true                  -- Switch to case-sensitive search for capital letters
 set.splitbelow     = true                  -- More natural split opening
 set.splitright     = true
+set.swapfile       = false                 -- Disable swapfiles
 set.termguicolors  = true                  -- Support for true color (https://github.com/termstandard/colors)
 set.title          = true                  -- Set terminal title
 set.updatetime     = 100                   -- Faster update time
 set.visualbell     = true                  -- Disable beeping
 set.wildmode       = 'longest:full,full'   -- Completion settings
+
+if vim.env.SHELL:match('fish$') then
+  set.shell = '/bin/bash'
+end
 
 ----------------------------------------------------
 -- Key Mappings
@@ -138,21 +149,22 @@ keymap('n', '<Leader>q', ':q<CR>', silent)
 keymap('n', '<Leader>d', ':Bdelete menu<CR>', silent)
 
 -- christoomey/vim-tmux-runner (https://github.com/christoomey/vim-tmux-runner)
-keymap('n', '<Leader>vv', ':VtrSendCommandToRunner<Space>', silent)
 keymap('n', '<Leader>va', ':VtrAttachToPane<Space>', silent)
 keymap('n', '<Leader>vc', ':VtrSendCtrlC<CR>', silent)
 keymap('n', '<Leader>vf', ':VtrFocusRunner!<CR>', silent)
 keymap('n', '<Leader>vk', ':VtrKillRunner<CR>', silent)
 keymap('n', '<Leader>vo', ':VtrOpenRunner<CR>', silent)
+keymap('n', '<Leader>vv', ':VtrSendCommandToRunner<Space>', silent)
 
 -- mbbill/undotree (https://github.com/mbbill/undotree)
 keymap('n', '<Leader>u', ':UndotreeToggle \\| UndotreeFocus<CR>', silent)
 
 -- nvim-telescope/telescope.nvim (https://github.com/nvim-telescope/telescope.nvim)
 local builtin = require "telescope.builtin"
+keymap('n', '<Leader>*', builtin.grep_string, silent)
+keymap('n', '<Leader>b', builtin.buffers, silent)
 keymap('n', '<Leader>p', builtin.find_files, silent)
 keymap('n', '<Leader>rg', builtin.live_grep, silent)
-keymap('n', '<Leader>*', builtin.grep_string, silent)
 
 ----------------------------------------------------
 -- Autocommands
@@ -203,12 +215,22 @@ vim.g.tmux_navigator_save_on_switch      = 2
 vim.g.VtrOrientation = 'v'
 vim.g.VtrPercentage  = 20
 
+-- hrsh7th/nvim-cmp' (https://github.com/hrsh7th/nvim-cmp)
+require('cmp').setup {
+  sources = {
+    { name = 'buffer' },
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+  } 
+}
+
 -- junegunn/vim-easy-align (https://github.com/junegunn/vim-easy-align)
 keymap('n', 'ga', '<Plug>(EasyAlign)', silent)
 keymap('x', 'ga', '<Plug>(EasyAlign)', silent)
 
 -- lewis6991/gitsigns.nvim (https://github.com/lewis6991/gitsigns.nvim)
 require('gitsigns').setup {
+  current_line_blame_opts = { delay = 500 },
   on_attach = function(bufnr) 
     local gs = package.loaded.gitsigns 
     keymap('n', '<Leader>gb', gs.toggle_current_line_blame, silent)
@@ -256,12 +278,38 @@ require('Comment').setup {
 }
 
 -- nvim-telescope/telescope.nvim (https://github.com/nvim-telescope/telescope.nvim)
-require('telescope').setup {}
+local actions = require('telescope.actions')
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+      },
+    },
+    prompt_prefix = '❯ ',
+    selection_caret = '→',
+  },
+  pickers = {
+    buffers = {
+      theme = "dropdown",
+    },
+    find_files = {
+      theme = "dropdown",
+    },
+    grep_string = {
+      theme = "dropdown",
+    },
+    live_grep = {
+      theme = "dropdown",
+    }
+  },
+}
 
 -- windwp/nvim-autopairs (https://github.com/windwp/nvim-autopairs)
 local npairs = require('nvim-autopairs')
 npairs.setup {}
--- npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
+npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
 
 -- JoosepAlviste/nvim-ts-context-commentstring (https://github.com/JoosepAlviste/nvim-ts-context-commentstring)
 require('nvim-treesitter.configs').setup {
