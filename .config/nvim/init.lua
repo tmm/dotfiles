@@ -1,4 +1,5 @@
 require('plugins')
+require('lsp')
 require('options')
 require('key_mappings')
 require('autocommands')
