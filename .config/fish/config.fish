@@ -93,6 +93,10 @@ abbr dcub "docker-compose up -d --build"
 abbr dra "docker rmi (docker images -q) --force"
 abbr dl "docker logs -f"
 
+abbr tn "tmux new -s"
+abbr ta "tmux a -t"
+abbr tls "tmux ls"
+
 # ==========================
 # Other
 # ==========================

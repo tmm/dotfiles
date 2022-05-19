@@ -98,7 +98,7 @@ keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
--- keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+keymap('n', '<space>af', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 -- nvim-telescope/telescope.nvim (https://github.com/nvim-telescope/telescope.nvim)
 local telescopeBuiltin = require('telescope.builtin')
