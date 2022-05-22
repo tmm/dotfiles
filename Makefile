@@ -35,7 +35,7 @@ homebrew-packages: $(BREW)
 .PHONY: npm
 npm-packages: $(BREW)
 	@fnm install
-	@npm i -g @antfu/ni pnpm
+	@npm i -g pnpm
 
 macos:
 	@bash -c $$XDG_CONFIG_HOME/macos/config

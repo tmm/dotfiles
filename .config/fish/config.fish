@@ -41,11 +41,6 @@ case x86_64
 end
 fish_add_path $BREW
 
-# Move `asdf` config
-# https://asdf-vm.com/#/core-configuration?id=environment-variables
-set -gx ASDF_CONFIG_FILE $XDG_CONFIG_HOME/asdf/config
-set -gx ASDF_DATA_DIR $HOME/.asdf
-
 # ==========================
 # Aliases
 # ==========================
@@ -102,7 +97,6 @@ abbr tls "tmux ls"
 # ==========================
 
 direnv hook fish | source
-source (brew --prefix)/opt/asdf/asdf.fish
 fnm env | source
 
 set -gx PNPM_HOME "/Users/tom/.local/share/pnpm"
