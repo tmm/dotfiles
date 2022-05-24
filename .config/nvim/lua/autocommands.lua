@@ -23,8 +23,14 @@ au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
 })
 
 -- Highlight on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
+au('TextYankPost', {
   callback = function()
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 200 })
   end
+})
+
+au({ "VimEnter" }, {
+  callback = function()
+    vim.cmd('hi link illuminatedWord CursorLine')
+  end,
 })

@@ -30,7 +30,8 @@ local on_attach = function(client, bufnr)
     })
   end
 
-  require('illuminate').on_attach(client)
+  -- TODO: Change color
+  -- require('illuminate').on_attach(client)
 end
 
 -- Setup servers

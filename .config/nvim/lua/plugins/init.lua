@@ -137,6 +137,7 @@ return require('packer').startup(function(use)
   })
   -- Better sumneko_lua settings (https://github.com/folke/lua-dev.nvim)
   use({ 'folke/lua-dev.nvim' })
+  -- Highlight word under cursor (https://github.com/RRethy/vim-illuminate)
   use({
     'RRethy/vim-illuminate',
   })
