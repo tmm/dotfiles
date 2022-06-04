@@ -12,6 +12,7 @@ set.relativenumber = true -- Line numbers relative to cursor
 set.scrolloff      = 4 -- Always show at least four lines above/below cursor
 set.shortmess      = 'Iac' -- Disable start up message and abbreviate items
 set.showbreak      = '↪'
+set.showmode       = false -- Hide redundant mode
 set.sidescrolloff  = 4 -- Always show at least four columns left/right cursor
 set.signcolumn     = 'yes' -- Always show the signcolumn
 set.smartcase      = true -- Switch to case-sensitive search for capital letters

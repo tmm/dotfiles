@@ -101,6 +101,14 @@ return require('packer').startup(function(use)
     'norcalli/nvim-colorizer.lua',
     config = config('colorizer'),
   })
+  -- Statusline (https://github.com/nvim-lualine/lualine.nvim)
+  use({
+    'nvim-lualine/lualine.nvim',
+    config = config('lualine'),
+    requires = {
+      'kyazdani42/nvim-web-devicons',
+    }
+  })
   -- Update session automatically (https://github.com/tpope/vim-obsession)
   use({ 'tpope/vim-obsession' })
   -- Detect indent (https://github.com/tpope/vim-sleuth)
