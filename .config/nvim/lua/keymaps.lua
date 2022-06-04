@@ -80,10 +80,6 @@ keymap('x', 'ga', '<Plug>(EasyAlign)', opts)
 keymap('n', '<Leader>e', ':NvimTreeToggle<CR>', opts)
 keymap('n', '<Leader>f', ':NvimTreeFindFile<CR>', opts)
 
--- lewis6991/gitsigns.nvim (https://github.com/lewis6991/gitsigns.nvim)
-local gitsigns = require('gitsigns')
-keymap('n', '<Leader>gb', gitsigns.toggle_current_line_blame, opts)
-
 -- mbbill/undotree (https://github.com/mbbill/undotree)
 keymap('n', '<Leader>u', ':UndotreeToggle \\| UndotreeFocus<CR>', opts)
 
