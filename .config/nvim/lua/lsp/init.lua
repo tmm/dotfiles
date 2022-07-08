@@ -30,7 +30,7 @@ local on_attach = function(client, bufnr)
     })
   end
 
-  -- TODO: Change color
+  -- TODO: illuminateWord highlight group
   -- require('illuminate').on_attach(client)
 end
 

@@ -28,9 +28,3 @@ au('TextYankPost', {
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 200 })
   end
 })
-
-au({ "VimEnter" }, {
-  callback = function()
-    vim.cmd('hi link illuminatedWord CursorLine')
-  end,
-})

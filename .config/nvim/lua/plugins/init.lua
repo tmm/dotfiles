@@ -66,6 +66,8 @@ return require('packer').startup(function(use)
   use({ 'hrsh7th/cmp-buffer' })
   -- File system paths (https://github.com/hrsh7th/cmp-path)
   use({ 'hrsh7th/cmp-path' })
+  -- LuaSnip (https://github.com/saadparwaiz1/cmp_luasnip)
+  use({ 'saadparwaiz1/cmp_luasnip' })
 
   ------------------------------------------------------------------
   -- IDE
@@ -76,6 +78,21 @@ return require('packer').startup(function(use)
     'airblade/vim-rooter',
     config = function()
       vim.g.rooter_patterns = { '.git', 'Makefile' }
+    end,
+  })
+  -- Reopen files at last edit position (https://github.com/ethanholz/nvim-lastplace)
+  use({
+    'ethanholz/nvim-lastplace',
+    config = config('nvim-lastplace'),
+  })
+  -- GitHub Copilot (https://github.com/github/copilot.vim)
+  use({
+    'github/copilot.vim',
+    config = function()
+      -- Integrate nvim-cmp with copilot
+      vim.g.copilot_no_tab_map = true
+      local copilot_accept_key = vim.fn['copilot#Accept'] ''
+      vim.api.nvim_feedkeys(copilot_accept_key, 'i', false)
     end,
   })
   -- File explorer (https://github.com/kyazdani42/nvim-tree.lua)
@@ -92,6 +109,8 @@ return require('packer').startup(function(use)
     'kyazdani42/nvim-web-devicons',
     config = config('nvim-web-devicons'),
   })
+  -- Snippets (https://github.com/L3MON4D3/LuaSnip)
+  use({ 'L3MON4D3/LuaSnip' })
   use({
     'lukas-reineke/indent-blankline.nvim',
     config = config('indent_blankline'),
@@ -146,9 +165,7 @@ return require('packer').startup(function(use)
   -- Better sumneko_lua settings (https://github.com/folke/lua-dev.nvim)
   use({ 'folke/lua-dev.nvim' })
   -- Highlight word under cursor (https://github.com/RRethy/vim-illuminate)
-  use({
-    'RRethy/vim-illuminate',
-  })
+  use({ 'RRethy/vim-illuminate' })
 
   ------------------------------------------------------------------
   -- Telescope (https://github.com/nvim-telescope/telescope.nvim)
