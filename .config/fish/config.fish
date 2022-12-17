@@ -54,7 +54,9 @@ alias reload="exec $SHELL -l"
 alias vim=nvim
 
 # Quick edit config files
+alias brc="nvim $HOME/Brewfile"
 alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
+alias mrc="nvim $HOME/Makefile"
 alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.lua"
 
@@ -73,6 +75,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 abbr d "docker"
 abbr dc "docker-compose"
 abbr df "h git"
+abbr f "forge"
 abbr g "git"
 abbr home "cd ~"
 abbr lsd "exa -d .*"
@@ -90,6 +93,7 @@ abbr dl "docker logs -f"
 
 abbr tn "tmux new -s"
 abbr ta "tmux a -t"
+abbr tks "tmux kill-server"
 abbr tls "tmux ls"
 
 # ==========================
@@ -99,5 +103,12 @@ abbr tls "tmux ls"
 direnv hook fish | source
 fnm env | source
 
-set -gx PNPM_HOME "/Users/tom/.local/share/pnpm"
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
+
+set -gx FOUNDRY_DIR "$HOME/.foundry"
+set -gx PATH "$FOUNDRY_DIR" $PATH
+
+export PATH="$PATH:/Users/tom/.foundry/bin"
+
+source /opt/homebrew/opt/asdf/libexec/asdf.fish

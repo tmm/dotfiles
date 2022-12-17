@@ -1,6 +1,8 @@
 -- nvim-telescope/telescope.nvim (https://github.com/nvim-telescope/telescope.nvim)
 local actions = require('telescope.actions')
-require('telescope').setup({
+
+local telescope = require("telescope")
+telescope.setup({
   defaults = {
     mappings = {
       i = {

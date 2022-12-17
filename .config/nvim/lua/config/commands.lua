@@ -1,10 +1,6 @@
-local au = vim.api.nvim_create_autocmd
-
--- Hybrid line numbers
 -- Switch between relative and absolute line numbers based on mode
 local number_toggle = vim.api.nvim_create_augroup('number_toggle', { clear = true })
-
-au({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
   callback = function()
     if vim.opt.number:get() == true then
       vim.opt.relativenumber = true
@@ -12,8 +8,7 @@ au({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
   end,
   group = number_toggle,
 })
-
-au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
+vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
   callback = function()
     if vim.opt.number:get() == true then
       vim.opt.relativenumber = false
@@ -23,7 +18,7 @@ au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
 })
 
 -- Highlight on yank
-au('TextYankPost', {
+vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 200 })
   end

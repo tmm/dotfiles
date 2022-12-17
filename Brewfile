@@ -3,7 +3,9 @@ cask_args appdir: "/Applications"
 tap 'homebrew/bundle'
 tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
+tap '1password/tap'
 
+brew 'asdf'                          # Manage multiple runtime versions (https://github.com/asdf-vm/asdf)
 brew 'bat'                           # Better `cat` (https://github.com/sharkdp/bat)
 brew 'diff-so-fancy'                 # Readable diffs (https://github.com/so-fancy/diff-so-fancy)
 brew 'direnv'                        # Project-based env variables (https://github.com/direnv/direnv)
@@ -15,6 +17,7 @@ brew 'fnm'                           # Fast Node.js version manager (https://git
 brew 'fzf'                           # Fuzzy finder (https://github.com/junegunn/fzf)
 brew 'gh'                            # GitHub CLI (https://cli.github.com)
 brew 'git'
+brew 'glow'                          # Render Markdown (https://github.com/charmbracelet/glow)
 brew 'gpg'
 brew 'httpie'                        # HTTP CLI (https://github.com/httpie/httpie)
 brew 'jq'                            # JSON CLI (https://github.com/stedolan/jq)
@@ -24,7 +27,6 @@ brew 'ripgrep'                       # Better `grep` (https://github.com/BurntSu
 brew 'tmux'                          # Terminal multiplexer (https://github.com/tmux/tmux)
 
 cask 'bartender'                     # Clean up menu bar (https://macbartender.com)
-cask 'caffeine'                      # Prevent sleep (https://intelliscapesolutions.com/apps/caffeine)
 cask 'cleanshot'                     # Better screenshots (https://cleanshot.com)
 cask 'contexts'                      # Better `cmd + tab` (https://contexts.co)
 cask 'cron'                          # Better Calendar.app (https://cron.app)
@@ -34,11 +36,9 @@ cask 'figma-beta'                    # Design tool (https://figma.com)
 cask 'firefox'                       # Browser (https://firefox.com)
 cask 'flux'                          # Stop blue light (https://justgetflux.com)
 cask 'font-jetbrains-mono-nerd-font' # Programming font (https://github.com/JetBrains/JetBrainsMono)
-cask 'hyperdock'                     # Window manager (https://bahoom.com/hyperdock)
 cask 'iterm2'                        # Better Terminal.app (https://iterm2.com)
 cask 'keybase'                       # Store keys (https://keybase.io)
 cask 'monitorcontrol'                # Control external monitor (https://github.com/MonitorControl/MonitorControl)
-cask 'mumu'                          # Better emoji picker (https://getmumu.com)
 cask 'numi'                          # Programmable calculator (https://github.com/nikolaeu/numi)
 cask 'pixelsnap'                     # Measure anything on screen (https://getpixelsnap.com)
 cask 'postgres'                      # Fastest PostgreSQL setup (https://postgresapp.com)
