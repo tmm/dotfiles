@@ -1,11 +1,16 @@
+local indent = 2
+
 vim.opt.autoindent     = true -- Good auto indent
 vim.opt.clipboard      = 'unnamed,unnamedplus' -- Use clipboard for all operations
 vim.opt.cursorline     = true -- Highlight current line
 vim.opt.expandtab      = true -- Expand tabs into spaces
 vim.opt.hidden         = true -- Handle multiple buffers better
+vim.opt.mouse          = '' -- Disable mouse
 vim.opt.number         = true -- Show line numbers
 vim.opt.relativenumber = true -- Line numbers relative to cursor
 vim.opt.scrolloff      = 4 -- Always show at least four lines above/below cursor
+vim.opt.shiftround     = true -- Round indent
+vim.opt.shiftwidth     = indent -- Size of an indent
 vim.opt.shortmess      = 'Iac' -- Disable start up message and abbreviate items
 vim.opt.showbreak      = '↪'
 vim.opt.showmode       = false -- Hide redundant mode
@@ -16,6 +21,7 @@ vim.opt.smartindent    = true
 vim.opt.splitbelow     = true -- Put new windows below current
 vim.opt.splitright     = true -- Put new windows right of current
 vim.opt.swapfile       = false -- Disable swapfiles
+vim.opt.tabstop        = indent -- Number of spaces tabs count for
 vim.opt.termguicolors  = true -- Support for true color (https://github.com/termstandard/colors)
 vim.opt.title          = true -- Set terminal title
 vim.opt.undodir        = vim.env.XDG_CONFIG_HOME .. '/nvim/undo'
@@ -28,6 +34,22 @@ vim.opt.wildmode       = 'longest:full,full' -- Completion settings
 if vim.env.SHELL:match('fish$') then
   vim.opt.shell = '/bin/bash'
 end
+
+-- Use proper syntax highlighting in code blocks
+local fences = {
+  "console=sh",
+  "javascript",
+  "js=javascript",
+  "json",
+  "lua",
+  "python",
+  "sh",
+  "shell=sh",
+  "ts=typescript",
+  "typescript",
+}
+vim.g.markdown_fenced_languages = fences
+vim.g.markdown_recommended_style = 0
 
 vim.g.rasmus_variant = 'dark'
 vim.cmd([[colorscheme rasmus]])

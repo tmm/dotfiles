@@ -1,19 +1,21 @@
 # TODO
 
-https://github.dev/folke/dot
+https://github.com/folke/dot
+https://github.com/tmm/dotfiles/blob/da82a5c4ffe867fab298ee8e16fa88891f7a0cb6/.config/nvim/lua/plugins/init.lua
 
-- [ ] disable mouse
-- [ ] LSP spaces width
+- [x] disable mouse
+- [x] commenting
 - [ ] Markdown plugin (auto bullets)
+- [x] LSP spaces width
 - [ ] Spell check language server?
-- [ ] Auto-formatting for Lua (hanging commas for lua, single quote)
+- [x] Auto-formatting for Lua (hanging commas for lua, single quote)
 - [ ] trouble
 - [ ] autopairs (works with html and jsx)
-- [ ] indent guidelines
-- [ ] indent on insert
+- [x] indent guidelines
+- [x] indent on insert
 - [ ] autocomplete
 - [ ] code folding
-- [ ] gitsigns
+- [x] gitsigns
 - [ ] tree browser (https://github.com/nvim-neo-tree/neo-tree.nvim)
 - [ ] status line
 - [ ] tmux https://github.com/aserowy/tmux.nvim
@@ -23,3 +25,6 @@ https://github.dev/folke/dot
 - [ ] rooter
 - [ ] find and replace (Spectre?)
 - [ ] quick project switcher telescope
+- [ ] autoformat/lint lua during CI (luacheck)
+- [ ] ufo folding
+- [ ] bracket mappings

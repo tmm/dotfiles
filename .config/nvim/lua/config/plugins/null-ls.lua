@@ -1,10 +1,18 @@
 -- jose-elias-alvarez/null-ls.nvim (https://github.com/jose-elias-alvarez/null-ls.nvim)
-require('null-ls').setup({
-  debounce = 150,
-  save_after_format = false,
-})
-
 local M = {}
+
+function M.setup(options)
+  local nls = require('null-ls')
+  nls.setup({
+    debounce = 150,
+    save_after_format = false,
+    sources = {
+      nls.builtins.formatting.stylua,
+      nls.builtins.formatting.fish_indent,
+    },
+    on_attach = options.on_attach,
+  })
+end
 
 function M.has_formatter(ft)
   local sources = require('null-ls.sources')
