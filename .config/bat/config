@@ -1,4 +1,4 @@
---theme="gruvbox-dark"
+--theme="base16-256"
 
 # Show line numbers and Git modifications 
 --style="numbers,changes"

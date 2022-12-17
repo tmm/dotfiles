@@ -41,11 +41,6 @@ case x86_64
 end
 fish_add_path $BREW
 
-# Move `asdf` config
-# https://asdf-vm.com/#/core-configuration?id=environment-variables
-set -gx ASDF_CONFIG_FILE $XDG_CONFIG_HOME/asdf/config
-set -gx ASDF_DATA_DIR $HOME/.asdf
-
 # ==========================
 # Aliases
 # ==========================
@@ -59,9 +54,11 @@ alias reload="exec $SHELL -l"
 alias vim=nvim
 
 # Quick edit config files
+alias brc="nvim $HOME/Brewfile"
 alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
+alias mrc="nvim $HOME/Makefile"
 alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
-alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
+alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.lua"
 
 # Hide/show hidden files in Finder
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
@@ -78,12 +75,12 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 abbr d "docker"
 abbr dc "docker-compose"
 abbr df "h git"
+abbr f "forge"
 abbr g "git"
 abbr home "cd ~"
 abbr lsd "exa -d .*"
 abbr p "pnpm"
 abbr t "tmux"
-abbr tf "terraform"
 abbr v "nvim"
 abbr y "yarn"
 
@@ -94,13 +91,24 @@ abbr dcub "docker-compose up -d --build"
 abbr dra "docker rmi (docker images -q) --force"
 abbr dl "docker logs -f"
 
+abbr tn "tmux new -s"
+abbr ta "tmux a -t"
+abbr tks "tmux kill-server"
+abbr tls "tmux ls"
+
 # ==========================
 # Other
 # ==========================
 
 direnv hook fish | source
-source (brew --prefix)/opt/asdf/asdf.fish
 fnm env | source
 
-set -gx PNPM_HOME "/Users/tom/.local/share/pnpm"
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
+
+set -gx FOUNDRY_DIR "$HOME/.foundry"
+set -gx PATH "$FOUNDRY_DIR" $PATH
+
+export PATH="$PATH:/Users/tom/.foundry/bin"
+
+source /opt/homebrew/opt/asdf/libexec/asdf.fish

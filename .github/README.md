@@ -1,4 +1,4 @@
-## Set up
+## Install
 
 ```
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
@@ -13,17 +13,10 @@ h git checkout main
 ```
 make                    # Bootstrap setup
 make fish               # Change shell to fish
-make fish-packages      # Install fish packages with fisher
-make gpg                # Import GPG key from Keybase
-make homebrew-packages  # Install tools with homebrew, cask, mas
+make fish-packages      # Install fish packages
+make gpg                # Import GPG key
+make homebrew-packages  # Install tools
 make macos              # Set up macOS defaults
-make tmux-packages      # Install tmux packages with tpm
-make vim-packages       # Install vim packages with vim-plug
+make tmux-packages      # Install tmux packages
+make vim-packages       # Install vim packages
 ```
-
-## Not automated
-
-* Set up [1Password](https://1password.com)
-* Configure SSH
-* Map `Caps Lock` to `Escape` (System Preferences > Keyboard > Modifier Keys)
-* Set up [nitpicky details](https://www.craft.do/s/dgb68JxSefmpSJ)
