@@ -1,5 +1,7 @@
 local indent = 2
 
+vim.g.mapleader = " "
+
 vim.opt.autoindent     = true -- Good auto indent
 vim.opt.clipboard      = 'unnamed,unnamedplus' -- Use clipboard for all operations
 vim.opt.cursorline     = true -- Highlight current line
