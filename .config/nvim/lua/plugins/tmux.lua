@@ -1,9 +1,9 @@
 return {
-	-- https://github.com/christoomey/vim-tmux-navigator
+	-- Navigate between vim and tmux splits (https://github.com/christoomey/vim-tmux-navigator)
 	"christoomey/vim-tmux-navigator",
 	event = "VeryLazy",
 	dependencies = {
-		-- https://github.com/christoomey/vim-tmux-runner
+		-- Run tmux commands from vim (https://github.com/christoomey/vim-tmux-runner)
 		"christoomey/vim-tmux-runner",
 	},
 	config = function()
