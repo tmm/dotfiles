@@ -64,7 +64,18 @@ local leader = {
 	b = {
 		name = "+buffer",
 		b = { "<cmd>:e #<cr>", "Switch to Other Buffer" },
-		d = { "<cmd>:Bdelete menu<CR>", "Delete Buffer" },
+		d = {
+			function()
+				require("mini.bufremove").delete(0, false)
+			end,
+			"Delete Buffer",
+		},
+		D = {
+			function()
+				require("mini.bufremove").delete(0, true)
+			end,
+			"Force Delete Buffer",
+		},
 	},
 	c = {
 		name = "+code",
@@ -74,7 +85,8 @@ local leader = {
 		f = { "<cmd>Telescope find_files<cr>", "Find File" },
 		n = { "<cmd>enew<cr>", "New File" },
 		r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-		t = { "<cmd>Neotree toggle<cr>", "Tree Explorer" },
+		t = { "<cmd>Neotree toggle<cr>", "Open Explorer" },
+		s = { "<cmd>Neotree focus<cr>", "Focus File in Explorer" },
 	},
 	g = {
 		name = "+git",
@@ -164,6 +176,7 @@ local leader = {
 		},
 	},
 	q = { "<cmd>q<cr>", "which_key_ignore", silent = true },
+	Q = { "<cmd>q!<cr>", "which_key_ignore", silent = true },
 	w = { "<cmd>w<cr>", "which_key_ignore", silent = true },
 }
 wk.register(leader, { prefix = "<leader>" })

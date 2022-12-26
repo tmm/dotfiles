@@ -56,7 +56,7 @@ function M.setup(client, buffer)
 			v = {
 				name = "+nvim",
 				rc = { "<cmd>vsp $MYVIMRC<cr>", "Edit init.lua" },
-				rc = { "<cmd>source $MYVIMRC<cr>", "Reload init.lua" },
+				so = { "<cmd>source $MYVIMRC<cr>", "Reload init.lua" },
 			},
 		},
 		g = {
@@ -69,7 +69,7 @@ function M.setup(client, buffer)
 			t = { "<cmd>Telescope lsp_type_definitions<cr>", "Goto Type Definition" },
 		},
 		["\\"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover" },
-		["<C-k>"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help", mode = { "n", "i" } },
+		["<C-,>"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help", mode = { "n", "i" } },
 		["[d"] = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Next Diagnostic" },
 		["]d"] = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Prev Diagnostic" },
 		["[e"] = { "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<cr>", "Next Error" },

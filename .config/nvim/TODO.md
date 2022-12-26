@@ -12,11 +12,12 @@ https://github.com/tmm/dotfiles/blob/da82a5c4ffe867fab298ee8e16fa88891f7a0cb6/.c
 - [x] indent on insert
 - [x] gitsigns
 - [x] tree browser (https://github.com/nvim-neo-tree/neo-tree.nvim)
-- [ ] autopairs (works with html and jsx)
-- [ ] bracket mappings
-- [ ] typescript version like vs code
+- [x] bracket mappings
 - [ ] autocomplete
 - [ ] code folding (ufo)
+- [ ] autopair html/jsx
+- [ ] html/jsx tag text object
+- [ ] typescript version like vs code
 - [ ] trouble
 - [ ] status line
 - [ ] tmux https://github.com/aserowy/tmux.nvim
