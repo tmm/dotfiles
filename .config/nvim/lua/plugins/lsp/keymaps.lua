@@ -2,7 +2,7 @@ local wk = require("which-key")
 
 local M = {}
 
-function M.setup(client, buffer)
+function M.on_attach(client, buffer)
 	local cap = client.server_capabilities
 
 	local keymap = {
@@ -30,12 +30,12 @@ function M.setup(client, buffer)
 				},
 				f = {
 					{
-						require("plugins.lsp.formatting").format,
+						require("plugins.lsp.format").format,
 						"Format Document",
 						cond = cap.documentFormatting,
 					},
 					{
-						require("plugins.lsp.formatting").format,
+						require("plugins.lsp.format").format,
 						"Format Range",
 						cond = cap.documentRangeFormatting,
 						mode = "v",
@@ -52,11 +52,6 @@ function M.setup(client, buffer)
 			},
 			x = {
 				d = { "<cmd>Telescope diagnostics<cr>", "Search Diagnostics" },
-			},
-			v = {
-				name = "+nvim",
-				rc = { "<cmd>vsp $MYVIMRC<cr>", "Edit init.lua" },
-				so = { "<cmd>source $MYVIMRC<cr>", "Reload init.lua" },
 			},
 		},
 		g = {

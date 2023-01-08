@@ -46,10 +46,11 @@ cask 'postico'                       # Moder PostgreSQL client (https://eggerapp
 cask 'raycast'                       # Better Spotlight (https://raycast.com)
 cask 'sip'                           # Color picker (https://sipapp.io)
 
-mas '1Password', id: 1333542190
-mas 'Craft',     id: 1487937127
-mas 'Dato',      id: 1470584107
-mas 'Day One',   id: 1055511498
-mas 'Velja',     id: 1607635845
-mas 'Xcode',     id: 497799835
+mas '1Password',  id: 1333542190
+mas 'Craft',      id: 1487937127
+mas 'Dato',       id: 1470584107
+mas 'Day One',    id: 1055511498
+mas 'Pure Paste', id: 1611378436
+mas 'Velja',      id: 1607635845
+mas 'Xcode',      id: 497799835
 # vim:syntax=ruby
