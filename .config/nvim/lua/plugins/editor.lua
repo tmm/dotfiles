@@ -10,11 +10,11 @@ return {
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble" },
-		config = { use_diagnostic_signs = true },
 		keys = {
 			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
 			{ "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
 		},
+		opts = { use_diagnostic_signs = true },
 	},
 
 	-- https://github.com/folke/which-key.nvim
@@ -77,15 +77,6 @@ return {
 					h = {
 						name = "+help",
 						t = { "<cmd>:Telescope builtin<cr>", "Telescope" },
-					},
-					p = {
-						name = "+project",
-						p = {
-							function()
-								require("telescope").extensions.project.project({})
-							end,
-							"Project Picker",
-						},
 					},
 					s = {
 						name = "+search",
@@ -162,44 +153,42 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "BufReadPre",
-		config = function()
-			require("gitsigns").setup({
-				current_line_blame_opts = { delay = 500 },
-				on_attach = function(bufnr)
-					local gs = package.loaded.gitsigns
+		opts = {
+			current_line_blame_opts = { delay = 500 },
+			on_attach = function(bufnr)
+				local gs = package.loaded.gitsigns
 
-					local function map(mode, l, r, opts)
-						opts = opts or {}
-						opts.buffer = bufnr
-						vim.keymap.set(mode, l, r, opts)
+				local function map(mode, l, r, opts)
+					opts = opts or {}
+					opts.buffer = bufnr
+					vim.keymap.set(mode, l, r, opts)
+				end
+
+				-- Navigation
+				map("n", "]c", function()
+					if vim.wo.diff then
+						return "]c"
 					end
+					vim.schedule(function()
+						gs.next_hunk()
+					end)
+					return "<Ignore>"
+				end, { expr = true })
 
-					-- Navigation
-					map("n", "]c", function()
-						if vim.wo.diff then
-							return "]c"
-						end
-						vim.schedule(function()
-							gs.next_hunk()
-						end)
-						return "<Ignore>"
-					end, { expr = true })
+				map("n", "[c", function()
+					if vim.wo.diff then
+						return "[c"
+					end
+					vim.schedule(function()
+						gs.prev_hunk()
+					end)
+					return "<Ignore>"
+				end, { expr = true })
 
-					map("n", "[c", function()
-						if vim.wo.diff then
-							return "[c"
-						end
-						vim.schedule(function()
-							gs.prev_hunk()
-						end)
-						return "<Ignore>"
-					end, { expr = true })
-
-					-- Text object
-					map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
-				end,
-			})
-		end,
+				-- Text object
+				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+			end,
+		},
 	},
 
 	-- https://github.com/nvim-neo-tree/neo-tree.nvim
@@ -217,21 +206,18 @@ return {
 		init = function()
 			vim.g.neo_tree_remove_legacy_commands = 1
 		end,
-		config = function()
-			require("neo-tree").setup({
-				filesystem = {
-					filtered_items = {
-						hide_dotfiles = false,
-					},
-					follow_current_file = true,
-					hijack_netrw_behavior = "open_current",
+		opts = {
+			filesystem = {
+				filtered_items = {
+					hide_dotfiles = false,
 				},
-				window = {
-					width = 30,
-				},
-			})
-			require("nvim-web-devicons").setup({ default = true })
-		end,
+				follow_current_file = true,
+				hijack_netrw_behavior = "open_current",
+			},
+			window = {
+				width = 30,
+			},
+		},
 	},
 
 	-- https://github.com/nvim-telescope/telescope.nvim
@@ -243,48 +229,46 @@ return {
 			"nvim-lua/plenary.nvim",
 			-- Pop up API (https://github.com/nvim-lua/popup.nvim)
 			"nvim-lua/popup.nvim",
-			-- https://github.com/nvim-telescope/telescope-project.nvim
-			"nvim-telescope/telescope-project.nvim",
 		},
-		config = function()
-			local actions = require("telescope.actions")
-
-			local telescope = require("telescope")
-			telescope.setup({
-				defaults = {
-					mappings = {
-						i = {
-							["<C-j>"] = actions.move_selection_next,
-							["<C-k>"] = actions.move_selection_previous,
-						},
-					},
-					prompt_prefix = "❯ ",
-					selection_caret = "→ ",
+		opts = {
+			defaults = {
+				border = true,
+				borderchars = {
+					prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+					results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+					preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
 				},
-				extensions = {
-					project = {
-						theme = "dropdown",
+				mappings = {
+					i = {
+						["<C-j>"] = function(...)
+							require("telescope.actions").move_selection_next(...)
+						end,
+						["<C-k>"] = function(...)
+							require("telescope.actions").move_selection_previous(...)
+						end,
 					},
 				},
-				pickers = {
-					buffers = {
-						ignore_current_buffer = true,
-						sort_lastused = true,
-						theme = "dropdown",
-					},
-					find_files = {
-						theme = "dropdown",
-					},
-					grep_string = {
-						theme = "dropdown",
-					},
-					live_grep = {
-						theme = "dropdown",
-					},
+				layout_strategy = "center",
+				layout_config = {
+					height = function(_, _, max_lines)
+						return math.min(max_lines, 15)
+					end,
+					preview_cutoff = 1,
+					width = function(_, max_columns, _)
+						return math.min(max_columns, 80)
+					end,
 				},
-			})
-
-			telescope.load_extension("project")
-		end,
+				prompt_prefix = "❯ ",
+				results_title = false,
+				selection_caret = "→ ",
+				sorting_strategy = "ascending",
+			},
+			pickers = {
+				buffers = {
+					ignore_current_buffer = true,
+					sort_lastused = true,
+				},
+			},
+		},
 	},
 }
