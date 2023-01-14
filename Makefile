@@ -54,5 +54,5 @@ tmux-packages:
 vim-packages:
 	@python3 -m pip install --user --upgrade pynvim
 	@nvim -c qall
-	@nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	@nvim --headless -c 'autocmd User LazyInstall quitall' -c 'Lazy install'
 
