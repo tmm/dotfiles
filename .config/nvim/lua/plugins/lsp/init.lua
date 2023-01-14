@@ -14,6 +14,8 @@ return {
 			"jose-elias-alvarez/typescript.nvim",
 			-- https://github.com/folke/lua-dev.nvim
 			"folke/lua-dev.nvim",
+			-- https://github.com/marilari88/twoslash-queries.nvim
+			"marilari88/twoslash-queries.nvim",
 			-- https://github.com/smjonas/inc-rename.nvim
 			"smjonas/inc-rename.nvim",
 		},
@@ -92,6 +94,10 @@ return {
 			local function on_attach(client, bufnr)
 				require("plugins.lsp.format").on_attach(client, bufnr)
 				require("plugins.lsp.keymaps").on_attach(client, bufnr)
+
+				if client.name == "tsserver" then
+					require("twoslash-queries").attach(client, bufnr)
+				end
 			end
 
 			local options = {

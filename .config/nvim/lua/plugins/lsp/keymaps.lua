@@ -50,9 +50,6 @@ function M.on_attach(client, buffer)
 					l = { "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>", "List Folders" },
 				},
 			},
-			x = {
-				d = { "<cmd>Telescope diagnostics<cr>", "Search Diagnostics" },
-			},
 		},
 		g = {
 			name = "+goto",

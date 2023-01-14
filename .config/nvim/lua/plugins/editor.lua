@@ -4,6 +4,27 @@ return {
 	-- https://github.com/echasnovski/mini.bufremove
 	{
 		"echasnovski/mini.bufremove",
+		keys = {
+			{
+				"<leader>bd",
+				function()
+					require("mini.bufremove").delete(0, false)
+				end,
+				desc = "Delete Buffer",
+			},
+			{
+				"<leader>bD",
+				function()
+					require("mini.bufremove").delete(0, true)
+				end,
+				desc = "Delete Buffer (Force)",
+			},
+			{
+				"<leader>bk",
+				"<cmd>%bd<cr>",
+				desc = "Delete Buffers",
+			},
+		},
 	},
 
 	-- https://github.com/folke/trouble.nvim
@@ -38,83 +59,24 @@ return {
 					b = {
 						name = "+buffer",
 						b = { "<cmd>:e #<cr>", "Switch to Other Buffer" },
-						d = {
-							function()
-								require("mini.bufremove").delete(0, false)
-							end,
-							"Delete Buffer",
-						},
-						D = {
-							function()
-								require("mini.bufremove").delete(0, true)
-							end,
-							"Force Delete Buffer",
-						},
 					},
-					c = {
-						name = "+code",
-					},
+					c = { name = "+code" },
 					f = {
 						name = "+file",
-						e = { "<cmd>Neotree toggle<cr>", "Toggle File Explorer" },
-						f = { "<cmd>Telescope find_files<cr>", "Find File" },
 						n = { "<cmd>enew<cr>", "New File" },
-						r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-						s = { "<cmd>Neotree focus<cr>", "Focus File in Explorer" },
 					},
 					g = {
 						name = "+git",
-						b = { "<cmd>Telescope git_branches<cr>", "Branches" },
-						c = { "<cmd>Telescope git_commits<cr>", "Commits" },
-						d = { "<cmd>Gitsigns diffthis<cr>", "Diff" },
-						h = {
-							name = "+hunk",
-							s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage" },
-							r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset" },
-						},
-						s = { "<cmd>Telescope git_status<cr>", "Status" },
+						h = { name = "+hunk" },
 					},
-					h = {
-						name = "+help",
-						t = { "<cmd>:Telescope builtin<cr>", "Telescope" },
-					},
-					s = {
-						name = "+search",
-						["*"] = { "<cmd>Telescope grep_string<cr>", "String Under Cursor" },
-						b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
-						g = { "<cmd>Telescope live_grep<cr>", "Grep" },
-						h = { "<cmd>Telescope command_history<cr>", "Command History" },
-						s = {
-							function()
-								require("telescope.builtin").lsp_document_symbols({
-									symbols = {
-										"Class",
-										"Function",
-										"Method",
-										"Constructor",
-										"Interface",
-										"Module",
-										"Struct",
-										"Trait",
-										"Field",
-										"Property",
-									},
-								})
-							end,
-							"Goto Symbol",
-						},
-					},
+					s = { name = "+search" },
 					t = {
 						name = "toggle",
 						f = {
 							require("plugins.lsp.format").toggle,
 							"Format on Save",
 						},
-						g = {
-							name = "git",
-							b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Blame" },
-							d = { "<cmd>Gitsigns toggle_deleted<cr>", "Deleted" },
-						},
+						g = { name = "git" },
 						n = {
 							function()
 								util.toggle("relativenumber", true)
@@ -153,6 +115,13 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "BufReadPre",
+		keys = {
+			{ "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff" },
+			{ "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage" },
+			{ "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset" },
+			{ "<leader>tgb", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Blame" },
+			{ "<leader>tgd", "<cmd>Gitsigns toggle_deleted<cr>", desc = "Toggle Deleted" },
+		},
 		opts = {
 			current_line_blame_opts = { delay = 500 },
 			on_attach = function(bufnr)
@@ -206,6 +175,10 @@ return {
 		init = function()
 			vim.g.neo_tree_remove_legacy_commands = 1
 		end,
+		keys = {
+			{ "<leader>fe", "<cmd>Neotree toggle<CR>", desc = "Toggle Explorer" },
+			{ "<leader>fs", "<cmd>Neotree focus<CR>", desc = "Focus File in Explorer" },
+		},
 		opts = {
 			filesystem = {
 				filtered_items = {
@@ -230,6 +203,49 @@ return {
 			-- Pop up API (https://github.com/nvim-lua/popup.nvim)
 			"nvim-lua/popup.nvim",
 		},
+		keys = {
+			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
+			{ "<leader>fB", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Find Buffers (Show All)" },
+			{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find Recent Files" },
+
+			{ "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Commits" },
+			{ "<leader>gb", "<cmd>Telescope git_branches<CR>", desc = "Branches" },
+			{ "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "Status" },
+
+			{ "<leader>s*", "<cmd>Telescope grep_string<cr>", desc = "Grep (Under Cursor)" },
+			{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
+			{ "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+			{ "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+			{ "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
+			{ "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+			{ "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+			{ "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Highlight Groups" },
+			{ "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+			{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+			{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+			{
+				"<leader>ss",
+				function()
+					require("telescope.builtin").lsp_document_symbols({
+						symbols = {
+							"Class",
+							"Function",
+							"Method",
+							"Constructor",
+							"Interface",
+							"Module",
+							"Struct",
+							"Trait",
+							"Field",
+							"Property",
+						},
+					})
+				end,
+				desc = "Goto Symbol",
+			},
+			{ "<leader>st", "<cmd>Telescope builtin<cr>", desc = "Telescope" },
+		},
 		opts = {
 			defaults = {
 				border = true,
@@ -240,6 +256,9 @@ return {
 				},
 				mappings = {
 					i = {
+						["<C-i>"] = function()
+							require("telescope.builtin").find_files({ no_ignore = true })
+						end,
 						["<C-j>"] = function(...)
 							require("telescope.actions").move_selection_next(...)
 						end,
@@ -270,5 +289,31 @@ return {
 				},
 			},
 		},
+	},
+
+	-- https://github.com/RRethy/vim-illuminate
+	{
+		"RRethy/vim-illuminate",
+		config = function(_, opts)
+			require("illuminate").configure(opts)
+		end,
+		event = "BufReadPost",
+		keys = {
+			{
+				"]]",
+				function()
+					require("illuminate").goto_next_reference(false)
+				end,
+				desc = "Next Reference",
+			},
+			{
+				"[[",
+				function()
+					require("illuminate").goto_prev_reference(false)
+				end,
+				desc = "Prev Reference",
+			},
+		},
+		opts = { delay = 200 },
 	},
 }
