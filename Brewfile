@@ -3,7 +3,6 @@ cask_args appdir: "/Applications"
 tap 'homebrew/bundle'
 tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
-tap '1password/tap'
 
 brew 'asdf'                          # Manage multiple runtime versions (https://github.com/asdf-vm/asdf)
 brew 'bat'                           # Better `cat` (https://github.com/sharkdp/bat)
@@ -17,7 +16,6 @@ brew 'fnm'                           # Fast Node.js version manager (https://git
 brew 'fzf'                           # Fuzzy finder (https://github.com/junegunn/fzf)
 brew 'gh'                            # GitHub CLI (https://cli.github.com)
 brew 'git'
-brew 'glow'                          # Render Markdown (https://github.com/charmbracelet/glow)
 brew 'gpg'
 brew 'httpie'                        # HTTP CLI (https://github.com/httpie/httpie)
 brew 'jq'                            # JSON CLI (https://github.com/stedolan/jq)

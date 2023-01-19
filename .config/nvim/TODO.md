@@ -9,7 +9,6 @@
 - html/jsx tag text object
 - typescript version like vs code
 - open URL under cursor, open plugin under cursor
-- remove K + J mappings (should be using faster movements, K conflicts with lazy.vim)
 - nvim reload config and quick edit
 - Markdown plugin (auto bullets)
 - Spell check language server?
@@ -18,6 +17,7 @@
 
 ## Plugins
 
+- https://github.com/stevearc/dressing.nvim
 - https://github.com/folke/trouble.nvim
 - https://github.com/zbirenbaum/copilot.lua
 - https://github.com/L3MON4D3/LuaSnip

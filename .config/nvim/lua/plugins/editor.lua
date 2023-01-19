@@ -111,6 +111,20 @@ return {
 		end,
 	},
 
+	-- https://github.com/ggandor/leap.nvim
+	{
+		"ggandor/leap.nvim",
+		event = "VeryLazy",
+		dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
+		config = function(_, opts)
+			local leap = require("leap")
+			for k, v in pairs(opts) do
+				leap.opts[k] = v
+			end
+			leap.add_default_mappings(true)
+		end,
+	},
+
 	-- https://github.com/lewis6991/gitsigns.nvim
 	{
 		"lewis6991/gitsigns.nvim",
@@ -157,6 +171,12 @@ return {
 				-- Text object
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 			end,
+			worktrees = {
+				{
+					gitdir = vim.env.HOME .. "/.files",
+					toplevel = vim.env.HOME,
+				},
+			},
 		},
 	},
 
