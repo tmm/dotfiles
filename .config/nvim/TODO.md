@@ -1,9 +1,11 @@
 # TODO
 
+- visual mode `S` conflict between leap and surround
+- autoformat time out on large file
 - folds
 - large typescript file performance
 - rooter
-- color scheme
+- color scheme https://speakerdeck.com/cocopon/creating-your-lovely-color-scheme
 - autopair lua `end`
 - autopair html/jsx
 - html/jsx tag text object
@@ -14,17 +16,18 @@
 - Spell check language server?
 - fish shell
 - autoformat/lint lua during CI (luacheck)
+- swap unimpaired mappings https://twitter.com/elijahmanor/status/1615927039529291776
 
 ## Plugins
 
-- https://github.com/stevearc/dressing.nvim
+- https://github.com/folke/noice.nvim
 - https://github.com/folke/trouble.nvim
 - https://github.com/zbirenbaum/copilot.lua
 - https://github.com/L3MON4D3/LuaSnip
 - https://github.com/aserowy/tmux.nvim
 - https://github.com/folke/persistence.nvim
 - https://github.com/nvim-pack/nvim-spectre
-- https://github.com/LazyVim/LazyVim/blob/5987570b5213c9a8b756fd8a169f8e92c05f5bfa/doc/LazyVim.txt#LL564C41-L564C41
+- https://lazyvim.github.io
 
 ## Tools
 

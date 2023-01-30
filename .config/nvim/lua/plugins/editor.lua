@@ -169,7 +169,7 @@ return {
 				end, { expr = true })
 
 				-- Text object
-				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+				map({ "o", "x" }, "ih", ":<c-u>Gitsigns select_hunk<cr>")
 			end,
 			worktrees = {
 				{
@@ -196,8 +196,8 @@ return {
 			vim.g.neo_tree_remove_legacy_commands = 1
 		end,
 		keys = {
-			{ "<leader>fe", "<cmd>Neotree toggle<CR>", desc = "Toggle Explorer" },
-			{ "<leader>fs", "<cmd>Neotree focus<CR>", desc = "Focus File in Explorer" },
+			{ "<leader>fe", "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+			{ "<leader>fs", "<cmd>Neotree focus<cr>", desc = "Focus File in Explorer" },
 		},
 		opts = {
 			filesystem = {
@@ -229,9 +229,9 @@ return {
 			{ "<leader>fB", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Find Buffers (Show All)" },
 			{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find Recent Files" },
 
-			{ "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Commits" },
-			{ "<leader>gb", "<cmd>Telescope git_branches<CR>", desc = "Branches" },
-			{ "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "Status" },
+			{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
+			{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Branches" },
+			{ "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Status" },
 
 			{ "<leader>s*", "<cmd>Telescope grep_string<cr>", desc = "Grep (Under Cursor)" },
 			{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },

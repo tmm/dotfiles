@@ -17,7 +17,9 @@ function M.on_attach(client, buffer)
 				},
 				r = {
 					function()
-						require("inc_rename").setup()
+						require("inc_rename").setup({
+							input_buffer_type = "dressing",
+						})
 						return ":IncRename " .. vim.fn.expand("<cword>")
 					end,
 					"Rename",

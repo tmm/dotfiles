@@ -94,4 +94,20 @@ return {
 	{
 		"nvim-tree/nvim-web-devicons",
 	},
+
+	-- https://github.com/stevearc/dressing.nvim
+	{
+		"stevearc/dressing.nvim",
+		lazy = true,
+		init = function()
+			vim.ui.select = function(...)
+				require("dressing").setup()
+				return vim.ui.select(...)
+			end
+			vim.ui.input = function(...)
+				require("dressing").setup()
+				return vim.ui.input(...)
+			end
+		end,
+	},
 }
