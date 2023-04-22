@@ -188,7 +188,12 @@ return {
 			-- https://github.com/nvim-lua/plenary.nvim
 			"nvim-lua/plenary.nvim",
 			-- https://github.com/nvim-tree/nvim-web-devicons
-			"nvim-tree/nvim-web-devicons",
+			{
+				"nvim-tree/nvim-web-devicons",
+				opts = {
+					color_icons = false,
+				},
+			},
 			-- https://github.com/MunifTanjim/nui.nvim
 			"MunifTanjim/nui.nvim",
 		},
@@ -200,6 +205,11 @@ return {
 			{ "<leader>fs", "<cmd>Neotree focus<cr>", desc = "Focus File in Explorer" },
 		},
 		opts = {
+			default_component_configs = {
+				indent = {
+					with_markers = false,
+				},
+			},
 			filesystem = {
 				filtered_items = {
 					hide_dotfiles = false,
@@ -303,6 +313,10 @@ return {
 				sorting_strategy = "ascending",
 			},
 			pickers = {
+				find_files = {
+					find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+					-- find_command = { "fd", "-t", "f", "-H" },
+				},
 				buffers = {
 					ignore_current_buffer = true,
 					sort_lastused = true,

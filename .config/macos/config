@@ -20,6 +20,9 @@ defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.5
 # System Preferences > General > Click in the scrollbar to: Jump to the spot that's clicked
 defaults write -globalDomain AppleScrollerPagingBehavior -bool true
 
+# Disable animations when switching to and from fullscreen apps
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # System Preferences > Language & Region > Time format
@@ -115,7 +118,6 @@ then
 fi
 
 dockutil --no-restart --remove all
-dockutil --no-restart --add "/Applications/iTerm.app"
 dockutil --no-restart --add "/Applications/Google Chrome.app"
 dockutil --no-restart --add "/Applications/Craft.app"
 dockutil --no-restart --add "~/Downloads" --section others --sort name --view list

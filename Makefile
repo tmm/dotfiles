@@ -3,7 +3,7 @@ PIP=PIP_REQUIRE_VIRTUALENV=false pip
 BREW := $(shell [ $$(uname -m) = arm64 ] && echo /opt/homebrew || echo /usr/local)/bin/brew
 OS := $(shell uname)
 
-all: $(OS) fish-packages vim-packages tmux-packages
+all: $(OS) fish-packages vim-packages
 
 Darwin: homebrew-packages
 Linux:
@@ -39,16 +39,6 @@ npm-packages: $(BREW)
 
 macos:
 	@bash -c $$XDG_CONFIG_HOME/macos/config
-
-.PHONY: tmux-packages
-tmux-packages:
-	@rm -rf $$XDG_CONFIG_HOME/tmux/plugins/tpm
-	@git clone https://github.com/tmux-plugins/tpm $$XDG_CONFIG_HOME/tmux/plugins/tpm
-	@tmux new -d -s tmux-packages
-	@tmux source $$XDG_CONFIG_HOME/tmux/tmux.conf
-	@bash -c $$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/install_plugins
-	@bash -c "$$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/update_plugins all"
-	@tmux kill-ses -t tmux-packages
 
 .PHONY: vim-packages
 vim-packages:

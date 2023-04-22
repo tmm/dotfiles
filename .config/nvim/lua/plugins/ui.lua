@@ -36,11 +36,11 @@ return {
 			require("lualine").setup({
 				options = {
 					icons_enabled = true,
-					theme = "auto",
+					theme = "spice",
 					component_separators = "",
 					section_separators = "",
 					disabled_filetypes = {
-						"NvimTree",
+						"neo-tree",
 					},
 					always_divide_middle = true,
 					globalstatus = false,
@@ -88,11 +88,6 @@ return {
 				extensions = {},
 			})
 		end,
-	},
-
-	-- https://github.com/nvim-tree/nvim-web-devicons
-	{
-		"nvim-tree/nvim-web-devicons",
 	},
 
 	-- https://github.com/stevearc/dressing.nvim

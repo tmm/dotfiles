@@ -34,10 +34,10 @@ fish_add_path $PG_CONFIG
 
 # Set homebrew path
 switch (arch)
-case arm64
-  set BREW /opt/homebrew/bin
-case x86_64
-  set BREW /usr/local/bin
+    case arm64
+        set BREW /opt/homebrew/bin
+    case x86_64
+        set BREW /usr/local/bin
 end
 fish_add_path $BREW
 
@@ -57,7 +57,7 @@ alias vim=nvim
 alias brc="nvim $HOME/Brewfile"
 alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
 alias mrc="nvim $HOME/Makefile"
-alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
+alias trc="nvim $XDG_CONFIG_HOME/wezterm/wezterm.lua"
 alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.lua"
 
 # Hide/show hidden files in Finder
@@ -72,17 +72,16 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 # Abbreviations
 # ==========================
 
-abbr d "docker"
-abbr dc "docker-compose"
+abbr d docker
+abbr dc docker-compose
 abbr df "h git"
-abbr f "forge"
-abbr g "git"
+abbr f forge
+abbr g git
 abbr home "cd ~"
 abbr lsd "exa -d .*"
-abbr p "pnpm"
-abbr t "tmux"
-abbr v "nvim"
-abbr y "yarn"
+abbr p pnpm
+abbr v nvim
+abbr y yarn
 
 abbr dsr "docker stop (docker ps -a -q) && docker rm (docker ps -a -q)" # Stops and removes all running containers
 abbr dex "docker exec -it"
@@ -90,11 +89,6 @@ abbr dcu "docker-compose up -d"
 abbr dcub "docker-compose up -d --build"
 abbr dra "docker rmi (docker images -q) --force"
 abbr dl "docker logs -f"
-
-abbr tn "tmux new -s"
-abbr ta "tmux a -t"
-abbr tks "tmux kill-server"
-abbr tls "tmux ls"
 
 # ==========================
 # Other
@@ -110,5 +104,3 @@ set -gx FOUNDRY_DIR "$HOME/.foundry"
 set -gx PATH "$FOUNDRY_DIR" $PATH
 
 export PATH="$PATH:/Users/tom/.foundry/bin"
-
-source /opt/homebrew/opt/asdf/libexec/asdf.fish

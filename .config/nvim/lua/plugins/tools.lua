@@ -10,19 +10,13 @@ return {
 		},
 	},
 
-	-- https://github.com/christoomey/vim-tmux-navigator
+	-- https://github.com/numToStr/Navigator.nvim
 	{
-		"christoomey/vim-tmux-navigator",
-		event = "VeryLazy",
-		dependencies = {
-			-- https://github.com/christoomey/vim-tmux-runner
-			"christoomey/vim-tmux-runner",
+		"numToStr/Navigator.nvim",
+		event = "VimEnter",
+		opts = {
+			auto_save = "current",
+			disable_on_zoom = true,
 		},
-		config = function()
-			vim.g.tmux_navigator_disable_when_zoomed = 1
-			vim.g.tmux_navigator_save_on_switch = 2
-			vim.g.VtrOrientation = "v"
-			vim.g.VtrPercentage = 20
-		end,
 	},
 }

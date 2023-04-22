@@ -13,6 +13,10 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup("plugins", {
 	defaults = { lazy = true },
-	install = { colorscheme = { "rasmus" } },
+	dev = {
+		path = "~/Code",
+		patterns = { "spice.nvim" },
+	},
+	install = { colorscheme = { "spice", "tokyonight" } },
 })
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")

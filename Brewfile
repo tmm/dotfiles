@@ -22,7 +22,6 @@ brew 'jq'                            # JSON CLI (https://github.com/stedolan/jq)
 brew 'mas'                           # App Store CLI (https://github.com/mas-cli/mas)
 brew 'nvim'                          # Better `vim` (https://github.com/neovim/neovim)
 brew 'ripgrep'                       # Better `grep` (https://github.com/BurntSushi/ripgrep)
-brew 'tmux'                          # Terminal multiplexer (https://github.com/tmux/tmux)
 
 cask 'bartender'                     # Clean up menu bar (https://macbartender.com)
 cask 'cleanshot'                     # Better screenshots (https://cleanshot.com)
@@ -34,7 +33,6 @@ cask 'figma-beta'                    # Design tool (https://figma.com)
 cask 'firefox'                       # Browser (https://firefox.com)
 cask 'flux'                          # Stop blue light (https://justgetflux.com)
 cask 'font-jetbrains-mono-nerd-font' # Programming font (https://github.com/JetBrains/JetBrainsMono)
-cask 'iterm2'                        # Better Terminal.app (https://iterm2.com)
 cask 'keybase'                       # Store keys (https://keybase.io)
 cask 'monitorcontrol'                # Control external monitor (https://github.com/MonitorControl/MonitorControl)
 cask 'numi'                          # Programmable calculator (https://github.com/nikolaeu/numi)
@@ -43,6 +41,8 @@ cask 'postgres'                      # Fastest PostgreSQL setup (https://postgre
 cask 'postico'                       # Moder PostgreSQL client (https://eggerapps.at/postico)
 cask 'raycast'                       # Better Spotlight (https://raycast.com)
 cask 'sip'                           # Color picker (https://sipapp.io)
+cask 'tuple'                         # Screen sharing (https://tuple.app)
+cask 'wezterm-nightly'               # Better Terminal.app (https://wezfurlong.org/wezterm)
 
 mas '1Password',  id: 1333542190
 mas 'Craft',      id: 1487937127

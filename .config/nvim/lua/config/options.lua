@@ -6,6 +6,14 @@ vim.opt.autoindent     = true -- Good auto indent
 vim.opt.clipboard      = 'unnamed,unnamedplus' -- Use clipboard for all operations
 vim.opt.cursorline     = true -- Highlight current line
 vim.opt.expandtab      = true -- Expand tabs into spaces
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
 vim.opt.hidden         = true -- Handle multiple buffers better
 vim.opt.mouse          = '' -- Disable mouse
 vim.opt.number         = true -- Show line numbers

@@ -18,6 +18,12 @@ vim.keymap.set("n", "K", "5k", opts)
 vim.keymap.set("v", "J", "5j", opts)
 vim.keymap.set("v", "K", "5k", opts)
 
+-- Move to window using the movement keys
+vim.keymap.set("n", "<C-h>", "<CMD>NavigatorLeft<CR>")
+vim.keymap.set("n", "<C-j>", "<CMD>NavigatorDown<CR>")
+vim.keymap.set("n", "<C-k>", "<CMD>NavigatorUp<CR>")
+vim.keymap.set("n", "<C-l>", "<CMD>NavigatorRight<CR>")
+
 -- Move up and down by visible lines if current line is wrapped
 vim.keymap.set("n", "j", "gj", opts)
 vim.keymap.set("n", "k", "gk", opts)
