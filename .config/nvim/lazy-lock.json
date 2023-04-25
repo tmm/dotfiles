@@ -8,7 +8,7 @@
   "gitsigns.nvim": { "branch": "main", "commit": "f8a1e2a8c8bfb79fe2ee7e61bb76797350187efa" },
   "inc-rename.nvim": { "branch": "main", "commit": "48c4aa2be19f79e79b465a9bb37ee9fbe6c606f5" },
   "indent-blankline.nvim": { "branch": "master", "commit": "c4c203c3e8a595bc333abaf168fcb10c13ed5fb7" },
-  "lazy.nvim": { "branch": "main", "commit": "70e5e08dc12613006ee86489291929c592f1145d" },
+  "lazy.nvim": { "branch": "main", "commit": "903f0fe542fc35b74f3c09494f9c175346dfa76d" },
   "leap.nvim": { "branch": "main", "commit": "a968ab4250840dc879e805f918b4f3b892310a12" },
   "lsp": { "branch": "master", "commit": "f0221821d8ceed70f0525a2c35380ba56672e107" },
   "lua-dev.nvim": { "branch": "main", "commit": "0e3f5e763639951f96f9acbdc9f52a9fedf91b46" },

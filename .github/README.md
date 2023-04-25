@@ -14,9 +14,7 @@ h git checkout main
 make                    # Bootstrap setup
 make fish               # Change shell to fish
 make fish-packages      # Install fish packages
-make gpg                # Import GPG key
 make homebrew-packages  # Install tools
 make macos              # Set up macOS defaults
-make tmux-packages      # Install tmux packages
-make vim-packages       # Install vim packages
+make nvim-packages       # Install Neovim packages
 ```

@@ -20,18 +20,12 @@ defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.5
 # System Preferences > General > Click in the scrollbar to: Jump to the spot that's clicked
 defaults write -globalDomain AppleScrollerPagingBehavior -bool true
 
-# Disable animations when switching to and from fullscreen apps
-defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # System Preferences > Language & Region > Time format
 defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-# System Preferences > Trackpad > Scroll & Zoom > Scroll direction: Natural
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # System Preferences > Trackpad > Point & Click > Tap to click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
@@ -89,14 +83,10 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # System Preferences > Dock > Size
-defaults write com.apple.dock tilesize -int 32
+defaults write com.apple.dock tilesize -int 48
 
 # System Preferences > Dock > Minimize windows using: Scale effect
 defaults write com.apple.dock mineffect -string "scale"
-
-# System Preferences > Dock
-# Disable Dashboard
-defaults write com.apple.dashboard mcx-disabled -bool true
 
 # System Preferences > Dock > Automatically hide and show the Dock:
 # Automatically hide and show the Dock
@@ -118,17 +108,14 @@ then
 fi
 
 dockutil --no-restart --remove all
-dockutil --no-restart --add "/Applications/Google Chrome.app"
-dockutil --no-restart --add "/Applications/Craft.app"
+dockutil --no-restart --add "/Applications/Firefox.app"
+dockutil --no-restart --add "/Applications/WezTerm.app"
 dockutil --no-restart --add "~/Downloads" --section others --sort name --view list
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Hide menubar
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
-
-# Appearance: Dark
-defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
 # Accent color: Blue
 defaults write NSGlobalDomain AppleAquaColorVariant -int 1

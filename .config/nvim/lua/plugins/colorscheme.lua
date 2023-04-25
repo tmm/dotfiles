@@ -9,27 +9,6 @@ return {
 	-- 	end,
 	-- },
 
-	{
-		dir = "~/Code/spice.nvim",
-		config = function()
-			vim.cmd([[colorscheme spice]])
-		end,
-		event = "VimEnter",
-		opts = {
-			hide_inactive_statusline = true,
-			style = "dark",
-			sidebars = {
-				"Outline",
-				"neo-tree",
-				"qf",
-				"spectre_panel",
-				"startuptime",
-				"terminal",
-				"vista_kind",
-			},
-		},
-	},
-
 	-- https://github.com/folke/tokyonight.nvim
 	{
 		"folke/tokyonight.nvim",
