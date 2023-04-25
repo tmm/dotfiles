@@ -8,12 +8,12 @@ wezterm.on("update-right-status", function(window, pane)
 	window:set_right_status(window:active_workspace())
 end)
 
-local function isViProcess(pane)
+local function is_vi_process(pane)
 	return pane:get_foreground_process_name():find("n?vim") ~= nil
 end
 
-local function conditionalActivatePane(window, pane, pane_direction)
-	if isViProcess(pane) then
+local function conditional_active_pane(window, pane, pane_direction)
+	if is_vi_process(pane) then
 		local direction = {
 			Left = "h",
 			Down = "j",
@@ -27,31 +27,30 @@ local function conditionalActivatePane(window, pane, pane_direction)
 end
 
 wezterm.on("ActivatePaneDirection-right", function(window, pane)
-	conditionalActivatePane(window, pane, "Right")
+	conditional_active_pane(window, pane, "Right")
 end)
 wezterm.on("ActivatePaneDirection-left", function(window, pane)
-	conditionalActivatePane(window, pane, "Left")
+	conditional_active_pane(window, pane, "Left")
 end)
 wezterm.on("ActivatePaneDirection-up", function(window, pane)
-	conditionalActivatePane(window, pane, "Up")
+	conditional_active_pane(window, pane, "Up")
 end)
 wezterm.on("ActivatePaneDirection-down", function(window, pane)
-	conditionalActivatePane(window, pane, "Down")
+	conditional_active_pane(window, pane, "Down")
 end)
+
+local function scheme_for_appearance(appearance)
+	if appearance:find("Dark") then
+		return "vscode-dark"
+	else
+		return "vscode-light"
+	end
+end
 
 return {
 	cell_width = 0.9,
-	color_scheme = "dark",
-	color_schemes = {
-		["dark"] = {
-			background = "black",
-			foreground = "silver",
-		},
-		["light"] = {
-			background = "silver",
-			foreground = "black",
-		},
-	},
+	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
+	color_scheme_dirs = { "/Users/tmm/.local/share/nvim/lazy/vscode.nvim/extra/wezterm" },
 	font = wezterm.font("JetBrains Mono"),
 	font_size = 14.0,
 	hide_mouse_cursor_when_typing = true,
@@ -193,7 +192,7 @@ return {
 			{ key = "Escape", action = "PopKeyTable" },
 		},
 	},
-	leader = { key = "a", mods = "CMD", timeout_milliseconds = 1000 },
+	leader = { key = " ", mods = "SHIFT", timeout_milliseconds = 1000 },
 	native_macos_fullscreen_mode = true,
 	scrollback_lines = 10000,
 	tab_bar_at_bottom = true,

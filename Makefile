@@ -27,8 +27,8 @@ homebrew-packages: $(BREW)
 	brew bundle
 
 .PHONY: npm
-npm-packages: $(BREW)
-	@fnm install
+npm: $(BREW)
+	@fnm install 18
 	@corepack enable
 	@corepack prepare pnpm@latest --activate
 

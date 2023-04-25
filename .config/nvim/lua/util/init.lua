@@ -52,7 +52,6 @@ end
 
 function M.version()
 	local v = vim.version()
-	local v = vim.version()
 	if v and not v.prerelease then
 		vim.notify(
 			("Neovim v%d.%d.%d"):format(v.major, v.minor, v.patch),

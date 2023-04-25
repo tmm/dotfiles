@@ -14,9 +14,8 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup("plugins", {
 	defaults = { lazy = true },
 	dev = {
-		path = "~/Code",
-		patterns = { "spice.nvim" },
+		path = "~/Developer/nvim",
 	},
-	install = { colorscheme = { "spice", "tokyonight" } },
+	install = { colorscheme = { "vscode" } },
 })
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")

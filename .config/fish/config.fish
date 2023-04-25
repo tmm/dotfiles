@@ -72,8 +72,6 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 # Abbreviations
 # ==========================
 
-abbr d docker
-abbr dc docker-compose
 abbr df "h git"
 abbr f forge
 abbr g git
@@ -81,14 +79,6 @@ abbr home "cd ~"
 abbr lsd "exa -d .*"
 abbr p pnpm
 abbr v nvim
-abbr y yarn
-
-abbr dsr "docker stop (docker ps -a -q) && docker rm (docker ps -a -q)" # Stops and removes all running containers
-abbr dex "docker exec -it"
-abbr dcu "docker-compose up -d"
-abbr dcub "docker-compose up -d --build"
-abbr dra "docker rmi (docker images -q) --force"
-abbr dl "docker logs -f"
 
 # ==========================
 # Other
@@ -103,4 +93,5 @@ set -gx PATH "$PNPM_HOME" $PATH
 set -gx FOUNDRY_DIR "$HOME/.foundry"
 set -gx PATH "$FOUNDRY_DIR" $PATH
 
-export PATH="$PATH:/Users/tom/.foundry/bin"
+set FOUNDRY_BIN $HOME/.foundry/bin
+fish_add_path $FOUNDRY_BIN

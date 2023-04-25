@@ -35,14 +35,15 @@ return {
 
 			require("lualine").setup({
 				options = {
-					icons_enabled = true,
+					always_divide_middle = true,
 					component_separators = "",
-					section_separators = "",
 					disabled_filetypes = {
 						"neo-tree",
 					},
-					always_divide_middle = true,
 					globalstatus = false,
+					icons_enabled = true,
+					section_separators = "",
+					theme = "vscode",
 				},
 				sections = {
 					lualine_a = {},

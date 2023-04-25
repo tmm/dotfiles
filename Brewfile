@@ -42,11 +42,12 @@ cask 'sip'                           # Color picker (https://sipapp.io)
 cask 'tuple'                         # Screen sharing (https://tuple.app)
 cask 'wezterm-nightly'               # Better Terminal.app (https://wezfurlong.org/wezterm)
 
-mas 'Craft',      id: 1487937127
-mas 'Dato',       id: 1470584107
-mas 'Pure Paste', id: 1611378436
-mas 'Velja',      id: 1607635845
-mas 'Xcode',      id: 497799835
+mas 'BetterSnapTool', id: 417375580
+mas 'Craft',          id: 1487937127
+mas 'Dato',           id: 1470584107
+mas 'Pure Paste',     id: 1611378436
+mas 'Velja',          id: 1607635845
+mas 'Xcode',          id: 497799835
 
 # Install from GitHub Releases (https://github.com/kcrawford/dockutil/releases)
 # https://github.com/kcrawford/dockutil/issues/146
