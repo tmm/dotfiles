@@ -90,6 +90,31 @@ return {
 		end,
 	},
 
+	-- https://github.com/petertriho/nvim-scrollbar
+	{
+		"petertriho/nvim-scrollbar",
+		event = "BufReadPost",
+		config = function()
+			local scrollbar = require("scrollbar")
+			-- local colors = require("tokyonight.colors").setup()
+			local colors = require("vscode.colors").get_colors()
+			scrollbar.setup({
+				handle = {
+					color = colors.vscPopupBack,
+				},
+				excluded_filetypes = { "prompt", "TelescopePrompt", "noice", "notify", "neo-tree" },
+				marks = {
+					Search = { color = colors.vscOrange },
+					Error = { color = colors.vscRed },
+					Warn = { color = colors.vscYellow },
+					Info = { color = colors.vscGreen },
+					Hint = { color = colors.vscBlue },
+					Misc = { color = colors.vscViolet },
+				},
+			})
+		end,
+	},
+
 	-- https://github.com/stevearc/dressing.nvim
 	{
 		"stevearc/dressing.nvim",

@@ -40,15 +40,15 @@ wezterm.on("ActivatePaneDirection-down", function(window, pane)
 end)
 
 local function scheme_for_appearance(appearance)
-	if appearance:find("Dark") then
-		return "vscode-dark"
-	else
+	if appearance:find("Light") then
 		return "vscode-light"
+	else
+		return "vscode-dark"
 	end
 end
 
 return {
-	cell_width = 0.9,
+	cell_width = 1,
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
 	color_scheme_dirs = { "/Users/tmm/.local/share/nvim/lazy/vscode.nvim/extra/wezterm" },
 	font = wezterm.font("JetBrains Mono"),
@@ -118,6 +118,7 @@ return {
 		{ key = "d", mods = "CTRL", action = wezterm.action.ScrollByPage(1) },
 
 		-- Leader
+		{ key = "c", mods = "LEADER", action = wezterm.action.SwitchToWorkspace },
 		{
 			key = "l",
 			mods = "LEADER",
@@ -192,7 +193,7 @@ return {
 			{ key = "Escape", action = "PopKeyTable" },
 		},
 	},
-	leader = { key = " ", mods = "SHIFT", timeout_milliseconds = 1000 },
+	leader = { key = "s", mods = "CTRL", timeout_milliseconds = 1500 },
 	native_macos_fullscreen_mode = true,
 	scrollback_lines = 10000,
 	tab_bar_at_bottom = true,

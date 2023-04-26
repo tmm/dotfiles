@@ -4,9 +4,11 @@ return {
 		"NvChad/nvim-colorizer.lua",
 		event = "BufReadPre",
 		opts = {
-			names = false, -- "Name" codes like Blue
-			mode = "background", -- Set the display mode.
-			virtualtext = "■",
+			user_default_options = {
+				names = false, -- "Name" codes like Blue
+				mode = "background", -- Set the display mode.
+				virtualtext = "■",
+			},
 		},
 	},
 
