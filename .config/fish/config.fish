@@ -3,6 +3,7 @@
 # ==========================
 
 set -gx EDITOR nvim
+set -gx NVIM_ADDR /tmp/nvim.pipe
 
 # XDG Base Directory Specification
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
@@ -67,6 +68,8 @@ alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && kill
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+alias nvim="nvim --listen $NVIM_ADDR"
 
 # ==========================
 # Abbreviations

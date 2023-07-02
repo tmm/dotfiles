@@ -3,6 +3,10 @@ return {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
+		background = {
+			light = "latte",
+			dark = "mocha",
+    },
 		priority = 1000
 	}
 }
