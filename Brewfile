@@ -20,10 +20,12 @@ brew 'jq'                            # JSON CLI (https://github.com/stedolan/jq)
 brew 'mas'                           # App Store CLI (https://github.com/mas-cli/mas)
 brew 'nvim'                          # Better `vim` (https://github.com/neovim/neovim)
 brew 'ripgrep'                       # Better `grep` (https://github.com/BurntSushi/ripgrep)
+brew 'tmux'                       
 
 cask '1password'                     # Password manager (https://1password.com)
 cask '1password-cli'
 cask 'bartender'                     # Clean up menu bar (https://macbartender.com)
+cask 'betterdisplay'                 # Control external monitor (https://github.com/waydabber/BetterDisplay)
 cask 'cleanshot'                     # Better screenshots (https://cleanshot.com)
 cask 'contexts'                      # Better `cmd + tab` (https://contexts.co)
 cask 'cron'                          # Better Calendar.app (https://cron.app)
@@ -34,13 +36,13 @@ cask 'firefox'                       # Browser (https://firefox.com)
 cask 'flux'                          # Stop blue light (https://justgetflux.com)
 cask 'font-jetbrains-mono-nerd-font' # Programming font (https://github.com/JetBrains/JetBrainsMono)
 cask 'google-chrome'
-cask 'monitorcontrol'                # Control external monitor (https://github.com/MonitorControl/MonitorControl)
+cask 'iterm2'                        # Better Terminal.app (https://iterm2.com)
 cask 'numi'                          # Programmable calculator (https://github.com/nikolaeu/numi)
 cask 'pixelsnap'                     # Measure anything on screen (https://getpixelsnap.com)
 cask 'raycast'                       # Better Spotlight (https://raycast.com)
+cask 'sf-symbols'
 cask 'sip'                           # Color picker (https://sipapp.io)
 cask 'tuple'                         # Screen sharing (https://tuple.app)
-cask 'wezterm-nightly'               # Better Terminal.app (https://wezfurlong.org/wezterm)
 
 mas 'BetterSnapTool', id: 417375580
 mas 'Craft',          id: 1487937127

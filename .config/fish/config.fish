@@ -57,7 +57,7 @@ alias vim=nvim
 alias brc="nvim $HOME/Brewfile"
 alias frc="nvim $XDG_CONFIG_HOME/fish/config.fish"
 alias mrc="nvim $HOME/Makefile"
-alias trc="nvim $XDG_CONFIG_HOME/wezterm/wezterm.lua"
+alias trc="nvim $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias vrc="nvim $XDG_CONFIG_HOME/nvim/init.lua"
 
 # Hide/show hidden files in Finder
@@ -78,7 +78,13 @@ abbr g git
 abbr home "cd ~"
 abbr lsd "exa -d .*"
 abbr p pnpm
+abbr t tmux
 abbr v nvim
+
+abbr tn "tmux new -s"
+abbr ta "tmux a -t"
+abbr tks "tmux kill-server"
+abbr tls "tmux ls"
 
 # ==========================
 # Other
@@ -95,3 +101,5 @@ set -gx PATH "$FOUNDRY_DIR" $PATH
 
 set FOUNDRY_BIN $HOME/.foundry/bin
 fish_add_path $FOUNDRY_BIN
+
+test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell_integration.fish

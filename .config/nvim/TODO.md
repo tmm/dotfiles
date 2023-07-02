@@ -51,3 +51,4 @@
 - https://github.com/tmm/dotfiles/blob/da82a5c4ffe867fab298ee8e16fa88891f7a0cb6/.config/nvim/lua/plugins/init.lua
 - https://gist.github.com/rsms/fb463396c95ad8d9efa338a8050a01dc
 - https://github.com/wez/wezterm/discussions/2329
+- https://github.com/adibhanna/nvim/tree/main

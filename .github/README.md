@@ -16,6 +16,7 @@ make fish               # Change shell to fish
 make fish-packages      # Install fish packages
 make homebrew-packages  # Install tools
 make macos              # Set up macOS defaults
-make npm                # Set up Node
-make nvim-packages      # Install Neovim packages
+make npm                # Set up node
+make nvim-packages      # Install neovim packages
+make tmux-packages      # Install tmux packages
 ```
