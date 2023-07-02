@@ -1,9 +1,19 @@
 # TODO
 
+- https://github.com/ggandor/leap.nvim
+- https://github.com/lukas-reineke/indent-blankline.nvim
+- https://github.com/nvim-lualine/lualine.nvim
+- https://github.com/stevearc/dressing.nvim
+
+---
+
+## Archive
+
 - .files show up in telescope (e.g. `.env`)
 - folds
 
 - smooth scroll
+- undercurl support
 - visual mode `S` conflict between leap and surround
 - autoformat time out on large file
 - large typescript file performance
@@ -22,6 +32,7 @@
 
 ## Plugins
 
+- https://github.com/petertriho/nvim-scrollbar
 - https://github.com/folke/noice.nvim
 - https://github.com/folke/trouble.nvim
 - https://github.com/zbirenbaum/copilot.lua

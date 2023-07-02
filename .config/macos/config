@@ -109,13 +109,13 @@ fi
 
 dockutil --no-restart --remove all
 dockutil --no-restart --add "/Applications/Firefox.app"
-dockutil --no-restart --add "/Applications/WezTerm.app"
+dockutil --no-restart --add "/Applications/iTerm.app"
 dockutil --no-restart --add "~/Downloads" --section others --sort name --view list
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Hide menubar
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
+defaults write NSGlobalDomain _HIHideMenuBar -bool false
 
 # Accent color: Blue
 defaults write NSGlobalDomain AppleAquaColorVariant -int 1
