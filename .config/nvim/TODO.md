@@ -1,5 +1,6 @@
 # TODO
 
+- https://github.com/RRethy/vim-illuminate
 - https://github.com/ggandor/leap.nvim
 - https://github.com/lukas-reineke/indent-blankline.nvim
 - https://github.com/nvim-lualine/lualine.nvim

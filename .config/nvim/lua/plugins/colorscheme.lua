@@ -1,22 +1,13 @@
 return {
-	-- https://github.com/catppuccin/nvim
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		event = "BufReadPre",
-		background = {
-			light = "latte",
-			dark = "mocha",
-		},
-		integrations = {
-			cmp = true,
-			gitsigns = true,
-			illuminate = false,
-			lsp_trouble = false,
-			nvimtree = true,
-			telescope = true,
-			which_key = false,
-		},
+		"tmm/silo",
+		name = "silo",
+		dev = true,
+		dir = "~/.config/nvim/silo",
+		lazy = false,
 		priority = 1000,
+		config = function()
+			vim.cmd([[colorscheme silo]])
+		end,
 	},
 }

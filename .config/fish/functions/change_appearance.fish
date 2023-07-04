@@ -17,11 +17,13 @@ function change_appearance --argument appearance_setting
     end
 
     # change neovim
-    switch $appearance
-        case dark
-            nvim --server $NVIM_ADDR --remote-send ':set background=dark<CR>'
-        case light
-            nvim --server $NVIM_ADDR --remote-send ':set background=light<CR>'
+    for addr in (ls $(echo $TMPDIR)nvim.$(echo $USER)/*/nvim.*.0)
+        switch $appearance
+            case dark
+                nvim --server $addr --remote-send ':set background=dark<CR>'
+            case light
+                nvim --server $addr --remote-send ':set background=light<CR>'
+        end
     end
 
     # change tmux

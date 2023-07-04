@@ -16,6 +16,6 @@ require("lazy").setup("plugins", {
 	dev = {
 		path = "~/Developer/nvim",
 	},
-	install = { colorscheme = { "catppuccin" } },
+	install = { colorscheme = { "silo" } },
 })
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")

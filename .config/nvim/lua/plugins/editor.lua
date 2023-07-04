@@ -310,30 +310,4 @@ return {
 			},
 		},
 	},
-
-	-- https://github.com/RRethy/vim-illuminate
-	{
-		"RRethy/vim-illuminate",
-		config = function(_, opts)
-			require("illuminate").configure(opts)
-		end,
-		event = "BufReadPost",
-		keys = {
-			{
-				"]]",
-				function()
-					require("illuminate").goto_next_reference(false)
-				end,
-				desc = "Next Reference",
-			},
-			{
-				"[[",
-				function()
-					require("illuminate").goto_prev_reference(false)
-				end,
-				desc = "Prev Reference",
-			},
-		},
-		opts = { delay = 200 },
-	},
 }
