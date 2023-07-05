@@ -1,10 +1,14 @@
 # TODO
 
+- rome lsp https://github.com/rome/tools/discussions/3544
+
+- https://github.com/folke/flash.nvim
 - https://github.com/RRethy/vim-illuminate
 - https://github.com/ggandor/leap.nvim
 - https://github.com/lukas-reineke/indent-blankline.nvim
 - https://github.com/nvim-lualine/lualine.nvim
 - https://github.com/stevearc/dressing.nvim
+- https://github.com/ethanholz/nvim-lastplace
 
 ---
 
