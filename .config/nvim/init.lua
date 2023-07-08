@@ -1,36 +1,4 @@
 --------------------------------------------------------------------------
--- Util
---------------------------------------------------------------------------
-
-local util = {}
-
-function util.toggle(option, silent)
-	local info = vim.api.nvim_get_option_info(option)
-	local scopes = { buf = "bo", win = "wo", global = "o" }
-	local scope = scopes[info.scope]
-	local options = vim[scope]
-	options[option] = not options[option]
-	if silent ~= true then
-		if options[option] then
-			util.info("enabled vim." .. scope .. "." .. option, "Toggle")
-		else
-			util.warn("disabled vim." .. scope .. "." .. option, "Toggle")
-		end
-	end
-end
-
-function util.version()
-	local v = vim.version()
-	if v and not v.prerelease then
-		vim.notify(
-			("Neovim v%d.%d.%d"):format(v.major, v.minor, v.patch),
-			vim.log.levels.WARN,
-			{ title = "Neovim: not running nightly!" }
-		)
-	end
-end
-
---------------------------------------------------------------------------
 -- Options
 --------------------------------------------------------------------------
 
@@ -100,6 +68,27 @@ local fences = {
 }
 vim.g.markdown_fenced_languages = fences
 vim.g.markdown_recommended_style = 0
+
+--------------------------------------------------------------------------
+-- Util
+--------------------------------------------------------------------------
+
+local util = {}
+
+function util.toggle(option, silent)
+	local info = vim.api.nvim_get_option_info(option)
+	local scopes = { buf = "bo", win = "wo", global = "o" }
+	local scope = scopes[info.scope]
+	local options = vim[scope]
+	options[option] = not options[option]
+	if silent ~= true then
+		if options[option] then
+			util.info("enabled vim." .. scope .. "." .. option, "Toggle")
+		else
+			util.warn("disabled vim." .. scope .. "." .. option, "Toggle")
+		end
+	end
+end
 
 --------------------------------------------------------------------------
 -- LSP
@@ -254,18 +243,41 @@ require("lazy").setup({
 	dev = {
 		path = "~/Developer/nvim",
 	},
-	install = { colorscheme = { "silo" } },
 
 	-- silo (https://github.com/tmm/silo.nvim)
+	-- {
+	-- 	"tmm/silo",
+	-- 	name = "silo",
+	-- 	dev = true,
+	-- 	dir = "~/.config/nvim/silo",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		 vim.cmd([[colorscheme silo]])
+	-- 	end,
+	-- },
+
+	-- tokyonight (https://github.com/folke/tokyonight)
 	{
-		"tmm/silo",
-		name = "silo",
-		dev = true,
-		dir = "~/.config/nvim/silo",
+		"folke/tokyonight.nvim",
 		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd([[colorscheme silo]])
+		opts = {
+			style = "night",
+			light_style = "day",
+			styles = {
+				sidebars = "dark",
+				floats = "dark",
+			},
+			on_highlights = function(hl, c)
+				hl.MsgArea = { bg = c.bg_dark }
+				hl.NeoTreeDirectoryIcon = { fg = c.comment }
+				hl.TelescopeBorder = { fg = c.comment, bg = c.bg_float }
+			end,
+		},
+		config = function(_, opts)
+			local tokyonight = require("tokyonight")
+			tokyonight.setup(opts)
+			tokyonight.load()
 		end,
 	},
 
@@ -300,7 +312,7 @@ require("lazy").setup({
 						gs.next_hunk()
 					end)
 					return "<Ignore>"
-				end, { expr = true })
+				end, { expr = true, desc = "Next hunk" })
 
 				map("n", "[c", function()
 					if vim.wo.diff then
@@ -310,7 +322,7 @@ require("lazy").setup({
 						gs.prev_hunk()
 					end)
 					return "<Ignore>"
-				end, { expr = true })
+				end, { expr = true, desc = "Previous hunk" })
 
 				-- Text object
 				map({ "o", "x" }, "ih", ":<c-u>Gitsigns select_hunk<cr>")
@@ -322,6 +334,74 @@ require("lazy").setup({
 				},
 			},
 		},
+	},
+
+	-- https://github.com/nvim-lualine/lualine.nvim
+	{
+		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
+		config = function()
+			local conditions = {
+				buffer_not_empty = function()
+					return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+				end,
+			}
+
+			require("lualine").setup({
+				options = {
+					always_divide_middle = true,
+					component_separators = "",
+					disabled_filetypes = {
+						"neo-tree",
+					},
+					globalstatus = false,
+					icons_enabled = true,
+					section_separators = "",
+					theme = "tokyonight",
+				},
+				sections = {
+					lualine_a = {},
+					lualine_b = {},
+					lualine_c = {
+						"mode",
+						{
+							"filename",
+							cond = conditions.buffer_not_empty,
+						},
+						{
+							"branch",
+							icon = "",
+						},
+						{
+							"diff",
+							symbols = { added = " ", modified = " ", removed = " " },
+						},
+					},
+					lualine_x = {
+						{
+							"diagnostics",
+							sources = { "nvim_diagnostic" },
+							symbols = { error = " ", warn = " ", info = " " },
+						},
+						"filetype",
+						"progress",
+						"location",
+					},
+					lualine_y = {},
+					lualine_z = {},
+				},
+				inactive_sections = {
+					lualine_a = {},
+					lualine_b = {},
+					lualine_c = { "filename" },
+					lualine_x = { "location" },
+					lualine_y = {},
+					lualine_z = {},
+				},
+				tabline = {},
+				extensions = {},
+			})
+		end,
 	},
 
 	-- mini (https://github.com/echasnovski/mini.nvim)
@@ -384,6 +464,11 @@ require("lazy").setup({
 				"nvim-tree/nvim-web-devicons",
 				opts = {
 					color_icons = false,
+					override = {
+						default_icon = {
+							color = "",
+						},
+					},
 				},
 			},
 			-- https://github.com/MunifTanjim/nui.nvim
@@ -459,6 +544,16 @@ require("lazy").setup({
 				}),
 			})
 		end,
+	},
+
+	-- nvim-lastplace (https://github.com/ethanholz/nvim-lastplace)
+	{
+		"ethanholz/nvim-lastplace",
+		opts = {
+			lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+			lastplace_ignore_filetype = { "gitcommit", "gitrebase" },
+			lastplace_open_folds = true,
+		},
 	},
 
 	-- nvim-lspconfig (https://github.com/neovim/nvim-lspconfig)
@@ -843,6 +938,7 @@ require("lazy").setup({
 					q = { "<cmd>q<cr>", "which_key_ignore", silent = true },
 					Q = { "<cmd>q!<cr>", "which_key_ignore", silent = true },
 					w = { "<cmd>w<cr>", "which_key_ignore", silent = true },
+					x = { name = "+diagnostics" },
 				},
 				-- ["<leader>n"] = { name = "+noice" },
 				-- ["<leader>o"] = { name = "+open" },
@@ -859,8 +955,6 @@ vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
 vim.api.nvim_create_autocmd("User", {
 	pattern = "VeryLazy",
 	callback = function()
-		util.version()
-
 		--------------------------------------------------------------------------
 		-- Commands
 		--------------------------------------------------------------------------

@@ -8,7 +8,6 @@
 - https://github.com/lukas-reineke/indent-blankline.nvim
 - https://github.com/nvim-lualine/lualine.nvim
 - https://github.com/stevearc/dressing.nvim
-- https://github.com/ethanholz/nvim-lastplace
 
 ---
 
