@@ -240,48 +240,24 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup({
 	defaults = { lazy = true },
-	dev = {
-		path = "~/Developer/nvim",
-	},
 
-	-- silo (https://github.com/tmm/silo.nvim)
-	-- {
-	-- 	"tmm/silo",
-	-- 	name = "silo",
-	-- 	dev = true,
-	-- 	dir = "~/.config/nvim/silo",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		 vim.cmd([[colorscheme silo]])
-	-- 	end,
-	-- },
-
-	-- tokyonight (https://github.com/folke/tokyonight)
+	-- better vim.ui (https://github.com/stevearc/dressing.nvim)
 	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		opts = {
-			style = "night",
-			light_style = "day",
-			styles = {
-				sidebars = "dark",
-				floats = "dark",
-			},
-			on_highlights = function(hl, c)
-				hl.MsgArea = { bg = c.bg_dark }
-				hl.NeoTreeDirectoryIcon = { fg = c.comment }
-				hl.TelescopeBorder = { fg = c.comment, bg = c.bg_float }
-			end,
-		},
-		config = function(_, opts)
-			local tokyonight = require("tokyonight")
-			tokyonight.setup(opts)
-			tokyonight.load()
+		"stevearc/dressing.nvim",
+		lazy = true,
+		init = function()
+			vim.ui.select = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.select(...)
+			end
+			vim.ui.input = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.input(...)
+			end
 		end,
 	},
 
-	-- gitsigns (https://github.com/lewis6991/gitsigns.nvim)
+	-- git signs (https://github.com/lewis6991/gitsigns.nvim)
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "BufReadPre",
@@ -336,7 +312,16 @@ require("lazy").setup({
 		},
 	},
 
-	-- https://github.com/nvim-lualine/lualine.nvim
+	-- indent guides (https://github.com/lukas-reineke/indent-blankline.nvim)
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		opts = {
+			show_current_context = true,
+			show_current_context_start = true,
+		},
+	},
+
+	-- status line (https://github.com/nvim-lualine/lualine.nvim)
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
@@ -452,7 +437,7 @@ require("lazy").setup({
 		},
 	},
 
-	-- neo-tree (https://github.com/nvim-neo-tree/neo-tree.nvim)
+	-- tree explorer (https://github.com/nvim-neo-tree/neo-tree.nvim)
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		cmd = "Neotree",
@@ -546,7 +531,7 @@ require("lazy").setup({
 		end,
 	},
 
-	-- nvim-lastplace (https://github.com/ethanholz/nvim-lastplace)
+	-- save last edit location (https://github.com/ethanholz/nvim-lastplace)
 	{
 		"ethanholz/nvim-lastplace",
 		opts = {
@@ -821,7 +806,31 @@ require("lazy").setup({
 		},
 	},
 
-	-- trouble (https://github.com/folke/trouble.nvim)
+	-- colorscheme (https://github.com/folke/tokyonight)
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		opts = {
+			style = "night",
+			light_style = "day",
+			styles = {
+				sidebars = "dark",
+				floats = "dark",
+			},
+			on_highlights = function(hl, c)
+				hl.MsgArea = { bg = c.bg_dark }
+				hl.NeoTreeDirectoryIcon = { fg = c.comment }
+				hl.TelescopeBorder = { fg = c.comment, bg = c.bg_float }
+			end,
+		},
+		config = function(_, opts)
+			local tokyonight = require("tokyonight")
+			tokyonight.setup(opts)
+			tokyonight.load()
+		end,
+	},
+
+	-- diagnostics (https://github.com/folke/trouble.nvim)
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble" },
@@ -832,7 +841,7 @@ require("lazy").setup({
 		opts = { use_diagnostic_signs = true },
 	},
 
-	-- ufo (https://github.com/kevinhwang91/nvim-ufo)
+	-- folds (https://github.com/kevinhwang91/nvim-ufo)
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = "kevinhwang91/promise-async",
@@ -846,7 +855,45 @@ require("lazy").setup({
 		end,
 	},
 
-	-- vim-repeat (https://github.com/tpope/vim-repeat)
+	-- highlight word under cusor (https://github.com/RRethy/vim-illuminate)
+	{
+		"RRethy/vim-illuminate",
+		event = { "BufReadPost", "BufNewFile" },
+		opts = {
+			delay = 200,
+			large_file_cutoff = 2000,
+			large_file_overrides = {
+				providers = { "lsp" },
+			},
+		},
+		config = function(_, opts)
+			require("illuminate").configure(opts)
+
+			local function map(key, dir, buffer)
+				vim.keymap.set("n", key, function()
+					require("illuminate")["goto_" .. dir .. "_reference"](false)
+				end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+			end
+
+			map("]]", "next")
+			map("[[", "prev")
+
+			-- also set it after loading ftplugins, since a lot overwrite [[ and ]]
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					local buffer = vim.api.nvim_get_current_buf()
+					map("]]", "next", buffer)
+					map("[[", "prev", buffer)
+				end,
+			})
+		end,
+		keys = {
+			{ "]]", desc = "Next Reference" },
+			{ "[[", desc = "Prev Reference" },
+		},
+	},
+
+	-- repeat commands (https://github.com/tpope/vim-repeat)
 	{
 		"tpope/vim-repeat",
 		event = "VeryLazy",
