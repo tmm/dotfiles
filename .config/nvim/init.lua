@@ -818,9 +818,12 @@ require("lazy").setup({
 				floats = "dark",
 			},
 			on_highlights = function(hl, c)
+				hl.IndentBlanklineContextChar = { fg = c.purple }
+				hl.IndentBlanklineContextStart = { sp = c.purple, underline = true }
 				hl.MsgArea = { bg = c.bg_dark }
 				hl.NeoTreeDirectoryIcon = { fg = c.comment }
-				hl.TelescopeBorder = { fg = c.comment, bg = c.bg_float }
+				hl.NeoTreeWinSeparator = { fg = c.fg_gutter, bg = c.bg_sidebar }
+				hl.TelescopeBorder = { fg = c.fg_gutter, bg = c.bg_float }
 			end,
 		},
 		config = function(_, opts)
