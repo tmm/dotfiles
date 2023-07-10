@@ -6,7 +6,6 @@
 - https://github.com/L3MON4D3/LuaSnip
 
 - https://github.com/folke/flash.nvim
-- https://github.com/marilari88/twoslash-queries.nvim
 - https://github.com/zbirenbaum/copilot.lua / zbirenbaum/copilot-cmp
 - https://github.com/folke/persistence.nvim
 - https://github.com/nvim-pack/nvim-spectre

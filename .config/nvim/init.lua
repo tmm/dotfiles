@@ -812,11 +812,15 @@ require("lazy").setup({
 		lazy = false,
 		opts = {
 			style = "night",
-			light_style = "day",
 			styles = {
 				sidebars = "dark",
 				floats = "dark",
 			},
+			on_colors = function(c)
+				if vim.o.background == "light" then
+					c.bg = ""
+				end
+			end,
 			on_highlights = function(hl, c)
 				hl.IndentBlanklineContextChar = { fg = c.purple }
 				hl.IndentBlanklineContextStart = { sp = c.purple, underline = true }
@@ -824,12 +828,11 @@ require("lazy").setup({
 				hl.NeoTreeDirectoryIcon = { fg = c.comment }
 				hl.NeoTreeWinSeparator = { fg = c.fg_gutter, bg = c.bg_sidebar }
 				hl.TelescopeBorder = { fg = c.fg_gutter, bg = c.bg_float }
+				hl.WinSeparator = { fg = c.fg_gutter, bold = true }
 			end,
 		},
 		config = function(_, opts)
-			local tokyonight = require("tokyonight")
-			tokyonight.setup(opts)
-			tokyonight.load()
+			require("tokyonight").load(opts)
 		end,
 	},
 
@@ -900,6 +903,14 @@ require("lazy").setup({
 	{
 		"tpope/vim-repeat",
 		event = "VeryLazy",
+	},
+
+	{
+		"marilari88/twoslash-queries.nvim",
+		opts = {
+			multi_line = true,
+			highlight = "Type",
+		},
 	},
 
 	-- vim-surround (https://github.com/tpope/vim-surround)
