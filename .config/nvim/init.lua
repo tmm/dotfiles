@@ -241,7 +241,73 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup({
 	defaults = { lazy = true },
 
-	-- better vim.ui (https://github.com/stevearc/dressing.nvim)
+	-- bufferline.nvim (https://github.com/akinsho/bufferline.nvim)
+	{
+		"akinsho/bufferline.nvim",
+		event = "VeryLazy",
+		keys = {
+			{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
+			{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+			{ "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" } },
+			{ "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" } },
+		},
+		opts = function()
+			local c = require("tokyonight.colors").setup()
+			return {
+				highlights = {
+					fill = { bg = c.bg_dark },
+					background = { bg = c.bg_dark },
+					tab = { bg = c.bg_dark },
+					tab_selected = { bg = c.bg_dark },
+					tab_separator = { bg = c.bg_dark },
+					tab_separator_selected = { bg = c.bg_dark },
+					tab_close = { bg = c.bg_dark },
+					close_button = { bg = c.bg_dark },
+					close_button_visible = { bg = c.bg_dark },
+					close_button_selected = { bg = c.bg },
+					buffer_visible = { bg = c.bg_dark },
+					buffer_selected = { bg = c.bg },
+					separator_selected = { bg = c.bg_dark },
+					separator_visible = { bg = c.bg_dark },
+					separator = { bg = c.bg_dark },
+					indicator_visible = { bg = c.bg_dark },
+					indicator_selected = { bg = c.bg_dark },
+					offset_separator = { bg = c.bg_dark },
+				},
+				options = {
+					always_show_bufferline = false,
+					diagnostics = "nvim_lsp",
+					indicator = "none",
+					-- diagnostics_indicator = function(_, _, diag)
+					-- 	local icons = require("lazyvim.config").icons.diagnostics
+					-- 	local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+					-- 		.. (diag.warning and icons.Warn .. diag.warning or "")
+					-- 	return vim.trim(ret)
+					-- end,
+					offsets = {
+						{
+							filetype = "neo-tree",
+							text = "Neo-tree",
+							highlight = "NeoTreeNormal",
+							text_align = "left",
+							separator = true,
+						},
+					},
+					separator_style = { " ", " " },
+					show_buffer_icons = false,
+					themable = true,
+					close_command = function(n)
+						require("mini.bufremove").delete(n, false)
+					end,
+					right_mouse_command = function(n)
+						require("mini.bufremove").delete(n, false)
+					end,
+				},
+			}
+		end,
+	},
+
+	-- dressing.nvim (https://github.com/stevearc/dressing.nvim)
 	{
 		"stevearc/dressing.nvim",
 		lazy = true,
@@ -257,7 +323,7 @@ require("lazy").setup({
 		end,
 	},
 
-	-- git signs (https://github.com/lewis6991/gitsigns.nvim)
+	-- gitsigns.nvim (https://github.com/lewis6991/gitsigns.nvim)
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "BufReadPre",
@@ -312,7 +378,56 @@ require("lazy").setup({
 		},
 	},
 
-	-- indent guides (https://github.com/lukas-reineke/indent-blankline.nvim)
+	-- flash.nvim (https://github.com/folke/flash.nvim)
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = {},
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+				desc = "Flash",
+			},
+			{
+				"S",
+				mode = { "n", "o", "x" },
+				function()
+					require("flash").treesitter()
+				end,
+				desc = "Flash Treesitter",
+			},
+			{
+				"r",
+				mode = "o",
+				function()
+					require("flash").remote()
+				end,
+				desc = "Remote Flash",
+			},
+			{
+				"R",
+				mode = { "o", "x" },
+				function()
+					require("flash").treesitter_search()
+				end,
+				desc = "Treesitter Search",
+			},
+			{
+				"<c-s>",
+				mode = { "c" },
+				function()
+					require("flash").toggle()
+				end,
+				desc = "Toggle Flash Search",
+			},
+		},
+	},
+
+	-- indent-blankline.nvim (https://github.com/lukas-reineke/indent-blankline.nvim)
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		opts = {
@@ -321,7 +436,47 @@ require("lazy").setup({
 		},
 	},
 
-	-- status line (https://github.com/nvim-lualine/lualine.nvim)
+	-- LuaSnip (https://github.com/L3MON4D3/LuaSnip)
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			config = function()
+				require("luasnip.loaders.from_vscode").lazy_load()
+			end,
+		},
+		opts = {
+			history = true,
+			delete_check_events = "TextChanged",
+		},
+		keys = {
+			{
+				"<tab>",
+				function()
+					return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+				end,
+				expr = true,
+				silent = true,
+				mode = "i",
+			},
+			{
+				"<tab>",
+				function()
+					require("luasnip").jump(1)
+				end,
+				mode = "s",
+			},
+			{
+				"<s-tab>",
+				function()
+					require("luasnip").jump(-1)
+				end,
+				mode = { "i", "s" },
+			},
+		},
+	},
+
+	-- lualine.nvim (https://github.com/nvim-lualine/lualine.nvim)
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
@@ -389,7 +544,7 @@ require("lazy").setup({
 		end,
 	},
 
-	-- mini (https://github.com/echasnovski/mini.nvim)
+	-- mini.nvim (https://github.com/echasnovski/mini.nvim)
 	{
 		"echasnovski/mini.nvim",
 		event = "VeryLazy",
@@ -422,22 +577,10 @@ require("lazy").setup({
 				end,
 				desc = "Delete Buffer",
 			},
-			{
-				"<leader>bD",
-				function()
-					require("mini.bufremove").delete(0, true)
-				end,
-				desc = "Delete Buffer (Force)",
-			},
-			{
-				"<leader>bk",
-				"<cmd>%bd<cr>",
-				desc = "Delete Buffers",
-			},
 		},
 	},
 
-	-- tree explorer (https://github.com/nvim-neo-tree/neo-tree.nvim)
+	-- neo-tree.nvim (https://github.com/nvim-neo-tree/neo-tree.nvim)
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		cmd = "Neotree",
@@ -490,48 +633,58 @@ require("lazy").setup({
 		"hrsh7th/nvim-cmp",
 		event = "VeryLazy",
 		dependencies = {
-			-- https://github.com/hrsh7th/cmp-buffer
-			"hrsh7th/cmp-buffer",
 			-- https://github.com/hrsh7th/cmp-nvim-lsp
 			"hrsh7th/cmp-nvim-lsp",
+			-- https://github.com/hrsh7th/cmp-buffer
+			"hrsh7th/cmp-buffer",
 			-- https://github.com/hrsh7th/cmp-path
 			"hrsh7th/cmp-path",
+			-- https://github.com/saadparwaiz1/cmp_luasnip
+			"saadparwaiz1/cmp_luasnip",
 		},
-		config = function()
+		opts = function()
+			vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 			local cmp = require("cmp")
-
-			cmp.setup({
+			local defaults = require("cmp.config.default")()
+			return {
+				completion = {
+					completeopt = "menu,menuone,noinsert",
+				},
+				experimental = {
+					ghost_text = {
+						hl_group = "CmpGhostText",
+					},
+				},
 				mapping = cmp.mapping.preset.insert({
+					["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
+					["<S-CR>"] = cmp.mapping.confirm({
+						behavior = cmp.ConfirmBehavior.Replace,
+						select = true,
+					}),
 				}),
+				snippet = {
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body)
+					end,
+				},
+				sorting = defaults.sorting,
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
+					{ name = "luasnip" },
 					{ name = "buffer" },
 					{ name = "path" },
 				}),
-			})
+			}
 		end,
 	},
 
-	-- save last edit location (https://github.com/ethanholz/nvim-lastplace)
+	-- nvim-lastplace (https://github.com/ethanholz/nvim-lastplace)
 	{
 		"ethanholz/nvim-lastplace",
 		opts = {
@@ -704,6 +857,20 @@ require("lazy").setup({
 		},
 	},
 
+	-- nvim-ufo (https://github.com/kevinhwang91/nvim-ufo)
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = "kevinhwang91/promise-async",
+		event = "BufReadPost",
+		opts = {},
+		init = function()
+			-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+			vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
+			vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
+			vim.keymap.set("n", "zp", require("ufo").peekFoldedLinesUnderCursor, { desc = "Peek fold" })
+		end,
+	},
+
 	-- telescope (https://github.com/nvim-telescope/telescope.nvim)
 	{
 		"nvim-telescope/telescope.nvim",
@@ -757,56 +924,79 @@ require("lazy").setup({
 			},
 			{ "<leader>st", "<cmd>Telescope builtin<cr>", desc = "Telescope" },
 		},
-		opts = {
-			defaults = {
-				border = true,
-				borderchars = {
-					prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-					results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-					preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-				},
-				mappings = {
-					i = {
-						["<C-i>"] = function()
-							require("telescope.builtin").find_files({ no_ignore = true })
+		opts = function()
+			local function flash(prompt_bufnr)
+				require("flash").jump({
+					pattern = "^",
+					label = { after = { 0, 0 } },
+					search = {
+						mode = "search",
+						exclude = {
+							function(win)
+								return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
+							end,
+						},
+					},
+					action = function(match)
+						local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+						picker:set_selection(match.pos[1] - 1)
+					end,
+				})
+			end
+
+			return {
+				defaults = {
+					border = true,
+					borderchars = {
+						prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+						results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+						preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+					},
+					mappings = {
+						i = {
+							["<C-i>"] = function()
+								require("telescope.builtin").find_files({ no_ignore = true })
+							end,
+							["<C-j>"] = function(...)
+								require("telescope.actions").move_selection_next(...)
+							end,
+							["<C-k>"] = function(...)
+								require("telescope.actions").move_selection_previous(...)
+							end,
+							["<C-s>"] = flash,
+						},
+						n = { s = flash },
+					},
+					layout_strategy = "center",
+					layout_config = {
+						height = function(_, _, max_lines)
+							return math.min(max_lines, 15)
 						end,
-						["<C-j>"] = function(...)
-							require("telescope.actions").move_selection_next(...)
-						end,
-						["<C-k>"] = function(...)
-							require("telescope.actions").move_selection_previous(...)
+						preview_cutoff = 1,
+						width = function(_, max_columns, _)
+							return math.min(max_columns, 80)
 						end,
 					},
+					prompt_prefix = "❯ ",
+					results_title = false,
+					selection_caret = "→ ",
+					sorting_strategy = "ascending",
 				},
-				layout_strategy = "center",
-				layout_config = {
-					height = function(_, _, max_lines)
-						return math.min(max_lines, 15)
-					end,
-					preview_cutoff = 1,
-					width = function(_, max_columns, _)
-						return math.min(max_columns, 80)
-					end,
+				pickers = {
+					find_files = {
+						find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+						-- find_command = { "fd", "-t", "f", "-H" },
+					},
+					buffers = {
+						ignore_current_buffer = true,
+						sort_lastused = true,
+					},
 				},
-				prompt_prefix = "❯ ",
-				results_title = false,
-				selection_caret = "→ ",
-				sorting_strategy = "ascending",
-			},
-			pickers = {
-				find_files = {
-					find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
-					-- find_command = { "fd", "-t", "f", "-H" },
-				},
-				buffers = {
-					ignore_current_buffer = true,
-					sort_lastused = true,
-				},
-			},
-		},
+			}
+		end,
 	},
 
-	-- colorscheme (https://github.com/folke/tokyonight)
+	-- tokyonight (https://github.com/folke/tokyonight)
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
@@ -822,12 +1012,19 @@ require("lazy").setup({
 				end
 			end,
 			on_highlights = function(hl, c)
+				-- bufferline
+				hl.BufferLineFill = { bg = c.bg_sidebar }
+				hl.BufferLineBackground = { bg = c.bg_sidebar }
+				-- indent-blankline
 				hl.IndentBlanklineContextChar = { fg = c.purple }
 				hl.IndentBlanklineContextStart = { sp = c.purple, underline = true }
-				hl.MsgArea = { bg = c.bg_dark }
+				-- neo-tree
 				hl.NeoTreeDirectoryIcon = { fg = c.comment }
 				hl.NeoTreeWinSeparator = { fg = c.fg_gutter, bg = c.bg_sidebar }
+				-- telescope
 				hl.TelescopeBorder = { fg = c.fg_gutter, bg = c.bg_float }
+				-- misc
+				hl.MsgArea = { bg = c.bg_dark }
 				hl.WinSeparator = { fg = c.fg_gutter, bold = true }
 			end,
 		},
@@ -836,7 +1033,7 @@ require("lazy").setup({
 		end,
 	},
 
-	-- diagnostics (https://github.com/folke/trouble.nvim)
+	-- trouble.nvim (https://github.com/folke/trouble.nvim)
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble" },
@@ -847,21 +1044,16 @@ require("lazy").setup({
 		opts = { use_diagnostic_signs = true },
 	},
 
-	-- folds (https://github.com/kevinhwang91/nvim-ufo)
+	-- twoslash-queries.nvim (https://github.com/marilari88/twoslash-queries.nvim)
 	{
-		"kevinhwang91/nvim-ufo",
-		dependencies = "kevinhwang91/promise-async",
-		event = "BufReadPost",
-		opts = {},
-		init = function()
-			-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-			vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
-			vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
-			vim.keymap.set("n", "zp", require("ufo").peekFoldedLinesUnderCursor, { desc = "Peek fold" })
-		end,
+		"marilari88/twoslash-queries.nvim",
+		opts = {
+			multi_line = true,
+			highlight = "Type",
+		},
 	},
 
-	-- highlight word under cusor (https://github.com/RRethy/vim-illuminate)
+	-- vim-illuminate (https://github.com/RRethy/vim-illuminate)
 	{
 		"RRethy/vim-illuminate",
 		event = { "BufReadPost", "BufNewFile" },
@@ -899,18 +1091,10 @@ require("lazy").setup({
 		},
 	},
 
-	-- repeat commands (https://github.com/tpope/vim-repeat)
+	-- vim-repeat (https://github.com/tpope/vim-repeat)
 	{
 		"tpope/vim-repeat",
 		event = "VeryLazy",
-	},
-
-	{
-		"marilari88/twoslash-queries.nvim",
-		opts = {
-			multi_line = true,
-			highlight = "Type",
-		},
 	},
 
 	-- vim-surround (https://github.com/tpope/vim-surround)

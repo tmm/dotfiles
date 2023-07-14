@@ -40,6 +40,7 @@ cask 'iterm2'                        # Better Terminal.app (https://iterm2.com)
 cask 'numi'                          # Programmable calculator (https://github.com/nikolaeu/numi)
 cask 'pixelsnap'                     # Measure anything on screen (https://getpixelsnap.com)
 cask 'raycast'                       # Better Spotlight (https://raycast.com)
+cask 'remarkable'
 cask 'sf-symbols'
 cask 'sip'                           # Color picker (https://sipapp.io)
 cask 'tuple'                         # Screen sharing (https://tuple.app)
