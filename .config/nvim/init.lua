@@ -90,6 +90,15 @@ function util.toggle(option, silent)
 	end
 end
 
+local icons = {
+	diagnostics = {
+		Error = " ",
+		Warn = " ",
+		Hint = " ",
+		Info = " ",
+	},
+}
+
 --------------------------------------------------------------------------
 -- LSP
 --------------------------------------------------------------------------
@@ -278,12 +287,11 @@ require("lazy").setup({
 					always_show_bufferline = false,
 					diagnostics = "nvim_lsp",
 					indicator = "none",
-					-- diagnostics_indicator = function(_, _, diag)
-					-- 	local icons = require("lazyvim.config").icons.diagnostics
-					-- 	local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-					-- 		.. (diag.warning and icons.Warn .. diag.warning or "")
-					-- 	return vim.trim(ret)
-					-- end,
+					diagnostics_indicator = function(_, _, diag)
+						local ret = (diag.error and icons.diagnostics.Error .. diag.error .. " " or "")
+							.. (diag.warning and icons.diagnostics.Warn .. diag.warning or "")
+						return vim.trim(ret)
+					end,
 					offsets = {
 						{
 							filetype = "neo-tree",
@@ -521,7 +529,11 @@ require("lazy").setup({
 						{
 							"diagnostics",
 							sources = { "nvim_diagnostic" },
-							symbols = { error = " ", warn = " ", info = " " },
+							symbols = {
+								error = icons.diagnostics.Error,
+								warn = icons.diagnostics.Warn,
+								info = icons.diagnostics.Info,
+							},
 						},
 						"filetype",
 						"progress",
@@ -611,9 +623,7 @@ require("lazy").setup({
 		},
 		opts = {
 			default_component_configs = {
-				indent = {
-					with_markers = false,
-				},
+				indent = { with_markers = false },
 			},
 			filesystem = {
 				filtered_items = {
@@ -718,7 +728,6 @@ require("lazy").setup({
 			require("mason").setup()
 
 			local tools = {
-				"prettierd",
 				"stylua",
 			}
 			local mr = require("mason-registry")
@@ -731,7 +740,7 @@ require("lazy").setup({
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					"eslint",
+					"rome",
 					"sumneko_lua",
 					"tsserver",
 				},
@@ -739,8 +748,7 @@ require("lazy").setup({
 			})
 
 			local servers = {
-				eslint = {},
-				marksman = {},
+				rome = {},
 				sumneko_lua = {
 					settings = {
 						Lua = {
@@ -816,6 +824,7 @@ require("lazy").setup({
 				debounce = 150,
 				save_after_format = false,
 				sources = {
+					nls.builtins.formatting.rome,
 					nls.builtins.formatting.stylua,
 					nls.builtins.formatting.fish_indent,
 				},
@@ -886,11 +895,9 @@ require("lazy").setup({
 			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
 			{ "<leader>fB", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Find Buffers (Show All)" },
 			{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find Recent Files" },
-
 			{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
 			{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Branches" },
 			{ "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Status" },
-
 			{ "<leader>s*", "<cmd>Telescope grep_string<cr>", desc = "Grep (Under Cursor)" },
 			{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
 			{ "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
@@ -1192,6 +1199,16 @@ require("lazy").setup({
 				-- ["<leader>w"] = { name = "+windows" },
 				-- ["<leader><tab>"] = { name = "+tabs" },
 			})
+		end,
+	},
+
+	-- copilot.lua (https://github.com/zbirenbaum/copilot.lua)
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({})
 		end,
 	},
 })
