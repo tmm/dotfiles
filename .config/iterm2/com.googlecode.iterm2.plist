@@ -2853,7 +2853,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Use Custom Window Title</key>
 			<true/>
 			<key>Use Italic Font</key>
-			<true/>
+			<false/>
 			<key>Use Non-ASCII Font</key>
 			<false/>
 			<key>Use Separate Colors for Light and Dark Mode</key>

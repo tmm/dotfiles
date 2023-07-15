@@ -1,11 +1,12 @@
 # TODO
 
-- https://github.com/zbirenbaum/copilot.lua / zbirenbaum/copilot-cmp
+- :checkhealth
+
+- https://github.com/andymass/vim-matchup
 - https://github.com/nvim-pack/nvim-spectre
 - https://github.com/folke/noice.nvim
+- LSP set up https://github.com/LazyVim/LazyVim/blob/8c0e39c826f697d668aae336ea26a83be806a543/lua/lazyvim/plugins/lsp/init.lua#L90
 
-- autopair html/jsx
-- html/jsx tag text object
 - autoformat/lint lua during CI (luacheck)
 - swap unimpaired mappings https://twitter.com/elijahmanor/status/1615927039529291776
 - .files show up in telescope (e.g. `.env`)

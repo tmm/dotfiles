@@ -90,12 +90,64 @@ function util.toggle(option, silent)
 	end
 end
 
+function util.on_attach(on_attach)
+	vim.api.nvim_create_autocmd("LspAttach", {
+		callback = function(args)
+			local buffer = args.buf
+			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			on_attach(client, buffer)
+		end,
+	})
+end
+
 local icons = {
 	diagnostics = {
 		Error = " ",
 		Warn = " ",
 		Hint = " ",
 		Info = " ",
+	},
+	git = {
+		added = " ",
+		modified = " ",
+		removed = " ",
+	},
+	kinds = {
+		Array = " ",
+		Boolean = " ",
+		Class = " ",
+		Color = " ",
+		Constant = " ",
+		Constructor = " ",
+		Copilot = " ",
+		Enum = " ",
+		EnumMember = " ",
+		Event = " ",
+		Field = " ",
+		File = " ",
+		Folder = " ",
+		Function = " ",
+		Interface = " ",
+		Key = " ",
+		Keyword = " ",
+		Method = " ",
+		Module = " ",
+		Namespace = " ",
+		Null = " ",
+		Number = " ",
+		Object = " ",
+		Operator = " ",
+		Package = " ",
+		Property = " ",
+		Reference = " ",
+		Snippet = " ",
+		String = " ",
+		Struct = " ",
+		Text = " ",
+		TypeParameter = " ",
+		Unit = " ",
+		Value = " ",
+		Variable = " ",
 	},
 }
 
@@ -522,7 +574,11 @@ require("lazy").setup({
 						},
 						{
 							"diff",
-							symbols = { added = " ", modified = " ", removed = " " },
+							symbols = {
+								added = icons.git.added,
+								modified = icons.git.modified,
+								removed = icons.git.removed,
+							},
 						},
 					},
 					lualine_x = {
@@ -651,11 +707,30 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			-- https://github.com/saadparwaiz1/cmp_luasnip
 			"saadparwaiz1/cmp_luasnip",
+			-- https://github.com/zbirenbaum/copilot-cmp
+			{
+				"zbirenbaum/copilot-cmp",
+				dependencies = "copilot.lua",
+				opts = {},
+				config = function(_, opts)
+					local copilot_cmp = require("copilot_cmp")
+					copilot_cmp.setup(opts)
+					-- attach cmp source whenever copilot attaches
+					-- fixes lazy-loading issues with the copilot cmp source
+					util.on_attach(function(client)
+						if client.name == "copilot" then
+							copilot_cmp._on_insert_enter({})
+						end
+					end)
+				end,
+			},
 		},
 		opts = function()
 			vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 			local cmp = require("cmp")
+			local luasnip = require("luasnip")
 			local defaults = require("cmp.config.default")()
+
 			return {
 				completion = {
 					completeopt = "menu,menuone,noinsert",
@@ -665,19 +740,55 @@ require("lazy").setup({
 						hl_group = "CmpGhostText",
 					},
 				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+				formatting = {
+					format = function(_, item)
+						if icons.kinds[item.kind] then
+							item.kind = icons.kinds[item.kind] .. item.kind
+						end
+						return item
+					end,
+				},
+				mapping = {
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-Space>"] = cmp.mapping(function()
+						if cmp.visible() then
+							cmp.close()
+						else
+							cmp.complete()
+						end
+					end, { "i", "c" }),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 					["<S-CR>"] = cmp.mapping.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
 						select = true,
 					}),
-				}),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, {
+						"i",
+						"s",
+					}),
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, {
+						"i",
+						"s",
+					}),
+				},
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
@@ -686,6 +797,7 @@ require("lazy").setup({
 				sorting = defaults.sorting,
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
+					{ name = "copilot" },
 					{ name = "luasnip" },
 					{ name = "buffer" },
 					{ name = "path" },
@@ -708,19 +820,12 @@ require("lazy").setup({
 	{
 		"neovim/nvim-lspconfig",
 		name = "lsp",
-		event = "BufReadPre",
 		dependencies = {
 			-- https://github.com/williamboman/mason.nvim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			-- https://github.com/jose-elias-alvarez/null-ls.nvim
 			"jose-elias-alvarez/null-ls.nvim",
-			-- https://github.com/jose-elias-alvarez/typescript.nvim
-			"jose-elias-alvarez/typescript.nvim",
-			-- https://github.com/folke/lua-dev.nvim
-			"folke/lua-dev.nvim",
-			-- https://github.com/marilari88/twoslash-queries.nvim
-			"marilari88/twoslash-queries.nvim",
 			-- https://github.com/smjonas/inc-rename.nvim
 			"smjonas/inc-rename.nvim",
 		},
@@ -740,8 +845,8 @@ require("lazy").setup({
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {
+					"lua_ls",
 					"rome",
-					"sumneko_lua",
 					"tsserver",
 				},
 				automatic_installation = true,
@@ -749,7 +854,7 @@ require("lazy").setup({
 
 			local servers = {
 				rome = {},
-				sumneko_lua = {
+				lua_ls = {
 					settings = {
 						Lua = {
 							diagnostics = {
@@ -775,10 +880,24 @@ require("lazy").setup({
 						},
 					},
 				},
-				tsserver = {},
+				tsserver = {
+					settings = {
+						typescript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "literal",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+					},
+				},
 			}
 
-			local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+			local signs = icons.diagnostics
 			for type, icon in pairs(signs) do
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -797,9 +916,15 @@ require("lazy").setup({
 				lsp.setup_format(client, bufnr)
 				lsp.setup_keymaps(client, bufnr)
 
-				if client.name == "tsserver" then
-					require("twoslash-queries").attach(client, bufnr)
-				end
+				-- if client.name == "tsserver" then
+				-- 	require("twoslash-queries").attach(client, bufnr)
+				-- 	vim.keymap.set(
+				-- 		"n",
+				-- 		"<leader>c//",
+				-- 		"<cmd>TwoslashQueriesInspect<CR>",
+				-- 		{ desc = "twoslash inspect variable under the cursor" }
+				-- 	)
+				-- end
 			end
 
 			local options = {
@@ -812,11 +937,7 @@ require("lazy").setup({
 
 			for server, opts in pairs(servers) do
 				opts = vim.tbl_deep_extend("force", {}, options, opts or {})
-				if server == "tsserver" then
-					require("typescript").setup({ server = opts })
-				else
-					require("lspconfig")[server].setup(opts)
-				end
+				require("lspconfig")[server].setup(opts)
 			end
 
 			local nls = require("null-ls")
@@ -838,8 +959,18 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		event = "BufReadPost",
+		dependencies = {
+			-- nvim-ts-autotag (https://github.com/windwp/nvim-ts-autotag)
+			{
+				"windwp/nvim-ts-autotag",
+				opts = {},
+			},
+		},
 		opts = {
 			autopairs = {
+				enable = true,
+			},
+			autotag = {
 				enable = true,
 			},
 			context_commentstring = {
@@ -848,14 +979,21 @@ require("lazy").setup({
 			},
 			ensure_installed = {
 				"bash",
+				"css",
 				"fish",
+				"gitignore",
+				"html",
 				"javascript",
+				"jsdoc",
 				"json",
+				"jsx",
 				"lua",
 				"markdown",
 				"markdown_inline",
+				"regex",
 				"tsx",
 				"typescript",
+				"vue",
 			},
 			highlight = {
 				enable = true,
@@ -1058,6 +1196,22 @@ require("lazy").setup({
 			multi_line = true,
 			highlight = "Type",
 		},
+		config = function(_, opts)
+			local twoslash_queries = require("twoslash-queries")
+			twoslash_queries.setup(opts)
+			-- attach whenever tsserver attaches
+			util.on_attach(function(client, bufnr)
+				if client.name == "tsserver" then
+					require("twoslash-queries").attach(client, bufnr)
+					vim.keymap.set(
+						"n",
+						"<leader>c//",
+						"<cmd>TwoslashQueriesInspect<CR>",
+						{ desc = "twoslash inspect variable under the cursor" }
+					)
+				end
+			end)
+		end,
 	},
 
 	-- vim-illuminate (https://github.com/RRethy/vim-illuminate)
@@ -1207,9 +1361,10 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
 		event = "InsertEnter",
-		config = function()
-			require("copilot").setup({})
-		end,
+		opts = {
+			suggestion = { enabled = false },
+			panel = { enabled = false },
+		},
 	},
 })
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
