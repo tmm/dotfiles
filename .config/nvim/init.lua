@@ -320,8 +320,9 @@ require("lazy").setup({
 					buffer_selected = { bg = c.bg },
 					buffer_visible = { bg = c.bg_dark },
 					close_button = { bg = c.bg_dark },
-					close_button_selected = { bg = c.bg },
-					close_button_visible = { bg = c.bg_dark },
+					diagnostic = { bg = c.bg_dark },
+					error = { bg = c.bg_dark },
+					error_diagnostic = { bg = c.bg_dark },
 					fill = { bg = c.bg_dark },
 					indicator_selected = { bg = c.bg_dark },
 					indicator_visible = { bg = c.bg_dark },
@@ -330,12 +331,9 @@ require("lazy").setup({
 					modified_selected = { bg = c.bg, fg = c.comment },
 					offset_separator = { bg = c.bg_dark },
 					separator = { bg = c.bg_dark },
-					separator_selected = { bg = c.bg_dark },
-					separator_visible = { bg = c.bg_dark },
 					tab = { bg = c.bg_dark },
 					tab_close = { bg = c.bg_dark },
 					tab_selected = { bg = c.bg_dark },
-					tab_separator = { bg = c.bg_dark },
 					tab_separator_selected = { bg = c.bg_dark },
 				},
 				options = {
@@ -357,7 +355,7 @@ require("lazy").setup({
 						},
 					},
 					separator_style = { " ", " " },
-					show_buffer_icons = false,
+					show_buffer_icons = true,
 					themable = true,
 					close_command = function(n)
 						require("mini.bufremove").delete(n, false)
@@ -389,7 +387,7 @@ require("lazy").setup({
 	-- gitsigns.nvim (https://github.com/lewis6991/gitsigns.nvim)
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		keys = {
 			{ "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff" },
 			{ "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage" },
@@ -432,6 +430,14 @@ require("lazy").setup({
 				-- Text object
 				map({ "o", "x" }, "ih", ":<c-u>Gitsigns select_hunk<cr>")
 			end,
+			signs = {
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "" },
+				topdelete = { text = "" },
+				changedelete = { text = "▎" },
+				untracked = { text = "▎" },
+			},
 			worktrees = {
 				{
 					gitdir = vim.env.HOME .. "/.files",
@@ -493,9 +499,20 @@ require("lazy").setup({
 	-- indent-blankline.nvim (https://github.com/lukas-reineke/indent-blankline.nvim)
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		event = { "BufReadPost", "BufNewFile" },
 		opts = {
-			show_current_context = true,
-			show_current_context_start = true,
+			filetype_exclude = {
+				"help",
+				"alpha",
+				"dashboard",
+				"neo-tree",
+				"Trouble",
+				"lazy",
+				"mason",
+				"notify",
+				"toggleterm",
+				"lazyterm",
+			},
 		},
 	},
 
@@ -560,7 +577,7 @@ require("lazy").setup({
 					globalstatus = false,
 					icons_enabled = true,
 					section_separators = "",
-					theme = "tokyonight",
+					theme = "auto",
 				},
 				sections = {
 					lualine_a = {},
@@ -570,21 +587,12 @@ require("lazy").setup({
 						{
 							"filename",
 							cond = conditions.buffer_not_empty,
+							symbols = { modified = "", readonly = "", unnamed = "" },
 						},
 						{
 							"branch",
 							icon = "",
 						},
-						{
-							"diff",
-							symbols = {
-								added = icons.git.added,
-								modified = icons.git.modified,
-								removed = icons.git.removed,
-							},
-						},
-					},
-					lualine_x = {
 						{
 							"diagnostics",
 							sources = { "nvim_diagnostic" },
@@ -592,6 +600,16 @@ require("lazy").setup({
 								error = icons.diagnostics.Error,
 								warn = icons.diagnostics.Warn,
 								info = icons.diagnostics.Info,
+							},
+						},
+					},
+					lualine_x = {
+						{
+							"diff",
+							symbols = {
+								added = icons.git.added,
+								modified = icons.git.modified,
+								removed = icons.git.removed,
 							},
 						},
 						"filetype",
@@ -651,6 +669,41 @@ require("lazy").setup({
 		},
 	},
 
+	{
+		"echasnovski/mini.indentscope",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = function()
+			return {
+				draw = {
+					delay = 0,
+					animation = require("mini.indentscope").gen_animation.none(),
+				},
+				symbol = "│",
+				options = {
+					indent_at_cursor = false,
+					try_as_border = true,
+				},
+			}
+		end,
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {
+					"help",
+					"neo-tree",
+					"Trouble",
+					"lazy",
+					"mason",
+					"notify",
+					"toggleterm",
+					"lazyterm",
+				},
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end,
+			})
+		end,
+	},
+
 	-- neo-tree.nvim (https://github.com/nvim-neo-tree/neo-tree.nvim)
 	{
 		"nvim-neo-tree/neo-tree.nvim",
@@ -683,6 +736,9 @@ require("lazy").setup({
 		opts = {
 			default_component_configs = {
 				indent = { with_markers = false },
+				modified = {
+					symbol = "●",
+				},
 			},
 			filesystem = {
 				filtered_items = {
@@ -1072,6 +1128,20 @@ require("lazy").setup({
 			},
 			{ "<leader>st", "<cmd>Telescope builtin<cr>", desc = "Telescope" },
 		},
+		mappings = {
+			["<c-t>"] = function(...)
+				return require("trouble.providers.telescope").open_with_trouble(...)
+			end,
+			["<a-t>"] = function(...)
+				return require("trouble.providers.telescope").open_selected_with_trouble(...)
+			end,
+			["<C-f>"] = function(...)
+				return require("telescope.actions").preview_scrolling_down(...)
+			end,
+			["<C-b>"] = function(...)
+				return require("telescope.actions").preview_scrolling_up(...)
+			end,
+		},
 		opts = function()
 			local function flash(prompt_bufnr)
 				require("flash").jump({
@@ -1160,11 +1230,11 @@ require("lazy").setup({
 				end
 			end,
 			on_highlights = function(hl, c)
-				-- indent-blankline
-				hl.IndentBlanklineContextChar = { fg = c.purple }
-				hl.IndentBlanklineContextStart = { sp = c.purple, underline = true }
+				-- indentscope
+				hl.MiniIndentscopeSymbol = { fg = c.purple }
 				-- neo-tree
 				hl.NeoTreeDirectoryIcon = { fg = c.comment }
+				hl.NeoTreeModified = { fg = c.comment }
 				hl.NeoTreeWinSeparator = { fg = c.fg_gutter, bg = c.bg_sidebar }
 				-- telescope
 				hl.TelescopeBorder = { fg = c.fg_gutter, bg = c.bg_float }
@@ -1274,12 +1344,6 @@ require("lazy").setup({
 			vim.g.VtrOrientation = "v"
 			vim.g.VtrPercentage = 20
 		end,
-	},
-
-	-- vim-unimpaired (https://github.com/tpope/vim-unimpaired)
-	{
-		"tpope/vim-unimpaired",
-		event = "VeryLazy",
 	},
 
 	-- which-key (https://github.com/folke/which-key.nvim)
@@ -1398,7 +1462,7 @@ vim.api.nvim_create_autocmd("User", {
 		-- Highlight on yank
 		vim.api.nvim_create_autocmd("TextYankPost", {
 			callback = function()
-				vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+				vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
 			end,
 		})
 
@@ -1449,5 +1513,13 @@ vim.api.nvim_create_autocmd("User", {
 		vim.keymap.set("", "<left>", "<nop>", opts)
 		vim.keymap.set("", "<right>", "<nop>", opts)
 		vim.keymap.set("", "<up>", "<nop>", opts)
+
+		-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+		vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+		vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+		vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+		vim.keymap.set("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+		vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+		vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 	end,
 })
