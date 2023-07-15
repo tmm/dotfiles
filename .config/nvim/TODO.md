@@ -1,7 +1,8 @@
 # TODO
 
-- :checkhealth
+- :checkhealth 
 
+- two spaces
 - https://github.com/andymass/vim-matchup
 - https://github.com/nvim-pack/nvim-spectre
 - https://github.com/folke/noice.nvim

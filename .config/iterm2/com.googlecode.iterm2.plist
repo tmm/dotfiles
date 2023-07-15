@@ -2057,7 +2057,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Columns</key>
 			<integer>150</integer>
 			<key>Command</key>
-			<string></string>
+			<string>/opt/homebrew/bin/fish</string>
 			<key>Cursor Boost (Dark)</key>
 			<real>0.0</real>
 			<key>Cursor Boost (Light)</key>
@@ -2174,7 +2174,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Cursor Type</key>
 			<integer>1</integer>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -2716,6 +2716,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<key>Red Component</key>
 				<real>0.2196078431372549</real>
 			</dict>
+			<key>Load Shell Integration Automatically</key>
+			<false/>
 			<key>Minimum Contrast (Dark)</key>
 			<real>0.0</real>
 			<key>Minimum Contrast (Light)</key>

@@ -316,24 +316,27 @@ require("lazy").setup({
 			local c = require("tokyonight.colors").setup()
 			return {
 				highlights = {
-					fill = { bg = c.bg_dark },
 					background = { bg = c.bg_dark },
+					buffer_selected = { bg = c.bg },
+					buffer_visible = { bg = c.bg_dark },
+					close_button = { bg = c.bg_dark },
+					close_button_selected = { bg = c.bg },
+					close_button_visible = { bg = c.bg_dark },
+					fill = { bg = c.bg_dark },
+					indicator_selected = { bg = c.bg_dark },
+					indicator_visible = { bg = c.bg_dark },
+					modified = { bg = c.bg_dark, fg = c.comment },
+					modified_visible = { bg = c.bg_dark, fg = c.comment },
+					modified_selected = { bg = c.bg, fg = c.comment },
+					offset_separator = { bg = c.bg_dark },
+					separator = { bg = c.bg_dark },
+					separator_selected = { bg = c.bg_dark },
+					separator_visible = { bg = c.bg_dark },
 					tab = { bg = c.bg_dark },
+					tab_close = { bg = c.bg_dark },
 					tab_selected = { bg = c.bg_dark },
 					tab_separator = { bg = c.bg_dark },
 					tab_separator_selected = { bg = c.bg_dark },
-					tab_close = { bg = c.bg_dark },
-					close_button = { bg = c.bg_dark },
-					close_button_visible = { bg = c.bg_dark },
-					close_button_selected = { bg = c.bg },
-					buffer_visible = { bg = c.bg_dark },
-					buffer_selected = { bg = c.bg },
-					separator_selected = { bg = c.bg_dark },
-					separator_visible = { bg = c.bg_dark },
-					separator = { bg = c.bg_dark },
-					indicator_visible = { bg = c.bg_dark },
-					indicator_selected = { bg = c.bg_dark },
-					offset_separator = { bg = c.bg_dark },
 				},
 				options = {
 					always_show_bufferline = false,
@@ -1157,9 +1160,6 @@ require("lazy").setup({
 				end
 			end,
 			on_highlights = function(hl, c)
-				-- bufferline
-				hl.BufferLineFill = { bg = c.bg_sidebar }
-				hl.BufferLineBackground = { bg = c.bg_sidebar }
 				-- indent-blankline
 				hl.IndentBlanklineContextChar = { fg = c.purple }
 				hl.IndentBlanklineContextStart = { sp = c.purple, underline = true }
