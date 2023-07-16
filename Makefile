@@ -52,3 +52,11 @@ tmux-packages:
 	@bash -c $$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/install_plugins
 	@bash -c "$$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/update_plugins all"
 	@tmux kill-ses -t tmux-packages
+
+extras:
+	# bat
+	@mkdir -p "$$(bat --config-dir)/themes"
+	@cd "$$(bat --config-dir)/themes"
+	@curl -O https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/sublime/tokyonight_night.tmTheme
+	@curl -O https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/sublime/tokyonight_day.tmTheme
+	@bat cache --build

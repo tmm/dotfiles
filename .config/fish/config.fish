@@ -45,7 +45,7 @@ fish_add_path $BREW
 # Aliases
 # ==========================
 
-alias cat=bat
+alias cat="bat --style=numbers,changes --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo tokyonight_night || echo tokyonight_day)"
 alias find=fd
 alias fup="echo $fish_user_paths | tr \" \" \"\n\" | nl"
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
@@ -92,6 +92,7 @@ abbr tls "tmux ls"
 
 direnv hook fish | source
 fnm env | source
+zoxide init fish | source
 
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH

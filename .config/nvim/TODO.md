@@ -17,14 +17,8 @@
 
 ## Misc
 
-- autoformat/lint lua during CI (luacheck)
 - swap unimpaired mappings https://twitter.com/elijahmanor/status/1615927039529291776
 - .files show up in telescope (e.g. `.env`)
-
-## CLI
-
-- https://github.com/ajeetdsouza/zoxide
-- Add line above term input: https://twitter.com/0xble/status/1607154937443815425
 
 ## Links
 

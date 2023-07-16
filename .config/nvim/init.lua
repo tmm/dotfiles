@@ -974,16 +974,6 @@ require("lazy").setup({
 			local function on_attach(client, bufnr)
 				lsp.setup_format(client, bufnr)
 				lsp.setup_keymaps(client, bufnr)
-
-				-- if client.name == "tsserver" then
-				-- 	require("twoslash-queries").attach(client, bufnr)
-				-- 	vim.keymap.set(
-				-- 		"n",
-				-- 		"<leader>c//",
-				-- 		"<cmd>TwoslashQueriesInspect<CR>",
-				-- 		{ desc = "twoslash inspect variable under the cursor" }
-				-- 	)
-				-- end
 			end
 
 			local options = {
@@ -1017,7 +1007,7 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		event = "BufReadPost",
+		event = { "BufReadPost", "BufNewFile" },
 		dependencies = {
 			-- nvim-ts-autotag (https://github.com/windwp/nvim-ts-autotag)
 			{
@@ -1045,7 +1035,6 @@ require("lazy").setup({
 				"javascript",
 				"jsdoc",
 				"json",
-				"jsx",
 				"lua",
 				"markdown",
 				"markdown_inline",
@@ -1061,6 +1050,9 @@ require("lazy").setup({
 				enable = false,
 			},
 		},
+		config = function(_, opts)
+			require("nvim-treesitter.configs").setup(opts)
+		end,
 	},
 
 	-- nvim-ufo (https://github.com/kevinhwang91/nvim-ufo)

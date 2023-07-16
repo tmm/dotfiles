@@ -21,6 +21,7 @@ brew 'mas'                           # App Store CLI (https://github.com/mas-cli
 brew 'nvim'                          # Better `vim` (https://github.com/neovim/neovim)
 brew 'ripgrep'                       # Better `grep` (https://github.com/BurntSushi/ripgrep)
 brew 'tmux'                       
+brew 'zoxide'                        # Smarter `cd` (https://github.com/ajeetdsouza/zoxide)
 
 cask '1password'                     # Password manager (https://1password.com)
 cask '1password-cli'

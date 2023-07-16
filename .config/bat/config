@@ -1,7 +1,0 @@
---theme="base16-256"
-
-# Show line numbers and Git modifications 
---style="numbers,changes"
-
-# Use italic text on the terminal (not supported on all terminals)
---italic-text=always
