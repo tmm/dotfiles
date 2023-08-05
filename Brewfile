@@ -29,7 +29,6 @@ cask 'bartender'                     # Clean up menu bar (https://macbartender.c
 cask 'betterdisplay'                 # Control external monitor (https://github.com/waydabber/BetterDisplay)
 cask 'cleanshot'                     # Better screenshots (https://cleanshot.com)
 cask 'contexts'                      # Better `cmd + tab` (https://contexts.co)
-cask 'cron'                          # Better Calendar.app (https://cron.app)
 cask 'daisydisk'                     # Better disk utility (https://daisydiskapp.com)
 cask 'dropbox'                       # File storage (https://dropbox.com)
 cask 'figma'                         # Design tool (https://figma.com)
@@ -49,6 +48,7 @@ cask 'tuple'                         # Screen sharing (https://tuple.app)
 mas 'BetterSnapTool', id: 417375580
 mas 'Craft',          id: 1487937127
 mas 'Dato',           id: 1470584107
+mas 'Day One',        id: 1055511498
 mas 'Pure Paste',     id: 1611378436
 mas 'Velja',          id: 1607635845
 mas 'Xcode',          id: 497799835

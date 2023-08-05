@@ -3,6 +3,7 @@
 ## Plugins
 
 - :checkhealth 
+- toggle copilot
 - https://github.com/echasnovski/mini.surround
 - LSP set up https://github.com/LazyVim/LazyVim/blob/8c0e39c826f697d668aae336ea26a83be806a543/lua/lazyvim/plugins/lsp/init.lua#L90
 - trouble quickfix https://github.com/LazyVim/LazyVim/blob/0801e52118ef5f48d4ae389d0cefd79814d28a42/lua/lazyvim/plugins/editor.lua#L415

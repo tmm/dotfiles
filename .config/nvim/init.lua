@@ -75,6 +75,18 @@ vim.g.markdown_recommended_style = 0
 
 local util = {}
 
+function util.warn(msg, name)
+	vim.notify(msg, vim.log.levels.WARN, { title = name or "init.lua" })
+end
+
+function util.error(msg, name)
+	vim.notify(msg, vim.log.levels.ERROR, { title = name or "init.lua" })
+end
+
+function util.info(msg, name)
+	vim.notify(msg, vim.log.levels.INFO, { title = name or "init.lua" })
+end
+
 function util.toggle(option, silent)
 	local info = vim.api.nvim_get_option_info(option)
 	local scopes = { buf = "bo", win = "wo", global = "o" }
@@ -309,8 +321,10 @@ require("lazy").setup({
 		keys = {
 			{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
 			{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-			{ "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" } },
-			{ "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" } },
+			{ "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
+			{ "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+			{ "gb", "<cmd>BufferLinePick<cr>", desc = "Pick buffer" },
+			{ "bD", "<cmd>BufferLinePickClose<cr>", desc = "Delete buffer (pick)" },
 		},
 		opts = function()
 			local c = require("tokyonight.colors").setup()
@@ -484,14 +498,6 @@ require("lazy").setup({
 					require("flash").treesitter_search()
 				end,
 				desc = "Treesitter Search",
-			},
-			{
-				"<c-s>",
-				mode = { "c" },
-				function()
-					require("flash").toggle()
-				end,
-				desc = "Toggle Flash Search",
 			},
 		},
 	},
@@ -912,7 +918,6 @@ require("lazy").setup({
 			})
 
 			local servers = {
-				rome = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -938,6 +943,9 @@ require("lazy").setup({
 							},
 						},
 					},
+				},
+				rome = {
+					settings = {},
 				},
 				tsserver = {
 					settings = {
@@ -1191,6 +1199,18 @@ require("lazy").setup({
 					results_title = false,
 					selection_caret = "→ ",
 					sorting_strategy = "ascending",
+					vimgrep_arguments = {
+						"rg",
+						"--color=never",
+						"--column",
+						"-g",
+						"!.git",
+						"--hidden",
+						"--line-number",
+						"--no-heading",
+						"--smart-case",
+						"--with-filename",
+					},
 				},
 				pickers = {
 					find_files = {

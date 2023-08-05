@@ -9,6 +9,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 </string>
 	<key>AiModel</key>
 	<string>text-davinci-003</string>
+	<key>AllowClipboardAccess</key>
+	<true/>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>catppuccin-latte</key>
