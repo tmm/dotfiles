@@ -898,6 +898,7 @@ require("lazy").setup({
 			require("mason").setup()
 
 			local tools = {
+				"codelldb",
 				"stylua",
 			}
 			local mr = require("mason-registry")
@@ -946,6 +947,23 @@ require("lazy").setup({
 				},
 				rome = {
 					settings = {},
+				},
+				rust_analyzer = {
+					settings = {
+						["rust-analyzer"] = {
+							cargo = {
+								allFeatures = true,
+								loadOutDirsFromCheck = true,
+								runBuildScripts = true,
+							},
+							-- Add clippy lints for Rust.
+							checkOnSave = {
+								allFeatures = true,
+								command = "clippy",
+								extraArgs = { "--no-deps" },
+							},
+						},
+					},
 				},
 				tsserver = {
 					settings = {
@@ -1047,6 +1065,8 @@ require("lazy").setup({
 				"markdown",
 				"markdown_inline",
 				"regex",
+				"rust",
+				"toml",
 				"tsx",
 				"typescript",
 				"vue",
@@ -1430,6 +1450,28 @@ require("lazy").setup({
 				-- ["<leader><tab>"] = { name = "+tabs" },
 			})
 		end,
+	},
+
+	-- rust-tools.nvim (https://github.com/simrat39/rust-tools.nvim)
+	{
+		"simrat39/rust-tools.nvim",
+		lazy = true,
+		opts = function()
+			return {
+				tools = {
+					on_initialized = function()
+						vim.cmd([[
+                  augroup RustLSP
+                    autocmd CursorHold                      *.rs silent! lua vim.lsp.buf.document_highlight()
+                    autocmd CursorMoved,InsertEnter         *.rs silent! lua vim.lsp.buf.clear_references()
+                    autocmd BufEnter,CursorHold,InsertLeave *.rs silent! lua vim.lsp.codelens.refresh()
+                  augroup END
+                ]])
+					end,
+				},
+			}
+		end,
+		config = function() end,
 	},
 
 	-- copilot.lua (https://github.com/zbirenbaum/copilot.lua)

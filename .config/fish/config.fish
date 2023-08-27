@@ -72,6 +72,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 # Abbreviations
 # ==========================
 
+abbr c cargo
 abbr df "h git"
 abbr f forge
 abbr g git
@@ -102,5 +103,8 @@ set -gx PATH "$FOUNDRY_DIR" $PATH
 
 set FOUNDRY_BIN $HOME/.foundry/bin
 fish_add_path $FOUNDRY_BIN
+
+set CARGO_BIN $HOME/.cargo/bin
+fish_add_path $CARGO_BIN
 
 test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell_integration.fish

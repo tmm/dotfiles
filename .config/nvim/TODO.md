@@ -27,3 +27,4 @@
 - https://github.com/folke/dot
 - https://gist.github.com/rsms/fb463396c95ad8d9efa338a8050a01dc
 - https://speakerdeck.com/cocopon/creating-your-lovely-color-scheme?slide=63
+- https://dotfiles.substack.com/p/16-elijah-manor?post_id=135441075
