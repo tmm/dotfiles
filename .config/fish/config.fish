@@ -73,6 +73,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 # ==========================
 
 abbr c cargo
+abbr b bun
 abbr df "h git"
 abbr f forge
 abbr g git
@@ -108,3 +109,7 @@ set CARGO_BIN $HOME/.cargo/bin
 fish_add_path $CARGO_BIN
 
 test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell_integration.fish
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

@@ -42,7 +42,6 @@ cask 'pixelsnap'                     # Measure anything on screen (https://getpi
 cask 'raycast'                       # Better Spotlight (https://raycast.com)
 cask 'remarkable'
 cask 'sf-symbols'
-cask 'sip'                           # Color picker (https://sipapp.io)
 cask 'tuple'                         # Screen sharing (https://tuple.app)
 
 mas 'BetterSnapTool', id: 417375580

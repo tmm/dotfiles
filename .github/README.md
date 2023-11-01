@@ -20,3 +20,4 @@ make npm                # Set up node
 make nvim-packages      # Install neovim packages
 make tmux-packages      # Install tmux packages
 ```
+
