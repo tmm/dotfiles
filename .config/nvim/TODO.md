@@ -1,5 +1,7 @@
 # TODO
 
+nix
+
 ## Plugins
 
 - :checkhealth 
