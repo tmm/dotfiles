@@ -12,8 +12,6 @@ h git checkout main
 
 ```
 make                    # Bootstrap setup
-make fish               # Change shell to fish
-make fish-packages      # Install fish packages
 make homebrew-packages  # Install tools
 make macos              # Set up macOS defaults
 make npm                # Set up node
