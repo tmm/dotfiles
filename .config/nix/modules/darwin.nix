@@ -7,8 +7,38 @@
       NEXT_TELEMETRY_DISABLED = "1";
     };
   };
-  fonts.fontDir.enable = true;
-  fonts.fonts = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  fonts = {
+    fontDir.enable = true;
+    fonts = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  };
+  homebrew = {
+    enable = true;
+    masApps = {
+      BetterSnapTool = 417375580;
+      Craft = 1487937127;
+      Dato = 1470584107;
+      "Day One" = 1055511498;
+      "Pure Paste" = 1611378436;
+      Velja = 1607635845;
+      Xcode = 497799835;
+    };
+    casks = [
+      "1password"
+      "1password-cli"
+      "betterdisplay"
+      "cleanshot"
+      "contexts"
+      "daisydisk"
+      "dropbox"
+      "firefox"
+      "flux"
+      "google-chrome"
+      "numi"
+      "pixelsnap"
+      "raycast"
+      "remarkable"
+    ];
+  };
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
@@ -21,7 +51,7 @@
     dock.mineffect = "scale";
     dock.show-process-indicators = true;
     dock.tilesize = 48;
-    finder._FXShowPosixPathInTitle= true;
+    finder._FXShowPosixPathInTitle = true;
     finder.AppleShowAllExtensions = true;
     finder.FXEnableExtensionChangeWarning = false;
     finder.FXPreferredViewStyle = "Nlsv";
@@ -35,8 +65,10 @@
     NSGlobalDomain.InitialKeyRepeat = 14;
     NSGlobalDomain.KeyRepeat = 1;
   };
-  system.keyboard.enableKeyMapping = true;
-  system.keyboard.remapCapsLockToEscape = true;
+  system.keyboard = {
+    enableKeyMapping = true;
+    remapCapsLockToEscape = true;
+  };
   users.users.tmm = {
     home = "/Users/tmm";
     shell = pkgs.fish;

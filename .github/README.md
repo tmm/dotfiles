@@ -12,7 +12,6 @@ h git checkout main
 
 ```
 make                    # Bootstrap setup
-make homebrew-packages  # Install tools
 make macos              # Set up macOS defaults
 make npm                # Set up node
 make nvim-packages      # Install neovim packages

@@ -505,19 +505,22 @@ require("lazy").setup({
 	-- indent-blankline.nvim (https://github.com/lukas-reineke/indent-blankline.nvim)
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		event = { "BufReadPost", "BufNewFile" },
+		main = "ibl",
 		opts = {
-			filetype_exclude = {
-				"help",
-				"alpha",
-				"dashboard",
-				"neo-tree",
-				"Trouble",
-				"lazy",
-				"mason",
-				"notify",
-				"toggleterm",
-				"lazyterm",
+			indent = { char = "▏" },
+			exclude = {
+				filetypes = {
+					"help",
+					"alpha",
+					"dashboard",
+					"neo-tree",
+					"Trouble",
+					"lazy",
+					"mason",
+					"notify",
+					"toggleterm",
+					"lazyterm",
+				},
 			},
 		},
 	},
@@ -673,41 +676,6 @@ require("lazy").setup({
 				desc = "Delete Buffer",
 			},
 		},
-	},
-
-	{
-		"echasnovski/mini.indentscope",
-		event = { "BufReadPre", "BufNewFile" },
-		opts = function()
-			return {
-				draw = {
-					delay = 0,
-					animation = require("mini.indentscope").gen_animation.none(),
-				},
-				symbol = "│",
-				options = {
-					indent_at_cursor = false,
-					try_as_border = true,
-				},
-			}
-		end,
-		init = function()
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = {
-					"help",
-					"neo-tree",
-					"Trouble",
-					"lazy",
-					"mason",
-					"notify",
-					"toggleterm",
-					"lazyterm",
-				},
-				callback = function()
-					vim.b.miniindentscope_disable = true
-				end,
-			})
-		end,
 	},
 
 	-- neo-tree.nvim (https://github.com/nvim-neo-tree/neo-tree.nvim)
@@ -889,8 +857,8 @@ require("lazy").setup({
 			-- https://github.com/williamboman/mason.nvim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			-- https://github.com/jose-elias-alvarez/null-ls.nvim
-			"jose-elias-alvarez/null-ls.nvim",
+			-- https://github.com/nvimtools/none-ls.nvim
+			"nvimtools/none-ls.nvim",
 			-- https://github.com/smjonas/inc-rename.nvim
 			"smjonas/inc-rename.nvim",
 		},
@@ -911,8 +879,9 @@ require("lazy").setup({
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {
+					"biome",
 					"lua_ls",
-					"rome",
+					"rnix",
 					"tsserver",
 				},
 				automatic_installation = true,
@@ -945,7 +914,10 @@ require("lazy").setup({
 						},
 					},
 				},
-				rome = {
+				rnix = {
+					settings = {},
+				},
+				biome = {
 					settings = {},
 				},
 				rust_analyzer = {
@@ -1020,7 +992,7 @@ require("lazy").setup({
 				debounce = 150,
 				save_after_format = false,
 				sources = {
-					nls.builtins.formatting.rome,
+					nls.builtins.formatting.biome,
 					nls.builtins.formatting.stylua,
 					nls.builtins.formatting.fish_indent,
 				},
@@ -1262,8 +1234,6 @@ require("lazy").setup({
 				end
 			end,
 			on_highlights = function(hl, c)
-				-- indentscope
-				hl.MiniIndentscopeSymbol = { fg = c.purple }
 				-- neo-tree
 				hl.NeoTreeDirectoryIcon = { fg = c.comment }
 				hl.NeoTreeModified = { fg = c.comment }
@@ -1461,12 +1431,12 @@ require("lazy").setup({
 				tools = {
 					on_initialized = function()
 						vim.cmd([[
-                  augroup RustLSP
-                    autocmd CursorHold                      *.rs silent! lua vim.lsp.buf.document_highlight()
-                    autocmd CursorMoved,InsertEnter         *.rs silent! lua vim.lsp.buf.clear_references()
-                    autocmd BufEnter,CursorHold,InsertLeave *.rs silent! lua vim.lsp.codelens.refresh()
-                  augroup END
-                ]])
+            augroup RustLSP
+            autocmd CursorHold                      *.rs silent! lua vim.lsp.buf.document_highlight()
+            autocmd CursorMoved,InsertEnter         *.rs silent! lua vim.lsp.buf.clear_references()
+            autocmd BufEnter,CursorHold,InsertLeave *.rs silent! lua vim.lsp.codelens.refresh()
+            augroup END
+            ]])
 					end,
 				},
 			}

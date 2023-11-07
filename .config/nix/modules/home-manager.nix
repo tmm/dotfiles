@@ -1,20 +1,20 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    babelfish           #  Translate bash scripts to fish (https://github.com/bouk/babelfish)
-    bat                 # Better `cat` (https://github.com/sharkdp/bat)
-    diff-so-fancy       # Readable diffs (https://github.com/so-fancy/diff-so-fancy)
-    direnv              # Project-based env variables (https://github.com/direnv/direnv)
-    dockutil            # Manage dock items (https://github.com/kcrawford/dockutil)
-    eza                 # Better `ls` (https://github.com/eza-community/eza)
-    fd                  # Better `find` (https://github.com/sharkdp/fd)
-    fnm                 # Fast Node.js version manager (https://github.com/Schniz/fnm)
-    fzf                 # Fuzzy finder (https://github.com/junegunn/fzf)
+    babelfish
+    bat
+    diff-so-fancy
+    direnv
+    dockutil
+    eza
+    fd
+    fnm
+    fzf
     git
-    gh                  # GitHub CLI (https://cli.github.com)
-    jq                  # JSON CLI (https://github.com/stedolan/jq)
-    neovim              # Better `vim` (https://github.com/neovim/neovim)
-    ripgrep             # Better `grep` (https://github.com/BurntSushi/ripgrep)
-    zoxide              # Smarter `cd` (https://github.com/ajeetdsouza/zoxide)
+    gh
+    jq
+    neovim
+    ripgrep
+    zoxide
   ];
   home.stateVersion = "23.05";
   home.sessionVariables = {
@@ -119,24 +119,29 @@
       p = "pnpm";
       t = "tmux";
       v = "nvim";
+
       tn = "tmux new -s";
       ta = "tmux a -t";
       tks = "tmux kill-server";
       tls = "tmux ls";
     };
     shellAliases = {
-      cat="bat --style=numbers,changes --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo tokyonight_night || echo tokyonight_day)";
-      find="fd";
-      fup="echo $fish_user_paths | tr \" \" \"\n\" | nl";
-      h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files";
-      ls="eza";
-      reload="exec $SHELL -l"; vim="nvim"; hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder";
-      show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder";
+      cat = "bat --style=numbers,changes --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo tokyonight_night || echo tokyonight_day)";
+      find = "fd";
+      fup = "echo $fish_user_paths | tr \" \" \"\n\" | nl";
+      h = "env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files";
+      ls = "eza";
+      reload = "exec $SHELL -l";
+      vim = "nvim";
+      hide = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder";
+      show = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder";
 
-      hrc="nvim ~/.config/home-manager/home.nix";
+      nconf = "nvim ~/.config/nix/flake.nix";
+      vconf = "nvim ~/.config/nvim/init.lua";
+      drs = "darwin-rebuild switch --flake ~/.config/nix/";
 
-      hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder";
-      showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder";
+      hidedesktop = "defaults write com.apple.finder CreateDesktop -bool false && killall Finder";
+      showdesktop = "defaults write com.apple.finder CreateDesktop -bool true && killall Finder";
     };
   };
 
@@ -144,27 +149,28 @@
     enable = true;
 
     aliases = {
-      a        = "add";
-      aa       = "add .";
-      au       = "add --update";
-      b        = "branch";
-      c        = "commit -m";
-      cn       = "commit --no-verify -m";
-      ch       = "checkout";
-      l        = "log";
-      p        = "push";
-      pf       = "push --force";
-      pl       = "pull";
-      s        = "status";
-      amend    = "commit --amend --reuse-message=HEAD";
-      go       = "!go() { git checkout -b $1 2> /dev/null || git checkout $1; }; go";
-      hist     = "log --pretty=oneline --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --abbrev-commit";
-      monkeys  = "shortlog --summary --numbered";
-      undo     = "reset --soft HEAD^";
-      unstage  = "reset HEAD --";
+      a = "add";
+      aa = "add .";
+      au = "add --update";
+      b = "branch";
+      c = "commit -m";
+      cn = "commit --no-verify -m";
+      ch = "checkout";
+      l = "log";
+      p = "push";
+      pf = "push --force";
+      pl = "pull";
+      s = "status";
+
+      amend = "commit --amend --reuse-message=HEAD";
+      go = "!go() { git checkout -b $1 2> /dev/null || git checkout $1; }; go";
+      hist = "log --pretty=oneline --pretty=format:'%Cred%h%Creset %C(yellow)%an%Creset %s%C(normal dim)%d%Creset %Cgreen(%cr)%Creset' --date=relative --abbrev-commit";
+      monkeys = "shortlog --summary --numbered";
+      undo = "reset --soft HEAD^";
+      unstage = "reset HEAD --";
     };
-    userName       = "Tom Meagher";
-    userEmail      = "tom@meagher.co";
+    userName = "Tom Meagher";
+    userEmail = "tom@meagher.co";
 
     extraConfig = {
       color.ui = "auto";

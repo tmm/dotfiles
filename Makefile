@@ -5,16 +5,12 @@ OS := $(shell uname)
 
 all: $(OS) nvim-packages tmux-packages
 
-Darwin: homebrew-packages
+Darwin:
 Linux:
 
 $(BREW):
 	@echo Installing Homebrew
 	@sudo curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
-
-.PHONY: homebrew-packages
-homebrew-packages: $(BREW)
-	brew bundle
 
 macos:
 	@bash -c $$XDG_CONFIG_HOME/macos/config

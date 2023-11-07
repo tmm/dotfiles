@@ -30,3 +30,42 @@ nix
 - https://gist.github.com/rsms/fb463396c95ad8d9efa338a8050a01dc
 - https://speakerdeck.com/cocopon/creating-your-lovely-color-scheme?slide=63
 - https://dotfiles.substack.com/p/16-elijah-manor?post_id=135441075
+
+- https://nix-community.github.io/home-manager/options.html
+- https://daiderd.com/nix-darwin/manual/index.html
+- https://search.nixos.org/packages
+
+---
+
+```
+NSGlobalDomain.AppleHighlightColor = "0.764700 0.976500 0.568600";
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+chflags nohidden ~/Library
+
+# Finder > Preferences
+# Enable snap-to-grid for icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+
+dockutil --no-restart --remove all
+dockutil --no-restart --add "/Applications/Firefox.app"
+dockutil --no-restart --add "/Applications/iTerm.app"
+dockutil --no-restart --add "~/Downloads" --section others --sort name --view list
+
+# Remove All Unavailable Simulators
+xcrun simctl delete unavailable
+
+brew 'gpg'
+brew 'tmux'                       
+brew 'mas' # App Store CLI (https://github.com/mas-cli/mas)
+
+
+system.activationScripts
+https://github.com/leonbreedt/nix-config/blob/15765e5aea9cce38fd1e342cf6df6799a11ef73e/macos/lib/dock.nix#L7
+```
