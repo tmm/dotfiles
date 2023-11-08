@@ -14,7 +14,7 @@
     <key>ProgramArguments</key>
     <array>
        <string>/usr/local/bin/sync_system_appearance</string>
-       <string>/opt/homebrew/bin/fish</string>
+       <string>/etc/profiles/per-user/tmm/bin/fish</string>
        <string>-c</string>
        <string>change_appearance</string>
     </array>

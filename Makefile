@@ -13,10 +13,9 @@ $(BREW):
 	@sudo curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
 
 macos:
-	@bash -c $$XDG_CONFIG_HOME/macos/config
 	@sudo swiftc $$XDG_CONFIG_HOME/macos/sync_system_appearance.swift -o /usr/local/bin/sync_system_appearance
 	@ln -s $$XDG_CONFIG_HOME/macos/com.awkweb.sync_system_appearance.plist ~/Library/LaunchAgents/com.awkweb.sync_system_appearance.plist
-	@launchctl load -w ~/Library/LaunchAgents/com.awkweb.sync_system_appearance.plist
+	@launchctl load -w ~/Library/LaunchAgents/com.awkweb.sync_system_appearance.plist # run `launchctl unload path` if it fails
 
 .PHONY: npm
 npm: $(BREW)

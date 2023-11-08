@@ -26,6 +26,9 @@ function change_appearance --argument appearance_setting
     end
   end
 
+  # change and reload ghostty appearance
+  # https://github.com/mitchellh/ghostty/issues/601
+
   # change tmux
   # switch $appearance
   #   case dark

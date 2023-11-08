@@ -314,74 +314,6 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup({
 	defaults = { lazy = true },
 
-	-- bufferline.nvim (https://github.com/akinsho/bufferline.nvim)
-	{
-		"akinsho/bufferline.nvim",
-		event = "VeryLazy",
-		keys = {
-			{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
-			{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-			{ "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
-			{ "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
-			{ "gb", "<cmd>BufferLinePick<cr>", desc = "Pick buffer" },
-			{ "bD", "<cmd>BufferLinePickClose<cr>", desc = "Delete buffer (pick)" },
-		},
-		opts = function()
-			local c = require("tokyonight.colors").setup()
-			return {
-				highlights = {
-					background = { bg = c.bg_dark },
-					buffer_selected = { bg = c.bg },
-					buffer_visible = { bg = c.bg_dark },
-					close_button = { bg = c.bg_dark },
-					diagnostic = { bg = c.bg_dark },
-					error = { bg = c.bg_dark },
-					error_diagnostic = { bg = c.bg_dark },
-					fill = { bg = c.bg_dark },
-					indicator_selected = { bg = c.bg_dark },
-					indicator_visible = { bg = c.bg_dark },
-					modified = { bg = c.bg_dark, fg = c.comment },
-					modified_visible = { bg = c.bg_dark, fg = c.comment },
-					modified_selected = { bg = c.bg, fg = c.comment },
-					offset_separator = { bg = c.bg_dark },
-					separator = { bg = c.bg_dark },
-					tab = { bg = c.bg_dark },
-					tab_close = { bg = c.bg_dark },
-					tab_selected = { bg = c.bg_dark },
-					tab_separator_selected = { bg = c.bg_dark },
-				},
-				options = {
-					always_show_bufferline = false,
-					diagnostics = "nvim_lsp",
-					indicator = "none",
-					diagnostics_indicator = function(_, _, diag)
-						local ret = (diag.error and icons.diagnostics.Error .. diag.error .. " " or "")
-							.. (diag.warning and icons.diagnostics.Warn .. diag.warning or "")
-						return vim.trim(ret)
-					end,
-					offsets = {
-						{
-							filetype = "neo-tree",
-							text = "Neo-tree",
-							highlight = "NeoTreeNormal",
-							text_align = "left",
-							separator = true,
-						},
-					},
-					separator_style = { " ", " " },
-					show_buffer_icons = true,
-					themable = true,
-					close_command = function(n)
-						require("mini.bufremove").delete(n, false)
-					end,
-					right_mouse_command = function(n)
-						require("mini.bufremove").delete(n, false)
-					end,
-				},
-			}
-		end,
-	},
-
 	-- dressing.nvim (https://github.com/stevearc/dressing.nvim)
 	{
 		"stevearc/dressing.nvim",
@@ -1218,35 +1150,17 @@ require("lazy").setup({
 		end,
 	},
 
-	-- tokyonight (https://github.com/folke/tokyonight)
+	-- rasmus.nvim (https://github.com/kvrohit/rasmus.nvim)
 	{
-		"folke/tokyonight.nvim",
+		"kvrohit/rasmus.nvim",
 		lazy = false,
-		opts = {
-			style = "night",
-			styles = {
-				sidebars = "dark",
-				floats = "dark",
-			},
-			on_colors = function(c)
-				if vim.o.background == "light" then
-					c.bg = ""
-				end
-			end,
-			on_highlights = function(hl, c)
-				-- neo-tree
-				hl.NeoTreeDirectoryIcon = { fg = c.comment }
-				hl.NeoTreeModified = { fg = c.comment }
-				hl.NeoTreeWinSeparator = { fg = c.fg_gutter, bg = c.bg_sidebar }
-				-- telescope
-				hl.TelescopeBorder = { fg = c.fg_gutter, bg = c.bg_float }
-				-- misc
-				hl.MsgArea = { bg = c.bg_dark }
-				hl.WinSeparator = { fg = c.fg_gutter, bold = true }
-			end,
-		},
-		config = function(_, opts)
-			require("tokyonight").load(opts)
+		config = function()
+			vim.g.rasmus_italic_comments = false
+			vim.g.rasmus_italic_keywords = false
+			vim.g.rasmus_italic_booleans = false
+			vim.g.rasmus_italic_functions = false
+			vim.g.rasmus_italic_variables = false
+			vim.cmd([[colorscheme rasmus]])
 		end,
 	},
 
@@ -1283,6 +1197,18 @@ require("lazy").setup({
 					)
 				end
 			end)
+		end,
+	},
+
+	-- vim-tmux-navigator (https://github.com/christoomey/vim-tmux-navigator)
+	{
+		"christoomey/vim-tmux-navigator",
+		event = "VeryLazy",
+		config = function()
+			vim.g.tmux_navigator_disable_when_zoomed = 1
+			vim.g.tmux_navigator_save_on_switch = 2
+			vim.g.VtrOrientation = "v"
+			vim.g.VtrPercentage = 20
 		end,
 	},
 
@@ -1334,18 +1260,6 @@ require("lazy").setup({
 	{
 		"tpope/vim-surround",
 		event = "VeryLazy",
-	},
-
-	-- vim-tmux-navigator (https://github.com/christoomey/vim-tmux-navigator)
-	{
-		"christoomey/vim-tmux-navigator",
-		event = "VeryLazy",
-		config = function()
-			vim.g.tmux_navigator_disable_when_zoomed = 1
-			vim.g.tmux_navigator_save_on_switch = 2
-			vim.g.VtrOrientation = "v"
-			vim.g.VtrPercentage = 20
-		end,
 	},
 
 	-- which-key (https://github.com/folke/which-key.nvim)
