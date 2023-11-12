@@ -43,6 +43,7 @@
     experimental-features = nix-command flakes
   '';
   programs.fish.enable = true;
+  security.pam.enableSudoTouchIdAuth = true;
   services.nix-daemon.enable = true;
   system.defaults = {
     dock.autohide = true;

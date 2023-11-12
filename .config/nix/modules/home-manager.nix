@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     babelfish
     bat
+    cachix
     diff-so-fancy
     direnv
     dockutil
@@ -37,10 +38,6 @@
     configFile = {
       "fish" = {
         source = ../files/fish;
-        recursive = true;
-      };
-      "git" = {
-        source = ../files/git;
         recursive = true;
       };
     };
