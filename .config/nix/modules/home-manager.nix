@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    amber
     babelfish
     bat
     cachix
@@ -10,8 +11,8 @@
     fd
     fnm
     fzf
-    git
     gh
+    git
     jq
     neovim
     ripgrep

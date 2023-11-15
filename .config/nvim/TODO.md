@@ -16,7 +16,6 @@ nix
 - https://github.com/folke/noice.nvim
 - https://github.com/b0o/incline.nvim
 - https://github.com/lewis6991/satellite.nvim
-- https://github.com/jackMort/ChatGPT.nvim
 
 ## Misc
 

@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   environment = {
-    systemPackages = [
-      pkgs.fish
+    systemPackages = with pkgs; [
+      fish
     ];
     variables = {
       NEXT_TELEMETRY_DISABLED = "1";
@@ -13,15 +13,9 @@
   };
   homebrew = {
     enable = true;
-    masApps = {
-      BetterSnapTool = 417375580;
-      Craft = 1487937127;
-      Dato = 1470584107;
-      "Day One" = 1055511498;
-      "Pure Paste" = 1611378436;
-      Velja = 1607635845;
-      Xcode = 497799835;
-    };
+    brews = [
+      "gnu-sed"
+    ];
     casks = [
       "1password"
       "1password-cli"
@@ -38,6 +32,15 @@
       "raycast"
       "remarkable"
     ];
+    masApps = {
+      BetterSnapTool = 417375580;
+      Craft = 1487937127;
+      Dato = 1470584107;
+      "Day One" = 1055511498;
+      "Pure Paste" = 1611378436;
+      Velja = 1607635845;
+      Xcode = 497799835;
+    };
   };
   nix.extraOptions = ''
     experimental-features = nix-command flakes

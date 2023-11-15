@@ -312,7 +312,17 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup({
-	defaults = { lazy = true },
+	defaults = {
+		lazy = true,
+	},
+
+	{
+		dir = "~/Developer/rsms",
+		lazy = false,
+		config = function()
+			vim.cmd([[colorscheme rsms]])
+		end,
+	},
 
 	-- dressing.nvim (https://github.com/stevearc/dressing.nvim)
 	{
@@ -529,7 +539,6 @@ require("lazy").setup({
 					globalstatus = false,
 					icons_enabled = true,
 					section_separators = "",
-					theme = "auto",
 				},
 				sections = {
 					lualine_a = {},
@@ -653,8 +662,17 @@ require("lazy").setup({
 		opts = {
 			default_component_configs = {
 				indent = { with_markers = false },
-				modified = {
-					symbol = "●",
+				symbols = {
+					added = icons.git.added,
+					deleted = icons.git.removed,
+					modified = icons.git.modified,
+					renamed = "",
+					-- Status type
+					untracked = "",
+					ignored = "",
+					unstaged = "",
+					staged = "",
+					conflict = "",
 				},
 			},
 			filesystem = {
@@ -1162,18 +1180,18 @@ require("lazy").setup({
 	},
 
 	-- rasmus.nvim (https://github.com/kvrohit/rasmus.nvim)
-	{
-		"kvrohit/rasmus.nvim",
-		lazy = false,
-		config = function()
-			vim.g.rasmus_italic_comments = false
-			vim.g.rasmus_italic_keywords = false
-			vim.g.rasmus_italic_booleans = false
-			vim.g.rasmus_italic_functions = false
-			vim.g.rasmus_italic_variables = false
-			vim.cmd([[colorscheme rasmus]])
-		end,
-	},
+	-- {
+	-- 	"kvrohit/rasmus.nvim",
+	-- 	lazy = false,
+	-- 	config = function()
+	-- 		vim.g.rasmus_italic_comments = false
+	-- 		vim.g.rasmus_italic_keywords = false
+	-- 		vim.g.rasmus_italic_booleans = false
+	-- 		vim.g.rasmus_italic_functions = false
+	-- 		vim.g.rasmus_italic_variables = false
+	-- 		vim.cmd([[colorscheme rasmus]])
+	-- 	end,
+	-- },
 
 	-- trouble.nvim (https://github.com/folke/trouble.nvim)
 	{
@@ -1229,6 +1247,9 @@ require("lazy").setup({
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			delay = 200,
+			filetypes_denylist = {
+				"TelescopePrompt",
+			},
 			large_file_cutoff = 2000,
 			large_file_overrides = {
 				providers = { "lsp" },
@@ -1378,6 +1399,10 @@ require("lazy").setup({
 			suggestion = { enabled = false },
 			panel = { enabled = false },
 		},
+	},
+
+	{
+		"rktjmp/lush.nvim",
 	},
 })
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
