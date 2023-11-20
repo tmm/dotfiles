@@ -683,6 +683,7 @@ require("lazy").setup({
 				hijack_netrw_behavior = "open_current",
 			},
 			window = {
+				position = "right",
 				width = 30,
 			},
 		},
