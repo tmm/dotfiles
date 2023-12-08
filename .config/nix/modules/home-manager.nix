@@ -13,7 +13,7 @@
     fzf
     gh
     git
-    jq
+    jaq
     neovim
     ripgrep
     zoxide
