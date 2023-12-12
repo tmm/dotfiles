@@ -82,7 +82,6 @@
       g = "git";
       hm = "home-manager";
       home = "cd ~";
-      jq = "jaq";
       lsd = "eza -d .*";
       p = "pnpm";
       v = "nvim";

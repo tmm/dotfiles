@@ -22,6 +22,7 @@
       "betterdisplay"
       "cleanshot"
       "contexts"
+      "cron"
       "daisydisk"
       "dropbox"
       "firefox"
@@ -67,6 +68,8 @@
     NSGlobalDomain."com.apple.trackpad.scaling" = 3.0;
     NSGlobalDomain._HIHideMenuBar = false;
     NSGlobalDomain.AppleICUForce24HourTime = true;
+    NSGlobalDomain.AppleInterfaceStyle = "Dark";
+    NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
     NSGlobalDomain.AppleScrollerPagingBehavior = true;
     NSGlobalDomain.AppleShowAllExtensions = true;
     NSGlobalDomain.AppleShowAllFiles = true;
