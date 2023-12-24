@@ -32,6 +32,7 @@
       "pixelsnap"
       "raycast"
       "remarkable"
+      "tuple"
     ];
     masApps = {
       BetterSnapTool = 417375580;

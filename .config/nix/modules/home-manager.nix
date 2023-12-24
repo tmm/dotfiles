@@ -13,9 +13,11 @@
     fzf
     gh
     git
+    httpie
     jq
     neovim
     ripgrep
+    websocat
     zoxide
   ];
   home.stateVersion = "23.05";
