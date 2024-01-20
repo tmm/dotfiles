@@ -22,7 +22,6 @@
       "betterdisplay"
       "cleanshot"
       "contexts"
-      "cron"
       "daisydisk"
       "dropbox"
       "firefox"

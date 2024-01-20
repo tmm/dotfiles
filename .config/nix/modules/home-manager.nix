@@ -7,6 +7,8 @@
     diff-so-fancy
     direnv
     dockutil
+    elixir
+    erlang
     eza
     fd
     fnm

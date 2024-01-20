@@ -340,17 +340,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"edgedb/edgedb-vim",
-		ft = "edgeql",
-		config = function()
-			vim.api.nvim_create_autocmd(
-				{ "BufRead", "BufNewFile" },
-				{ pattern = { "*.esdl", "*.edgeql" }, command = "setf edgeql" }
-			)
-		end,
-	},
-
 	-- gitsigns.nvim (https://github.com/lewis6991/gitsigns.nvim)
 	{
 		"lewis6991/gitsigns.nvim",
@@ -483,9 +472,6 @@ require("lazy").setup({
 		"L3MON4D3/LuaSnip",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-			config = function()
-				require("luasnip.loaders.from_vscode").lazy_load()
-			end,
 		},
 		opts = {
 			history = true,
@@ -516,6 +502,9 @@ require("lazy").setup({
 				mode = { "i", "s" },
 			},
 		},
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+		end,
 	},
 
 	-- lualine.nvim (https://github.com/nvim-lualine/lualine.nvim)
@@ -606,9 +595,9 @@ require("lazy").setup({
 		},
 		config = function()
 			require("mini.comment").setup({
-				hooks = {
-					pre = function()
-						require("ts_context_commentstring.internal").update_commentstring({})
+				options = {
+					custom_commentstring = function()
+						return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
 					end,
 				},
 			})
@@ -626,6 +615,16 @@ require("lazy").setup({
 					require("mini.bufremove").delete(0, false)
 				end,
 				desc = "Delete Buffer",
+			},
+			{
+				"<leader>bD",
+				"<cmd>%bd<cr>",
+				desc = "Delete All Buffers",
+			},
+			{
+				"<leader>bc",
+				"<cmd>%bd|edit#|bd#<cr>",
+				desc = "Delete All Buffers (except current)",
 			},
 		},
 	},
@@ -683,7 +682,7 @@ require("lazy").setup({
 				hijack_netrw_behavior = "open_current",
 			},
 			window = {
-				position = "right",
+				position = "left",
 				width = 30,
 			},
 		},
@@ -842,6 +841,7 @@ require("lazy").setup({
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"biome",
+					"elixirls",
 					"lua_ls",
 					"rnix",
 					"tsserver",
@@ -850,6 +850,13 @@ require("lazy").setup({
 			})
 
 			local servers = {
+				elixirls = {
+					settings = {
+						elixirLS = {
+							fetchDeps = false,
+						},
+					},
+				},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -982,13 +989,10 @@ require("lazy").setup({
 			autotag = {
 				enable = true,
 			},
-			context_commentstring = {
-				enable = true,
-				enable_autocmd = false,
-			},
 			ensure_installed = {
 				"bash",
 				"css",
+				"elixir",
 				"fish",
 				"gitignore",
 				"html",
@@ -1180,20 +1184,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- rasmus.nvim (https://github.com/kvrohit/rasmus.nvim)
-	-- {
-	-- 	"kvrohit/rasmus.nvim",
-	-- 	lazy = false,
-	-- 	config = function()
-	-- 		vim.g.rasmus_italic_comments = false
-	-- 		vim.g.rasmus_italic_keywords = false
-	-- 		vim.g.rasmus_italic_booleans = false
-	-- 		vim.g.rasmus_italic_functions = false
-	-- 		vim.g.rasmus_italic_variables = false
-	-- 		vim.cmd([[colorscheme rasmus]])
-	-- 	end,
-	-- },
-
 	-- trouble.nvim (https://github.com/folke/trouble.nvim)
 	{
 		"folke/trouble.nvim",
@@ -1227,18 +1217,6 @@ require("lazy").setup({
 					)
 				end
 			end)
-		end,
-	},
-
-	-- vim-tmux-navigator (https://github.com/christoomey/vim-tmux-navigator)
-	{
-		"christoomey/vim-tmux-navigator",
-		event = "VeryLazy",
-		config = function()
-			vim.g.tmux_navigator_disable_when_zoomed = 1
-			vim.g.tmux_navigator_save_on_switch = 2
-			vim.g.VtrOrientation = "v"
-			vim.g.VtrPercentage = 20
 		end,
 	},
 
@@ -1402,6 +1380,7 @@ require("lazy").setup({
 		},
 	},
 
+	-- lush.nvim (https://github.com/rktjmp/lush.nvim)
 	{
 		"rktjmp/lush.nvim",
 	},
@@ -1488,6 +1467,12 @@ vim.api.nvim_create_autocmd("User", {
 		vim.keymap.set("", "<left>", "<nop>", opts)
 		vim.keymap.set("", "<right>", "<nop>", opts)
 		vim.keymap.set("", "<up>", "<nop>", opts)
+
+		-- Navigate between splits
+		vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
+		vim.keymap.set("n", "<C-j>", "<C-w>j", opts)
+		vim.keymap.set("n", "<C-k>", "<C-w>k", opts)
+		vim.keymap.set("n", "<C-l>", "<C-w>l", opts)
 
 		-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 		vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
