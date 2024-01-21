@@ -2,6 +2,13 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
+      # Ghostty supports auto-injection but Nix-darwin hard overwrites XDG_DATA_DIRS
+      # which make it so that we can't use the auto-injection. We have to source
+      # manually.
+      if set -q GHOSTTY_RESOURCES_DIR
+        source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
+      end
+
       # Pure
       # https://github.com/rafaelrinaldi/pure#configuration
       set pure_color_primary white
@@ -83,6 +90,7 @@
       hm = "home-manager";
       home = "cd ~";
       lsd = "eza -d .*";
+      m = "mix";
       p = "pnpm";
       v = "nvim";
     };

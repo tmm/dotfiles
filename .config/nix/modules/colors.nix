@@ -2,6 +2,7 @@
   dark = {
     background = "#1D1D1B";
     foreground = "#ffffff";
+    cursor = "#F76EC9";
 
     black = "#1D1D1B";
     blue = "#95b3d0";
@@ -17,6 +18,7 @@
   bright = {
     background = "#FDFCF7";
     foreground = "#000000";
+    cursor = "#F76EC9";
 
     black = "#000000";
     blue = "#0026FF";

@@ -533,18 +533,24 @@ require("lazy").setup({
 					lualine_a = {},
 					lualine_b = {},
 					lualine_c = {
-						"mode",
+						{
+							"mode",
+							color = "MsgArea",
+						},
 						{
 							"filename",
+							color = "MsgArea",
 							cond = conditions.buffer_not_empty,
 							symbols = { modified = "", readonly = "", unnamed = "" },
 						},
 						{
 							"branch",
+							color = "MsgArea",
 							icon = "",
 						},
 						{
 							"diagnostics",
+							color = "MsgArea",
 							sources = { "nvim_diagnostic" },
 							symbols = {
 								error = icons.diagnostics.Error,
@@ -556,15 +562,25 @@ require("lazy").setup({
 					lualine_x = {
 						{
 							"diff",
+							color = "MsgArea",
 							symbols = {
 								added = icons.git.added,
 								modified = icons.git.modified,
 								removed = icons.git.removed,
 							},
 						},
-						"filetype",
-						"progress",
-						"location",
+						{
+							"filetype",
+							color = "MsgArea",
+						},
+						{
+							"progress",
+							color = "MsgArea",
+						},
+						{
+							"location",
+							color = "MsgArea",
+						},
 					},
 					lualine_y = {},
 					lualine_z = {},
@@ -572,8 +588,14 @@ require("lazy").setup({
 				inactive_sections = {
 					lualine_a = {},
 					lualine_b = {},
-					lualine_c = { "filename" },
-					lualine_x = { "location" },
+					lualine_c = {
+						"filename",
+						color = "MsgArea",
+					},
+					lualine_x = {
+						"location",
+						color = "MsgArea",
+					},
 					lualine_y = {},
 					lualine_z = {},
 				},
@@ -591,6 +613,11 @@ require("lazy").setup({
 			{
 				-- TypeScript comment plugin (https://github.com/JoosepAlviste/nvim-ts-context-commentstring)
 				"JoosepAlviste/nvim-ts-context-commentstring",
+				config = function()
+					require("ts_context_commentstring").setup({
+						enable_autocmd = false,
+					})
+				end,
 			},
 		},
 		config = function()
@@ -659,20 +686,36 @@ require("lazy").setup({
 			{ "<leader>fs", "<cmd>Neotree focus<cr>", desc = "Focus File in Explorer" },
 		},
 		opts = {
+			-- TODO: Hide file icons
+			close_if_last_window = true,
 			default_component_configs = {
-				indent = { with_markers = false },
-				symbols = {
-					added = icons.git.added,
-					deleted = icons.git.removed,
-					modified = icons.git.modified,
-					renamed = "",
-					-- Status type
-					untracked = "",
-					ignored = "",
-					unstaged = "",
-					staged = "",
-					conflict = "",
+				icon = {
+					folder_closed = "▶︎",
+					folder_open = "▼",
+					folder_empty = "▽",
 				},
+				-- indent = { with_markers = false },
+				modified = {
+					symbol = "●",
+				},
+				git_status = {
+					symbols = {
+						added = icons.git.added,
+						deleted = icons.git.removed,
+						modified = icons.git.modified,
+						renamed = "",
+						-- Status type
+						untracked = "",
+						ignored = "",
+						unstaged = "",
+						staged = "",
+						conflict = "",
+					},
+				},
+			},
+			buffers = {
+				follow_current_file = true,
+				group_empty_dirs = true,
 			},
 			filesystem = {
 				filtered_items = {
@@ -1002,6 +1045,7 @@ require("lazy").setup({
 				"lua",
 				"markdown",
 				"markdown_inline",
+				"nix",
 				"regex",
 				"rust",
 				"toml",

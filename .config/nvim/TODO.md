@@ -18,6 +18,7 @@ nix
   ```
 - https://github.com/echasnovski/mini.surround
 - inc_rename x noice (https://github.com/folke/noice.nvim)
+- direnv verbosity https://github.com/direnv/direnv/issues/68#issuecomment-1734782205
 
 - toggle copilot
 - https://github.com/folke/persistence.nvim

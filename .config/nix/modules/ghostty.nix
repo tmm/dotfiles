@@ -22,6 +22,8 @@ in
     background = ${colors.dark.background}
     foreground = ${colors.dark.foreground}
 
+    cursor-color = ${colors.dark.cursor}
+
     palette = 0=${colors.dark.black}
     palette = 1=${colors.dark.red}
     palette = 2=${colors.dark.green}
