@@ -29,7 +29,7 @@ vim.opt.relativenumber = true -- Line numbers relative to cursor
 vim.opt.scrolloff = 4 -- Always show at least four lines above/below cursor
 vim.opt.shiftround = true -- Round indent
 vim.opt.shiftwidth = indent -- Size of an indent
-vim.opt.shortmess = "Iac" -- Disable start up message and abbreviate items
+vim.opt.shortmess:append("IWs") -- Disable start up message and abbreviate items
 vim.opt.showbreak = "↪"
 vim.opt.showmode = false -- Hide redundant mode
 vim.opt.sidescrolloff = 4 -- Always show at least four columns left/right cursor
@@ -230,9 +230,7 @@ function lsp.setup_keymaps(client, buffer)
 				},
 				r = {
 					function()
-						require("inc_rename").setup({
-							input_buffer_type = "dressing",
-						})
+						require("inc_rename").setup()
 						return ":IncRename " .. vim.fn.expand("<cword>")
 					end,
 					"Rename",
@@ -589,12 +587,16 @@ require("lazy").setup({
 					lualine_a = {},
 					lualine_b = {},
 					lualine_c = {
-						"filename",
-						color = "MsgArea",
+						{
+							"filename",
+							color = "MsgArea",
+						},
 					},
 					lualine_x = {
-						"location",
-						color = "MsgArea",
+						{
+							"location",
+							color = "MsgArea",
+						},
 					},
 					lualine_y = {},
 					lualine_z = {},
@@ -694,7 +696,6 @@ require("lazy").setup({
 					folder_open = "▼",
 					folder_empty = "▽",
 				},
-				-- indent = { with_markers = false },
 				modified = {
 					symbol = "●",
 				},
@@ -718,6 +719,14 @@ require("lazy").setup({
 				group_empty_dirs = true,
 			},
 			filesystem = {
+				components = {
+					icon = function(config, node, state)
+						if node.type == "file" then
+							return {}
+						end
+						return require("neo-tree.sources.common.components").icon(config, node, state)
+					end,
+				},
 				filtered_items = {
 					hide_dotfiles = false,
 				},
@@ -728,6 +737,60 @@ require("lazy").setup({
 				position = "left",
 				width = 30,
 			},
+		},
+	},
+
+	-- noice.nvim (https://github.com/folke/noice.nvim)
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			cmdline = {
+				format = {
+					cmdline = { icon = "❯" },
+					search_down = { icon = " " },
+					search_up = { icon = " " },
+				},
+			},
+			lsp = {
+				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+					["cmp.entry.get_documentation"] = true,
+				},
+				progress = { enabled = false },
+			},
+			presets = {
+				bottom_search = true,
+				command_palette = true,
+				long_message_to_split = true,
+				inc_rename = true,
+				lsp_doc_border = false,
+			},
+			routes = {
+				{
+					filter = {
+						event = "msg_show",
+						any = {
+							{ find = "%d+L, %d+B" },
+							{ find = "; after #%d+" },
+							{ find = "; before #%d+" },
+							{ find = "%d fewer lines" },
+							{ find = "%d more lines" },
+						},
+					},
+					opts = { skip = true },
+				},
+			},
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			-- "rcarriga/nvim-notify",
 		},
 	},
 
@@ -1034,6 +1097,7 @@ require("lazy").setup({
 			},
 			ensure_installed = {
 				"bash",
+				"c",
 				"css",
 				"elixir",
 				"fish",
@@ -1051,6 +1115,8 @@ require("lazy").setup({
 				"toml",
 				"tsx",
 				"typescript",
+				"vim",
+				"vimdoc",
 				"vue",
 			},
 			highlight = {
@@ -1216,6 +1282,7 @@ require("lazy").setup({
 				},
 				pickers = {
 					find_files = {
+						disable_devicons = true,
 						find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
 						-- find_command = { "fd", "-t", "f", "-H" },
 					},
@@ -1327,6 +1394,7 @@ require("lazy").setup({
 				plugins = { spelling = true },
 				key_labels = { ["<leader>"] = "SPC" },
 				show_help = false,
+				show_keys = false,
 				triggers = "auto",
 			})
 			wk.register({

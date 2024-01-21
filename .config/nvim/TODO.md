@@ -1,26 +1,13 @@
 # TODO
 
 nix
+noice popupmenu background
 
 ## Plugins
 
-- :checkhealth 
-  ```bash
-  which-key: require("which-key.health").check()
+- copilot <CR> when trying to add parens/brackets
+- https://github.com/neovim/nvim-lspconfig/#suggested-configuration
 
-  WhichKey: checking conflicting keymaps ~
-  - WARNING conflicting keymap exists for mode **"n"**, lhs: **"gc"**
-  - rhs: ` `
-  - WARNING conflicting keymap exists for mode **"n"**, lhs: **"yS"**
-  - rhs: `<Plug>YSurround`
-  - WARNING conflicting keymap exists for mode **"n"**, lhs: **"ys"**
-  - rhs: `<Plug>Ysurround`
-  ```
-- https://github.com/echasnovski/mini.surround
-- inc_rename x noice (https://github.com/folke/noice.nvim)
-- direnv verbosity https://github.com/direnv/direnv/issues/68#issuecomment-1734782205
-
-- toggle copilot
 - https://github.com/folke/persistence.nvim
 - https://github.com/goolord/alpha-nvim
 - https://github.com/andymass/vim-matchup
