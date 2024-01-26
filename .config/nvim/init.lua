@@ -346,8 +346,8 @@ require("lazy").setup({
 			{ "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff" },
 			{ "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage" },
 			{ "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset" },
-			{ "<leader>tgb", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Blame" },
-			{ "<leader>tgd", "<cmd>Gitsigns toggle_deleted<cr>", desc = "Toggle Deleted" },
+			{ "<leader>ugb", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Blame" },
+			{ "<leader>ugd", "<cmd>Gitsigns toggle_deleted<cr>", desc = "Toggle Deleted" },
 		},
 		opts = {
 			current_line_blame_opts = { delay = 500 },
@@ -522,6 +522,8 @@ require("lazy").setup({
 					component_separators = "",
 					disabled_filetypes = {
 						"neo-tree",
+						"neotest-output-panel",
+						"neotest-summary",
 					},
 					globalstatus = false,
 					icons_enabled = true,
@@ -654,6 +656,90 @@ require("lazy").setup({
 				"<leader>bc",
 				"<cmd>%bd|edit#|bd#<cr>",
 				desc = "Delete All Buffers (except current)",
+			},
+		},
+	},
+
+	-- neotest (https://github.com/nvim-neotest/neotest)
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			-- adapters
+			"jfpedroza/neotest-elixir",
+			"marilari88/neotest-vitest",
+		},
+		config = function()
+			require("neotest").setup({
+				adapters = {
+					require("neotest-elixir"),
+					require("neotest-vitest"),
+				},
+				output = { open_on_run = true },
+				status = {
+					signs = false,
+					virtual_text = true,
+				},
+			})
+		end,
+		keys = {
+			{
+				"<leader>tt",
+				function()
+					require("neotest").run.run(vim.fn.expand("%"))
+				end,
+				desc = "Run File",
+			},
+			{
+				"<leader>tT",
+				function()
+					require("neotest").run.run(vim.loop.cwd())
+				end,
+				desc = "Run All Test Files",
+			},
+			{
+				"<leader>tr",
+				function()
+					require("neotest").run.run()
+				end,
+				desc = "Run Nearest",
+			},
+			{
+				"<leader>tl",
+				function()
+					require("neotest").run.run_last()
+				end,
+				desc = "Run Last",
+			},
+			{
+				"<leader>ts",
+				function()
+					require("neotest").summary.toggle()
+				end,
+				desc = "Toggle Summary",
+			},
+			{
+				"<leader>to",
+				function()
+					require("neotest").output.open({ enter = true, auto_close = true })
+				end,
+				desc = "Show Output",
+			},
+			{
+				"<leader>tO",
+				function()
+					require("neotest").output_panel.toggle()
+				end,
+				desc = "Toggle Output Panel",
+			},
+			{
+				"<leader>tS",
+				function()
+					require("neotest").run.stop()
+				end,
+				desc = "Stop",
 			},
 		},
 	},
@@ -958,6 +1044,7 @@ require("lazy").setup({
 			local servers = {
 				elixirls = {
 					settings = {
+						-- https://github.com/elixir-lsp/elixir-ls#elixirls-configuration-settings
 						elixirLS = {
 							fetchDeps = false,
 						},
@@ -1100,8 +1187,10 @@ require("lazy").setup({
 				"c",
 				"css",
 				"elixir",
+				"eex",
 				"fish",
 				"gitignore",
+				"heex",
 				"html",
 				"javascript",
 				"jsdoc",
@@ -1409,7 +1498,7 @@ require("lazy").setup({
 					},
 					c = { name = "+code" },
 					f = {
-						name = "+file",
+						name = "+file/find",
 						n = { "<cmd>enew<cr>", "New File" },
 					},
 					g = {
@@ -1417,7 +1506,8 @@ require("lazy").setup({
 						h = { name = "+hunk" },
 					},
 					s = { name = "+search" },
-					t = {
+					t = { name = "+test" },
+					u = {
 						name = "toggle",
 						f = {
 							lsp.toggle_format,

@@ -4,7 +4,10 @@ let
 in
 {
   # https://github.com/mitchellh/ghostty/blob/main/src/config/Config.zig
+
   # TODO: Colors and config for different color schemes
+  # https://github.com/mitchellh/ghostty/issues/809
+  # TODO: Splits
   # https://github.com/mitchellh/ghostty/issues/601
   xdg.configFile."ghostty/config".text = ''
     copy-on-select = "clipboard"

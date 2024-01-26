@@ -89,6 +89,7 @@
       g = "git";
       hm = "home-manager";
       home = "cd ~";
+      i = "iex";
       lsd = "eza -d .*";
       m = "mix";
       p = "pnpm";

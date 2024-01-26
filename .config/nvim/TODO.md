@@ -1,10 +1,14 @@
 # TODO
 
+neotree current file bg color
 nix
 noice popupmenu background
 
 ## Plugins
 
+- keymaps https://www.lazyvim.org/keymaps#general
+- https://github.com/LazyVim/LazyVim/blob/a50f92f7550fb6e9f21c0852e6cb190e6fcd50f5/lua/lazyvim/config/autocmds.lua#L53-L76
+- https://github.com/mfussenegger/nvim-dap
 - copilot <CR> when trying to add parens/brackets
 - https://github.com/neovim/nvim-lspconfig/#suggested-configuration
 
