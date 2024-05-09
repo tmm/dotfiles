@@ -17,14 +17,14 @@ function change_appearance --argument appearance_setting
     end
 
     # change neovim
-    for addr in (ls $(echo $TMPDIR)nvim.$(echo $USER)/*/nvim.*.0)
-        switch $appearance
-            case dark
-                nvim --server $addr --remote-send ':set background=dark<CR>'
-            case light
-                nvim --server $addr --remote-send ':set background=light<CR>'
-        end
-    end
+    # for addr in (ls $(echo $TMPDIR)nvim.$(echo $USER)/*/nvim.*.0)
+    #     switch $appearance
+    #         case dark
+    #             nvim --server $addr --remote-send ':set background=dark<CR>'
+    #         case light
+    #             nvim --server $addr --remote-send ':set background=light<CR>'
+    #     end
+    # end
 
     # change and reload ghostty appearance
     # https://github.com/mitchellh/ghostty/issues/601

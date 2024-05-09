@@ -107,8 +107,8 @@
       hide = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder";
       show = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder";
 
-      nconf = "nvim ~/.config/nix/flake.nix";
-      vconf = "nvim ~/.config/nvim/init.lua";
+      nconf = "pushd . && cd ~ && nvim ~/.config/nix/flake.nix";
+      vconf = "pushd . && cd ~ && nvim ~/.config/nvim/init.lua";
       drs = "darwin-rebuild switch --flake ~/.config/nix/";
 
       hidedesktop = "defaults write com.apple.finder CreateDesktop -bool false && killall Finder";

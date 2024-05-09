@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     amber
+    asciinema
     babelfish
     bat
     cachix
@@ -11,6 +12,7 @@
     erlang
     eza
     fd
+    flyctl
     fnm
     fzf
     gh

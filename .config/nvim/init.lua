@@ -1037,11 +1037,19 @@ require("lazy").setup({
 					"lua_ls",
 					"rnix",
 					"tsserver",
+					"volar",
 				},
 				automatic_installation = true,
 			})
 
+			local vue_typescript_plugin = mr.get_package("vue-language-server"):get_install_path()
+				.. "/node_modules/@vue/language-server"
+				.. "/node_modules/@vue/typescript-plugin"
+
 			local servers = {
+				biome = {
+					settings = {},
+				},
 				elixirls = {
 					settings = {
 						-- https://github.com/elixir-lsp/elixir-ls#elixirls-configuration-settings
@@ -1079,9 +1087,6 @@ require("lazy").setup({
 				rnix = {
 					settings = {},
 				},
-				biome = {
-					settings = {},
-				},
 				rust_analyzer = {
 					settings = {
 						["rust-analyzer"] = {
@@ -1100,6 +1105,25 @@ require("lazy").setup({
 					},
 				},
 				tsserver = {
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"javascript.jsx",
+						"typescript",
+						"typescriptreact",
+						"typescript.tsx",
+						"vue",
+					},
+					init_options = {
+						plugins = {
+							-- Use typescript language server along with vue typescript plugin
+							{
+								name = "@vue/typescript-plugin",
+								location = vue_typescript_plugin,
+								languages = { "javascript", "typescript", "vue" },
+							},
+						},
+					},
 					settings = {
 						typescript = {
 							inlayHints = {
@@ -1114,6 +1138,7 @@ require("lazy").setup({
 						},
 					},
 				},
+				volar = {},
 			}
 
 			local signs = icons.diagnostics
@@ -1154,9 +1179,10 @@ require("lazy").setup({
 				debounce = 150,
 				save_after_format = false,
 				sources = {
+					nls.builtins.diagnostics.fish,
 					nls.builtins.formatting.biome,
-					nls.builtins.formatting.stylua,
 					nls.builtins.formatting.fish_indent,
+					nls.builtins.formatting.stylua,
 				},
 				on_attach = on_attach,
 			})
@@ -1176,12 +1202,8 @@ require("lazy").setup({
 			},
 		},
 		opts = {
-			autopairs = {
-				enable = true,
-			},
-			autotag = {
-				enable = true,
-			},
+			autopairs = { enable = true },
+			autotag = { enable = true },
 			ensure_installed = {
 				"bash",
 				"c",
@@ -1208,12 +1230,8 @@ require("lazy").setup({
 				"vimdoc",
 				"vue",
 			},
-			highlight = {
-				enable = true,
-			},
-			indent = {
-				enable = false,
-			},
+			highlight = { enable = true },
+			indent = { enable = false },
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)

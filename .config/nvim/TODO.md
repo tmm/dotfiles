@@ -1,6 +1,6 @@
 # TODO
 
-neotree current file bg color
+indent text object
 nix
 noice popupmenu background
 

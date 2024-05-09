@@ -1,6 +1,6 @@
 {
   dark = {
-    background = "#1D1D1B";
+    background = "#1A1A19";
     foreground = "#ffffff";
     cursor = "#F76EC9";
 
