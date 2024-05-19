@@ -21,13 +21,18 @@
     jq
     neovim
     ripgrep
-    websocat
     zoxide
   ];
   home.stateVersion = "23.05";
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  imports = [
+    ./ghostty.nix
+    ./git.nix
+    ./shell.nix
+  ];
 
   programs.bat.enable = true;
   programs.direnv = {

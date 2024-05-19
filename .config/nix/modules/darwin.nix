@@ -5,6 +5,7 @@
     ];
     variables = {
       NEXT_TELEMETRY_DISABLED = "1";
+      NUXT_TELEMETRY_DISABLED = "1";
     };
   };
   fonts = {
@@ -33,7 +34,6 @@
       "pixelsnap"
       "raycast"
       "remarkable"
-      "tuple"
     ];
     masApps = {
       BetterSnapTool = 417375580;

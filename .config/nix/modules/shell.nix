@@ -109,7 +109,7 @@
 
       nconf = "pushd . && cd ~ && nvim ~/.config/nix/flake.nix";
       vconf = "pushd . && cd ~ && nvim ~/.config/nvim/init.lua";
-      drs = "darwin-rebuild switch --flake ~/.config/nix/";
+      drs = "darwin-rebuild switch --flake ~/.config/nix";
 
       hidedesktop = "defaults write com.apple.finder CreateDesktop -bool false && killall Finder";
       showdesktop = "defaults write com.apple.finder CreateDesktop -bool true && killall Finder";

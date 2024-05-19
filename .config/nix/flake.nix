@@ -20,12 +20,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.tmm.imports = [
-              ./modules/home-manager.nix
-              ./modules/ghostty.nix
-              ./modules/git.nix
-              ./modules/shell.nix
-            ];
+            users.tmm = import ./modules/home-manager.nix;
           };
         }
       ];
