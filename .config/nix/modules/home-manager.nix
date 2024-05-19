@@ -42,7 +42,16 @@
     };
   };
   programs.eza.enable = true;
-  programs.gh.enable = true;
+  programs.gh = {
+    enable = true;
+    extensions = with pkgs; [
+      gh-dash
+      gh-poi
+    ];
+  };
+  programs.gh-dash = {
+    enable = true;
+  };
   programs.home-manager.enable = true;
 
   xdg = {

@@ -625,6 +625,8 @@ require("lazy").setup({
 			},
 		},
 		config = function()
+			-- Replace with builtin commenting
+			-- https://gpanders.com/blog/whats-new-in-neovim-0.10/#builtin-commenting
 			require("mini.comment").setup({
 				options = {
 					custom_commentstring = function()
