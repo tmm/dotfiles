@@ -627,6 +627,7 @@ require("lazy").setup({
 		config = function()
 			-- Replace with builtin commenting
 			-- https://gpanders.com/blog/whats-new-in-neovim-0.10/#builtin-commenting
+			-- https://github.com/folke/ts-comments.nvim
 			require("mini.comment").setup({
 				options = {
 					custom_commentstring = function()
@@ -667,6 +668,7 @@ require("lazy").setup({
 		"nvim-neotest/neotest",
 		dependencies = {
 			"antoinemadec/FixCursorHold.nvim",
+			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			-- adapters

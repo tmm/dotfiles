@@ -51,6 +51,44 @@
   };
   programs.gh-dash = {
     enable = true;
+    settings = {
+      issuesSections = [
+        {
+          title = "Issues";
+          filters = "is:open author:@me";
+        }
+        {
+          title = "Assigned";
+          filters = "is:open assignee:@me";
+        }
+        {
+          title = "Involved";
+          filters = "is:open involves:@me -author:@me";
+        }
+        {
+          title = "Wevm";
+          filters = "is:open org:wevm";
+        }
+      ];
+      prSections = [
+        {
+          title = "Pull Requests";
+          filters = "is:open author:@me";
+        }
+        {
+          title = "Review Requested";
+          filters = "is:open review-requested:@me";
+        }
+        {
+          title = "Involved";
+          filters = "is:open involves:@me -author:@me";
+        }
+        {
+          title = "Wevm";
+          filters = "is:open org:wevm";
+        }
+      ];
+    };
   };
   programs.home-manager.enable = true;
 

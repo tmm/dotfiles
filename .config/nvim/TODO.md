@@ -1,7 +1,20 @@
 # TODO
 
+seperate repo for dotfiles (remove bare git repo)
+nvim comments https://github.com/folke/ts-comments.nvim
+
+neotest
+update plugins
+yank color
+syntax groups flash when loading files
+
+emmet plugin
+elixir inlay hints
+gx vim.ui.open()
+
+switch to default nvim keymaps
+
 indent text object
-nix
 noice popupmenu background
 
 ## Plugins
