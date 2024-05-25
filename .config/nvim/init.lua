@@ -819,6 +819,13 @@ require("lazy").setup({
 				},
 				filtered_items = {
 					hide_dotfiles = false,
+					hide_by_name = {
+						".CFUserTextEncoding",
+						".manpath",
+					},
+					never_show = {
+						".DS_Store",
+					},
 				},
 				follow_current_file = true,
 				hijack_netrw_behavior = "open_current",
