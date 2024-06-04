@@ -3,7 +3,7 @@ PIP=PIP_REQUIRE_VIRTUALENV=false pip
 BREW := $(shell [ $$(uname -m) = arm64 ] && echo /opt/homebrew || echo /usr/local)/bin/brew
 OS := $(shell uname)
 
-all: $(OS) nvim-packages tmux-packages
+all: $(OS) nix nvim-packages
 
 Darwin:
 Linux:
@@ -17,9 +17,15 @@ macos:
 	@ln -s $$XDG_CONFIG_HOME/macos/com.awkweb.sync_system_appearance.plist ~/Library/LaunchAgents/com.awkweb.sync_system_appearance.plist
 	@launchctl load -w ~/Library/LaunchAgents/com.awkweb.sync_system_appearance.plist # run `launchctl unload path` if it fails
 
+.PHONY: nix
+nix:
+	@sudo curl -fsSL https://nixos.org/nix/install | bash
+	@nix run nix-darwin -- switch --flake $$XDG_CONFIG_HOME/nix
+	@darwin-rebuild switch --flake $$XDG_CONFIG_HOME/nix
+
 .PHONY: npm
 npm: $(BREW)
-	@fnm install 18
+	@fnm install 22
 	@corepack enable
 	@corepack prepare pnpm@latest --activate
 
@@ -27,16 +33,6 @@ npm: $(BREW)
 nvim-packages:
 	@nvim -c qall
 	@nvim --headless -c 'autocmd User LazyInstall quitall' -c 'Lazy install'
-
-.PHONY: tmux-packages
-tmux-packages:
-	@rm -rf $$XDG_CONFIG_HOME/tmux/plugins/tpm
-	@git clone https://github.com/tmux-plugins/tpm $$XDG_CONFIG_HOME/tmux/plugins/tpm
-	@tmux new -d -s tmux-packages
-	@tmux source $$XDG_CONFIG_HOME/tmux/tmux.conf
-	@bash -c $$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/install_plugins
-	@bash -c "$$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/update_plugins all"
-	@tmux kill-ses -t tmux-packages
 
 extras:
 	# bat

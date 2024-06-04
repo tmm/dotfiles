@@ -13,10 +13,11 @@
 .mix
 .nix-*
 .npm
+.replay
 .rustup
 .svm
 .vscode
-Dropbox/.dropbox.cache
+Dropbox
 Library
 Movies
 Music
