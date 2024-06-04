@@ -11,7 +11,7 @@ make
 
 ## Commands
 
-```
+```fish
 make                    # Bootstrap setup
 make macos              # Set up macOS defaults
 make nix                # Set up nix (nix-darwin and home-manager)
