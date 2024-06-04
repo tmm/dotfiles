@@ -6,11 +6,7 @@ h git init
 h git remote add origin https://github.com/tmm/dotfiles.git
 h git fetch
 h git checkout main
-```
-
-```
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-./result/bin/darwin-installer
+make
 ```
 
 ## Commands
