@@ -17,7 +17,7 @@ in
     macos-non-native-fullscreen = true
     macos-option-as-alt = left
     mouse-hide-while-typing = true
-    macos-titlebar-tabs = true
+    macos-titlebar-style = tabs
     unfocused-split-opacity = 1
     window-padding-x = 0
     window-padding-y = 0
