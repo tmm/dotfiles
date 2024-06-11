@@ -26,6 +26,7 @@
       "contexts"
       "daisydisk"
       "dropbox"
+      "expressvpn"
       "postico"
       "firefox"
       "flux"
@@ -41,6 +42,7 @@
       Dato = 1470584107;
       "Day One" = 1055511498;
       "Pure Paste" = 1611378436;
+      "reMarkable desktop" = 1276493162;
       Velja = 1607635845;
       Xcode = 497799835;
     };
