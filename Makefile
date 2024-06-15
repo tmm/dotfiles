@@ -23,8 +23,8 @@ nix:
 	@nix run nix-darwin -- switch --flake $$XDG_CONFIG_HOME/nix
 	@darwin-rebuild switch --flake $$XDG_CONFIG_HOME/nix
 
-.PHONY: npm
-npm: $(BREW)
+.PHONY: node
+node: $(BREW)
 	@fnm install 22
 	@corepack enable
 	@corepack prepare pnpm@latest --activate
