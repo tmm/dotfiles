@@ -44,9 +44,12 @@
       set FOUNDRY_BIN $HOME/.foundry/bin
       fish_add_path $FOUNDRY_BIN
 
+      # 1password
+      set -x SSH_AUTH_SOCK "~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
       # bun
-      set --export BUN_INSTALL "$HOME/.bun"
-      set --export PATH $BUN_INSTALL/bin $PATH
+      set -x BUN_INSTALL "$HOME/.bun"
+      set -x PATH $BUN_INSTALL/bin $PATH
     '';
     plugins = [
       # https://github.com/jorgebucaran/autopair.fish
