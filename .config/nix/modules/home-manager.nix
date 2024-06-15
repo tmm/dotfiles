@@ -51,6 +51,10 @@
   programs.home-manager.enable = true;
 
   home.file = {
+    ignore = {
+      source = ../files/ignore;
+      target = ".ignore";
+    };
     ssh = {
       source = ../files/ssh;
       target = ".ssh";
