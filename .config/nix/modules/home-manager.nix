@@ -56,6 +56,11 @@
       target = ".ssh";
       recursive = true;
     };
+    xcode = {
+      source = ../files/xcode;
+      target = "Library/Developer/Xcode/UserData";
+      recursive = true;
+    };
   };
 
   xdg = {
