@@ -21,6 +21,7 @@
     jq
     neovim
     ripgrep
+    rustup
     zoxide
   ];
   home.stateVersion = "23.05";
