@@ -36,5 +36,15 @@ in
     palette = 5=${colors.dark.orange}
     palette = 6=${colors.dark.cyan}
     palette = 7=${colors.dark.white}
+
+    keybind = ctrl+shift+h=goto_split:left
+    keybind = ctrl+shift+j=goto_split:bottom
+    keybind = ctrl+shift+k=goto_split:top
+    keybind = ctrl+shift+l=goto_split:right
+    keybind = ctrl+shift+enter=toggle_split_zoom
+
+    cursor-style = block
+    cursor-style-blink = false
+    shell-integration-features = no-cursor
   '';
 }
