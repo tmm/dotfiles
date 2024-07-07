@@ -663,6 +663,20 @@ require("lazy").setup({
 		},
 	},
 
+	-- mini.indentscope (https://github.com/echasnovski/mini.indentscope)
+	{
+		"echasnovski/mini.indentscope",
+		event = "VeryLazy",
+		config = function()
+			require("mini.indentscope").setup({
+				draw = {
+					animation = require("mini.indentscope").gen_animation.none(),
+				},
+				symbol = "",
+			})
+		end,
+	},
+
 	-- neotest (https://github.com/nvim-neotest/neotest)
 	{
 		"nvim-neotest/neotest",
