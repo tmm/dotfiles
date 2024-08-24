@@ -4,6 +4,7 @@
     asciinema
     babelfish
     bat
+    btop
     cachix
     diff-so-fancy
     direnv

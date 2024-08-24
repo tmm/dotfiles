@@ -27,7 +27,6 @@
       "daisydisk"
       "dropbox"
       "expressvpn"
-      "postico"
       "firefox"
       "flux"
       "google-chrome"
