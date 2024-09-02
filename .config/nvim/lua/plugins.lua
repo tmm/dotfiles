@@ -1,3 +1,5 @@
+local icons = require("config.icons")
+
 local util = {}
 
 function util.warn(msg, name)
@@ -36,57 +38,6 @@ function util.on_attach(on_attach)
 		end,
 	})
 end
-
-local icons = {
-	diagnostics = {
-		Error = " ",
-		Warn = " ",
-		Hint = " ",
-		Info = " ",
-	},
-	git = {
-		added = " ",
-		modified = " ",
-		removed = " ",
-	},
-	kinds = {
-		Array = " ",
-		Boolean = " ",
-		Class = " ",
-		Color = " ",
-		Constant = " ",
-		Constructor = " ",
-		Copilot = " ",
-		Enum = " ",
-		EnumMember = " ",
-		Event = " ",
-		Field = " ",
-		File = " ",
-		Folder = " ",
-		Function = " ",
-		Interface = " ",
-		Key = " ",
-		Keyword = " ",
-		Method = " ",
-		Module = " ",
-		Namespace = " ",
-		Null = " ",
-		Number = " ",
-		Object = " ",
-		Operator = " ",
-		Package = " ",
-		Property = " ",
-		Reference = " ",
-		Snippet = " ",
-		String = " ",
-		Struct = " ",
-		Text = " ",
-		TypeParameter = " ",
-		Unit = " ",
-		Value = " ",
-		Variable = " ",
-	},
-}
 
 --------------------------------------------------------------------------
 -- LSP
@@ -193,7 +144,6 @@ function lsp.setup_keymaps(client, buffer)
 			name = "+goto",
 			d = { "<cmd>Telescope lsp_definitions<cr>", "Goto Definition" },
 			r = { "<cmd>Telescope lsp_references<cr>", "References" },
-			R = { "<cmd>Trouble lsp_references<cr>", "Trouble References" },
 			D = { "<cmd>Telescope lsp_declarations<cr>", "Goto Declaration" },
 			I = { "<cmd>Telescope lsp_implementations<cr>", "Goto Implementation" },
 			t = { "<cmd>Telescope lsp_type_definitions<cr>", "Goto Type Definition" },
@@ -488,6 +438,12 @@ return {
 				end,
 			},
 		},
+		init = function()
+			package.preload["nvim-web-devicons"] = function()
+				require("mini.icons").mock_nvim_web_devicons()
+				return package.loaded["nvim-web-devicons"]
+			end
+		end,
 		config = function()
 			-- Replace with builtin commenting
 			-- https://gpanders.com/blog/whats-new-in-neovim-0.10/#builtin-commenting
@@ -533,33 +489,56 @@ return {
 		"nvim-neo-tree/neo-tree.nvim",
 		cmd = "Neotree",
 		dependencies = {
-			-- https://github.com/nvim-lua/plenary.nvim
 			"nvim-lua/plenary.nvim",
-			-- https://github.com/nvim-tree/nvim-web-devicons
-			{
-				"nvim-tree/nvim-web-devicons",
-				opts = {
-					color_icons = false,
-					override = {
-						default_icon = {
-							color = "",
-						},
-					},
-				},
-			},
-			-- https://github.com/MunifTanjim/nui.nvim
 			"MunifTanjim/nui.nvim",
 		},
-		init = function()
-			vim.g.neo_tree_remove_legacy_commands = 1
-		end,
 		keys = {
-			{ "<leader>fe", "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
-			{ "<leader>fs", "<cmd>Neotree focus<cr>", desc = "Focus File in Explorer" },
+			{
+				"<leader>fe",
+				function()
+					require("neo-tree.command").execute({ toggle = true })
+				end,
+				desc = "Explorer NeoTree (Root Dir)",
+			},
+			{
+				"<leader>fE",
+				function()
+					require("neo-tree.command").execute({ reveal = true })
+				end,
+				desc = "Explorer NeoTree (Reveal File)",
+			},
+			{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
+			{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (Reveal File)", remap = true },
 		},
+		deactivate = function()
+			vim.cmd([[Neotree close]])
+		end,
+		init = function()
+			-- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
+			-- because `cwd` is not set up properly.
+			vim.api.nvim_create_autocmd("BufEnter", {
+				group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
+				desc = "Start Neo-tree with directory",
+				once = true,
+				callback = function()
+					if package.loaded["neo-tree"] then
+						return
+					else
+						local stats = vim.uv.fs_stat(vim.fn.argv(0))
+						if stats and stats.type == "directory" then
+							require("neo-tree")
+						end
+					end
+				end,
+			})
+		end,
 		opts = {
-			-- TODO: Hide file icons
-			close_if_last_window = true,
+			buffers = {
+				follow_current_file = {
+					enabled = true,
+				},
+				group_empty_dirs = true,
+			},
 			default_component_configs = {
 				icon = {
 					folder_closed = "▶︎",
@@ -584,13 +563,10 @@ return {
 					},
 				},
 			},
-			buffers = {
-				follow_current_file = true,
-				group_empty_dirs = true,
-			},
 			filesystem = {
 				components = {
 					icon = function(config, node, state)
+						-- Disable file icons
 						if node.type == "file" then
 							return {}
 						end
@@ -607,11 +583,28 @@ return {
 						".DS_Store",
 					},
 				},
-				follow_current_file = true,
-				hijack_netrw_behavior = "open_current",
+				follow_current_file = { enabled = true },
+				use_libuv_file_watcher = true,
 			},
+			open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
 			window = {
-				position = "left",
+				mappings = {
+					["O"] = {
+						function(state)
+							require("lazy.util").open(state.tree:get_node().path, { system = true })
+						end,
+						desc = "Open with System Application",
+					},
+					["P"] = { "toggle_preview", config = { use_float = false } },
+					["Y"] = {
+						function(state)
+							local node = state.tree:get_node()
+							local path = node:get_id()
+							vim.fn.setreg("+", path, "c")
+						end,
+						desc = "Copy Path to Clipboard",
+					},
+				},
 				width = 30,
 			},
 		},
@@ -1166,12 +1159,50 @@ return {
 	-- trouble.nvim (https://github.com/folke/trouble.nvim)
 	{
 		"folke/trouble.nvim",
-		cmd = { "TroubleToggle", "Trouble" },
-		keys = {
-			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+		cmd = { "Trouble" },
+		opts = {
+			modes = {
+				lsp = {
+					win = { position = "right" },
+				},
+			},
 		},
-		opts = { use_diagnostic_signs = true },
+		keys = {
+			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+			{ "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+			{ "<leader>cS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
+			{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+			{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+			{
+				"[q",
+				function()
+					if require("trouble").is_open() then
+						require("trouble").prev({ skip_groups = true, jump = true })
+					else
+						local ok, err = pcall(vim.cmd.cprev)
+						if not ok then
+							vim.notify(err, vim.log.levels.ERROR)
+						end
+					end
+				end,
+				desc = "Previous Trouble/Quickfix Item",
+			},
+			{
+				"]q",
+				function()
+					if require("trouble").is_open() then
+						require("trouble").next({ skip_groups = true, jump = true })
+					else
+						local ok, err = pcall(vim.cmd.cnext)
+						if not ok then
+							vim.notify(err, vim.log.levels.ERROR)
+						end
+					end
+				end,
+				desc = "Next Trouble/Quickfix Item",
+			},
+		},
 	},
 
 	-- twoslash-queries.nvim (https://github.com/marilari88/twoslash-queries.nvim)

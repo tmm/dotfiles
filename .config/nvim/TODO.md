@@ -1,5 +1,14 @@
 # TODO
 
+- add snippet engine back
+- code format uses two spaces
+- sessions
+- ts-comment
+- edgy ide setup
+- add rust tools back
+
+---
+
 seperate repo for dotfiles (remove bare git repo)
 nvim comments https://github.com/folke/ts-comments.nvim
 
