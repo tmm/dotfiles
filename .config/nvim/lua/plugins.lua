@@ -308,6 +308,7 @@ return {
 			}
 
 			require("lualine").setup({
+				extensions = { "neo-tree", "lazy" },
 				options = {
 					always_divide_middle = true,
 					component_separators = "",
@@ -324,33 +325,29 @@ return {
 					lualine_a = {},
 					lualine_b = {},
 					lualine_c = {
-						{
-							"mode",
-							color = "MsgArea",
-						},
+						{ "mode", color = "MsgArea" },
 						{
 							"filename",
 							color = "MsgArea",
 							cond = conditions.buffer_not_empty,
 							symbols = { modified = "", readonly = "", unnamed = "" },
 						},
-						{
-							"branch",
-							color = "MsgArea",
-							icon = "",
-						},
+						{ "branch", color = "MsgArea", icon = "" },
 						{
 							"diagnostics",
 							color = "MsgArea",
 							sources = { "nvim_diagnostic" },
 							symbols = {
 								error = icons.diagnostics.Error,
-								warn = icons.diagnostics.Warn,
+								hint = icons.diagnostics.Hint,
 								info = icons.diagnostics.Info,
+								warn = icons.diagnostics.Warn,
 							},
 						},
 					},
 					lualine_x = {
+            -- stylua: ignore
+						{ require("lazy.status").updates, cond = require("lazy.status").has_updates, color = "MsgArea" },
 						{
 							"diff",
 							color = "MsgArea",
@@ -359,19 +356,19 @@ return {
 								modified = icons.git.Modified,
 								removed = icons.git.Removed,
 							},
+							source = function()
+								local gitsigns = vim.b.gitsigns_status_dict
+								if gitsigns then
+									return {
+										added = gitsigns.added,
+										modified = gitsigns.changed,
+										removed = gitsigns.removed,
+									}
+								end
+							end,
 						},
-						{
-							"filetype",
-							color = "MsgArea",
-						},
-						{
-							"progress",
-							color = "MsgArea",
-						},
-						{
-							"location",
-							color = "MsgArea",
-						},
+						{ "progress", color = "MsgArea" },
+						{ "location", color = "MsgArea" },
 					},
 					lualine_y = {},
 					lualine_z = {},
@@ -380,22 +377,15 @@ return {
 					lualine_a = {},
 					lualine_b = {},
 					lualine_c = {
-						{
-							"filename",
-							color = "MsgArea",
-						},
+						{ "filename", color = "MsgArea" },
 					},
 					lualine_x = {
-						{
-							"location",
-							color = "MsgArea",
-						},
+						{ "location", color = "MsgArea" },
 					},
 					lualine_y = {},
 					lualine_z = {},
 				},
 				tabline = {},
-				extensions = {},
 			})
 		end,
 	},
