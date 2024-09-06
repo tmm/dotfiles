@@ -1,6 +1,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Options for the statuscolumn
+vim.g.tmm_statuscolumn = {
+	folds_open = false, -- show fold sign when fold is open
+	folds_githl = false, -- highlight fold sign with git sign color
+}
+
 -- Set filetype to `bigfile` for files larger than 1.5 MB
 -- Only vim syntax will be enabled (with the correct filetype)
 -- LSP, treesitter and other ft plugins will be disabled.
@@ -16,8 +22,8 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
-	foldopen = "",
-	foldclose = "",
+	foldopen = "",
+	foldclose = "",
 	fold = " ",
 	foldsep = " ",
 	diff = "/",
@@ -25,9 +31,9 @@ opt.fillchars = {
 }
 opt.foldexpr = "v:lua.require'util.ui'.foldexpr()"
 opt.foldlevel = 99
--- opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 opt.foldmethod = "expr"
-opt.foldtext = ""
+opt.foldtext = "v:lua.require'util.ui'.foldtext()"
+-- opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
@@ -58,7 +64,7 @@ opt.spelloptions:append("noplainbuffer")
 opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
--- opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
+opt.statuscolumn = [[%!v:lua.require'util.ui'.statuscolumn()]]
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 opt.timeoutlen = 300 -- Lower than default (1000) to quickly trigger which-key

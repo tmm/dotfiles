@@ -263,40 +263,14 @@ return {
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		opts = {},
+    -- stylua: ignore
 		keys = {
-			{
-				"s",
-				mode = { "n", "x", "o" },
-				function()
-					require("flash").jump()
-				end,
-				desc = "Flash",
-			},
-			{
-				"S",
-				mode = { "n", "o", "x" },
-				function()
-					require("flash").treesitter()
-				end,
-				desc = "Flash Treesitter",
-			},
-			{
-				"r",
-				mode = "o",
-				function()
-					require("flash").remote()
-				end,
-				desc = "Remote Flash",
-			},
-			{
-				"R",
-				mode = { "o", "x" },
-				function()
-					require("flash").treesitter_search()
-				end,
-				desc = "Treesitter Search",
-			},
-		},
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
 	},
 
 	-- indent-blankline.nvim (https://github.com/lukas-reineke/indent-blankline.nvim)
@@ -381,9 +355,9 @@ return {
 							"diff",
 							color = "MsgArea",
 							symbols = {
-								added = icons.git.added,
-								modified = icons.git.modified,
-								removed = icons.git.removed,
+								added = icons.git.Added,
+								modified = icons.git.Modified,
+								removed = icons.git.Removed,
 							},
 						},
 						{
@@ -430,17 +404,6 @@ return {
 	{
 		"echasnovski/mini.nvim",
 		event = "VeryLazy",
-		dependencies = {
-			{
-				-- TypeScript comment plugin (https://github.com/JoosepAlviste/nvim-ts-context-commentstring)
-				"JoosepAlviste/nvim-ts-context-commentstring",
-				config = function()
-					require("ts_context_commentstring").setup({
-						enable_autocmd = false,
-					})
-				end,
-			},
-		},
 		init = function()
 			package.preload["nvim-web-devicons"] = function()
 				require("mini.icons").mock_nvim_web_devicons()
@@ -448,42 +411,34 @@ return {
 			end
 		end,
 		config = function()
-			-- Replace with builtin commenting
-			-- https://gpanders.com/blog/whats-new-in-neovim-0.10/#builtin-commenting
-			-- https://github.com/folke/ts-comments.nvim
-			require("mini.comment").setup({
-				options = {
-					custom_commentstring = function()
-						return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
-					end,
-				},
-			})
 			require("mini.indentscope").setup({
 				draw = {
 					animation = require("mini.indentscope").gen_animation.none(),
 				},
 				symbol = "",
+				try_as_border = true,
 			})
-			require("mini.pairs").setup({})
+			require("mini.pairs").setup({
+				-- TODO: https://github.com/LazyVim/LazyVim/blob/3dbace941ee935c89c73fd774267043d12f57fe2/lua/lazyvim/util/mini.lua#L123
+				modes = { insert = true, command = true, terminal = false },
+			})
+			require("mini.surround").setup({
+				mappings = {
+					add = "gsa", -- Add surrounding in Normal and Visual modes
+					delete = "gsd", -- Delete surrounding
+					find = "gsf", -- Find surrounding (to the right)
+					find_left = "gsF", -- Find surrounding (to the left)
+					highlight = "gsh", -- Highlight surrounding
+					replace = "gsr", -- Replace surrounding
+					update_n_lines = "gsn", -- Update `n_lines`
+				},
+			})
 		end,
+    -- stylua: ignore
 		keys = {
-			{
-				"<leader>bd",
-				function()
-					require("mini.bufremove").delete(0, false)
-				end,
-				desc = "Delete Buffer",
-			},
-			{
-				"<leader>bD",
-				"<cmd>%bd<cr>",
-				desc = "Delete All Buffers",
-			},
-			{
-				"<leader>bc",
-				"<cmd>%bd|edit#|bd#<cr>",
-				desc = "Delete All Buffers (except current)",
-			},
+      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
+			{ "<leader>bD", "<cmd>%bd<cr>", desc = "Delete All Buffers" },
+			{ "<leader>bc", "<cmd>%bd|edit#|bd#<cr>", desc = "Delete All Buffers (except current)" },
 		},
 	},
 
@@ -495,21 +450,10 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 		},
+    -- stylua: ignore
 		keys = {
-			{
-				"<leader>fe",
-				function()
-					require("neo-tree.command").execute({ toggle = true })
-				end,
-				desc = "Explorer NeoTree (Root Dir)",
-			},
-			{
-				"<leader>fE",
-				function()
-					require("neo-tree.command").execute({ reveal = true })
-				end,
-				desc = "Explorer NeoTree (Reveal File)",
-			},
+			{ "<leader>fe", function() require("neo-tree.command").execute({ toggle = true }) end, desc = "Explorer NeoTree (Root Dir)" },
+			{ "<leader>fE", function() require("neo-tree.command").execute({ reveal = true }) end, desc = "Explorer NeoTree (Reveal File)" },
 			{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
 			{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (Reveal File)", remap = true },
 		},
@@ -543,6 +487,14 @@ return {
 				group_empty_dirs = true,
 			},
 			default_component_configs = {
+				diagnostics = {
+					symbols = {
+						hint = icons.diagnostics.Hint,
+						info = icons.diagnostics.Info,
+						warn = icons.diagnostics.Warn,
+						error = icons.diagnostics.Error,
+					},
+				},
 				icon = {
 					folder_closed = "▶︎",
 					folder_open = "▼",
@@ -553,9 +505,9 @@ return {
 				},
 				git_status = {
 					symbols = {
-						added = icons.git.added,
-						deleted = icons.git.removed,
-						modified = icons.git.modified,
+						added = icons.git.Added,
+						deleted = icons.git.Removed,
+						modified = icons.git.Modified,
 						renamed = "",
 						-- Status type
 						untracked = "",
@@ -617,6 +569,21 @@ return {
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+    -- stylua: ignore
+    keys = {
+      { "<leader>sn", "", desc = "+noice"},
+      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+      { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+      { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
+      { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
+      { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+      { "<leader>snt", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
+      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll Forward", mode = {"i", "n", "s"} },
+      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll Backward", mode = {"i", "n", "s"}},
+    },
 		opts = {
 			cmdline = {
 				format = {
@@ -632,7 +599,6 @@ return {
 					["vim.lsp.util.stylize_markdown"] = true,
 					["cmp.entry.get_documentation"] = true,
 				},
-				progress = { enabled = false },
 			},
 			presets = {
 				bottom_search = true,
@@ -653,17 +619,10 @@ return {
 							{ find = "%d more lines" },
 						},
 					},
+					view = "mini",
 					opts = { skip = true },
 				},
 			},
-		},
-		dependencies = {
-			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-			"MunifTanjim/nui.nvim",
-			-- OPTIONAL:
-			--   `nvim-notify` is only needed, if you want to use the notification view.
-			--   If not available, we use `mini` as the fallback
-			-- "rcarriga/nvim-notify",
 		},
 	},
 
@@ -953,10 +912,7 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 		dependencies = {
 			-- nvim-ts-autotag (https://github.com/windwp/nvim-ts-autotag)
-			{
-				"windwp/nvim-ts-autotag",
-				opts = {},
-			},
+			{ "windwp/nvim-ts-autotag", opts = {} },
 		},
 		opts = {
 			autopairs = { enable = true },
@@ -995,30 +951,16 @@ return {
 		end,
 	},
 
-	-- nvim-ufo (https://github.com/kevinhwang91/nvim-ufo)
-	{
-		"kevinhwang91/nvim-ufo",
-		dependencies = "kevinhwang91/promise-async",
-		event = "BufReadPost",
-		opts = {},
-		init = function()
-			-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-			vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
-			vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
-			vim.keymap.set("n", "zp", require("ufo").peekFoldedLinesUnderCursor, { desc = "Peek fold" })
-		end,
-	},
-
 	-- telescope (https://github.com/nvim-telescope/telescope.nvim)
 	{
 		"nvim-telescope/telescope.nvim",
 		cmd = { "Telescope" },
+		version = false, -- telescope did only one release, so use HEAD for now
 		dependencies = {
 			-- Lua functions (https://github.com/nvim-lua/plenary.nvim)
 			"nvim-lua/plenary.nvim",
-			-- Pop up API (https://github.com/nvim-lua/popup.nvim)
-			"nvim-lua/popup.nvim",
 		},
+    -- stylua: ignore
 		keys = {
 			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
 			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
@@ -1208,29 +1150,11 @@ return {
 		},
 	},
 
-	-- twoslash-queries.nvim (https://github.com/marilari88/twoslash-queries.nvim)
+	-- ts-comments.nvim (https://github.com/folke/ts-comments.nvim)
 	{
-		"marilari88/twoslash-queries.nvim",
-		opts = {
-			multi_line = true,
-			highlight = "Type",
-		},
-		config = function(_, opts)
-			local twoslash_queries = require("twoslash-queries")
-			twoslash_queries.setup(opts)
-			-- attach whenever tsserver attaches
-			util.on_attach(function(client, bufnr)
-				if client.name == "tsserver" then
-					require("twoslash-queries").attach(client, bufnr)
-					vim.keymap.set(
-						"n",
-						"<leader>c//",
-						"<cmd>TwoslashQueriesInspect<CR>",
-						{ desc = "twoslash inspect variable under the cursor" }
-					)
-				end
-			end)
-		end,
+		"folke/ts-comments.nvim",
+		event = "VeryLazy",
+		opts = {},
 	},
 
 	-- vim-illuminate (https://github.com/RRethy/vim-illuminate)
@@ -1277,12 +1201,6 @@ return {
 	-- vim-repeat (https://github.com/tpope/vim-repeat)
 	{
 		"tpope/vim-repeat",
-		event = "VeryLazy",
-	},
-
-	-- vim-surround (https://github.com/tpope/vim-surround)
-	{
-		"tpope/vim-surround",
 		event = "VeryLazy",
 	},
 
