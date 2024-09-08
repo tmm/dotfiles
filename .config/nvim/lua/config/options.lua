@@ -3,8 +3,8 @@ vim.g.maplocalleader = " "
 
 -- Options for the statuscolumn
 vim.g.tmm_statuscolumn = {
-	folds_open = false, -- show fold sign when fold is open
-	folds_githl = false, -- highlight fold sign with git sign color
+  folds_open = false, -- show fold sign when fold is open
+  folds_githl = false, -- highlight fold sign with git sign color
 }
 
 -- Set filetype to `bigfile` for files larger than 1.5 MB
@@ -22,12 +22,12 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
-	foldopen = "",
-	foldclose = "",
-	fold = " ",
-	foldsep = " ",
-	diff = "/",
-	eob = " ",
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "/",
+  eob = " ",
 }
 opt.foldexpr = "v:lua.require'util.ui'.foldexpr()"
 opt.foldlevel = 99
@@ -81,14 +81,14 @@ opt.wrap = false -- Disable line wrap
 -- make all keymaps silent by default
 local keymap_set = vim.keymap.set
 vim.keymap.set = function(mode, lhs, rhs, opts)
-	opts = opts or {}
-	opts.silent = opts.silent ~= false
-	return keymap_set(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  return keymap_set(mode, lhs, rhs, opts)
 end
 
 -- When using fish, set shell to bash
 if vim.env.SHELL:match("fish$") then
-	vim.opt.shell = "/bin/bash"
+  vim.opt.shell = "/bin/bash"
 end
 
 -- vim.opt.autoindent = true -- Good auto indent
