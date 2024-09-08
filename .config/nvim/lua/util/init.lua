@@ -11,6 +11,16 @@ function M.get_plugin(name)
 	return require("lazy.core.config").spec.plugins[name]
 end
 
+---@param fn fun()
+function M.on_very_lazy(fn)
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "VeryLazy",
+		callback = function()
+			fn()
+		end,
+	})
+end
+
 ---@param name string
 function M.opts(name)
 	local plugin = M.get_plugin(name)
@@ -19,6 +29,29 @@ function M.opts(name)
 	end
 	local Plugin = require("lazy.core.plugin")
 	return Plugin.values(plugin, "opts", false)
+end
+
+function M.is_loaded(name)
+	local Config = require("lazy.core.config")
+	return Config.plugins[name] and Config.plugins[name]._.loaded
+end
+
+---@param name string
+---@param fn fun(name:string)
+function M.on_load(name, fn)
+	if M.is_loaded(name) then
+		fn(name)
+	else
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "LazyLoad",
+			callback = function(event)
+				if event.data == name then
+					fn(name)
+					return true
+				end
+			end,
+		})
+	end
 end
 
 M.CREATE_UNDO = vim.api.nvim_replace_termcodes("<c-G>u", true, true, true)
@@ -46,6 +79,20 @@ function M.norm(path)
 		path = path:sub(1, 1):lower() .. path:sub(2)
 	end
 	return path
+end
+
+-- Fast implementation to check if a table is a list
+---@param t table
+function M.is_list(t)
+	local i = 0
+	---@diagnostic disable-next-line: no-unknown
+	for _ in pairs(t) do
+		i = i + 1
+		if t[i] == nil then
+			return false
+		end
+	end
+	return true
 end
 
 local function can_merge(v)
@@ -78,6 +125,82 @@ function M.merge(...)
 		end
 	end
 	return ret
+end
+
+function M.try(fn, opts)
+	opts = type(opts) == "string" and { msg = opts } or opts or {}
+	local msg = opts.msg
+	-- error handler
+	local error_handler = function(err)
+		msg = (msg and (msg .. "\n\n") or "") .. err .. M.pretty_trace()
+		if opts.on_error then
+			opts.on_error(msg)
+		else
+			vim.schedule(function()
+				M.error(msg)
+			end)
+		end
+		return err
+	end
+
+	---@type boolean, any
+	local ok, result = xpcall(fn, error_handler)
+	return ok and result or nil
+end
+
+---@type table<string, string[]|boolean>?
+M.kind_filter = {
+	default = {
+		"Class",
+		"Constructor",
+		"Enum",
+		"Field",
+		"Function",
+		"Interface",
+		"Method",
+		"Module",
+		"Namespace",
+		"Package",
+		"Property",
+		"Struct",
+		"Trait",
+	},
+	markdown = false,
+	help = false,
+	-- you can specify a different filter for each filetype
+	lua = {
+		"Class",
+		"Constructor",
+		"Enum",
+		"Field",
+		"Function",
+		"Interface",
+		"Method",
+		"Module",
+		"Namespace",
+		-- "Package", -- remove package since luals uses it for control flow structures
+		"Property",
+		"Struct",
+		"Trait",
+	},
+}
+
+---@param buf? number
+---@return string[]?
+function M.get_kind_filter(buf)
+	buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
+	local ft = vim.bo[buf].filetype
+	if M.kind_filter == false then
+		return
+	end
+	if M.kind_filter[ft] == false then
+		return
+	end
+	if type(M.kind_filter[ft]) == "table" then
+		return M.kind_filter[ft]
+	end
+	---@diagnostic disable-next-line: return-type-mismatch
+	return type(M.kind_filter) == "table" and type(M.kind_filter.default) == "table" and M.kind_filter.default or nil
 end
 
 return M

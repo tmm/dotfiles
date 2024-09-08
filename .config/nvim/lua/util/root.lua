@@ -29,7 +29,7 @@ function M.detectors.lsp(buf)
 		return {}
 	end
 	local roots = {} ---@type string[]
-	for _, client in pairs(require("util.lspx").get_clients({ bufnr = buf })) do
+	for _, client in pairs(require("util.lsp").get_clients({ bufnr = buf })) do
 		local workspace = client.config.workspace_folders
 		for _, ws in pairs(workspace or {}) do
 			roots[#roots + 1] = vim.uri_to_fname(ws.uri)

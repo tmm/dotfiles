@@ -110,9 +110,7 @@ map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- formatting
--- map({ "n", "v" }, "<leader>cf", function()
---  LazyVim.format({ force = true })
--- end, { desc = "Format" })
+map({ "n", "v" }, "<leader>cf", function() require('util.format').format({ force = true }) end, { desc = "Format" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
