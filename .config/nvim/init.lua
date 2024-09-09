@@ -1,6 +1,4 @@
 require("config.options")
-require("config.keymaps")
-require("config.autocmds")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -22,6 +20,9 @@ vim.api.nvim_create_autocmd("User", {
   group = group,
   pattern = "VeryLazy",
   callback = function()
+    require("config.keymaps")
+    require("config.autocmds")
+
     require("util.format").setup()
   end,
 })

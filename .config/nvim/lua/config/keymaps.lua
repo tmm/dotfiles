@@ -131,19 +131,20 @@ map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- toggle options
--- LazyVim.toggle.map("<leader>uf", LazyVim.toggle.format())
--- LazyVim.toggle.map("<leader>uF", LazyVim.toggle.format(true))
--- LazyVim.toggle.map("<leader>us", LazyVim.toggle("spell", { name = "Spelling" }))
--- LazyVim.toggle.map("<leader>uw", LazyVim.toggle("wrap", { name = "Wrap" }))
--- LazyVim.toggle.map("<leader>uL", LazyVim.toggle("relativenumber", { name = "Relative Number" }))
--- LazyVim.toggle.map("<leader>ud", LazyVim.toggle.diagnostics)
--- LazyVim.toggle.map("<leader>ul", LazyVim.toggle.number)
--- LazyVim.toggle.map( "<leader>uc", LazyVim.toggle("conceallevel", { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } }))
--- LazyVim.toggle.map("<leader>uT", LazyVim.toggle.treesitter)
--- LazyVim.toggle.map("<leader>ub", LazyVim.toggle("background", { values = { "light", "dark" }, name = "Background" }))
--- if vim.lsp.inlay_hint then
---   LazyVim.toggle.map("<leader>uh", LazyVim.toggle.inlay_hints)
--- end
+local toggle = require("util.toggle")
+toggle.map("<leader>uf", toggle.format())
+toggle.map("<leader>uF", toggle.format(true))
+toggle.map("<leader>us", toggle("spell", { name = "Spelling" }))
+toggle.map("<leader>uw", toggle("wrap", { name = "Wrap" }))
+toggle.map("<leader>uL", toggle("relativenumber", { name = "Relative Number" }))
+toggle.map("<leader>ud", toggle.diagnostics)
+toggle.map("<leader>ul", toggle.number)
+toggle.map("<leader>uc", toggle("conceallevel", { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } }))
+toggle.map("<leader>uT", toggle.treesitter)
+toggle.map("<leader>ub", toggle("background", { values = { "light", "dark" }, name = "Background" }))
+if vim.lsp.inlay_hint then
+  toggle.map("<leader>uh", toggle.inlay_hints)
+end
 
 -- lazygit
 -- map("n", "<leader>gg", function() LazyVim.lazygit( { cwd = LazyVim.root.git() }) end, { desc = "Lazygit (Root Dir)" })
@@ -195,7 +196,7 @@ map("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
--- LazyVim.toggle.map("<leader>wm", LazyVim.toggle.maximize)
+toggle.map("<leader>wm", toggle.maximize)
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
