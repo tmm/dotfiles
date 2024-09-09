@@ -16,3 +16,12 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup("plugins")
+
+local group = vim.api.nvim_create_augroup("TmmVim", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+  group = group,
+  pattern = "VeryLazy",
+  callback = function()
+    require("util.format").setup()
+  end,
+})

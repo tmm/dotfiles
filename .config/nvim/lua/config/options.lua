@@ -1,6 +1,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- auto format
+vim.g.autoformat = true
+
 -- Options for the statuscolumn
 vim.g.tmm_statuscolumn = {
   folds_open = false, -- show fold sign when fold is open
@@ -42,7 +45,7 @@ opt.inccommand = "nosplit" -- preview incremental substitute
 opt.jumpoptions = "view"
 opt.laststatus = 3 -- global statusline
 opt.linebreak = true -- Wrap lines at convenient points
--- opt.list = true -- Show some invisible characters (tabs...
+opt.list = true -- Show some invisible characters (tabs...
 opt.mouse = "" -- Disable mouse
 opt.number = true -- Print line number
 opt.pumblend = 10 -- Popup blend
@@ -90,12 +93,3 @@ end
 if vim.env.SHELL:match("fish$") then
   vim.opt.shell = "/bin/bash"
 end
-
--- vim.opt.autoindent = true -- Good auto indent
--- vim.o.foldlevelstart = 99
--- vim.o.foldenable = true
--- vim.o.foldcolumn = "0"
--- vim.opt.hidden = true -- Handle multiple buffers better
--- vim.opt.showbreak = "↪"
--- vim.opt.swapfile = false -- Disable swapfiles
--- vim.opt.undodir = vim.env.XDG_CONFIG_HOME .. "/nvim/undo"
