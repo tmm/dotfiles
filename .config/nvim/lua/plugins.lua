@@ -812,7 +812,14 @@ return {
           rnix = {
             settings = {},
           },
-          ts_ls = {
+          volar = {
+            init_options = {
+              vue = {
+                hybridMode = true,
+              },
+            },
+          },
+          vtsls = {
             filetypes = {
               "javascript",
               "javascriptreact",
@@ -824,20 +831,84 @@ return {
             },
             init_options = {},
             settings = {
+              complete_function_calls = true,
+              vtsls = {
+                enableMoveToFileCodeAction = true,
+                autoUseWorkspaceTsdk = true,
+                experimental = {
+                  completion = {
+                    enableServerSideFuzzyMatch = true,
+                  },
+                },
+                tsserver = {
+                  globalPlugins = {
+                    {
+                      name = "@vue/typescript-plugin",
+                      location = require("util.init").get_pkg_path(
+                        "vue-language-server",
+                        "/node_modules/@vue/language-server"
+                      ),
+                      languages = { "vue" },
+                      configNamespace = "typescript",
+                      enableForWorkspaceTypeScriptVersions = true,
+                    },
+                  },
+                },
+              },
               typescript = {
+                updateImportsOnFileMove = { enabled = "always" },
+                suggest = {
+                  completeFunctionCalls = true,
+                },
                 inlayHints = {
-                  includeInlayParameterNameHints = "literal",
-                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                  includeInlayFunctionParameterTypeHints = true,
-                  includeInlayVariableTypeHints = false,
-                  includeInlayPropertyDeclarationTypeHints = true,
-                  includeInlayFunctionLikeReturnTypeHints = true,
-                  includeInlayEnumMemberValueHints = true,
+                  enumMemberValues = { enabled = true },
+                  functionLikeReturnTypes = { enabled = true },
+                  parameterNames = { enabled = "literals" },
+                  parameterTypes = { enabled = true },
+                  propertyDeclarationTypes = { enabled = true },
+                  variableTypes = { enabled = false },
                 },
               },
             },
+            keys = {
+              {
+                "gD",
+                function()
+                  local params = vim.lsp.util.make_position_params()
+                  require("util.lsp").execute({
+                    command = "typescript.goToSourceDefinition",
+                    arguments = { params.textDocument.uri, params.position },
+                    open = true,
+                  })
+                end,
+                desc = "Goto Source Definition",
+              },
+              {
+                "gR",
+                function()
+                  require("util.lsp").execute({
+                    command = "typescript.findAllFileReferences",
+                    arguments = { vim.uri_from_bufnr(0) },
+                    open = true,
+                  })
+                end,
+                desc = "File References",
+              },
+              -- stylua: ignore
+              { "<leader>co", require("util.lsp").action["source.organizeImports"], desc = "Organize Imports" },
+              { "<leader>cM", require("util.lsp").action["source.addMissingImports.ts"], desc = "Add missing imports" },
+              { "<leader>cu", require("util.lsp").action["source.removeUnused.ts"], desc = "Remove unused imports" },
+              { "<leader>cD", require("util.lsp").action["source.fixAll.ts"], desc = "Fix all diagnostics" },
+              {
+                "<leader>cV",
+                function()
+                  require("util.lsp").execute({ command = "typescript.selectTypeScriptVersion" })
+                end,
+                desc = "Select TS workspace version",
+              },
+              { "<C-k>", "<cmd>TwoslashQueriesInspect<CR>", desc = "Twoslash Inspect" },
+            },
           },
-          volar = {},
         },
         -- you can do any additional lsp server setup here
         -- return true if you don't want this server to be setup with lspconfig
@@ -1356,6 +1427,24 @@ return {
     "folke/ts-comments.nvim",
     event = "VeryLazy",
     opts = {},
+  },
+
+  -- marilari88/twoslash-queries.nvim (https://github.com/marilari88/twoslash-queries.nvim)
+  {
+    "marilari88/twoslash-queries.nvim",
+    opts = {
+      highlight = "Type",
+      multi_line = true,
+    },
+    config = function(_, opts)
+      local twoslash_queries = require("twoslash-queries")
+      twoslash_queries.setup(opts)
+      -- attach cmp source whenever copilot attaches
+      -- fixes lazy-loading issues with the copilot cmp source
+      require("util.lsp").on_attach(function(client, bufnr)
+        require("twoslash-queries").attach(client, bufnr)
+      end, "vtsls")
+    end,
   },
 
   -- vim-illuminate (https://github.com/RRethy/vim-illuminate)
