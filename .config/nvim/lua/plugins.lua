@@ -317,7 +317,6 @@ return {
                 end
               end,
             },
-            { "progress", color = "MsgArea" },
             { "location", color = "MsgArea" },
           },
           lualine_y = {},
@@ -917,7 +916,7 @@ return {
                 end,
                 desc = "Select TS workspace version",
               },
-              { "<C-k>", "<cmd>TwoslashQueriesInspect<CR>", desc = "Twoslash Inspect" },
+              { "<C-\\>", "<cmd>TwoslashQueriesInspect<CR>", desc = "Twoslash Inspect" },
             },
           },
         },
@@ -1065,7 +1064,6 @@ return {
 
   -- mason.nvim (https://github.com/williamboman/mason.nvim)
   {
-
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = {
@@ -1100,6 +1098,27 @@ return {
           end
         end
       end)
+    end,
+  },
+
+  -- nvim-scrollbar (https://github.com/nvim-scrollbar)
+  {
+    "petertriho/nvim-scrollbar",
+    event = "BufReadPost",
+    config = function()
+      local scrollbar = require("scrollbar")
+      scrollbar.setup({
+        excluded_filetypes = { "neo-tree", "prompt", "TelescopePrompt", "noice", "notify" },
+        handlers = {
+          cursor = false,
+          diagnostic = true,
+          gitsigns = false, -- Requires gitsigns
+          handle = true,
+          search = false, -- Requires hlslens
+        },
+        hide_if_all_visible = false,
+        set_highlights = false,
+      })
     end,
   },
 
