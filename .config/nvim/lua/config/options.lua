@@ -102,8 +102,3 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
   opts.silent = opts.silent ~= false
   return keymap_set(mode, lhs, rhs, opts)
 end
-
--- When using fish, set shell to bash
-if vim.env.SHELL:match("fish$") then
-  vim.opt.shell = "/bin/bash"
-end
