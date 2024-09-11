@@ -294,10 +294,22 @@ return {
                 end
                 return ok and #clients > 0
               end,
-              color = "MsgArea",
+              color = function()
+                if not package.loaded["copilot"] then
+                  return
+                end
+                local colors = {
+                  [""] = "StatusLine",
+                  ["Normal"] = "StatusLine",
+                  ["Warning"] = "StatusLineWarn",
+                  ["InProgress"] = "MsgArea",
+                }
+                local status = require("copilot.api").status.data
+                return colors[status.status] or colors[""]
+              end,
             },
             -- stylua: ignore
-						{ require("lazy.status").updates, cond = require("lazy.status").has_updates, color = "MsgArea" },
+            { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = "MsgArea" },
             {
               "diff",
               color = "MsgArea",
@@ -326,11 +338,9 @@ return {
           lualine_a = {},
           lualine_b = {},
           lualine_c = {
-            { "filename", color = "MsgArea" },
+            { "filename", color = "StatusLine" },
           },
-          lualine_x = {
-            { "location", color = "MsgArea" },
-          },
+          lualine_x = {},
           lualine_y = {},
           lualine_z = {},
         },
@@ -736,7 +746,7 @@ return {
         -- Be aware that you also will need to properly configure your LSP server to
         -- provide the inlay hints.
         inlay_hints = {
-          enabled = true,
+          enabled = false,
           exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
         },
         -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
