@@ -2,8 +2,8 @@
 
 ## Plugins
 
-- https://github.com/folke/neoconf.nvim
 - https://github.com/mfussenegger/nvim-dap
+
 - https://github.com/folke/persistence.nvim (nvim-lastplace captured by persist?)
 - https://github.com/nvimdev/dashboard-nvim
 - https://github.com/folke/todo-comments.nvim
@@ -14,8 +14,8 @@
 
 ## Misc
 
-- trouble in lualine
-- add rust tools back
+- lualine trouble diagnostics
+- rust tools
 - elixir inlay hints
 
 - .files show up in telescope (e.g. `.env`)

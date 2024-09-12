@@ -535,7 +535,53 @@ return {
       adapters = {
         ["neotest-elixir"] = {},
         ["neotest-vitest"] = {
-          vitestCommand = "npx vitest",
+          vitestCommand = function(file)
+            local util = require("neotest-vitest.util")
+
+            local function search_vitest_recursively(path)
+              if path == "/" then
+                return nil
+              end
+
+              local rootPath = util.find_node_modules_ancestor(path)
+              local vitestBinary = util.path.join(rootPath, "node_modules", ".bin", "vitest")
+              if util.path.exists(vitestBinary) then
+                return vitestBinary
+              end
+
+              return search_vitest_recursively(util.path.dirname(path))
+            end
+
+            return search_vitest_recursively(util.path.dirname(file))
+          end,
+          vitestConfigFile = function(file)
+            local util = require("neotest-vitest.util")
+            local filenamePattern = "{vite,vitest}.config.{js,ts}"
+            local rootPath = util.root_pattern(filenamePattern)(file)
+              or util.root_pattern("test/" .. filenamePattern)(file)
+
+            if not rootPath then
+              return nil
+            end
+
+            -- Ordered by config precedence (https://vitest.dev/config/#configuration)
+            local possibleVitestConfigNames = {
+              "vitest.config.ts",
+              "vitest.config.js",
+              "vite.config.ts",
+              "vite.config.js",
+            }
+
+            -- stylua: ignore
+            for _, configName in ipairs(possibleVitestConfigNames) do
+              local configPath = util.path.join(rootPath, configName)
+              if util.path.exists(configPath) then return configPath end
+              configPath = util.path.join(rootPath, "test", configName)
+              if util.path.exists(configPath) then return configPath end
+            end
+
+            return nil
+          end,
         },
       },
       output = { open_on_run = true },
