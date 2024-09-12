@@ -129,6 +129,14 @@ return {
       { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
     },
     opts = function()
+      local pos = {
+        filesystem = "left",
+        buffers = "top",
+        git_status = "right",
+        document_symbols = "bottom",
+        diagnostics = "bottom",
+      }
+
       local opts = {
         animate = { enabled = false },
         bottom = {
@@ -146,10 +154,7 @@ return {
             filter = function(buf)
               return not vim.b[buf].lazyterm_cmd
             end,
-            wo = {
-              -- TODO: Figure out why `close` drops highlight when re-opening
-              winhighlight = "Normal:Normal,NormalNC:Normal",
-            },
+            wo = { winhighlight = "Normal:Normal,NormalNC:Normal" },
           },
           "Trouble",
           { ft = "qf", title = "QuickFix" },
@@ -162,12 +167,11 @@ return {
             end,
           },
           -- { title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
-          -- { title = "Neotest Output", ft = "neotest-output-panel", size = { height = 15 } },
+          { title = "Neotest Output", ft = "neotest-output-panel", size = { height = 15 } },
         },
-        left = {
-          -- { title = "Neotest Summary", ft = "neotest-summary" },
-        },
+        left = {},
         right = {
+          { title = "Neotest Summary", ft = "neotest-summary", size = { width = 0.25 } },
           -- { title = "Grug Far", ft = "grug-far", size = { width = 0.4 } },
         },
         keys = {
@@ -195,13 +199,6 @@ return {
       }
 
       if require("util.init").has("neo-tree.nvim") then
-        local pos = {
-          filesystem = "left",
-          buffers = "top",
-          git_status = "right",
-          document_symbols = "bottom",
-          diagnostics = "bottom",
-        }
         local sources = require("util.init").opts("neo-tree.nvim").sources or {}
         for i, v in ipairs(sources) do
           table.insert(opts.left, i, {
@@ -510,6 +507,126 @@ return {
 			{ "<leader>bD", "<cmd>%bd<cr>", desc = "Delete All Buffers" },
 			{ "<leader>bc", "<cmd>%bd|edit#|bd#<cr>", desc = "Delete All Buffers (except current)" },
 		},
+  },
+
+  -- neotest (https://github.com/nvim-neotest/neotest)
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      -- adapters
+      "jfpedroza/neotest-elixir",
+      "marilari88/neotest-vitest",
+    },
+    -- stylua: ignore
+    keys = {
+      {"<leader>t", "", desc = "+test"},
+      { "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
+      { "<leader>tT", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files" },
+      { "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
+      { "<leader>tl", function() require("neotest").run.run_last() end, desc = "Run Last" },
+      { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
+      { "<leader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
+      { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
+      { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
+      { "<leader>tw", function() require("neotest").watch.toggle(vim.fn.expand("%")) end, desc = "Toggle Watch" },
+    },
+    opts = {
+      adapters = {
+        ["neotest-elixir"] = {},
+        ["neotest-vitest"] = {
+          vitestCommand = "npx vitest",
+        },
+      },
+      output = { open_on_run = true },
+      quickfix = {
+        open = function()
+          if require("util.init").has("trouble.nvim") then
+            require("trouble").open({ mode = "quickfix", focus = false })
+          else
+            vim.cmd("copen")
+          end
+        end,
+      },
+      status = {
+        signs = false,
+        virtual_text = true,
+      },
+    },
+    config = function(_, opts)
+      local neotest_ns = vim.api.nvim_create_namespace("neotest")
+      vim.diagnostic.config({
+        virtual_text = {
+          format = function(diagnostic)
+            -- Replace newline and tab characters with space for more compact diagnostics
+            local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+            return message
+          end,
+        },
+      }, neotest_ns)
+
+      if require("util.init").has("trouble.nvim") then
+        opts.consumers = opts.consumers or {}
+        -- Refresh and auto close trouble after running tests
+        ---@type neotest.Consumer
+        opts.consumers.trouble = function(client)
+          client.listeners.results = function(adapter_id, results, partial)
+            if partial then
+              return
+            end
+            local tree = assert(client:get_position(nil, { adapter = adapter_id }))
+
+            local failed = 0
+            for pos_id, result in pairs(results) do
+              if result.status == "failed" and tree:get_key(pos_id) then
+                failed = failed + 1
+              end
+            end
+            vim.schedule(function()
+              local trouble = require("trouble")
+              if trouble.is_open() then
+                trouble.refresh()
+                if failed == 0 then
+                  trouble.close()
+                end
+              end
+            end)
+            return {}
+          end
+        end
+      end
+
+      if opts.adapters then
+        local adapters = {}
+        for name, config in pairs(opts.adapters or {}) do
+          if type(name) == "number" then
+            if type(config) == "string" then
+              config = require(config)
+            end
+            adapters[#adapters + 1] = config
+          elseif config ~= false then
+            local adapter = require(name)
+            if type(config) == "table" and not vim.tbl_isempty(config) then
+              local meta = getmetatable(adapter)
+              if adapter.setup then
+                adapter.setup(config)
+              elseif adapter.adapter then
+                adapter.adapter(config)
+                adapter = adapter.adapter
+              elseif meta and meta.__call then
+                adapter(config)
+              else
+                error("Adapter " .. name .. " does not support setup")
+              end
+            end
+            adapters[#adapters + 1] = adapter
+          end
+        end
+        opts.adapters = adapters
+      end
+
+      require("neotest").setup(opts)
+    end,
   },
 
   -- neo-tree.nvim (https://github.com/nvim-neo-tree/neo-tree.nvim)
@@ -903,6 +1020,30 @@ return {
             settings = {},
           },
           elixirls = {
+            keys = {
+              {
+                "<leader>cp",
+                function()
+                  local params = vim.lsp.util.make_position_params()
+                  require("util.lsp").execute({
+                    command = "manipulatePipes:serverid",
+                    arguments = { "toPipe", params.textDocument.uri, params.position.line, params.position.character },
+                  })
+                end,
+                desc = "To Pipe",
+              },
+              {
+                "<leader>cP",
+                function()
+                  local params = vim.lsp.util.make_position_params()
+                  require("util.lsp").execute({
+                    command = "manipulatePipes:serverid",
+                    arguments = { "fromPipe", params.textDocument.uri, params.position.line, params.position.character },
+                  })
+                end,
+                desc = "From Pipe",
+              },
+            },
             settings = {
               elixirLS = {
                 fetchDeps = false,

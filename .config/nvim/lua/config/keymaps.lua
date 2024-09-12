@@ -173,12 +173,8 @@ map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- floating terminal
 local lazyterm = function()
-  require("util.terminal")(nil, { cwd = require("util.root")() })
-end
-map("n", "<leader>ft", lazyterm, { desc = "Terminal" })
-map("n", "<leader>fT", function()
   require("util.terminal")()
-end, { desc = "Terminal (cwd)" })
+end
 map("n", "<c-/>", lazyterm, { desc = "Terminal" })
 map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
 
