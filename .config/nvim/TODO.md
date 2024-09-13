@@ -2,6 +2,7 @@
 
 ## Plugins
 
+- https://github.com/rcarriga/nvim-notify
 - https://github.com/mfussenegger/nvim-dap
 
 - https://github.com/folke/persistence.nvim (nvim-lastplace captured by persist?)
