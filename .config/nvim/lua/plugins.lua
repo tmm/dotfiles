@@ -3,6 +3,13 @@ local icons = require("config.icons")
 local have_make = vim.fn.executable("make") == 1
 local have_cmake = vim.fn.executable("cmake") == 1
 
+local worktrees = {
+  {
+    gitdir = vim.env.HOME .. "/.files",
+    toplevel = vim.env.HOME,
+  },
+}
+
 return {
   {
     dir = "~/Developer/rsms",
@@ -289,12 +296,7 @@ return {
         delete = { text = "" },
         topdelete = { text = "" },
       },
-      worktrees = {
-        {
-          gitdir = vim.env.HOME .. "/.files",
-          toplevel = vim.env.HOME,
-        },
-      },
+      worktrees = worktrees,
     },
   },
 
@@ -363,6 +365,7 @@ return {
           always_divide_middle = true,
           component_separators = "",
           disabled_filetypes = {
+            "gitsigns-blame",
             "neo-tree",
             "neotest-output-panel",
             "neotest-summary",
@@ -396,6 +399,11 @@ return {
             },
           },
           lualine_x = {
+            {
+              require("noice").api.status.search.get,
+              cond = require("noice").api.status.search.has,
+              color = "MsgArea",
+            },
             {
               function()
                 local icon = icons.kinds.Copilot
@@ -1403,7 +1411,7 @@ return {
         WARN = icons.diagnostics.Warn,
       },
       stages = "static",
-      timeout = 3000,
+      timeout = 5000,
       max_height = function()
         return math.floor(vim.o.lines * 0.75)
       end,
@@ -1611,7 +1619,6 @@ return {
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
       -- { "<leader>fR", LazyVim.pick("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
       -- git
-			{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Branches" },
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Commits" },
       { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "Status" },
       -- search
@@ -1710,6 +1717,7 @@ return {
             require("edgy").goto_main()
             return 0
           end,
+          git_worktrees = worktrees,
           mappings = {
             i = {
               ["<c-t>"] = open_with_trouble,
@@ -1756,7 +1764,6 @@ return {
         },
         pickers = {
           find_files = {
-            disable_devicons = true,
             find_command = find_command,
             hidden = true,
           },

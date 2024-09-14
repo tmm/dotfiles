@@ -18,11 +18,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  checker = { enabled = true },
+  install = { colorscheme = { "rsms" } },
   spec = {
     { import = "plugins" },
   },
-  install = { colorscheme = { "rsms" } },
-  checker = { enabled = true },
 })
 
 -- delay notifications till vim.notify was replaced or after 500ms
