@@ -53,6 +53,8 @@ return {
     Variable = "󰀫 ",
   },
   misc = {
-    dots = "󰇘",
+    Bug = "",
+    Dots = "󰇘",
+    Trace = "",
   },
 }

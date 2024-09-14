@@ -25,6 +25,9 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
+-- delay notifications till vim.notify was replaced or after 500ms
+require("util.init").lazy_notify()
+
 local group = vim.api.nvim_create_augroup("TmmVim", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = group,

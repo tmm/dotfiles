@@ -1381,6 +1381,49 @@ return {
     end,
   },
 
+  -- nvim-notify (https://github.com/rcarriga/nvim-notify)
+  {
+    "rcarriga/nvim-notify",
+    keys = {
+      {
+        "<leader>un",
+        function()
+          require("notify").dismiss({ silent = true, pending = true })
+        end,
+        desc = "Dismiss All Notifications",
+      },
+      { "<leader>snn", "<cmd>Telescope notify<cr>", desc = "Notifications" },
+    },
+    opts = {
+      icons = {
+        DEBUG = icons.misc.Bug,
+        ERROR = icons.diagnostics.Error,
+        INFO = icons.diagnostics.Info,
+        TRACE = icons.misc.Trace,
+        WARN = icons.diagnostics.Warn,
+      },
+      stages = "static",
+      timeout = 3000,
+      max_height = function()
+        return math.floor(vim.o.lines * 0.75)
+      end,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.75)
+      end,
+      on_open = function(win)
+        vim.api.nvim_win_set_config(win, { zindex = 100 })
+      end,
+    },
+    init = function()
+      -- when noice is not enabled, install notify on VeryLazy
+      if not require("util.init").has("noice.nvim") then
+        require("util.init").on_very_lazy(function()
+          vim.notify = require("notify")
+        end)
+      end
+    end,
+  },
+
   -- mason.nvim (https://github.com/williamboman/mason.nvim)
   {
     "williamboman/mason.nvim",
