@@ -1,14 +1,8 @@
-local icons = require("config.icons")
+local core = require("config")
+local icons = core.icons
 
 local have_make = vim.fn.executable("make") == 1
 local have_cmake = vim.fn.executable("cmake") == 1
-
-local worktrees = {
-  {
-    gitdir = vim.env.HOME .. "/.files",
-    toplevel = vim.env.HOME,
-  },
-}
 
 return {
   {
@@ -136,14 +130,6 @@ return {
       { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
     },
     opts = function()
-      local pos = {
-        filesystem = "left",
-        buffers = "top",
-        git_status = "right",
-        document_symbols = "bottom",
-        diagnostics = "bottom",
-      }
-
       local opts = {
         animate = { enabled = false },
         bottom = {
@@ -207,6 +193,13 @@ return {
 
       if require("util.init").has("neo-tree.nvim") then
         local sources = require("util.init").opts("neo-tree.nvim").sources or {}
+        local pos = {
+          filesystem = "left",
+          buffers = "top",
+          git_status = "right",
+          document_symbols = "bottom",
+          diagnostics = "bottom",
+        }
         for i, v in ipairs(sources) do
           table.insert(opts.left, i, {
             title = "Neo-Tree " .. v:gsub("_", " "):gsub("^%l", string.upper),
@@ -296,7 +289,7 @@ return {
         delete = { text = "" },
         topdelete = { text = "" },
       },
-      worktrees = worktrees,
+      worktrees = core.worktrees,
     },
   },
 
@@ -385,7 +378,28 @@ return {
               cond = conditions.buffer_not_empty,
               symbols = { modified = "", readonly = "", unnamed = "" },
             },
-            { "branch", color = "MsgArea", icon = "" },
+            { "branch", color = "MsgArea", icon = icons.git.Branch },
+            {
+              "diff",
+              color = "MsgArea",
+              symbols = {
+                added = icons.git.Added,
+                modified = icons.git.Modified,
+                removed = icons.git.Removed,
+              },
+              source = function()
+                local gitsigns = vim.b.gitsigns_status_dict
+                if gitsigns then
+                  return {
+                    added = gitsigns.added,
+                    modified = gitsigns.changed,
+                    removed = gitsigns.removed,
+                  }
+                end
+              end,
+            },
+          },
+          lualine_x = {
             {
               "diagnostics",
               color = "MsgArea",
@@ -397,8 +411,6 @@ return {
                 warn = icons.diagnostics.Warn,
               },
             },
-          },
-          lualine_x = {
             {
               require("noice").api.status.search.get,
               cond = require("noice").api.status.search.has,
@@ -436,25 +448,6 @@ return {
             },
             -- stylua: ignore
             { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = "MsgArea" },
-            {
-              "diff",
-              color = "MsgArea",
-              symbols = {
-                added = icons.git.Added,
-                modified = icons.git.Modified,
-                removed = icons.git.Removed,
-              },
-              source = function()
-                local gitsigns = vim.b.gitsigns_status_dict
-                if gitsigns then
-                  return {
-                    added = gitsigns.added,
-                    modified = gitsigns.changed,
-                    removed = gitsigns.removed,
-                  }
-                end
-              end,
-            },
             { "location", color = "MsgArea" },
           },
           lualine_y = {},
@@ -473,6 +466,70 @@ return {
         tabline = {},
       })
     end,
+  },
+
+  -- mason.nvim (https://github.com/williamboman/mason.nvim)
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = {
+      { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
+    },
+    build = ":MasonUpdate",
+    opts_extend = { "ensure_installed" },
+    opts = {
+      ensure_installed = {
+        "js-debug-adapter",
+        "stylua",
+        "shfmt",
+      },
+    },
+    config = function(_, opts)
+      require("mason").setup(opts)
+      local mr = require("mason-registry")
+      mr:on("package:install:success", function()
+        vim.defer_fn(function()
+          -- trigger FileType event to possibly load this newly installed LSP server
+          require("lazy.core.handler.event").trigger({
+            event = "FileType",
+            buf = vim.api.nvim_get_current_buf(),
+          })
+        end, 100)
+      end)
+
+      mr.refresh(function()
+        for _, tool in ipairs(opts.ensure_installed) do
+          local p = mr.get_package(tool)
+          if not p:is_installed() then
+            p:install()
+          end
+        end
+      end)
+    end,
+  },
+
+  -- mason-nvim-dap.nvim (https://github.com/jay-babu/mason-nvim-dap.nvim)
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    dependencies = "mason.nvim",
+    cmd = { "DapInstall", "DapUninstall" },
+    opts = {
+      -- Makes a best effort to setup the various debuggers with
+      -- reasonable debug configurations
+      automatic_installation = true,
+
+      -- You can provide additional configuration to the handlers,
+      -- see mason-nvim-dap README for more information
+      handlers = {},
+
+      -- You'll need to check that you have the required things installed
+      -- online, please don't ask me how to install them :)
+      ensure_installed = {
+        -- Update this to ensure that you have the debuggers for the langs you want
+      },
+    },
+    -- mason-nvim-dap is loaded when nvim-dap loads
+    config = function() end,
   },
 
   -- mini.nvim (https://github.com/echasnovski/mini.nvim)
@@ -530,6 +587,7 @@ return {
     keys = {
       {"<leader>t", "", desc = "+test"},
       { "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
+      { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
       { "<leader>tT", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files" },
       { "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
       { "<leader>tl", function() require("neotest").run.run_last() end, desc = "Run Last" },
@@ -621,8 +679,6 @@ return {
 
       if require("util.init").has("trouble.nvim") then
         opts.consumers = opts.consumers or {}
-        -- Refresh and auto close trouble after running tests
-        ---@type neotest.Consumer
         opts.consumers.trouble = function(client)
           client.listeners.results = function(adapter_id, results, partial)
             if partial then
@@ -993,6 +1049,167 @@ return {
     end,
   },
 
+  -- nvim-dap (https://github.com/mfussenegger/nvim-dap)
+  {
+    "mfussenegger/nvim-dap",
+    event = "VeryLazy",
+    dependencies = {
+      -- https://github.com/rcarriga/nvim-dap-ui
+      "rcarriga/nvim-dap-ui",
+      -- https://github.com/theHamsta/nvim-dap-virtual-text
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        opts = {},
+      },
+    },
+    -- stylua: ignore
+    keys = {
+      { "<leader>d", "", desc = "+debug", mode = {"n", "v"} },
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
+      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+      { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+      { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+      { "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
+      { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+      { "<leader>dj", function() require("dap").down() end, desc = "Down" },
+      { "<leader>dk", function() require("dap").up() end, desc = "Up" },
+      { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
+      { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
+      { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
+      { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
+      { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+      { "<leader>ds", function() require("dap").session() end, desc = "Session" },
+      { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+      { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+      {
+        "<leader>da",
+        function()
+          ---@param config {args?:string[]|fun():string[]?}
+          local function get_args(config)
+            local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
+            config = vim.deepcopy(config)
+            ---@cast args string[]
+            config.args = function()
+              local new_args = vim.fn.input("Run with args: ", table.concat(args, " ")) --[[@as string]]
+              return vim.split(vim.fn.expand(new_args) --[[@as string]], " ")
+            end
+            return config
+          end
+          require("dap").continue({ before = get_args })
+        end,
+        desc = "Run with Args",
+      },
+    },
+    opts = function()
+      local dap = require("dap")
+      require("dap").adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "node",
+          -- 💀 Make sure to update this path to point to your installation
+          args = {
+            require("util.init").get_pkg_path("js-debug-adapter", "/js-debug/src/dapDebugServer.js"),
+            "${port}",
+          },
+        },
+      }
+      dap.adapters["node"] = function(cb, config)
+        if config.type == "node" then
+          config.type = "pwa-node"
+        end
+        local nativeAdapter = dap.adapters["pwa-node"]
+        if type(nativeAdapter) == "function" then
+          nativeAdapter(cb, config)
+        else
+          cb(nativeAdapter)
+        end
+      end
+
+      local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+
+      local vscode = require("dap.ext.vscode")
+      vscode.type_to_filetypes["node"] = js_filetypes
+      vscode.type_to_filetypes["pwa-node"] = js_filetypes
+
+      for _, language in ipairs(js_filetypes) do
+        if not dap.configurations[language] then
+          dap.configurations[language] = {
+            {
+              type = "pwa-node",
+              request = "launch",
+              name = "Launch file",
+              program = "${file}",
+              cwd = "${workspaceFolder}",
+            },
+            {
+              type = "pwa-node",
+              request = "attach",
+              name = "Attach",
+              processId = require("dap.utils").pick_process,
+              cwd = "${workspaceFolder}",
+            },
+          }
+        end
+      end
+    end,
+    config = function()
+      -- load mason-nvim-dap here, after all adapters have been setup
+      if require("util.init").has("mason-nvim-dap.nvim") then
+        require("mason-nvim-dap").setup(require("util.init").opts("mason-nvim-dap.nvim"))
+      end
+
+      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+
+      for name, sign in pairs(icons.dap) do
+        sign = type(sign) == "table" and sign or { sign }
+        vim.fn.sign_define(
+          "Dap" .. name,
+          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+        )
+      end
+
+      -- setup dap config by VsCode launch.json file
+      local vscode = require("dap.ext.vscode")
+      local json = require("plenary.json")
+      vscode.json_decode = function(str)
+        return vim.json.decode(json.json_strip_comments(str))
+      end
+
+      -- Extends dap.configurations with entries read from .vscode/launch.json
+      if vim.fn.filereadable(".vscode/launch.json") then
+        vscode.load_launchjs()
+      end
+    end,
+  },
+
+  -- nvim-dap-ui (https://github.com/rcarriga/nvim-dap-ui)
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "nvim-neotest/nvim-nio" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
+      { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+    },
+    opts = {},
+    config = function(_, opts)
+      local dap = require("dap")
+      local dapui = require("dapui")
+      dapui.setup(opts)
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open({})
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close({})
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close({})
+      end
+    end,
+  },
+
   -- nvim-lastplace (https://github.com/ethanholz/nvim-lastplace)
   {
     "ethanholz/nvim-lastplace",
@@ -1257,6 +1474,60 @@ return {
           -- end,
           -- Specify * to use this function as a fallback for any server
           -- ["*"] = function(server, opts) end,
+          vtsls = function(_, opts)
+            require("util.lsp").on_attach(function(client, buffer)
+              client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
+                local action, uri, range = unpack(command.arguments)
+
+                local function move(newf)
+                  client.request("workspace/executeCommand", {
+                    command = command.command,
+                    arguments = { action, uri, range, newf },
+                  })
+                end
+
+                local fname = vim.uri_to_fname(uri)
+                client.request("workspace/executeCommand", {
+                  command = "typescript.tsserverRequest",
+                  arguments = {
+                    "getMoveToRefactoringFileSuggestions",
+                    {
+                      file = fname,
+                      startLine = range.start.line + 1,
+                      startOffset = range.start.character + 1,
+                      endLine = range["end"].line + 1,
+                      endOffset = range["end"].character + 1,
+                    },
+                  },
+                }, function(_, result)
+                  ---@type string[]
+                  local files = result.body.files
+                  table.insert(files, 1, "Enter new path...")
+                  vim.ui.select(files, {
+                    prompt = "Select move destination:",
+                    format_item = function(f)
+                      return vim.fn.fnamemodify(f, ":~:.")
+                    end,
+                  }, function(f)
+                    if f and f:find("^Enter new path") then
+                      vim.ui.input({
+                        prompt = "Enter move destination:",
+                        default = vim.fn.fnamemodify(fname, ":h") .. "/",
+                        completion = "file",
+                      }, function(newf)
+                        return newf and move(newf)
+                      end)
+                    elseif f then
+                      move(f)
+                    end
+                  end)
+                end)
+              end
+            end, "vtsls")
+            -- copy typescript settings to javascript
+            opts.settings.javascript =
+              vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
+          end,
         },
       }
       return ret
@@ -1411,7 +1682,7 @@ return {
         WARN = icons.diagnostics.Warn,
       },
       stages = "static",
-      timeout = 5000,
+      timeout = 3000,
       max_height = function()
         return math.floor(vim.o.lines * 0.75)
       end,
@@ -1429,45 +1700,6 @@ return {
           vim.notify = require("notify")
         end)
       end
-    end,
-  },
-
-  -- mason.nvim (https://github.com/williamboman/mason.nvim)
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = {
-      { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
-    },
-    build = ":MasonUpdate",
-    opts_extend = { "ensure_installed" },
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shfmt",
-      },
-    },
-    config = function(_, opts)
-      require("mason").setup(opts)
-      local mr = require("mason-registry")
-      mr:on("package:install:success", function()
-        vim.defer_fn(function()
-          -- trigger FileType event to possibly load this newly installed LSP server
-          require("lazy.core.handler.event").trigger({
-            event = "FileType",
-            buf = vim.api.nvim_get_current_buf(),
-          })
-        end, 100)
-      end)
-
-      mr.refresh(function()
-        for _, tool in ipairs(opts.ensure_installed) do
-          local p = mr.get_package(tool)
-          if not p:is_installed() then
-            p:install()
-          end
-        end
-      end)
     end,
   },
 
@@ -1717,7 +1949,7 @@ return {
             require("edgy").goto_main()
             return 0
           end,
-          git_worktrees = worktrees,
+          git_worktrees = core.worktrees,
           mappings = {
             i = {
               ["<c-t>"] = open_with_trouble,
