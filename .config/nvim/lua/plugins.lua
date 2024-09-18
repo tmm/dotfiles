@@ -793,9 +793,9 @@ return {
           },
         },
         icon = {
-          folder_closed = "▶︎",
-          folder_open = "▼",
-          folder_empty = "▽",
+          folder_closed = icons.tree.Closed,
+          folder_open = icons.tree.Open,
+          folder_empty = icons.tree.Empty,
         },
         modified = {
           symbol = "●",
@@ -1016,8 +1016,8 @@ return {
         },
         main = "util.cmp-extra",
         mapping = cmp.mapping.preset.insert({
-          ["<C-j>"] = cmp.mapping.select_next_item(),
-          ["<C-k>"] = cmp.mapping.select_prev_item(),
+          ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -1137,18 +1137,28 @@ return {
         if not dap.configurations[language] then
           dap.configurations[language] = {
             {
-              type = "pwa-node",
+              name = "Launch file (TypeScript)",
               request = "launch",
-              name = "Launch file",
-              program = "${file}",
+              type = "pwa-node",
+              console = "integratedTerminal",
               cwd = "${workspaceFolder}",
+              program = "${file}",
+              runtimeExecutable = "${workspaceFolder}/node_modules/.bin/tsx",
+              skipFiles = { "<node_internals>/**" },
             },
             {
+              name = "Launch file (JavaScript)",
+              request = "launch",
               type = "pwa-node",
-              request = "attach",
-              name = "Attach",
-              processId = require("dap.utils").pick_process,
               cwd = "${workspaceFolder}",
+              program = "${file}",
+            },
+            {
+              name = "Attach",
+              cwd = "${workspaceFolder}",
+              processId = require("dap.utils").pick_process,
+              request = "attach",
+              type = "pwa-node",
             },
           }
         end
@@ -1193,7 +1203,14 @@ return {
       { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
       { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
     },
-    opts = {},
+    opts = {
+      controls = { enabled = false },
+      icons = {
+        collapsed = icons.tree.Closed,
+        current_frame = icons.tree.Closed,
+        expanded = icons.tree.Open,
+      },
+    },
     config = function(_, opts)
       local dap = require("dap")
       local dapui = require("dapui")
