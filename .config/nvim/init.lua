@@ -19,6 +19,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   checker = { enabled = true },
+  dev = {
+    path = "~/Developer",
+  },
   install = { colorscheme = { "rsms" } },
   spec = {
     { import = "plugins" },

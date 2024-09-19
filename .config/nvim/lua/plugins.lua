@@ -5,16 +5,7 @@ local have_make = vim.fn.executable("make") == 1
 local have_cmake = vim.fn.executable("cmake") == 1
 
 return {
-  {
-    dir = "~/Developer/rsms",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd([[colorscheme rsms]])
-    end,
-  },
-
-  -- conform.nvim
+  -- conform.nvim (https://github.com/stevearc/conform.nvim)
   {
     "stevearc/conform.nvim",
     dependencies = { "mason.nvim" },
@@ -1817,6 +1808,17 @@ return {
         },
       },
     },
+  },
+
+  -- rsms (https://github.com/tmm/rsms)
+  {
+    "tmm/rsms",
+    dev = true,
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme rsms]])
+    end,
   },
 
   -- telescope (https://github.com/nvim-telescope/telescope.nvim)
