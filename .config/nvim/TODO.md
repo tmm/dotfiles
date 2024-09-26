@@ -25,6 +25,7 @@
 - syntax groups flash when loading files
 - icon size changes/missing icons in cmp
 - neotest output does not auto-scroll in edgy
+- add search results to scrollbar
 
 ## Links
 
@@ -32,3 +33,5 @@
 - https://github.com/folke/dot
 - https://gist.github.com/rsms/fb463396c95ad8d9efa338a8050a01dc
 - https://github.com/ssgabrieldev/tools/blob/d27bd8466dcd7852de02a9733cd698f77158bf28/nvim/lua/plugins/dap.lua#L178
+
+https://github.com/LazyVim/LazyVim/releases

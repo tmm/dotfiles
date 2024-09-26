@@ -876,7 +876,7 @@ return {
     opts = {
       cmdline = {
         format = {
-          cmdline = { icon = "❯" },
+          cmdline = { icon = icons.misc.PromptPrefix },
           search_down = { icon = " " },
           search_up = { icon = " " },
         },
@@ -1996,7 +1996,7 @@ return {
           preview = {
             treesitter = true,
           },
-          prompt_prefix = "❯ ",
+          prompt_prefix = icons.misc.PromptPrefix .. " ",
           results_title = false,
           selection_caret = "→ ",
           sorting_strategy = "ascending",
