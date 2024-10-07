@@ -23,6 +23,8 @@ in
     window-padding-y = 0
     window-padding-balance = true
 
+    keybind = global:control+grave_accent=toggle_quick_terminal
+
     background = ${colors.dark.background}
     foreground = ${colors.dark.foreground}
 
