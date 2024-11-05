@@ -17,6 +17,10 @@ vim.g.tmm_statuscolumn = {
   folds_githl = false, -- highlight fold sign with git sign color
 }
 
+-- Set LSP servers to be ignored when used with `util.root.detectors.lsp`
+-- for detecting the LSP root
+vim.g.root_lsp_ignore = { "copilot" }
+
 -- Hide deprecation warnings
 vim.g.deprecation_warnings = false
 
