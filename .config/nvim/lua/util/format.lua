@@ -174,4 +174,20 @@ function M.setup()
   end, { desc = "Show info about the formatters for the current buffer" })
 end
 
+---@param buf? boolean
+function M.snacks_toggle(buf)
+  return require("snacks").toggle({
+    name = "Auto Format (" .. (buf and "Buffer" or "Global") .. ")",
+    get = function()
+      if not buf then
+        return vim.g.autoformat == nil or vim.g.autoformat
+      end
+      return M.enabled()
+    end,
+    set = function(state)
+      M.enable(state, buf)
+    end,
+  })
+end
+
 return M

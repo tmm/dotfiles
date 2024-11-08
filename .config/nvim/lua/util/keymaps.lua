@@ -11,28 +11,34 @@ function M.get()
   if M._keys then
     return M._keys
   end
-    -- stylua: ignore
-    M._keys =  {
-      { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-      { "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition", has = "definition" },
-      { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References", nowait = true },
-      { "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
-      { "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
-      { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-      { "\\", vim.lsp.buf.hover, desc = "Hover" },
-      { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
-      { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
-      { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
-      { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
-      { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
-      { "<leader>cR", require("util.lsp").rename_file, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
-      { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
-      { "<leader>cA", require("util.lsp").action.source, desc = "Source Action", has = "codeAction" },
-      { "]]", function() require("util.lsp").words.jump(vim.v.count1) end, has = "documentHighlight", desc = "Next Reference", cond = function() return require("util.lsp").words.enabled end },
-      { "[[", function() require("util.lsp").words.jump(-vim.v.count1) end, has = "documentHighlight", desc = "Prev Reference", cond = function() return require("util.lsp").words.enabled end },
-      { "<a-n>", function() require("util.lsp").words.jump(vim.v.count1, true) end, has = "documentHighlight", desc = "Next Reference", cond = function() return require("util.lsp").words.enabled end },
-      { "<a-p>", function() require("util.lsp").words.jump(-vim.v.count1, true) end, has = "documentHighlight", desc = "Prev Reference", cond = function() return require("util.lsp").words.enabled end },
-    }
+
+  local Snacks = require("snacks")
+  -- stylua: ignore
+  M._keys =  {
+    { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+    { "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition", has = "definition" },
+    { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References", nowait = true },
+    { "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
+    { "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
+    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+    { "\\", function() return vim.lsp.buf.hover() end, desc = "Hover" },
+    { "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature Help", has = "signatureHelp" },
+    { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+    { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
+    { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+    { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
+    { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+    { "<leader>cA", require("util.lsp").action.source, desc = "Source Action", has = "codeAction" },
+    { "]]", function() Snacks.words.jump(vim.v.count1) end, has = "documentHighlight",
+      desc = "Next Reference", cond = function() return Snacks.words.is_enabled() end },
+    { "[[", function() Snacks.words.jump(-vim.v.count1) end, has = "documentHighlight",
+      desc = "Prev Reference", cond = function() return Snacks.words.is_enabled() end },
+    { "<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, has = "documentHighlight",
+      desc = "Next Reference", cond = function() return Snacks.words.is_enabled() end },
+    { "<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, has = "documentHighlight",
+      desc = "Prev Reference", cond = function() return Snacks.words.is_enabled() end },
+  }
 
   return M._keys
 end

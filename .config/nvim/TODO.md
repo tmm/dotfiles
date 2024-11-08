@@ -18,6 +18,7 @@
 - add lazyvim news https://github.com/LazyVim/LazyVim/blob/3dbace941ee935c89c73fd774267043d12f57fe2/lua/lazyvim/util/news.lua
 - .files show up in telescope (e.g. `.env`)
 - separate repo for dotfiles (remove bare git repo)
+- https://starship.rs
 
 ## Issues
 

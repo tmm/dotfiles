@@ -104,6 +104,7 @@
       fup = "echo $fish_user_paths | tr \" \" \"\n\" | nl";
       ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
       h = "env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files";
+      howto = "gh copilot suggest -t shell";
       ls = "eza";
       reload = "exec $SHELL -l";
       vim = "nvim";

@@ -131,15 +131,6 @@ return {
               return vim.api.nvim_win_get_config(win).relative == ""
             end,
           },
-          {
-            ft = "lazyterm",
-            title = "LazyTerm",
-            size = { height = 0.4 },
-            filter = function(buf)
-              return not vim.b[buf].lazyterm_cmd
-            end,
-            wo = { winhighlight = "Normal:Normal,NormalNC:Normal" },
-          },
           "Trouble",
           { ft = "qf", title = "QuickFix" },
           {
@@ -150,7 +141,6 @@ return {
               return vim.bo[buf].buftype == "help"
             end,
           },
-          -- { title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
           { title = "Neotest Output", ft = "neotest-output-panel", size = { height = 15 } },
         },
         left = {},
@@ -206,6 +196,7 @@ return {
         end
       end
 
+      -- trouble
       for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
         opts[pos] = opts[pos] or {}
         table.insert(opts[pos], {
@@ -219,6 +210,23 @@ return {
           end,
         })
       end
+
+      -- snacks terminal
+      for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
+        opts[pos] = opts[pos] or {}
+        table.insert(opts[pos], {
+          ft = "snacks_terminal",
+          size = { height = 0.4 },
+          title = "%{b:snacks_terminal.id}: %{b:term_title}",
+          filter = function(_buf, win)
+            return vim.w[win].snacks_win
+              and vim.w[win].snacks_win.position == pos
+              and vim.w[win].snacks_win.relative == "editor"
+              and not vim.w[win].trouble_preview
+          end,
+        })
+      end
+
       return opts
     end,
   },
@@ -304,28 +312,33 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     opts = function()
-      require("util.toggle").map("<leader>ug", {
-        name = "Indention Guides",
-        get = function()
-          return require("ibl.config").get_config(0).enabled
-        end,
-        set = function(state)
-          require("ibl").setup_buffer(0, { enabled = state })
-        end,
-      })
+      require("snacks")
+        .toggle({
+          name = "Indention Guides",
+          get = function()
+            return require("ibl.config").get_config(0).enabled
+          end,
+          set = function(state)
+            require("ibl").setup_buffer(0, { enabled = state })
+          end,
+        })
+        :map("<leader>ug")
       return {
         indent = { char = "▏" },
         exclude = {
           filetypes = {
-            "help",
+            "Trouble",
             "alpha",
             "dashboard",
-            "neo-tree",
-            "Trouble",
+            "help",
             "lazy",
             "mason",
+            "neo-tree",
             "notify",
-            "lazyterm",
+            "snacks_notif",
+            "snacks_terminal",
+            "snacks_win",
+            "trouble",
           },
         },
       }
@@ -852,6 +865,28 @@ return {
         width = 30,
       },
     },
+    config = function(_, opts)
+      local function on_move(data)
+        local Snacks = require("snacks")
+        Snacks.rename.on_rename_file(data.source, data.destination)
+      end
+
+      local events = require("neo-tree.events")
+      opts.event_handlers = opts.event_handlers or {}
+      vim.list_extend(opts.event_handlers, {
+        { event = events.FILE_MOVED, handler = on_move },
+        { event = events.FILE_RENAMED, handler = on_move },
+      })
+      require("neo-tree").setup(opts)
+      -- vim.api.nvim_create_autocmd("TermClose", {
+      --   pattern = "*lazygit",
+      --   callback = function()
+      --     if package.loaded["neo-tree.sources.git_status"] then
+      --       require("neo-tree.sources.git_status").refresh()
+      --     end
+      --   end,
+      -- })
+    end,
   },
 
   -- noice.nvim (https://github.com/folke/noice.nvim)
@@ -912,6 +947,15 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      -- HACK: noice shows messages from before it was enabled,
+      -- but this is not ideal when Lazy is installing plugins,
+      -- so clear the messages in this case.
+      if vim.o.filetype == "lazy" then
+        vim.cmd([[messages clear]])
+      end
+      require("noice").setup(opts)
+    end,
   },
 
   -- nvim-cmp (https://github.com/hrsh7th/nvim-cmp)
@@ -1078,11 +1122,12 @@ return {
           ---@param config {args?:string[]|fun():string[]?}
           local function get_args(config)
             local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
+            local args_str = type(args) == "table" and table.concat(args, " ") or args --[[@as string]]
             config = vim.deepcopy(config)
             ---@cast args string[]
             config.args = function()
-              local new_args = vim.fn.input("Run with args: ", table.concat(args, " ")) --[[@as string]]
-              return vim.split(vim.fn.expand(new_args) --[[@as string]], " ")
+              local new_args = vim.fn.expand(vim.fn.input("Run with args: ", args_str)) --[[@as string]]
+              return require("dap.utils").splitstr(new_args)
             end
             return config
           end
@@ -1548,8 +1593,6 @@ return {
       lsp.setup()
       lsp.on_dynamic_capability(require("util.keymaps").on_attach)
 
-      lsp.words.setup(opts.document_highlight)
-
       -- diagnostics signs
       if vim.fn.has("nvim-0.10.0") == 0 then
         if type(opts.diagnostics.signs) ~= "boolean" then
@@ -1663,49 +1706,6 @@ return {
     end,
   },
 
-  -- nvim-notify (https://github.com/rcarriga/nvim-notify)
-  {
-    "rcarriga/nvim-notify",
-    keys = {
-      {
-        "<leader>un",
-        function()
-          require("notify").dismiss({ silent = true, pending = true })
-        end,
-        desc = "Dismiss All Notifications",
-      },
-      { "<leader>snn", "<cmd>Telescope notify<cr>", desc = "Notifications" },
-    },
-    opts = {
-      icons = {
-        DEBUG = icons.misc.Bug,
-        ERROR = icons.diagnostics.Error,
-        INFO = icons.diagnostics.Info,
-        TRACE = icons.misc.Trace,
-        WARN = icons.diagnostics.Warn,
-      },
-      stages = "static",
-      timeout = 3000,
-      max_height = function()
-        return math.floor(vim.o.lines * 0.75)
-      end,
-      max_width = function()
-        return math.floor(vim.o.columns * 0.75)
-      end,
-      on_open = function(win)
-        vim.api.nvim_win_set_config(win, { zindex = 100 })
-      end,
-    },
-    init = function()
-      -- when noice is not enabled, install notify on VeryLazy
-      if not require("util.init").has("noice.nvim") then
-        require("util.init").on_very_lazy(function()
-          vim.notify = require("notify")
-        end)
-      end
-    end,
-  },
-
   -- nvim-scrollbar (https://github.com/nvim-scrollbar)
   {
     "petertriho/nvim-scrollbar",
@@ -1805,6 +1805,29 @@ return {
     },
   },
 
+  -- nvim-treesitter-context (https://github.com/nvim-treesitter/nvim-treesitter-context)
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "VeryLazy",
+    opts = function()
+      local tsc = require("treesitter-context")
+      require("snacks")
+        .toggle({
+          name = "Treesitter Context",
+          get = tsc.enabled,
+          set = function(state)
+            if state then
+              tsc.enable()
+            else
+              tsc.disable()
+            end
+          end,
+        })
+        :map("<leader>ut")
+      return { mode = "cursor", max_lines = 3 }
+    end,
+  },
+
   -- rsms (https://github.com/tmm/rsms)
   {
     "tmm/rsms",
@@ -1814,6 +1837,59 @@ return {
     config = function()
       vim.cmd([[colorscheme rsms]])
     end,
+  },
+
+  -- snacks.nvim (https://github.com/folke/snacks.nvim)
+  {
+    "folke/snacks.nvim",
+    lazy = false,
+    priority = 1001,
+    opts = function()
+      -- Terminal Mappings
+      local function term_nav(dir)
+        ---@param self snacks.terminal
+        return function(self)
+          return self:is_floating() and "<c-" .. dir .. ">"
+            or vim.schedule(function()
+              vim.cmd.wincmd(dir)
+            end)
+        end
+      end
+
+      ---@type snacks.Config
+      return {
+        toggle = { map = require("util.init").safe_keymap_set },
+        notifier = {
+          enabled = not require("util.init").has("noice.nvim"),
+          icons = {
+            error = icons.diagnostics.Error,
+            warn = icons.diagnostics.Warn,
+            info = icons.diagnostics.Info,
+            debug = icons.misc.Bug,
+            trace = " ",
+          },
+        },
+        terminal = {
+          win = {
+            keys = {
+              nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
+              nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
+              nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
+              nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
+            },
+          },
+        },
+      }
+    end,
+    keys = {
+      {
+        "<leader>un",
+        function()
+          require("snacks").notifier.hide()
+        end,
+        desc = "Dismiss All Notifications",
+      },
+    },
   },
 
   -- telescope (https://github.com/nvim-telescope/telescope.nvim)

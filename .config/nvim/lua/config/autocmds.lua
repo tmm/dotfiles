@@ -74,7 +74,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "PlenaryTestPopup",
     "checkhealth",
     "dbout",
-    "gitsigns.blame",
+    "gitsigns-blame",
     "grug-far",
     "help",
     "lspinfo",
@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "neotest-summary",
     "notify",
     "qf",
-    "spectre_panel",
+    "snacks_win",
     "startuptime",
     "tsplayground",
   },
@@ -139,31 +139,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end
     local file = vim.uv.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
-})
-
-vim.filetype.add({
-  pattern = {
-    [".*"] = {
-      function(path, buf)
-        return vim.bo[buf]
-            and vim.bo[buf].filetype ~= "bigfile"
-            and path
-            and vim.fn.getfsize(path) > vim.g.bigfile_size
-            and "bigfile"
-          or nil
-      end,
-    },
-  },
-})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = augroup("bigfile"),
-  pattern = "bigfile",
-  callback = function(ev)
-    vim.schedule(function()
-      vim.bo[ev.buf].syntax = vim.filetype.match({ buf = ev.buf }) or ""
-    end)
   end,
 })
 

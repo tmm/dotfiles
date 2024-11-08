@@ -12,7 +12,10 @@
   outputs = inputs: {
     darwinConfigurations.tmm = inputs.darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      pkgs = import inputs.nixpkgs { system = "aarch64-darwin"; };
+      pkgs = import inputs.nixpkgs {
+        system = "aarch64-darwin";
+        config.allowUnfree = true;
+      };
       modules = [
         ./modules/darwin.nix
         inputs.home-manager.darwinModules.home-manager

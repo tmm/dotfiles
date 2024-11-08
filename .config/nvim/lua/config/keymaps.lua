@@ -1,6 +1,5 @@
 local map = vim.keymap.set
-
-local ui = require("util.ui")
+local Snacks = require("snacks")
 
 -- Better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
@@ -55,7 +54,9 @@ map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "<leader>bd", ui.bufremove, { desc = "Delete Buffer" })
+map("n", "<leader>bd", function()
+  Snacks.bufdelete()
+end, { desc = "Delete Buffer" })
 map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
 -- Clear search with <esc>
@@ -131,38 +132,30 @@ map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- toggle options
-local toggle = require("util.toggle")
-toggle.map("<leader>uf", toggle.format())
-toggle.map("<leader>uF", toggle.format(true))
-toggle.map("<leader>us", toggle("spell", { name = "Spelling" }))
-toggle.map("<leader>uw", toggle("wrap", { name = "Wrap" }))
-toggle.map("<leader>uL", toggle("relativenumber", { name = "Relative Number" }))
-toggle.map("<leader>ud", toggle.diagnostics)
-toggle.map("<leader>ul", toggle.number)
-toggle.map("<leader>uc", toggle("conceallevel", { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } }))
-toggle.map("<leader>uT", toggle.treesitter)
-toggle.map("<leader>ub", toggle("background", { values = { "light", "dark" }, name = "Background" }))
+local format = require("util.format")
+format.snacks_toggle():map("<leader>uf")
+format.snacks_toggle(true):map("<leader>uF")
+Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+Snacks.toggle.diagnostics():map("<leader>ud")
+Snacks.toggle.line_number():map("<leader>ul")
+Snacks.toggle
+  .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+  :map("<leader>uc")
+Snacks.toggle.treesitter():map("<leader>uT")
+Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
 if vim.lsp.inlay_hint then
-  toggle.map("<leader>uh", toggle.inlay_hints)
+  Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
--- lazygit
--- map("n", "<leader>gg", function() LazyVim.lazygit( { cwd = LazyVim.root.git() }) end, { desc = "Lazygit (Root Dir)" })
--- map("n", "<leader>gG", function() LazyVim.lazygit() end, { desc = "Lazygit (cwd)" })
--- map("n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" })
--- map("n", "<leader>gB", LazyVim.lazygit.browse, { desc = "Git Browse" })
---
--- map("n", "<leader>gf", function()
---   local git_path = vim.api.nvim_buf_get_name(0)
---   LazyVim.lazygit({args = { "-f", vim.trim(git_path) }})
--- end, { desc = "Lazygit Current File History" })
---
--- map("n", "<leader>gl", function()
---   LazyVim.lazygit({ args = { "log" }, cwd = LazyVim.root.git() })
--- end, { desc = "Lazygit Log" })
--- map("n", "<leader>gL", function()
---   LazyVim.lazygit({ args = { "log" } })
--- end, { desc = "Lazygit Log (cwd)" })
+-- TODO: lazygit
+map("n", "<leader>gb", function()
+  Snacks.git.blame_line()
+end, { desc = "Git Blame Line" })
+map("n", "<leader>gB", function()
+  Snacks.gitbrowse()
+end, { desc = "Git Browse" })
 
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
@@ -172,18 +165,21 @@ map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- floating terminal
-local lazyterm = function()
-  require("util.terminal")()
-end
-map("n", "<c-/>", lazyterm, { desc = "Terminal" })
-map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+local root = require("util.root")
+map("n", "<leader>fT", function()
+  Snacks.terminal()
+end, { desc = "Terminal (cwd)" })
+map("n", "<leader>ft", function()
+  Snacks.terminal(nil, { cwd = root() })
+end, { desc = "Terminal (Root Dir)" })
+map("n", "<c-/>", function()
+  Snacks.terminal(nil, { cwd = root() })
+end, { desc = "Terminal (Root Dir)" })
+map("n", "<c-_>", function()
+  Snacks.terminal(nil, { cwd = root() })
+end, { desc = "which_key_ignore" })
 
 -- Terminal Mappings
-map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to Left Window" })
-map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to Lower Window" })
-map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
-map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 
@@ -192,7 +188,7 @@ map("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-toggle.map("<leader>wm", toggle.maximize)
+require("util.ui").maximize():map("<leader>wm")
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
