@@ -86,12 +86,10 @@
     shellAbbrs = {
       a = "ambr";
       b = "bun";
-      d = "devenv";
-      e = "edgedb";
+      d = "delta";
       df = "h git";
       g = "git";
       hm = "home-manager";
-      home = "cd ~";
       i = "iex";
       lsd = "eza -d .*";
       m = "mix";

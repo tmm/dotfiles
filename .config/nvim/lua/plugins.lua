@@ -1831,6 +1831,15 @@ return {
         multiwindow = true,
       }
     end,
+    keys = {
+      {
+        "[c",
+        function()
+          require("treesitter-context").go_to_context(vim.v.count1)
+        end,
+        desc = "Jump to context",
+      },
+    },
   },
 
   -- rsms (https://github.com/tmm/rsms)

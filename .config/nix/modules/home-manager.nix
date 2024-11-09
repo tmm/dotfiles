@@ -6,7 +6,7 @@
     bat
     btop
     cachix
-    diff-so-fancy
+    delta
     direnv
     dockutil
     elixir

@@ -45,15 +45,28 @@
       core = {
         editor = "nvim";
         excludesfile = "~/.config/git/ignore_global";
-        pager = "diff-so-fancy | less --tabs=4 -RFX";
+        pager = "delta";
       };
       credential.helper = "osxkeychain";
+      delta = {
+        # TODO: nvim support
+        # hyperlinks = true;
+        navigate = true;
+        line-numbers = true;
+        side-by-side = true;
+      };
       github.user = "tmm";
       gpg = {
         format = "ssh";
         ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
       init.defaultBranch = "main";
+      interactive = {
+        diffFilter = "delta --color-only";
+      };
+      merge = {
+        conflictstyle = "zdiff3";
+      };
       pull.rebase = false;
       push = {
         autoSetupRemote = true;
