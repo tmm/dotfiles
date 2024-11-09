@@ -570,12 +570,6 @@ return {
         },
       })
     end,
-    -- stylua: ignore
-		keys = {
-      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
-			{ "<leader>bD", "<cmd>%bd<cr>", desc = "Delete All Buffers" },
-			{ "<leader>bc", "<cmd>%bd|edit#|bd#<cr>", desc = "Delete All Buffers (except current)" },
-		},
   },
 
   -- neotest (https://github.com/nvim-neotest/neotest)
@@ -892,7 +886,6 @@ return {
   -- noice.nvim (https://github.com/folke/noice.nvim)
   {
     "folke/noice.nvim",
-    commit = "5a78b42bec5e775f2db03bf93f6d1e0f3636306c",
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
@@ -904,7 +897,6 @@ return {
       { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
       { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
       { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
-      { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
       { "<leader>snt", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
       { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll Forward", mode = {"i", "n", "s"} },
       { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll Backward", mode = {"i", "n", "s"}},
@@ -1878,7 +1870,6 @@ return {
           which_key = true,
         },
         notifier = {
-          enabled = not require("util.init").has("noice.nvim"),
           icons = {
             error = icons.diagnostics.Error,
             warn = icons.diagnostics.Warn,
