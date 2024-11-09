@@ -166,12 +166,6 @@ map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- floating terminal
 local root = require("util.root")
-map("n", "<leader>fT", function()
-  Snacks.terminal()
-end, { desc = "Terminal (cwd)" })
-map("n", "<leader>ft", function()
-  Snacks.terminal(nil, { cwd = root() })
-end, { desc = "Terminal (Root Dir)" })
 map("n", "<c-/>", function()
   Snacks.terminal(nil, { cwd = root() })
 end, { desc = "Terminal (Root Dir)" })

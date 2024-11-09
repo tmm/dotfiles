@@ -1,5 +1,12 @@
 # TODO
 
+## Issues
+
+- snacks notifications not working (noice issue?)
+- syntax groups flash when loading files
+- neotest output does not auto-scroll in edgy
+- add search results to scrollbar
+
 ## Plugins
 
 - https://github.com/MagicDuck/grug-far.nvim
@@ -11,22 +18,12 @@
 
 ## Misc (unordered)
 
-- dap edgy https://github.com/folke/edgy.nvim
 - dap firefox https://github.com/firefox-devtools/vscode-firefox-debug
 - add recording macro to statusline
 - lualine branch supports git worktree
-- add lazyvim news https://github.com/LazyVim/LazyVim/blob/3dbace941ee935c89c73fd774267043d12f57fe2/lua/lazyvim/util/news.lua
+- add lazyvim news https://www.lazyvim.org/news
 - .files show up in telescope (e.g. `.env`)
 - separate repo for dotfiles (remove bare git repo)
-- https://starship.rs
-
-## Issues
-
-- edgy terminal background color after refocusing
-- syntax groups flash when loading files
-- icon size changes/missing icons in cmp
-- neotest output does not auto-scroll in edgy
-- add search results to scrollbar
 
 ## Links
 

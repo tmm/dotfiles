@@ -30,25 +30,6 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
   end,
 })
 
--- switch between relative and absolute line numbers based on mode
-local number_toggle = augroup("number_toggle")
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
-  group = number_toggle,
-  callback = function()
-    if vim.opt.number:get() == true then
-      vim.opt.relativenumber = true
-    end
-  end,
-})
-vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
-  group = number_toggle,
-  callback = function()
-    if vim.opt.number:get() == true then
-      vim.opt.relativenumber = false
-    end
-  end,
-})
-
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup("last_loc"),
@@ -142,9 +123,9 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   end,
 })
 
--- allow C-l to clear terminal
-vim.api.nvim_create_autocmd("TermOpen", {
-  callback = function(ev)
-    vim.keymap.set("t", "<c-l>", "<c-l>", { buffer = ev.buf, nowait = true })
-  end,
-})
+-- -- allow C-l to clear terminal
+-- vim.api.nvim_create_autocmd("TermOpen", {
+--   callback = function(ev)
+--     vim.keymap.set("t", "<c-l>", "<c-l>", { buffer = ev.buf, nowait = true })
+--   end,
+-- })

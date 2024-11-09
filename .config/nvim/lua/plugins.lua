@@ -892,6 +892,7 @@ return {
   -- noice.nvim (https://github.com/folke/noice.nvim)
   {
     "folke/noice.nvim",
+    commit = "5a78b42bec5e775f2db03bf93f6d1e0f3636306c",
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
@@ -1706,7 +1707,7 @@ return {
     end,
   },
 
-  -- nvim-scrollbar (https://github.com/nvim-scrollbar)
+  -- nvim-scrollbar (https://github.com/petertriho/nvim-scrollbar)
   {
     "petertriho/nvim-scrollbar",
     event = "BufReadPost",
@@ -1824,7 +1825,11 @@ return {
           end,
         })
         :map("<leader>ut")
-      return { mode = "cursor", max_lines = 3 }
+      return {
+        max_lines = 3,
+        mode = "cursor",
+        multiwindow = true,
+      }
     end,
   },
 
@@ -1858,7 +1863,11 @@ return {
 
       ---@type snacks.Config
       return {
-        toggle = { map = require("util.init").safe_keymap_set },
+        toggle = {
+          map = require("util.init").safe_keymap_set,
+          notify = true,
+          which_key = true,
+        },
         notifier = {
           enabled = not require("util.init").has("noice.nvim"),
           icons = {
@@ -2227,7 +2236,9 @@ return {
     opts = {
       defaults = {},
       icons = {
-        mappings = false,
+        -- mappings = false,
+        colors = true,
+        rules = false,
       },
       preset = "helix",
       spec = {
