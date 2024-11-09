@@ -89,7 +89,6 @@
       d = "delta";
       df = "h git";
       g = "git";
-      hm = "home-manager";
       i = "iex";
       lsd = "eza -d .*";
       m = "mix";
