@@ -49,6 +49,7 @@
       };
       credential.helper = "osxkeychain";
       delta = {
+        features = "rsms-dark";
         # TODO: nvim support
         # hyperlinks = true;
         navigate = true;
@@ -59,6 +60,9 @@
       gpg = {
         format = "ssh";
         ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      };
+      include = {
+        path = "~/.config/delta/themes.gitconfig";
       };
       init.defaultBranch = "main";
       interactive = {

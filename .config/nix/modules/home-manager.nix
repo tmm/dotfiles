@@ -73,6 +73,10 @@
   xdg = {
     enable = true;
     configFile = {
+      "delta" = {
+        source = ../files/delta;
+        recursive = true;
+      };
       "fish" = {
         source = ../files/fish;
         recursive = true;

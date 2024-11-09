@@ -1,0 +1,25 @@
+[delta "rsms-dark"]
+  file-style                    = "#BFBFBF"
+  file-decoration-style         = "#272725 ul"
+  line-numbers-zero-style       = "#4A4945"
+  line-numbers-right-style      = "#272725"
+  line-numbers-left-style       = "#272725"
+
+  hunk-header-style             = "omit"
+
+  line-numbers-minus-style      = "#F0F6FC #552527"
+  minus-emph-style              = "#F0F6FC #7F302F"
+  minus-empty-line-marker-style = syntax "#301B1E"
+  minus-non-emph-style          = syntax "#301B1E"
+  minus-style                   = syntax "#301B1E"
+
+  line-numbers-plus-style       = "#F0F6FC #1F4429"
+  plus-emph-style               = "#F0F6FC #1D572D"
+  plus-empty-line-marker-style  = syntax "#14261D"
+  plus-non-emph-style           = syntax "#14261D"
+  plus-style                    = syntax "#14261D"
+
+  file-added-label              = " "
+  file-modified-label           = " "
+  file-removed-label            = " "
+  file-renamed-label            = " "
