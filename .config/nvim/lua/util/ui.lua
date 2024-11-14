@@ -1,49 +1,47 @@
 ---@class util.ui
 local M = {}
 
-M.skip_foldexpr = {} ---@type table<number,boolean>
-local skip_check = assert(vim.uv.new_check())
-
+-- optimized treesitter foldexpr for Neovim >= 0.10.0
 function M.foldexpr()
   local buf = vim.api.nvim_get_current_buf()
+  if vim.b[buf].ts_folds == nil then
+    -- as long as we don't have a filetype, don't bother
+    -- checking if treesitter is available (it won't)
+    if vim.bo[buf].filetype == "" then
+      return "0"
+    end
+    vim.b[buf].ts_folds = pcall(vim.treesitter.get_parser, buf)
+  end
+  return vim.b[buf].ts_folds and vim.treesitter.foldexpr() or "0"
+end
 
-  -- no highlight, no foldexpr
-  if not vim.b[buf].ts_highlight then
-    return "0"
+-- Based on https://github.com/Wansmer/nvim-config/blob/main/lua/modules/foldtext.lua
+-- Which is based on https://www.reddit.com/r/neovim/comments/16sqyjz/finally_we_can_have_highlighted_folds/
+function M.foldtext()
+  local result = M.parse_line(vim.v.foldstart)
+  if not result then
+    return vim.fn.foldtext()
   end
 
-  -- still in the same tick and no parser
-  if M.skip_foldexpr[buf] then
-    return "0"
+  local line_count = vim.v.foldend - vim.v.foldstart - 1
+  local folded = {
+    { " +" .. line_count .. " " .. (line_count == 1 and "line" or "lines") .. " ", "FoldedText" },
+  }
+
+  for _, item in ipairs(folded) do
+    table.insert(result, item)
   end
 
-  -- don't use treesitter folds for terminal
-  if vim.bo[buf].buftype == "terminal" then
-    return "0"
+  local result2 = M.parse_line(vim.v.foldend)
+  if result2 then
+    local first = result2[1]
+    result2[1] = { vim.trim(first[1]), first[2] }
+    for _, item in ipairs(result2) do
+      table.insert(result, item)
+    end
   end
 
-  -- as long as we don't have a filetype, don't bother
-  -- checking if treesitter is available (it won't)
-  if vim.bo[buf].filetype == "" then
-    return "0"
-  end
-
-  local ok = pcall(vim.treesitter.get_parser, buf)
-
-  if ok then
-    return vim.treesitter.foldexpr()
-  end
-
-  -- no parser available, so mark it as skip
-  -- in the next tick, all skip marks will be reset
-  M.skip_foldexpr[buf] = true
-  skip_check:start(function()
-    M.skip_foldexpr = {}
-    skip_check:stop()
-    M.skip_foldexpr = {}
-    skip_check:stop()
-  end)
-  return "0"
+  return result
 end
 
 function M.parse_line(linenr)
@@ -123,35 +121,6 @@ function M.parse_line(linenr)
       result[i] = { result[i][1], result[i][2] }
 
       i = i + 1
-    end
-  end
-
-  return result
-end
-
--- Based on https://github.com/Wansmer/nvim-config/blob/main/lua/modules/foldtext.lua
--- Which is based on https://www.reddit.com/r/neovim/comments/16sqyjz/finally_we_can_have_highlighted_folds/
-function M.foldtext()
-  local result = M.parse_line(vim.v.foldstart)
-  if not result then
-    return vim.fn.foldtext()
-  end
-
-  local line_count = vim.v.foldend - vim.v.foldstart - 1
-  local folded = {
-    { " +" .. line_count .. " " .. (line_count == 1 and "line" or "lines") .. " ", "FoldedText" },
-  }
-
-  for _, item in ipairs(folded) do
-    table.insert(result, item)
-  end
-
-  local result2 = M.parse_line(vim.v.foldend)
-  if result2 then
-    local first = result2[1]
-    result2[1] = { vim.trim(first[1]), first[2] }
-    for _, item in ipairs(result2) do
-      table.insert(result, item)
     end
   end
 
