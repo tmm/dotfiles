@@ -49,13 +49,20 @@ return {
           lsp_format = "fallback", -- not recommended to change
         },
         formatters_by_ft = {
-          lua = { "stylua" },
+          css = { "biome" },
           fish = { "fish_indent" },
+          json = { "biome" },
+          jsonc = { "biome" },
+          lua = { "stylua" },
           sh = { "shfmt" },
+          typescript = { "biome" },
+          typescriptreact = { "biome" },
+          vue = { "biome" },
         },
         -- The options you set here will be merged with the builtin formatters.
         -- You can also define any custom formatters here.
         formatters = {
+          biome = { require_cwd = true },
           injected = { options = { ignore_errors = true } },
           -- # Example of using dprint only when a dprint.json file is present
           -- dprint = {
@@ -72,21 +79,6 @@ return {
       }
       return opts
     end,
-  },
-
-  -- copilot.lua (https://github.com/zbirenbaum/copilot.lua)
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    build = ":Copilot auth",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-      filetypes = {
-        markdown = true,
-        help = true,
-      },
-    },
   },
 
   -- dressing.nvim (https://github.com/stevearc/dressing.nvim)
@@ -420,36 +412,6 @@ return {
               cond = require("noice").api.status.search.has,
               color = "MsgArea",
             },
-            {
-              function()
-                local icon = icons.kinds.Copilot
-                local status = require("copilot.api").status.data
-                return icon .. (status.message or "")
-              end,
-              cond = function()
-                if not package.loaded["copilot"] then
-                  return
-                end
-                local ok, clients = pcall(require("util.lsp").get_clients, { name = "copilot", bufnr = 0 })
-                if not ok then
-                  return false
-                end
-                return ok and #clients > 0
-              end,
-              color = function()
-                if not package.loaded["copilot"] then
-                  return
-                end
-                local colors = {
-                  [""] = "StatusLine",
-                  ["Normal"] = "StatusLine",
-                  ["Warning"] = "StatusLineWarn",
-                  ["InProgress"] = "MsgArea",
-                }
-                local status = require("copilot.api").status.data
-                return colors[status.status] or colors[""]
-              end,
-            },
             -- stylua: ignore
             { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = "MsgArea" },
             { "location", color = "MsgArea" },
@@ -483,6 +445,7 @@ return {
     opts_extend = { "ensure_installed" },
     opts = {
       ensure_installed = {
+        "biome",
         "js-debug-adapter",
         "stylua",
         "shfmt",
@@ -963,21 +926,6 @@ return {
       "hrsh7th/cmp-buffer",
       -- https://github.com/hrsh7th/cmp-path
       "hrsh7th/cmp-path",
-      -- https://github.com/zbirenbaum/copilot-cmp
-      {
-        "zbirenbaum/copilot-cmp",
-        dependencies = "copilot.lua",
-        opts = {},
-        config = function(_, opts)
-          local copilot_cmp = require("copilot_cmp")
-          copilot_cmp.setup(opts)
-          -- attach cmp source whenever copilot attaches
-          -- fixes lazy-loading issues with the copilot cmp source
-          require("util.lsp").on_attach(function(_)
-            copilot_cmp._on_insert_enter({})
-          end, "copilot")
-        end,
-      },
       -- https://github.com/garymjr/nvim-snippets
       {
         "garymjr/nvim-snippets",
@@ -1066,7 +1014,6 @@ return {
         },
         sorting = defaults.sorting,
         sources = cmp.config.sources({
-          { name = "copilot", group_index = 1, priority = 100 },
           { name = "nvim_lsp" },
           { name = "path" },
           { name = "snippets" },
@@ -1864,12 +1811,9 @@ return {
 
       ---@type snacks.Config
       return {
-        toggle = {
-          map = require("util.init").safe_keymap_set,
-          notify = true,
-          which_key = true,
-        },
+        bigfile = { enabled = true },
         notifier = {
+          enabled = true,
           icons = {
             error = icons.diagnostics.Error,
             warn = icons.diagnostics.Warn,
@@ -1878,7 +1822,9 @@ return {
             trace = " ",
           },
         },
+        quickfile = { enabled = true },
         terminal = {
+          enabled = true,
           win = {
             keys = {
               nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
@@ -1888,6 +1834,13 @@ return {
             },
           },
         },
+        toggle = {
+          enabled = true,
+          map = require("util.init").safe_keymap_set,
+          notify = true,
+          which_key = true,
+        },
+        words = { enabled = true },
       }
     end,
     keys = {
@@ -1899,6 +1852,15 @@ return {
         desc = "Dismiss All Notifications",
       },
     },
+    config = function(_, opts)
+      local notify = vim.notify
+      require("snacks").setup(opts)
+      -- HACK: restore vim.notify after snacks setup and let noice.nvim take over
+      -- this is needed to have early notifications show up in noice history
+      if require("util.init").has("noice.nvim") then
+        vim.notify = notify
+      end
+    end,
   },
 
   -- telescope (https://github.com/nvim-telescope/telescope.nvim)
@@ -2173,8 +2135,6 @@ return {
     config = function(_, opts)
       local twoslash_queries = require("twoslash-queries")
       twoslash_queries.setup(opts)
-      -- attach cmp source whenever copilot attaches
-      -- fixes lazy-loading issues with the copilot cmp source
       require("util.lsp").on_attach(function(client, bufnr)
         require("twoslash-queries").attach(client, bufnr)
       end, "vtsls")

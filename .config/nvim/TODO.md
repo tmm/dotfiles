@@ -1,11 +1,11 @@
 # TODO
 
+lazy cdf3f1f
+
 ## Issues
 
 - gf in terminal does not focus file (opens in background)
-- syntax groups flash when loading files
 - neotest output does not auto-scroll in edgy
-- add search results to scrollbar
 
 ## Plugins
 
@@ -17,8 +17,9 @@
 - https://github.com/mfussenegger/nvim-lint
 - https://github.com/dmmulroy/ts-error-translator.nvim
 
-## Misc (unordered)
+## Misc
 
+- add search results to scrollbar
 - emmet-like plugin
 - switch from cmp to blink
 - dap firefox https://github.com/firefox-devtools/vscode-firefox-debug

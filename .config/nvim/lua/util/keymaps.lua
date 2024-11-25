@@ -69,7 +69,7 @@ function M.resolve(buffer)
   if not Keys.resolve then
     return {}
   end
-  local spec = M.get()
+  local spec = vim.tbl_extend("force", {}, M.get())
   local opts = require("util.init").opts("nvim-lspconfig")
   local clients = require("util.lsp").get_clients({ bufnr = buffer })
   for _, client in ipairs(clients) do
