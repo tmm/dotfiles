@@ -1843,14 +1843,10 @@ return {
         words = { enabled = true },
       }
     end,
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>un",
-        function()
-          require("snacks").notifier.hide()
-        end,
-        desc = "Dismiss All Notifications",
-      },
+      { "<leader>n", function() require("snacks").notifier.show_history() end, desc = "Notification History" },
+      { "<leader>un", function() require("snacks").notifier.hide() end, desc = "Dismiss All Notifications" },
     },
     config = function(_, opts)
       local notify = vim.notify

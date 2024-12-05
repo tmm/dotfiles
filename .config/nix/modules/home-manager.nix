@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, pkgsUnstable, ... }: {
   home.packages = with pkgs; [
     amber
     asciinema
@@ -9,7 +9,6 @@
     delta
     direnv
     dockutil
-    elixir
     erlang
     eza
     fd
@@ -24,7 +23,10 @@
     ripgrep
     rustup
     zoxide
-  ];
+  ] ++ (with pkgsUnstable; [
+    # TODO: Using latest version (elixir@1.17.3), replace once stable
+    elixir
+  ]);
   home.stateVersion = "23.05";
   home.sessionVariables = {
     EDITOR = "nvim";

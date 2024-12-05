@@ -7,6 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs-unstable.url = "github:nixoS/nixpkgs/nixpkgs-unstable";
   };
 
   outputs = inputs: {
@@ -24,6 +25,11 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             users.tmm = import ./modules/home-manager.nix;
+            extraSpecialArgs = {
+              pkgsUnstable = import inputs.nixpkgs-unstable {
+                system = "aarch64-darwin";
+              };
+            };
           };
         }
       ];

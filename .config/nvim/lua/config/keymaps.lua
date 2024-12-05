@@ -161,6 +161,7 @@ map({ "n", "x" }, "<leader>gB", function()
 end, { desc = "Git Browse (open)" })
 map({ "n", "x" }, "<leader>gY", function()
   Snacks.gitbrowse({
+    notify = false,
     open = function(url)
       vim.fn.setreg("+", url)
     end,

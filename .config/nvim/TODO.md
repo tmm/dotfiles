@@ -1,9 +1,10 @@
 # TODO
 
-lazy cdf3f1f
+lazy 4a626a8
 
 ## Issues
 
+- conform nix format
 - gf in terminal does not focus file (opens in background)
 - neotest output does not auto-scroll in edgy
 
