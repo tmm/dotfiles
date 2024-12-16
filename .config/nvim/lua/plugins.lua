@@ -50,7 +50,10 @@ return {
         },
         formatters_by_ft = {
           css = { "biome" },
+          eex = { "mix" },
+          elixir = { "mix" },
           fish = { "fish_indent" },
+          heex = { "mix" },
           json = { "biome" },
           jsonc = { "biome" },
           lua = { "stylua" },
@@ -299,44 +302,6 @@ return {
     },
   },
 
-  -- indent-blankline.nvim (https://github.com/lukas-reineke/indent-blankline.nvim)
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = function()
-      require("snacks")
-        .toggle({
-          name = "Indention Guides",
-          get = function()
-            return require("ibl.config").get_config(0).enabled
-          end,
-          set = function(state)
-            require("ibl").setup_buffer(0, { enabled = state })
-          end,
-        })
-        :map("<leader>ug")
-      return {
-        indent = { char = "▏" },
-        exclude = {
-          filetypes = {
-            "Trouble",
-            "alpha",
-            "dashboard",
-            "help",
-            "lazy",
-            "mason",
-            "neo-tree",
-            "notify",
-            "snacks_notif",
-            "snacks_terminal",
-            "snacks_win",
-            "trouble",
-          },
-        },
-      }
-    end,
-  },
-
   -- lualine.nvim (https://github.com/nvim-lualine/lualine.nvim)
   {
     "nvim-lualine/lualine.nvim",
@@ -510,13 +475,6 @@ return {
       end
     end,
     config = function()
-      require("mini.indentscope").setup({
-        draw = {
-          animation = require("mini.indentscope").gen_animation.none(),
-        },
-        symbol = "",
-        try_as_border = true,
-      })
       require("mini.pairs").setup({
         -- TODO: https://github.com/LazyVim/LazyVim/blob/3dbace941ee935c89c73fd774267043d12f57fe2/lua/lazyvim/util/mini.lua#L123
         modes = { insert = true, command = true, terminal = false },
@@ -1253,10 +1211,6 @@ return {
         codelens = {
           enabled = false,
         },
-        -- Enable lsp cursor word highlighting
-        document_highlight = {
-          enabled = true,
-        },
         -- add any global capabilities here
         capabilities = {
           workspace = {
@@ -1812,6 +1766,14 @@ return {
       ---@type snacks.Config
       return {
         bigfile = { enabled = true },
+        dim = {
+          animate = { enabled = false },
+        },
+        indent = {
+          enabled = true,
+          animate = { enabled = false },
+        },
+        input = { enabled = true },
         notifier = {
           enabled = true,
           icons = {
@@ -1823,6 +1785,7 @@ return {
           },
         },
         quickfile = { enabled = true },
+        scope = { enabled = true },
         terminal = {
           enabled = true,
           win = {
@@ -2135,47 +2098,6 @@ return {
         require("twoslash-queries").attach(client, bufnr)
       end, "vtsls")
     end,
-  },
-
-  -- vim-illuminate (https://github.com/RRethy/vim-illuminate)
-  {
-    "RRethy/vim-illuminate",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      delay = 200,
-      filetypes_denylist = {
-        "TelescopePrompt",
-      },
-      large_file_cutoff = 2000,
-      large_file_overrides = {
-        providers = { "lsp" },
-      },
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
-
-      local function map(key, dir, buffer)
-        vim.keymap.set("n", key, function()
-          require("illuminate")["goto_" .. dir .. "_reference"](false)
-        end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
-      end
-
-      map("]]", "next")
-      map("[[", "prev")
-
-      -- also set it after loading ftplugins, since a lot overwrite [[ and ]]
-      vim.api.nvim_create_autocmd("FileType", {
-        callback = function()
-          local buffer = vim.api.nvim_get_current_buf()
-          map("]]", "next", buffer)
-          map("[[", "prev", buffer)
-        end,
-      })
-    end,
-    keys = {
-      { "]]", desc = "Next Reference" },
-      { "[[", desc = "Prev Reference" },
-    },
   },
 
   -- vim-repeat (https://github.com/tpope/vim-repeat)

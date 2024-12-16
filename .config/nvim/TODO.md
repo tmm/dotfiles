@@ -1,6 +1,10 @@
 # TODO
 
-lazy 4a626a8
+lazy 2cf3d23
+
+- switch from cmp to blink
+- dressing to snacks.input + fzf-lua?
+- telescope.nvim to fzf-lua?
 
 ## Issues
 
@@ -12,7 +16,6 @@ lazy 4a626a8
 
 - https://github.com/MagicDuck/grug-far.nvim
 - https://github.com/folke/persistence.nvim (nvim-lastplace captured by persist?)
-- https://github.com/nvimdev/dashboard-nvim
 - https://github.com/folke/todo-comments.nvim
 - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 - https://github.com/mfussenegger/nvim-lint
@@ -22,7 +25,6 @@ lazy 4a626a8
 
 - add search results to scrollbar
 - emmet-like plugin
-- switch from cmp to blink
 - dap firefox https://github.com/firefox-devtools/vscode-firefox-debug
 - add recording macro to statusline
 - lualine branch supports git worktree

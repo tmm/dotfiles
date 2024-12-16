@@ -64,7 +64,6 @@ vim.api.nvim_create_autocmd("FileType", {
     "neotest-summary",
     "notify",
     "qf",
-    "snacks_win",
     "startuptime",
     "tsplayground",
   },
