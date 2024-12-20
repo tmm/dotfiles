@@ -58,6 +58,7 @@ return {
           jsonc = { "biome" },
           lua = { "stylua" },
           sh = { "shfmt" },
+          svelte = { "biome" },
           typescript = { "biome" },
           typescriptreact = { "biome" },
           vue = { "biome" },
@@ -1042,7 +1043,7 @@ return {
         port = "${port}",
         executable = {
           command = "node",
-          -- 💀 Make sure to update this path to point to your installation
+          -- TODO: Make sure to update this path to point to your installation
           args = {
             require("util.init").get_pkg_path("js-debug-adapter", "/js-debug/src/dapDebugServer.js"),
             "${port}",
@@ -1097,6 +1098,14 @@ return {
           }
         end
       end
+
+      local elixir_ls_debugger = vim.fn.exepath("elixir-ls-debugger")
+      if elixir_ls_debugger ~= "" then
+        dap.adapters["mix_task"] = {
+          command = elixir_ls_debugger,
+          type = "executable",
+        }
+      end
     end,
     config = function()
       -- load mason-nvim-dap here, after all adapters have been setup
@@ -1145,7 +1154,7 @@ return {
       local dapui = require("dapui")
       dapui.setup(opts)
       dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open({})
+        -- dapui.open({})
       end
       dap.listeners.before.event_terminated["dapui_config"] = function()
         dapui.close({})
@@ -1346,6 +1355,14 @@ return {
                       ),
                       languages = { "vue" },
                       configNamespace = "typescript",
+                      enableForWorkspaceTypeScriptVersions = true,
+                    },
+                    {
+                      name = "typescript-svelte-plugin",
+                      location = require("util.init").get_pkg_path(
+                        "svelte-language-server",
+                        "/node_modules/typescript-svelte-plugin"
+                      ),
                       enableForWorkspaceTypeScriptVersions = true,
                     },
                   },
@@ -1668,6 +1685,7 @@ return {
         "nix",
         "regex",
         "rust",
+        "svelte",
         "toml",
         "tsx",
         "typescript",
