@@ -413,8 +413,10 @@ return {
       ensure_installed = {
         "biome",
         "js-debug-adapter",
-        "stylua",
         "shfmt",
+        "stylua",
+        "svelte-language-server",
+        "vue-language-server",
       },
     },
     config = function(_, opts)
@@ -1329,6 +1331,7 @@ return {
               "javascript",
               "javascriptreact",
               "javascript.jsx",
+              "svelte",
               "typescript",
               "typescriptreact",
               "typescript.tsx",
@@ -1363,6 +1366,7 @@ return {
                         "svelte-language-server",
                         "/node_modules/typescript-svelte-plugin"
                       ),
+                      languages = { "svelte" },
                       enableForWorkspaceTypeScriptVersions = true,
                     },
                   },
