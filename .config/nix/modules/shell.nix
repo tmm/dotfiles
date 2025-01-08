@@ -86,7 +86,9 @@
     shellAbbrs = {
       a = "ambr";
       b = "bun";
-      d = "delta";
+      d = "docker";
+      de = "delta";
+      dc = "docker compose";
       df = "h git";
       g = "git";
       i = "iex";

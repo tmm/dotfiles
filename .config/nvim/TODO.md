@@ -1,6 +1,6 @@
 # TODO
 
-lazy 2cf3d23
+lazy d1529f6
 
 - switch from cmp to blink
 - dressing to snacks.input + fzf-lua?
@@ -8,7 +8,6 @@ lazy 2cf3d23
 
 ## Issues
 
-- conform nix format
 - gf in terminal does not focus file (opens in background)
 - neotest output does not auto-scroll in edgy
 

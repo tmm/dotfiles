@@ -122,10 +122,8 @@ end
 -- It will also set `silent` to true by default.
 function M.safe_keymap_set(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
   local modes = type(mode) == "string" and { mode } or mode
 
-  ---@param m string
   modes = vim.tbl_filter(function(m)
     return not (keys.have and keys:have(lhs, m))
   end, modes)
@@ -273,8 +271,6 @@ M.kind_filter = {
   },
 }
 
----@param buf? number
----@return string[]?
 function M.get_kind_filter(buf)
   buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
   local ft = vim.bo[buf].filetype
@@ -287,7 +283,6 @@ function M.get_kind_filter(buf)
   if type(M.kind_filter[ft]) == "table" then
     return M.kind_filter[ft]
   end
-  ---@diagnostic disable-next-line: return-type-mismatch
   return type(M.kind_filter) == "table" and type(M.kind_filter.default) == "table" and M.kind_filter.default or nil
 end
 

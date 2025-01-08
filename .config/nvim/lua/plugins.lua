@@ -5,6 +5,131 @@ local have_make = vim.fn.executable("make") == 1
 local have_cmake = vim.fn.executable("cmake") == 1
 
 return {
+  -- blink.cmp (https://github.com/saghen/blink.cmp)
+  {
+    "saghen/blink.cmp",
+    event = "InsertEnter",
+    version = not vim.g.lazyvim_blink_main and "*",
+    build = vim.g.lazyvim_blink_main and "cargo build --release",
+    opts_extend = {
+      "sources.completion.enabled_providers",
+      "sources.compat",
+      "sources.default",
+    },
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      -- add blink.compat to dependencies
+      {
+        "saghen/blink.compat",
+        optional = true, -- make optional so it's only enabled if any extras need it
+        opts = {},
+        version = not vim.g.lazyvim_blink_main and "*",
+      },
+    },
+    opts = {
+      appearance = {
+        -- sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- useful for when your theme doesn't support blink.cmp
+        -- will be removed in a future release, assuming themes add support
+        use_nvim_cmp_as_default = false,
+        -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
+      },
+      completion = {
+        accept = {
+          -- experimental auto-brackets support
+          auto_brackets = {
+            enabled = true,
+          },
+        },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 200,
+        },
+        ghost_text = {
+          enabled = vim.g.ai_cmp,
+        },
+        menu = {
+          draw = {
+            treesitter = { "lsp" },
+          },
+        },
+      },
+      keymap = {
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<CR>"] = { "accept", "fallback" },
+        ["<C-k>"] = { "select_prev", "fallback" },
+        ["<C-j>"] = { "select_next", "fallback" },
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+        ["<Tab>"] = { "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      },
+      snippets = {
+        expand = function(snippet, _)
+          return require("util.cmp").expand(snippet)
+        end,
+      },
+      -- experimental signature help support
+      signature = { enabled = true },
+      sources = {
+        -- adding any nvim-cmp sources here will enable them
+        -- with blink.compat
+        compat = {},
+        default = { "lsp", "path", "snippets", "buffer" },
+        cmdline = {},
+      },
+    },
+    config = function(_, opts)
+      -- setup compat sources
+      local enabled = opts.sources.default
+      for _, source in ipairs(opts.sources.compat or {}) do
+        opts.sources.providers[source] = vim.tbl_deep_extend(
+          "force",
+          { name = source, module = "blink.compat.source" },
+          opts.sources.providers[source] or {}
+        )
+        if type(enabled) == "table" and not vim.tbl_contains(enabled, source) then
+          table.insert(enabled, source)
+        end
+      end
+
+      -- Unset custom prop to pass blink.cmp validation
+      opts.sources.compat = nil
+
+      -- check if we need to override symbol kinds
+      for _, provider in pairs(opts.sources.providers or {}) do
+        if provider.kind then
+          local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+          local kind_idx = #CompletionItemKind + 1
+
+          CompletionItemKind[kind_idx] = provider.kind
+          ---@diagnostic disable-next-line: no-unknown
+          CompletionItemKind[provider.kind] = kind_idx
+
+          local transform_items = provider.transform_items
+          provider.transform_items = function(ctx, items)
+            items = transform_items and transform_items(ctx, items) or items
+            for _, item in ipairs(items) do
+              item.kind = kind_idx or item.kind
+            end
+            return items
+          end
+
+          -- Unset custom prop to pass blink.cmp validation
+          provider.kind = nil
+        end
+      end
+
+      opts.appearance.kind_icons = vim.tbl_extend("keep", {
+        Color = "██", -- Use block instead of icon for color items to make swatches more usable
+      }, icons.kinds)
+
+      require("blink.cmp").setup(opts)
+    end,
+  },
+
   -- conform.nvim (https://github.com/stevearc/conform.nvim)
   {
     "stevearc/conform.nvim",
@@ -57,6 +182,7 @@ return {
           json = { "biome" },
           jsonc = { "biome" },
           lua = { "stylua" },
+          nix = { "nixfmt" },
           sh = { "shfmt" },
           svelte = { "biome" },
           typescript = { "biome" },
@@ -834,11 +960,10 @@ return {
         },
       },
       lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        -- override markdown rendering so plugins use **Treesitter**
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
         },
       },
       presets = {
@@ -872,116 +997,6 @@ return {
         vim.cmd([[messages clear]])
       end
       require("noice").setup(opts)
-    end,
-  },
-
-  -- nvim-cmp (https://github.com/hrsh7th/nvim-cmp)
-  {
-    "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
-    event = "InsertEnter",
-    dependencies = {
-      -- https://github.com/hrsh7th/cmp-nvim-lsp
-      "hrsh7th/cmp-nvim-lsp",
-      -- https://github.com/hrsh7th/cmp-buffer
-      "hrsh7th/cmp-buffer",
-      -- https://github.com/hrsh7th/cmp-path
-      "hrsh7th/cmp-path",
-      -- https://github.com/garymjr/nvim-snippets
-      {
-        "garymjr/nvim-snippets",
-        opts = {
-          friendly_snippets = true,
-        },
-        dependencies = { "rafamadriz/friendly-snippets" },
-      },
-    },
-    keys = {
-      {
-        "<Tab>",
-        function()
-          return vim.snippet.active({ direction = 1 }) and "<cmd>lua vim.snippet.jump(1)<cr>" or "<Tab>"
-        end,
-        expr = true,
-        silent = true,
-        mode = { "i", "s" },
-      },
-      {
-        "<S-Tab>",
-        function()
-          return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<S-Tab>"
-        end,
-        expr = true,
-        silent = true,
-        mode = { "i", "s" },
-      },
-    },
-    opts = function()
-      vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-      local cmp = require("cmp")
-      local defaults = require("cmp.config.default")()
-      local auto_select = true
-      return {
-        auto_brackets = {}, -- configure any filetype to auto add brackets
-        completion = {
-          completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
-        },
-        experimental = {
-          ghost_text = {
-            hl_group = "CmpGhostText",
-          },
-        },
-        formatting = {
-          format = function(_, item)
-            if icons.kinds[item.kind] then
-              item.kind = icons.kinds[item.kind] .. item.kind
-            end
-
-            local widths = {
-              abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-              menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
-            }
-
-            for key, width in pairs(widths) do
-              if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
-                item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
-              end
-            end
-
-            return item
-          end,
-        },
-        main = "util.cmp-extra",
-        mapping = cmp.mapping.preset.insert({
-          ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          -- ["<Tab>"] = require("util.cmpx").confirm({ select = auto_select }),
-          ["<CR>"] = require("util.cmpx").confirm({ select = auto_select }),
-          ["<C-y>"] = require("util.cmpx").confirm({ select = true }),
-          ["<S-CR>"] = require("util.cmpx").confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<C-CR>"] = function(fallback)
-            cmp.abort()
-            fallback()
-          end,
-        }),
-        preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
-        snippet = {
-          expand = function(item)
-            return require("util.cmpx").expand(item.body)
-          end,
-        },
-        sorting = defaults.sorting,
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "path" },
-          { name = "snippets" },
-        }, {
-          { name = "buffer" },
-        }),
-      }
     end,
   },
 
@@ -1316,9 +1331,7 @@ return {
               },
             },
           },
-          rnix = {
-            settings = {},
-          },
+          nil_ls = {},
           volar = {
             init_options = {
               vue = {
@@ -1438,8 +1451,9 @@ return {
           -- Specify * to use this function as a fallback for any server
           -- ["*"] = function(server, opts) end,
           vtsls = function(_, opts)
-            require("util.lsp").on_attach(function(client, buffer)
-              client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
+            require("util.lsp").on_attach(function(client, _buf)
+              client.commands["_typescript.moveToFileRefactoring"] = function(command, _ctx)
+                ---@diagnostic disable-next-line: deprecated
                 local action, uri, range = unpack(command.arguments)
 
                 local function move(newf)
@@ -1557,12 +1571,12 @@ return {
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
       local servers = opts.servers
-      local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+      local has_blink, blink = pcall(require, "blink.cmp")
       local capabilities = vim.tbl_deep_extend(
         "force",
         {},
         vim.lsp.protocol.make_client_capabilities(),
-        has_cmp and cmp_nvim_lsp.default_capabilities() or {},
+        has_blink and blink.get_lsp_capabilities() or {},
         opts.capabilities or {}
       )
 
@@ -1776,7 +1790,6 @@ return {
     opts = function()
       -- Terminal Mappings
       local function term_nav(dir)
-        ---@param self snacks.terminal
         return function(self)
           return self:is_floating() and "<c-" .. dir .. ">"
             or vim.schedule(function()
@@ -1785,7 +1798,6 @@ return {
         end
       end
 
-      ---@type snacks.Config
       return {
         bigfile = { enabled = true },
         dim = {

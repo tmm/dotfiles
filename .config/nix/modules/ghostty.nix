@@ -19,6 +19,8 @@ in
     mouse-hide-while-typing = true
     macos-titlebar-style = tabs
     unfocused-split-opacity = 1
+    window-height = 50
+    window-width = 178
     window-padding-x = 0
     window-padding-y = 0
     window-padding-balance = true
