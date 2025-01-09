@@ -1,6 +1,6 @@
 ## Install
 
-```
+```fish
 alias h="env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files"
 h git init
 h git remote add origin https://github.com/tmm/dotfiles.git
