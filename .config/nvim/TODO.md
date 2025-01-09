@@ -2,7 +2,6 @@
 
 lazy d1529f6
 
-- switch from cmp to blink
 - dressing to snacks.input + fzf-lua?
 - telescope.nvim to fzf-lua?
 
@@ -28,7 +27,6 @@ lazy d1529f6
 - add recording macro to statusline
 - lualine branch supports git worktree
 - add lazyvim news https://www.lazyvim.org/news
-- .files show up in telescope (e.g. `.env`)
 
 ## Links
 

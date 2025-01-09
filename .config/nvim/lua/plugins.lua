@@ -185,8 +185,8 @@ return {
           nix = { "nixfmt" },
           sh = { "shfmt" },
           svelte = { "biome" },
-          typescript = { "biome" },
-          typescriptreact = { "biome" },
+          typescript = { "biome", "biome-organize-imports" },
+          typescriptreact = { "biome", "biome-organize-imports" },
           vue = { "biome" },
         },
         -- The options you set here will be merged with the builtin formatters.
