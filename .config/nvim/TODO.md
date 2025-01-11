@@ -2,9 +2,6 @@
 
 lazy d1529f6
 
-- dressing to snacks.input + fzf-lua?
-- telescope.nvim to fzf-lua?
-
 ## Issues
 
 - gf in terminal does not focus file (opens in background)
@@ -12,6 +9,7 @@ lazy d1529f6
 
 ## Plugins
 
+- render-markdown.nvim
 - https://github.com/MagicDuck/grug-far.nvim
 - https://github.com/folke/persistence.nvim (nvim-lastplace captured by persist?)
 - https://github.com/folke/todo-comments.nvim

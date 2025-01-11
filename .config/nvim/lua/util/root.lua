@@ -48,7 +48,6 @@ function M.detectors.lsp(buf)
   end, roots)
 end
 
----@param patterns string[]|string
 function M.detectors.pattern(buf, patterns)
   patterns = type(patterns) == "string" and { patterns } or patterns
   local path = M.bufpath(buf) or vim.uv.cwd()
