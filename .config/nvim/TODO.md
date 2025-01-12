@@ -2,7 +2,7 @@
 
 lazy d1529f6
 
-trouble lualine
+- trouble lualine
 
 ## Issues
 

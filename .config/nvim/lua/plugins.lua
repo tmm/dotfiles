@@ -1169,7 +1169,13 @@ return {
         mappings = {
           ["O"] = {
             function(state)
-              require("lazy.util").open(state.tree:get_node().path, { system = true })
+              if vim.fn.has("macunix") == 1 then
+                local node = state.tree:get_node()
+                local path = node:get_id()
+                vim.fn.jobstart({ "open", "-R", path }, { detach = true })
+              else
+                vim.notify("Command not set up for OS")
+              end
             end,
             desc = "Open with System Application",
           },
