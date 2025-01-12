@@ -2,8 +2,11 @@
 
 lazy d1529f6
 
+trouble lualine
+
 ## Issues
 
+- snacks git worktree https://github.com/folke/snacks.nvim/issues/405
 - gf in terminal does not focus file (opens in background)
 - neotest output does not auto-scroll in edgy
 

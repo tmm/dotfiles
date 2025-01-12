@@ -28,13 +28,6 @@ return {
     },
     dependencies = {
       "rafamadriz/friendly-snippets",
-      -- add blink.compat to dependencies
-      {
-        "saghen/blink.compat",
-        optional = true, -- make optional so it's only enabled if any extras need it
-        opts = {},
-        version = not vim.g.lazyvim_blink_main and "*",
-      },
     },
     opts = {
       appearance = {
@@ -306,7 +299,7 @@ return {
             end,
             pinned = true,
             open = function()
-              vim.cmd(("Neotree show position=%s %s dir=%s"):format(pos[v] or "bottom", v, require("util.root")()))
+              vim.cmd(("Neotree show position=%s %s dir=%s"):format(pos[v] or "bottom", v, require("util.root").get()))
             end,
           })
         end
@@ -701,6 +694,16 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
+    init = function()
+      vim.g.lualine_laststatus = vim.o.laststatus
+      if vim.fn.argc(-1) > 0 then
+        -- set an empty statusline till lualine loads
+        vim.o.statusline = " "
+      else
+        -- hide the statusline on the starter page
+        vim.o.laststatus = 0
+      end
+    end,
     config = function()
       local conditions = {
         buffer_not_empty = function()
@@ -770,6 +773,12 @@ return {
             {
               require("noice").api.status.search.get,
               cond = require("noice").api.status.search.has,
+              color = "MsgArea",
+            },
+            -- stylua: ignore
+            {
+              function() return "  " .. require("dap").status() end,
+              cond = function() return require("dap").status() ~= "" end,
               color = "MsgArea",
             },
             -- stylua: ignore
@@ -1065,7 +1074,7 @@ return {
     },
     -- stylua: ignore
 		keys = {
-			{ "<leader>fe", function() require("neo-tree.command").execute({ toggle = true }) end, desc = "Explorer NeoTree" },
+			{ "<leader>fe", function() require("neo-tree.command").execute({ toggle = true, dir = require("util.root").get() }) end, desc = "Explorer NeoTree" },
 			{ "<leader>fE", function() require("neo-tree.command").execute({ reveal = true }) end, desc = "Explorer NeoTree (Reveal File)" },
 			{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree", remap = true },
 			{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (Reveal File)", remap = true },
