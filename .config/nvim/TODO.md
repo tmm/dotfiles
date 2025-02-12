@@ -2,6 +2,7 @@
 
 lazy d1529f6
 
+- fzf-lua to snacks.nvim picker
 - trouble lualine
 
 ## Issues

@@ -21,7 +21,6 @@
       "1password"
       "1password-cli"
       "betterdisplay"
-      "brave-browser"
       "cleanshot"
       "contexts"
       "daisydisk"

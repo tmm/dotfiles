@@ -477,6 +477,7 @@ return {
           },
           file_icons = false,
           git_icons = false,
+          fzf_colors = false,
           fzf_opts = {
             ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-files-history",
           },
@@ -490,6 +491,7 @@ return {
             ["alt-i"] = { actions.toggle_ignore },
             ["alt-h"] = { actions.toggle_hidden },
           },
+          fzf_colors = false,
           file_icons = false,
           fzf_opts = {
             ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-grep-history",
