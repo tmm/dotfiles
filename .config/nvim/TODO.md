@@ -1,6 +1,6 @@
 # TODO
 
-lazy d1529f6
+lazy 0a5965b
 
 - fzf-lua to snacks.nvim picker
 - trouble lualine

@@ -125,9 +125,7 @@ return {
         end
       end
 
-      opts.appearance.kind_icons = vim.tbl_extend("keep", {
-        Color = "██", -- Use block instead of icon for color items to make swatches more usable
-      }, icons.kinds)
+      opts.appearance.kind_icons = vim.tbl_extend("force", opts.appearance.kind_icons or {}, icons.kinds)
 
       require("blink.cmp").setup(opts)
     end,
