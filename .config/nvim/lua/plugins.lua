@@ -39,6 +39,9 @@ return {
         -- adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
       },
+      cmdline = {
+        enabled = false,
+      },
       completion = {
         accept = {
           -- experimental auto-brackets support
@@ -81,7 +84,6 @@ return {
         -- with blink.compat
         compat = {},
         default = { "lsp", "path", "snippets", "buffer" },
-        cmdline = {},
       },
     },
     config = function(_, opts)
@@ -116,6 +118,7 @@ return {
             items = transform_items and transform_items(ctx, items) or items
             for _, item in ipairs(items) do
               item.kind = kind_idx or item.kind
+              item.kind_icon = icons.kinds[item.kind_name] or item.kind_icon or nil
             end
             return items
           end

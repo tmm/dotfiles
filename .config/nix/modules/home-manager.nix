@@ -12,7 +12,6 @@
     erlang
     eza
     fd
-    flyctl
     fnm
     fzf
     gh
