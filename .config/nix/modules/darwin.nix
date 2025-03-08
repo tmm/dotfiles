@@ -9,8 +9,7 @@
     };
   };
   fonts = {
-    fontDir.enable = true;
-    fonts = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+    packages = [ pkgs.nerd-fonts.jetbrains-mono ];
   };
   homebrew = {
     enable = true;
@@ -24,15 +23,24 @@
       "cleanshot"
       "contexts"
       "daisydisk"
+      "discord"
       "dropbox"
       "expressvpn"
+      "figma"
       "firefox"
       "flux"
       "google-chrome"
       "numi"
+      "orbstack"
       "pixelsnap"
       "raycast"
       "remarkable"
+      "sublime-text"
+      "signal"
+      "telegram"
+      "thunderbird"
+      "vlc"
+      "zoom"
     ];
     masApps = {
       BetterSnapTool = 417375580;
@@ -45,12 +53,12 @@
       Xcode = 497799835;
     };
   };
+  ids.gids.nixbld = 30000;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
   programs.fish.enable = true;
-  security.pam.enableSudoTouchIdAuth = true;
-  services.nix-daemon.enable = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
   system.defaults = {
     dock.autohide = true;
     dock.autohide-delay = 0.0;
@@ -82,6 +90,7 @@
     enableKeyMapping = true;
     remapCapsLockToEscape = true;
   };
+  system.stateVersion = 6;
   users.users.tmm = {
     home = "/Users/tmm";
     shell = pkgs.fish;
