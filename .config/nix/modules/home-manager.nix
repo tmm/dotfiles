@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, ... }: {
+{ lib, pkgs, pkgsUnstable, ... }: {
   home.packages = with pkgs; [
     amber
     asciinema
@@ -21,11 +21,13 @@
     neovim
     ripgrep
     rustup
+    starship
     zoxide
   ] ++ (with pkgsUnstable; [
     # TODO: Using latest version (elixir@1.17.3), replace once stable
     elixir
   ]);
+  home.shell.enableFishIntegration = true;
   home.stateVersion = "23.05";
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -53,6 +55,74 @@
     ];
   };
   programs.home-manager.enable = true;
+  programs.starship = {
+    enable = true;
+    settings = {
+      add_newline = true;
+      format = lib.concatStrings [
+        "$username"
+        "$hostname"
+        "$directory"
+        "$git_branch"
+        "$git_state"
+        "$git_status"
+        "$cmd_duration"
+        "$line_break"
+        "$character"
+      ];
+      character = {
+        success_symbol = "[❯](green)";
+        error_symbol = "[❯](red)";
+        vimcmd_symbol = "[❮](purple)";
+      };
+      cmd_duration = {
+        format = "[$duration]($style) ";
+        style = "yellow";
+      };
+      directory = {
+        style = "white";
+      };
+      git_branch = {
+        format = "[$branch]($style)";
+        style = "bright-black";
+      };
+      git_state = {
+        format = lib.concatStrings [
+          "\\("
+          "[$state( $progress_current/$progress_total)]"
+          "($style)"
+          "\\) "
+        ];
+        style = "bright-black";
+      };
+      git_status = {
+        format = lib.concatStrings [
+          "["
+          "[(*"
+          "$conflicted"
+          "$untracked"
+          "$modified"
+          "$staged"
+          "$renamed"
+          "$deleted"
+          ")](218) "
+          "($ahead_behind"
+          "$stashed"
+          ")]"
+          "($style)"
+        ];
+        style = "cyan";
+        conflicted = "​";
+        untracked = "​";
+        modified = "​";
+        staged = "​";
+        renamed = "​";
+        deleted = "​";
+        stashed = "≡";
+      };
+    };
+  };
+  programs.zoxide.enable = true;
 
   home.file = {
     ignore = {

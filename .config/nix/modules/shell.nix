@@ -9,47 +9,28 @@
         source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
       end
 
-      # Pure
-      # https://github.com/rafaelrinaldi/pure#configuration
-      set pure_color_primary white
-      set pure_color_success green
+      # disable welcome message
+      set -g fish_greeting
 
-      # Add a line to my prompt?
-      # https://github.com/pure-fish/pure/blob/master/conf.d/_pure_init.fish
-      functions --query _pure_prompt_new_line
+      # 1password
+      set -gx SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+      # pnpm
+      set -gx PNPM_HOME "$HOME/.local/share/pnpm"
+      set -gx PATH "$PNPM_HOME" $PATH
+
+      # foundry
+      set -gx FOUNDRY_DIR "$HOME/.foundry"
+      set -gx PATH "$FOUNDRY_DIR" $PATH
+      set FOUNDRY_BIN $HOME/.foundry/bin
+      fish_add_path $FOUNDRY_BIN
 
       # Add `pg_config` to path
       # https://fishshell.com/docs/current/tutorial.html?highlight=fish_user_path#path
       set PG_CONFIG /Applications/Postgres.app/Contents/Versions/latest/bin
       fish_add_path $PG_CONFIG
 
-      # Set homebrew path
-      switch (arch)
-        case arm64
-          set BREW /opt/homebrew/bin
-        case x86_64
-          set BREW /usr/local/bin
-      end
-      fish_add_path $BREW
-
       fnm env | source
-      zoxide init fish | source
-
-      set -gx PNPM_HOME "$HOME/.local/share/pnpm"
-      set -gx PATH "$PNPM_HOME" $PATH
-
-      set -gx FOUNDRY_DIR "$HOME/.foundry"
-      set -gx PATH "$FOUNDRY_DIR" $PATH
-
-      set FOUNDRY_BIN $HOME/.foundry/bin
-      fish_add_path $FOUNDRY_BIN
-
-      # 1password
-      set -gx SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-
-      # bun
-      set -x BUN_INSTALL "$HOME/.bun"
-      set -x PATH $BUN_INSTALL/bin $PATH
     '';
     plugins = [
       # https://github.com/jorgebucaran/autopair.fish
@@ -70,16 +51,6 @@
           repo = "fzf";
           rev = "479fa67d7439b23095e01b64987ae79a91a4e283";
           sha256 = "sha256-28QW/WTLckR4lEfHv6dSotwkAKpNJFCShxmKFGQQ1Ew=";
-        };
-      }
-      # https://github.com/pure-fish/pure
-      {
-        name = "pure";
-        src = pkgs.fetchFromGitHub {
-          owner = "pure-fish";
-          repo = "pure";
-          rev = "f1b2c7049de3f5cb45e29c57a6efef005e3d03ff";
-          sha256 = "sha256-MnlqKRmMNVp6g9tet8sr5Vd8LmJAbZqLIGoDE5rlu8E=";
         };
       }
     ];
