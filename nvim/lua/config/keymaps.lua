@@ -198,19 +198,6 @@ map("n", "<leader>uI", function()
   vim.api.nvim_input("I")
 end, { desc = "Inspect Tree" })
 
--- floating terminal
-local root = require("util.root")
-map("n", "<c-/>", function()
-  Snacks.terminal(nil, { cwd = root() })
-end, { desc = "Terminal (Root Dir)" })
-map("n", "<c-_>", function()
-  Snacks.terminal(nil, { cwd = root() })
-end, { desc = "which_key_ignore" })
-
--- Terminal Mappings
-map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
-
 -- windows
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })

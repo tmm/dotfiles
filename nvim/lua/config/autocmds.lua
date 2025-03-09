@@ -121,10 +121,3 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
-
--- -- allow C-l to clear terminal
--- vim.api.nvim_create_autocmd("TermOpen", {
---   callback = function(ev)
---     vim.keymap.set("t", "<c-l>", "<c-l>", { buffer = ev.buf, nowait = true })
---   end,
--- })

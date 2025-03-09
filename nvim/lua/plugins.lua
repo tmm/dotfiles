@@ -321,22 +321,6 @@ return {
         })
       end
 
-      -- snacks terminal
-      for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
-        opts[pos] = opts[pos] or {}
-        table.insert(opts[pos], {
-          ft = "snacks_terminal",
-          size = { height = 0.4 },
-          title = "%{b:snacks_terminal.id}: %{b:term_title}",
-          filter = function(_buf, win)
-            return vim.w[win].snacks_win
-              and vim.w[win].snacks_win.position == pos
-              and vim.w[win].snacks_win.relative == "editor"
-              and not vim.w[win].trouble_preview
-          end,
-        })
-      end
-
       return opts
     end,
   },
@@ -2072,59 +2056,36 @@ return {
     "folke/snacks.nvim",
     lazy = false,
     priority = 1001,
-    opts = function()
-      -- Terminal Mappings
-      local function term_nav(dir)
-        return function(self)
-          return self:is_floating() and "<c-" .. dir .. ">"
-            or vim.schedule(function()
-              vim.cmd.wincmd(dir)
-            end)
-        end
-      end
-
-      return {
-        bigfile = { enabled = true },
-        dim = {
-          animate = { enabled = false },
+    opts = {
+      bigfile = { enabled = true },
+      dim = {
+        animate = { enabled = false },
+      },
+      indent = {
+        enabled = true,
+        animate = { enabled = false },
+      },
+      input = { enabled = true },
+      notifier = {
+        enabled = true,
+        icons = {
+          error = icons.diagnostics.Error,
+          warn = icons.diagnostics.Warn,
+          info = icons.diagnostics.Info,
+          debug = icons.misc.Bug,
+          trace = " ",
         },
-        indent = {
-          enabled = true,
-          animate = { enabled = false },
-        },
-        input = { enabled = true },
-        notifier = {
-          enabled = true,
-          icons = {
-            error = icons.diagnostics.Error,
-            warn = icons.diagnostics.Warn,
-            info = icons.diagnostics.Info,
-            debug = icons.misc.Bug,
-            trace = " ",
-          },
-        },
-        quickfile = { enabled = true },
-        scope = { enabled = true },
-        terminal = {
-          enabled = true,
-          win = {
-            keys = {
-              nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
-              nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
-              nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
-              nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
-            },
-          },
-        },
-        toggle = {
-          enabled = true,
-          map = require("util.init").safe_keymap_set,
-          notify = true,
-          which_key = true,
-        },
-        words = { enabled = true },
-      }
-    end,
+      },
+      quickfile = { enabled = true },
+      scope = { enabled = true },
+      toggle = {
+        enabled = true,
+        map = require("util.init").safe_keymap_set,
+        notify = true,
+        which_key = true,
+      },
+      words = { enabled = true },
+    },
     -- stylua: ignore
     keys = {
       { "<leader>n", function() require("snacks").notifier.show_history() end, desc = "Notification History" },
