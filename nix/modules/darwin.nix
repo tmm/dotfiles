@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, username, ... }: {
   environment = {
     systemPackages = with pkgs; [
       fish
@@ -13,9 +13,6 @@
   };
   homebrew = {
     enable = true;
-    brews = [
-      "gnu-sed"
-    ];
     casks = [
       "1password"
       "1password-cli"
@@ -54,9 +51,14 @@
     };
   };
   ids.gids.nixbld = 30000;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
+  nix = {
+    settings = {
+      substituters = [ "https://cache.nixos.org" ];
+      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+      trusted-users = [ "root" username ];
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
   programs.fish.enable = true;
   security.pam.services.sudo_local.touchIdAuth = true;
   system.defaults = {
@@ -92,7 +94,7 @@
   };
   system.stateVersion = 6;
   users.users.tmm = {
-    home = "/Users/tmm";
+    home = "/Users/${username}";
     shell = pkgs.fish;
   };
 }

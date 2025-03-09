@@ -75,13 +75,6 @@ M.icons = {
   },
 }
 
-M.worktrees = {
-  {
-    gitdir = vim.env.HOME .. "/.files",
-    toplevel = vim.env.HOME,
-  },
-}
-
 M.kind_filter = {
   default = {
     "Class",

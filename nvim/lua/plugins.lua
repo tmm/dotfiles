@@ -398,7 +398,6 @@ return {
         delete = { text = "" },
         topdelete = { text = "" },
       },
-      worktrees = core.worktrees,
     },
   },
 

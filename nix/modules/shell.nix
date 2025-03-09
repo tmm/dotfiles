@@ -12,9 +12,6 @@
       # disable welcome message
       set -g fish_greeting
 
-      # 1password
-      set -gx SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-
       # pnpm
       set -gx PNPM_HOME "$HOME/.local/share/pnpm"
       set -gx PATH "$PNPM_HOME" $PATH
@@ -31,6 +28,7 @@
       fish_add_path $PG_CONFIG
 
       fnm env | source
+      fzf --fish | source
     '';
     plugins = [
       # https://github.com/jorgebucaran/autopair.fish
@@ -41,16 +39,6 @@
           repo = "autopair.fish";
           rev = "4d1752ff5b39819ab58d7337c69220342e9de0e2";
           sha256 = "sha256-s1o188TlwpUQEN3X5MxUlD/2CFCpEkWu83U9O+wg3VU=";
-        };
-      }
-      # https://github.com/jethrokuan/fzf
-      {
-        name = "fzf";
-        src = pkgs.fetchFromGitHub {
-          owner = "jethrokuan";
-          repo = "fzf";
-          rev = "479fa67d7439b23095e01b64987ae79a91a4e283";
-          sha256 = "sha256-28QW/WTLckR4lEfHv6dSotwkAKpNJFCShxmKFGQQ1Ew=";
         };
       }
     ];

@@ -28,10 +28,7 @@
     elixir
   ]);
   home.file = {
-    ignore = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/ignore";
-      target = ".ignore";
-    };
+    ".ignore".source = ../files/ignore;
     ".ssh/tom.pub".source = ../files/tom.pub;
   };
   home.shell.enableFishIntegration = true;
@@ -91,7 +88,7 @@
         vimcmd_symbol = "[❮](purple)";
       };
       cmd_duration = {
-        format = "[$duration]($style) ";
+        format = "[$duration]($style)";
         style = "yellow";
       };
       directory = {
@@ -113,27 +110,29 @@
       git_status = {
         format = lib.concatStrings [
           "["
-          "[(*"
+          "[("
           "$conflicted"
           "$untracked"
           "$modified"
           "$staged"
+          "$stashed"
           "$renamed"
           "$deleted"
           ")](218) "
           "($ahead_behind"
-          "$stashed"
           ")]"
-          "($style)"
+          "(cyan) "
         ];
-        style = "cyan";
-        conflicted = "​";
-        untracked = "​";
-        modified = "​";
-        staged = "​";
-        renamed = "​";
-        deleted = "​";
+        ahead = "▲";
+        behind = "▼";
+        conflicted = "";
+        deleted = "";
+        diverged = "◆";
+        modified = "*";
+        renamed = "";
+        staged = "";
         stashed = "≡";
+        untracked = "";
       };
     };
   };

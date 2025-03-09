@@ -10,29 +10,36 @@
     nixpkgs-unstable.url = "github:nixoS/nixpkgs/nixpkgs-unstable";
   };
 
-  outputs = inputs: {
-    darwinConfigurations.tmm = inputs.darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      pkgs = import inputs.nixpkgs {
+  outputs = inputs:
+    let
+      username = "tmm";
+    in
+    {
+      darwinConfigurations.${username} = inputs.darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit username;
+        };
         system = "aarch64-darwin";
-        config.allowUnfree = true;
-      };
-      modules = [
-        ./modules/darwin.nix
-        inputs.home-manager.darwinModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.tmm = import ./modules/home-manager.nix;
-            extraSpecialArgs = {
-              pkgsUnstable = import inputs.nixpkgs-unstable {
-                system = "aarch64-darwin";
+        pkgs = import inputs.nixpkgs {
+          system = "aarch64-darwin";
+          config.allowUnfree = true;
+        };
+        modules = [
+          ./modules/darwin.nix
+          inputs.home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${username} = import ./modules/home-manager.nix;
+              extraSpecialArgs = {
+                pkgsUnstable = import inputs.nixpkgs-unstable {
+                  system = "aarch64-darwin";
+                };
               };
             };
-          };
-        }
-      ];
+          }
+        ];
+      };
     };
-  };
 }

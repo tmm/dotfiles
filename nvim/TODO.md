@@ -8,7 +8,6 @@ lazy cb22355
 
 ## Issues
 
-- snacks git worktree https://github.com/folke/snacks.nvim/issues/405
 - neotest output does not auto-scroll in edgy
 
 ## Plugins
@@ -27,7 +26,6 @@ lazy cb22355
 - emmet-like plugin
 - dap firefox https://github.com/firefox-devtools/vscode-firefox-debug
 - add recording macro to statusline
-- lualine branch supports git worktree
 - add lazyvim news https://www.lazyvim.org/news
 
 ## Links
