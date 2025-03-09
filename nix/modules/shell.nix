@@ -60,7 +60,6 @@
       d = "docker";
       de = "delta";
       dc = "docker compose";
-      df = "h git";
       g = "git";
       i = "iex";
       lsd = "eza -d .*";
@@ -73,7 +72,6 @@
       find = "fd";
       fup = "echo $fish_user_paths | tr \" \" \"\n\" | nl";
       ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
-      h = "env GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.files";
       howto = "gh copilot suggest -t shell";
       ls = "eza";
       reload = "exec $SHELL -l";
@@ -81,9 +79,9 @@
       hide = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder";
       show = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder";
 
-      nconf = "pushd . && cd ~ && nvim ~/.config/nix/flake.nix";
-      vconf = "pushd . && cd ~ && nvim ~/.config/nvim/init.lua";
-      drs = "darwin-rebuild switch --flake ~/.config/nix";
+      nconf = "pushd . && nvim $DOTFILES_HOME/nix/flake.nix";
+      vconf = "pushd . && nvim $DOTFILES_HOME/nvim/init.lua";
+      drs = "darwin-rebuild switch --flake $DOTFILES_HOME/nix";
 
       hidedesktop = "defaults write com.apple.finder CreateDesktop -bool false && killall Finder";
       showdesktop = "defaults write com.apple.finder CreateDesktop -bool true && killall Finder";

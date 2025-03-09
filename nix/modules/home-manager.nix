@@ -1,4 +1,4 @@
-{ lib, pkgs, pkgsUnstable, ... }: {
+{ config, lib, pkgs, pkgsUnstable, ... }: {
   home.packages = with pkgs; [
     amber
     asciinema
@@ -27,18 +27,25 @@
     # TODO: Using latest version (elixir@1.17.3), replace once stable
     elixir
   ]);
+  home.file = {
+    ignore = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/ignore";
+      target = ".ignore";
+    };
+    ".ssh/tom.pub".source = ../files/tom.pub;
+  };
   home.shell.enableFishIntegration = true;
   home.stateVersion = "23.05";
   home.sessionVariables = {
     EDITOR = "nvim";
+    DOTFILES_HOME = "${config.home.homeDirectory}/Developer/dotfiles";
+    SSH_AUTH_SOCK = "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
   };
-
   imports = [
     ./ghostty.nix
     ./git.nix
     ./shell.nix
   ];
-
   programs.bat.enable = true;
   programs.direnv = {
     enable = true;
@@ -55,6 +62,14 @@
     ];
   };
   programs.home-manager.enable = true;
+  programs.ssh = {
+    enable = true;
+    forwardAgent = true;
+    extraConfig = ''
+      IdentityAgent "${config.home.sessionVariables.SSH_AUTH_SOCK}"
+      StrictHostKeyChecking no
+    '';
+  };
   programs.starship = {
     enable = true;
     settings = {
@@ -123,33 +138,15 @@
     };
   };
   programs.zoxide.enable = true;
-
-  home.file = {
-    ignore = {
-      source = ../files/ignore;
-      target = ".ignore";
-    };
-    ssh = {
-      source = ../files/ssh;
-      target = ".ssh";
-      recursive = true;
-    };
-    xcode = {
-      source = ../files/xcode;
-      target = "Library/Developer/Xcode/UserData";
-      recursive = true;
-    };
-  };
-
   xdg = {
     enable = true;
     configFile = {
-      "delta" = {
-        source = ../files/delta;
-        recursive = true;
-      };
-      "fish" = {
-        source = ../files/fish;
+      # fish = {
+      #   source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/fish";
+      #   recursive = true;
+      # };
+      nvim = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nvim";
         recursive = true;
       };
     };

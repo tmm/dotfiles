@@ -1,7 +1,6 @@
-{ pkgs, ... }: {
+{ ... }: {
   programs.git = {
     enable = true;
-
     aliases = {
       a = "add";
       aa = "add .";
@@ -23,7 +22,6 @@
       undo = "reset --soft HEAD^";
       unstage = "reset HEAD --";
     };
-
     ignores = [
       "*.un~"
       ".*.sw[a-z]"
@@ -35,10 +33,8 @@
       ".envrc"
       "Session.vim"
     ];
-
     userName = "Tom Meagher";
     userEmail = "tom@meagher.co";
-
     extraConfig = {
       color.ui = "auto";
       commit.gpgsign = true;
@@ -49,12 +45,31 @@
       };
       credential.helper = "osxkeychain";
       delta = {
-        features = "rsms-dark";
         # TODO: nvim support
         # hyperlinks = true;
         navigate = true;
         line-numbers = true;
         side-by-side = true;
+        file-added-label = " ";
+        file-decoration-style = "#272725 ul";
+        file-modified-label = " ";
+        file-removed-label = " ";
+        file-renamed-label = " ";
+        file-style = "#BFBFBF";
+        hunk-header-style = "omit";
+        line-numbers-left-style = "#272725";
+        line-numbers-minus-style = "#F0F6FC #552527";
+        line-numbers-plus-style = "#F0F6FC #1F4429";
+        line-numbers-right-style = "#272725";
+        line-numbers-zero-style = "#4A4945";
+        minus-emph-style = "#F0F6FC #7F302F";
+        minus-empty-line-marker-style = "syntax #301B1E";
+        minus-non-emph-style = "syntax #301B1E";
+        minus-style = "syntax #301B1E";
+        plus-emph-style = "#F0F6FC #1D572D";
+        plus-empty-line-marker-style = "syntax #14261D";
+        plus-non-emph-style = "syntax #14261D";
+        plus-style = "syntax #14261D";
       };
       github.user = "tmm";
       gpg = {
