@@ -88,7 +88,7 @@
         vimcmd_symbol = "[❮](purple)";
       };
       cmd_duration = {
-        format = "[$duration]($style)";
+        format = "[( $duration)]($style)";
         style = "yellow";
       };
       directory = {
@@ -109,7 +109,6 @@
       };
       git_status = {
         format = lib.concatStrings [
-          "["
           "[("
           "$conflicted"
           "$untracked"
@@ -118,10 +117,10 @@
           "$stashed"
           "$renamed"
           "$deleted"
-          ")](218) "
-          "($ahead_behind"
-          ")]"
-          "(cyan) "
+          ")](218)"
+          "[( "
+          "$ahead_behind"
+          ")](cyan)"
         ];
         ahead = "▲";
         behind = "▼";
