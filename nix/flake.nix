@@ -12,6 +12,7 @@
 
   outputs = inputs:
     let
+      dotfilesDir = "Developer/dotfiles";
       username = "tmm";
     in
     {
@@ -33,6 +34,7 @@
               useUserPackages = true;
               users.${username} = import ./modules/home-manager.nix;
               extraSpecialArgs = {
+                inherit dotfilesDir;
                 pkgsUnstable = import inputs.nixpkgs-unstable {
                   system = "aarch64-darwin";
                 };

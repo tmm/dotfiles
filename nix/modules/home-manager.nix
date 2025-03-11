@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgsUnstable, ... }: {
+{ config, dotfilesDir, lib, pkgs, pkgsUnstable, ... }: {
   home.packages = with pkgs; [
     amber
     asciinema
@@ -35,7 +35,7 @@
   home.stateVersion = "23.05";
   home.sessionVariables = {
     EDITOR = "nvim";
-    DOTFILES_HOME = "${config.home.homeDirectory}/Developer/dotfiles";
+    DOTFILES_HOME = "${config.home.homeDirectory}/${dotfilesDir}";
     SSH_AUTH_SOCK = "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
   };
   imports = [
@@ -139,10 +139,6 @@
   xdg = {
     enable = true;
     configFile = {
-      # fish = {
-      #   source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/fish";
-      #   recursive = true;
-      # };
       nvim = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nvim";
         recursive = true;

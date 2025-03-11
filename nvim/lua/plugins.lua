@@ -1,18 +1,4 @@
-local core = require("config")
-local icons = core.icons
-
-local open = function(command, opts)
-  return function()
-    opts = opts or {}
-    if opts.cmd == nil and command == "git_files" and opts.show_untracked then
-      opts.cmd = "git ls-files --exclude-standard --cached --others"
-    end
-    if not opts.cwd and opts.root ~= false then
-      opts.cwd = require("util.root").get({ buf = opts.buf })
-    end
-    return require("fzf-lua")[command](opts)
-  end
-end
+local icons = require("config").icons
 
 return {
   -- blink.cmp (https://github.com/saghen/blink.cmp)
@@ -400,282 +386,6 @@ return {
     },
   },
 
-  -- fzf-lua (https://github.com/ibhagwan/fzf-lua)
-  {
-    "ibhagwan/fzf-lua",
-    cmd = "FzfLua",
-    opts = function(_, _opts)
-      local fzf = require("fzf-lua")
-      local config = fzf.config
-      local actions = fzf.actions
-
-      -- Quickfix
-      config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
-      config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
-      config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
-      config.defaults.keymap.fzf["ctrl-d"] = "half-page-down"
-      config.defaults.keymap.fzf["ctrl-f"] = "preview-page-down"
-      config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
-      config.defaults.keymap.fzf["ctrl-u"] = "half-page-up"
-      config.defaults.keymap.fzf["ctrl-x"] = "jump"
-
-      -- Trouble
-      if require("util.init").has("trouble.nvim") then
-        config.defaults.actions.files["ctrl-t"] = require("trouble.sources.fzf").actions.open
-      end
-
-      -- Toggle root dir / cwd
-      config.defaults.actions.files["ctrl-r"] = function(_, ctx)
-        local o = vim.deepcopy(ctx.__call_opts)
-        o.root = o.root == false
-        o.cwd = nil
-        o.buf = ctx.__CTX.bufnr
-        open(ctx.__INFO.cmd, o)
-      end
-      config.defaults.actions.files["alt-c"] = config.defaults.actions.files["ctrl-r"]
-      config.set_action_helpstr(config.defaults.actions.files["ctrl-r"], "toggle-root-dir")
-
-      local img_previewer ---@type string[]?
-      for _, v in ipairs({
-        { cmd = "ueberzug", args = {} },
-        { cmd = "chafa", args = { "{file}", "--format=symbols" } },
-        { cmd = "viu", args = { "-b" } },
-      }) do
-        if vim.fn.executable(v.cmd) == 1 then
-          img_previewer = vim.list_extend({ v.cmd }, v.args)
-          break
-        end
-      end
-
-      return {
-        "default-title",
-        defaults = {
-          -- formatter = "path.filename_first",
-          formatter = "path.dirname_first",
-        },
-        files = {
-          cwd_prompt = false,
-          actions = {
-            ["alt-i"] = { actions.toggle_ignore },
-            ["alt-h"] = { actions.toggle_hidden },
-          },
-          file_icons = false,
-          git_icons = false,
-          fzf_colors = false,
-          fzf_opts = {
-            ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-files-history",
-          },
-        },
-        fzf_colors = false,
-        fzf_opts = {
-          ["--no-scrollbar"] = true,
-        },
-        grep = {
-          actions = {
-            ["alt-i"] = { actions.toggle_ignore },
-            ["alt-h"] = { actions.toggle_hidden },
-          },
-          fzf_colors = false,
-          file_icons = false,
-          fzf_opts = {
-            ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-grep-history",
-          },
-        },
-        lsp = {
-          symbols = {
-            symbol_hl = function(s)
-              return "TroubleIcon" .. s
-            end,
-            symbol_fmt = function(s)
-              return s:lower() .. "\t"
-            end,
-            child_prefix = false,
-          },
-          code_actions = {
-            previewer = vim.fn.executable("delta") == 1 and "codeaction_native" or nil,
-          },
-        },
-        previewers = {
-          builtin = {
-            syntax = true,
-            treesitter = {
-              enabled = true,
-              disabled = {},
-              -- nvim-treesitter-context config options
-              context = {
-                max_lines = 3,
-                mode = "cursor",
-                multiwindow = true,
-              },
-            },
-            extensions = {
-              ["gif"] = img_previewer,
-              ["jpeg"] = img_previewer,
-              ["jpg"] = img_previewer,
-              ["png"] = img_previewer,
-              ["webp"] = img_previewer,
-            },
-            ueberzug_scaler = "fit_contain",
-          },
-        },
-        -- Custom LazyVim option to configure vim.ui.select
-        ui_select = function(fzf_opts, items)
-          return vim.tbl_deep_extend("force", fzf_opts, {
-            prompt = " ",
-            winopts = {
-              title = " " .. vim.trim((fzf_opts.prompt or "Select"):gsub("%s*:%s*$", "")) .. " ",
-              title_pos = "center",
-            },
-          }, fzf_opts.kind == "codeaction" and {
-            winopts = {
-              layout = "vertical",
-              -- height is number of items minus 15 lines for the preview, with a max of 80% screen height
-              height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5) + 16,
-              width = 0.5,
-              preview = not vim.tbl_isempty(require("util.lsp").get_clients({ bufnr = 0, name = "vtsls" })) and {
-                layout = "vertical",
-                vertical = "down:15,border-top",
-                hidden = "hidden",
-              } or {
-                layout = "vertical",
-                vertical = "down:15,border-top",
-              },
-            },
-          } or {
-            winopts = {
-              width = 0.5,
-              -- height is number of items, with a max of 80% screen height
-              height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5),
-            },
-          })
-        end,
-        winopts = {
-          width = 0.8,
-          height = 0.8,
-          row = 0.5,
-          col = 0.5,
-          preview = {
-            scrollbar = "float",
-            scrollchars = { "┃", "" },
-          },
-          treesitter = {
-            enabled = true,
-            fzf_colors = { ["hl"] = "-1:reverse", ["hl+"] = "-1:reverse" },
-          },
-        },
-      }
-    end,
-    config = function(_, opts)
-      if opts[1] == "default-title" then
-        -- use the same prompt for all pickers for profile `default-title` and
-        -- profiles that use `default-title` as base profile
-        local function fix(t)
-          t.prompt = t.prompt ~= nil and " " or nil
-          for _, v in pairs(t) do
-            if type(v) == "table" then
-              fix(v)
-            end
-          end
-          return t
-        end
-        opts = vim.tbl_deep_extend("force", fix(require("fzf-lua.profiles.default-title")), opts)
-        opts[1] = nil
-      end
-      require("fzf-lua").setup(opts)
-    end,
-    init = function()
-      require("util.init").on_very_lazy(function()
-        vim.ui.select = function(...)
-          require("lazy").load({ plugins = { "fzf-lua" } })
-          local opts = require("util.init").opts("fzf-lua") or {}
-          require("fzf-lua").register_ui_select(opts.ui_select or nil)
-          return vim.ui.select(...)
-        end
-      end)
-    end,
-    keys = {
-      { "<c-j>", "<c-j>", ft = "fzf", mode = "t", nowait = true },
-      { "<c-k>", "<c-k>", ft = "fzf", mode = "t", nowait = true },
-      {
-        "<leader>,",
-        "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>",
-        desc = "Switch Buffer",
-      },
-      { "<leader>/", open("live_grep"), desc = "Grep (Root Dir)" },
-      { "<leader>:", "<cmd>FzfLua command_history<cr>", desc = "Command History" },
-      { "<leader><space>", open("files"), desc = "Find Files (Root Dir)" },
-      -- find
-      { "<leader>fb", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-      { "<leader>fc", open("files", { cwd = vim.fn.stdpath("config") }), desc = "Find Config File" },
-      { "<leader>ff", open("files"), desc = "Find Files (Root Dir)" },
-      { "<leader>fF", open("files", { root = false }), desc = "Find Files (cwd)" },
-      { "<leader>fg", "<cmd>FzfLua git_files<cr>", desc = "Find Files (git-files)" },
-      { "<leader>fr", "<cmd>FzfLua oldfiles<cr>", desc = "Recent" },
-      { "<leader>fR", open("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
-      -- git
-      { "<leader>gc", "<cmd>FzfLua git_commits<CR>", desc = "Commits" },
-      { "<leader>gs", "<cmd>FzfLua git_status<CR>", desc = "Status" },
-      -- search
-      { '<leader>s"', "<cmd>FzfLua registers<cr>", desc = "Registers" },
-      { "<leader>sa", "<cmd>FzfLua autocmds<cr>", desc = "Auto Commands" },
-      { "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>", desc = "Buffer" },
-      { "<leader>sc", "<cmd>FzfLua command_history<cr>", desc = "Command History" },
-      { "<leader>sC", "<cmd>FzfLua commands<cr>", desc = "Commands" },
-      { "<leader>sd", "<cmd>FzfLua diagnostics_document<cr>", desc = "Document Diagnostics" },
-      { "<leader>sD", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace Diagnostics" },
-      { "<leader>sg", open("live_grep"), desc = "Grep (Root Dir)" },
-      { "<leader>sG", open("live_grep", { root = false }), desc = "Grep (cwd)" },
-      { "<leader>sh", "<cmd>FzfLua help_tags<cr>", desc = "Help Pages" },
-      { "<leader>sH", "<cmd>FzfLua highlights<cr>", desc = "Search Highlight Groups" },
-      { "<leader>sj", "<cmd>FzfLua jumps<cr>", desc = "Jumplist" },
-      { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Key Maps" },
-      { "<leader>sl", "<cmd>FzfLua loclist<cr>", desc = "Location List" },
-      { "<leader>sM", "<cmd>FzfLua man_pages<cr>", desc = "Man Pages" },
-      { "<leader>sm", "<cmd>FzfLua marks<cr>", desc = "Jump to Mark" },
-      { "<leader>sR", "<cmd>FzfLua resume<cr>", desc = "Resume" },
-      { "<leader>sq", "<cmd>FzfLua quickfix<cr>", desc = "Quickfix List" },
-      { "<leader>sw", open("grep_cword"), desc = "Word (Root Dir)" },
-      { "<leader>sW", open("grep_cword", { root = false }), desc = "Word (cwd)" },
-      { "<leader>sw", open("grep_visual"), mode = "v", desc = "Selection (Root Dir)" },
-      { "<leader>sW", open("grep_visual", { root = false }), mode = "v", desc = "Selection (cwd)" },
-      { "<leader>uC", open("colorschemes"), desc = "Colorscheme with Preview" },
-      {
-        "<leader>ss",
-        function()
-          require("fzf-lua").lsp_document_symbols({
-            regex_filter = function(entry, ctx)
-              if ctx.symbols_filter == nil then
-                ctx.symbols_filter = core.get_kind_filter(ctx.bufnr) or false
-              end
-              if ctx.symbols_filter == false then
-                return true
-              end
-              return vim.tbl_contains(ctx.symbols_filter, entry.kind)
-            end,
-          })
-        end,
-        desc = "Goto Symbol",
-      },
-      {
-        "<leader>sS",
-        function()
-          require("fzf-lua").lsp_live_workspace_symbols({
-            regex_filter = function(entry, ctx)
-              if ctx.symbols_filter == nil then
-                ctx.symbols_filter = core.get_kind_filter(ctx.bufnr) or false
-              end
-              if ctx.symbols_filter == false then
-                return true
-              end
-              return vim.tbl_contains(ctx.symbols_filter, entry.kind)
-            end,
-          })
-        end,
-        desc = "Goto Symbol (Workspace)",
-      },
-    },
-  },
-
   -- lualine.nvim (https://github.com/nvim-lualine/lualine.nvim)
   {
     "nvim-lualine/lualine.nvim",
@@ -858,7 +568,7 @@ return {
 
   -- mini.nvim (https://github.com/echasnovski/mini.nvim)
   {
-    "echasnovski/mini.nvim",
+    "echasnovski/mini.icons",
     event = "VeryLazy",
     init = function()
       package.preload["nvim-web-devicons"] = function()
@@ -866,23 +576,29 @@ return {
         return package.loaded["nvim-web-devicons"]
       end
     end,
-    config = function()
-      require("mini.pairs").setup({
-        -- TODO: https://github.com/LazyVim/LazyVim/blob/3dbace941ee935c89c73fd774267043d12f57fe2/lua/lazyvim/util/mini.lua#L123
-        modes = { insert = true, command = true, terminal = false },
-      })
-      require("mini.surround").setup({
-        mappings = {
-          add = "gsa", -- Add surrounding in Normal and Visual modes
-          delete = "gsd", -- Delete surrounding
-          find = "gsf", -- Find surrounding (to the right)
-          find_left = "gsF", -- Find surrounding (to the left)
-          highlight = "gsh", -- Highlight surrounding
-          replace = "gsr", -- Replace surrounding
-          update_n_lines = "gsn", -- Update `n_lines`
-        },
-      })
-    end,
+  },
+  {
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = {
+      -- TODO: https://github.com/LazyVim/LazyVim/blob/3dbace941ee935c89c73fd774267043d12f57fe2/lua/lazyvim/util/mini.lua#L123
+      modes = { insert = true, command = true, terminal = false },
+    },
+  },
+  {
+    "echasnovski/mini.surround",
+    event = "VeryLazy",
+    opts = {
+      mappings = {
+        add = "gsa", -- Add surrounding in Normal and Visual modes
+        delete = "gsd", -- Delete surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        replace = "gsr", -- Replace surrounding
+        update_n_lines = "gsn", -- Update `n_lines`
+      },
+    },
   },
 
   -- neotest (https://github.com/nvim-neotest/neotest)
@@ -2076,6 +1792,48 @@ return {
           trace = " ",
         },
       },
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ["s"] = { "flash" },
+              ["<a-c>"] = { "toggle_cwd", mode = { "n", "i" } },
+              ["<a-s>"] = { "flash", mode = { "n", "i" } },
+              ["<a-t>"] = { "trouble_open", mode = { "n", "i" } },
+            },
+          },
+        },
+        actions = {
+          flash = function(picker)
+            require("flash").jump({
+              pattern = "^",
+              label = { after = { 0, 0 } },
+              search = {
+                mode = "search",
+                exclude = {
+                  function(win)
+                    return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
+                  end,
+                },
+              },
+              action = function(match)
+                local idx = picker.list:row2idx(match.pos[1])
+                picker.list:_move(idx, true, true)
+              end,
+            })
+          end,
+          toggle_cwd = function(p)
+            local root = require("util.root").get({ buf = p.input.filter.current_buf, normalize = true })
+            local cwd = vim.fs.normalize((vim.uv or vim.loop).cwd() or ".")
+            local current = p:cwd()
+            p:set_cwd(current == root and cwd or root)
+            p:find()
+          end,
+          trouble_open = function(...)
+            return require("trouble.sources.snacks").actions.trouble_open.action(...)
+          end,
+        },
+      },
       quickfile = { enabled = true },
       scope = { enabled = true },
       toggle = {
@@ -2086,11 +1844,64 @@ return {
       },
       words = { enabled = true },
     },
-    -- stylua: ignore
-    keys = {
-      { "<leader>n", function() require("snacks").notifier.show_history() end, desc = "Notification History" },
-      { "<leader>un", function() require("snacks").notifier.hide() end, desc = "Dismiss All Notifications" },
-    },
+    keys = function()
+      local snacks = require("snacks")
+      local pick = require("util.pick")
+
+      -- stylua: ignore
+      return {
+        { "<leader>un", function() snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+
+        { "<leader>,", function() snacks.picker.buffers() end, desc = "Buffers" },
+        { "<leader>/", pick.open("grep"), desc = "Grep (Root Dir)" },
+        { "<leader>:", function() snacks.picker.command_history() end, desc = "Command History" },
+        { "<leader><space>", pick.open("files"), desc = "Find Files (Root Dir)" },
+        { "<leader>n", function() snacks.picker.notifications() end, desc = "Notification History" },
+        -- find
+        { "<leader>fb", function() snacks.picker.buffers() end, desc = "Buffers" },
+        { "<leader>fB", function() snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = "Buffers (all)" },
+        { "<leader>fc", pick.config_files(), desc = "Find Config File" },
+        { "<leader>ff", pick.open("files"), desc = "Find Files (Root Dir)" },
+        { "<leader>fF", pick.open("files", { root = false }), desc = "Find Files (cwd)" },
+        { "<leader>fg", function() snacks.picker.git_files() end, desc = "Find Files (git-files)" },
+        { "<leader>fr", pick.open("recent"), desc = "Recent" },
+        { "<leader>fR", function() snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
+        { "<leader>fp", function() snacks.picker.projects() end, desc = "Projects" },
+        -- git
+        { "<leader>gd", function() snacks.picker.git_diff() end, desc = "Git Diff (hunks)" },
+        { "<leader>gs", function() snacks.picker.git_status() end, desc = "Git Status" },
+        { "<leader>gS", function() snacks.picker.git_stash() end, desc = "Git Stash" },
+        -- Grep
+        { "<leader>sb", function() snacks.picker.lines() end, desc = "Buffer Lines" },
+        { "<leader>sB", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+        { "<leader>sg", pick.open("grep"), desc = "Grep (Root Dir)" },
+        { "<leader>sG", pick.open("grep", { root = false }), desc = "Grep (cwd)" },
+        { "<leader>sp", function() snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
+        { "<leader>sw", pick.open("grep_word"), desc = "Visual selection or word (Root Dir)", mode = { "n", "x" } },
+        { "<leader>sW", pick.open("grep_word", { root = false }), desc = "Visual selection or word (cwd)", mode = { "n", "x" } },
+        -- search
+        { '<leader>s"', function() snacks.picker.registers() end, desc = "Registers" },
+        { '<leader>s/', function() snacks.picker.search_history() end, desc = "Search History" },
+        { "<leader>sa", function() snacks.picker.autocmds() end, desc = "Autocmds" },
+        { "<leader>sc", function() snacks.picker.command_history() end, desc = "Command History" },
+        { "<leader>sC", function() snacks.picker.commands() end, desc = "Commands" },
+        { "<leader>sd", function() snacks.picker.diagnostics() end, desc = "Diagnostics" },
+        { "<leader>sD", function() snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
+        { "<leader>sh", function() snacks.picker.help() end, desc = "Help Pages" },
+        { "<leader>sH", function() snacks.picker.highlights() end, desc = "Highlights" },
+        { "<leader>si", function() snacks.picker.icons() end, desc = "Icons" },
+        { "<leader>sj", function() snacks.picker.jumps() end, desc = "Jumps" },
+        { "<leader>sk", function() snacks.picker.keymaps() end, desc = "Keymaps" },
+        { "<leader>sl", function() snacks.picker.loclist() end, desc = "Location List" },
+        { "<leader>sM", function() snacks.picker.man() end, desc = "Man Pages" },
+        { "<leader>sm", function() snacks.picker.marks() end, desc = "Marks" },
+        { "<leader>sR", function() snacks.picker.resume() end, desc = "Resume" },
+        { "<leader>sq", function() snacks.picker.qflist() end, desc = "Quickfix List" },
+        { "<leader>su", function() snacks.picker.undo() end, desc = "Undotree" },
+        -- ui
+        { "<leader>uC", function() snacks.picker.colorschemes() end, desc = "Colorschemes" },
+      }
+    end,
     config = function(_, opts)
       local notify = vim.notify
       require("snacks").setup(opts)

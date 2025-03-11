@@ -12,7 +12,6 @@ lazy cb22355
 
 ## Plugins
 
-- render-markdown.nvim
 - https://github.com/MagicDuck/grug-far.nvim
 - https://github.com/folke/persistence.nvim (nvim-lastplace captured by persist?)
 - https://github.com/folke/todo-comments.nvim
@@ -22,7 +21,6 @@ lazy cb22355
 
 ## Misc
 
-- add search results to scrollbar
 - emmet-like plugin
 - dap firefox https://github.com/firefox-devtools/vscode-firefox-debug
 - add recording macro to statusline

@@ -22,7 +22,10 @@ require("lazy").setup({
     enabled = true,
     notify = false,
   },
-  checker = { enabled = true },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
   dev = {
     path = "~/Developer",
   },
