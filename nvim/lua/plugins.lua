@@ -479,6 +479,7 @@ return {
             },
             -- stylua: ignore
             { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = "MsgArea" },
+            { "progress", color = "MsgArea" },
             { "location", color = "MsgArea" },
           },
           lualine_y = {},
@@ -991,7 +992,37 @@ return {
     event = "VeryLazy",
     dependencies = {
       -- https://github.com/rcarriga/nvim-dap-ui
-      "rcarriga/nvim-dap-ui",
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "nvim-neotest/nvim-nio" },
+        -- stylua: ignore
+        keys = {
+          { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
+          { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+        },
+        opts = {
+          controls = { enabled = false },
+          icons = {
+            collapsed = icons.tree.Closed,
+            current_frame = icons.tree.Closed,
+            expanded = icons.tree.Open,
+          },
+        },
+        config = function(_, opts)
+          local dap = require("dap")
+          local dapui = require("dapui")
+          dapui.setup(opts)
+          dap.listeners.after.event_initialized["dapui_config"] = function()
+            -- dapui.open({})
+          end
+          dap.listeners.before.event_terminated["dapui_config"] = function()
+            dapui.close({})
+          end
+          dap.listeners.before.event_exited["dapui_config"] = function()
+            dapui.close({})
+          end
+        end,
+      },
       -- https://github.com/theHamsta/nvim-dap-virtual-text
       {
         "theHamsta/nvim-dap-virtual-text",
@@ -1132,49 +1163,6 @@ return {
         return vim.json.decode(json.json_strip_comments(str))
       end
     end,
-  },
-
-  -- nvim-dap-ui (https://github.com/rcarriga/nvim-dap-ui)
-  {
-    "rcarriga/nvim-dap-ui",
-    dependencies = { "nvim-neotest/nvim-nio" },
-    -- stylua: ignore
-    keys = {
-      { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-      { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
-    },
-    opts = {
-      controls = { enabled = false },
-      icons = {
-        collapsed = icons.tree.Closed,
-        current_frame = icons.tree.Closed,
-        expanded = icons.tree.Open,
-      },
-    },
-    config = function(_, opts)
-      local dap = require("dap")
-      local dapui = require("dapui")
-      dapui.setup(opts)
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        -- dapui.open({})
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close({})
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close({})
-      end
-    end,
-  },
-
-  -- nvim-lastplace (https://github.com/ethanholz/nvim-lastplace)
-  {
-    "ethanholz/nvim-lastplace",
-    opts = {
-      lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-      lastplace_ignore_filetype = { "gitcommit", "gitrebase" },
-      lastplace_open_folds = true,
-    },
   },
 
   -- nvim-lspconfig (https://github.com/neovim/nvim-lspconfig)
@@ -1620,27 +1608,6 @@ return {
     end,
   },
 
-  -- nvim-scrollbar (https://github.com/petertriho/nvim-scrollbar)
-  {
-    "petertriho/nvim-scrollbar",
-    event = "BufReadPost",
-    config = function()
-      local scrollbar = require("scrollbar")
-      scrollbar.setup({
-        excluded_filetypes = { "fzf_preview", "neo-tree", "noice", "notify", "prompt" },
-        handlers = {
-          cursor = false,
-          diagnostic = true,
-          gitsigns = false, -- Requires gitsigns
-          handle = true,
-          search = false, -- Requires hlslens
-        },
-        hide_if_all_visible = false,
-        set_highlights = false,
-      })
-    end,
-  },
-
   -- nvim-treesitter (https://github.com/nvim-treesitter/nvim-treesitter)
   {
     "nvim-treesitter/nvim-treesitter",
@@ -1754,17 +1721,6 @@ return {
         desc = "Jump to context",
       },
     },
-  },
-
-  -- rsms (https://github.com/tmm/rsms)
-  {
-    "tmm/rsms",
-    dev = true,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd([[colorscheme rsms]])
-    end,
   },
 
   -- snacks.nvim (https://github.com/folke/snacks.nvim)
@@ -2063,8 +2019,15 @@ return {
     end,
   },
 
-  -- lush.nvim (https://github.com/rktjmp/lush.nvim)
+  -- rsms (https://github.com/tmm/rsms)
   {
-    "rktjmp/lush.nvim",
+    "tmm/rsms",
+    dev = true,
+    dependencies = { "rktjmp/lush.nvim" },
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme rsms]])
+    end,
   },
 }

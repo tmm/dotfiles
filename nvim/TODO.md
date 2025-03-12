@@ -2,13 +2,9 @@
 
 lazy cb22355
 
-- fzf-lua/neotree to snacks.nvim picker
-- trouble lualine
+- neotree to snacks picker
 - symbols viewer
-
-## Issues
-
-- neotest output does not auto-scroll in edgy
+- trouble lualine
 
 ## Plugins
 
