@@ -22,6 +22,7 @@
     ripgrep
     rustup
     starship
+    tmux
     zoxide
   ] ++ (with pkgsUnstable; [
     # TODO: Using latest version (elixir@1.17.3), replace once stable
@@ -142,6 +143,10 @@
     configFile = {
       nvim = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nvim";
+        recursive = true;
+      };
+      tmux = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/tmux";
         recursive = true;
       };
     };

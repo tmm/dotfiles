@@ -53,6 +53,7 @@
       lsd = "eza -d .*";
       m = "mix";
       p = "pnpm";
+      t = "tmux";
       v = "nvim";
     };
     shellAliases = {

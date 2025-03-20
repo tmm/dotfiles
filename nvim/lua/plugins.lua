@@ -1947,6 +1947,30 @@ return {
     event = "VeryLazy",
   },
 
+  {
+    -- vim-tmux-navigator (https://github.com/christoomey/vim-tmux-navigator)
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigatorProcessList",
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      -- "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<C-h>", "<cmd><C-U>TmuxNavigateLeft<cr>", { desc = "Go to Left Window", remap = true } },
+      { "<C-j>", "<cmd><C-U>TmuxNavigateDown<cr>", { desc = "Go to Lower Window", remap = true } },
+      { "<C-k>", "<cmd><C-U>TmuxNavigateUp<cr>", { desc = "Go to Upper Window", remap = true } },
+      { "<C-l>", "<cmd><C-U>TmuxNavigateRight<cr>", { desc = "Go to Right Window", remap = true } },
+      -- { "<C-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
+    config = function()
+      vim.g.tmux_navigator_disable_when_zoomed = 1
+      vim.g.tmux_navigator_save_on_switch = 2
+    end,
+  },
+
   -- which-key.nvim (https://github.com/folke/which-key.nvim)
   {
     "folke/which-key.nvim",
