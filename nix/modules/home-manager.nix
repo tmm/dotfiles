@@ -106,6 +106,7 @@
           "\\) "
         ];
         style = "bright-black";
+        merge = "■";
       };
       git_status = {
         format = lib.concatStrings [
