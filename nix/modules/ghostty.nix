@@ -3,6 +3,7 @@ let
   colors = import ./colors.nix;
 in
 {
+  # https://ghostty.org/docs/config/reference
   # https://github.com/mitchellh/ghostty/blob/main/src/config/Config.zig
 
   # TODO: Colors and config for different color schemes
@@ -46,6 +47,8 @@ in
     keybind = ctrl+shift+k=goto_split:top
     keybind = ctrl+shift+l=goto_split:right
     keybind = ctrl+shift+enter=toggle_split_zoom
+    keybind = ctrl+shift+u=scroll_page_up
+    keybind = ctrl+shift+d=scroll_page_down
 
     cursor-style = block
     cursor-style-blink = false

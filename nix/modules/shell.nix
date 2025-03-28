@@ -44,7 +44,6 @@
     ];
     shellAbbrs = {
       a = "ambr";
-      b = "bun";
       d = "docker";
       de = "delta";
       dc = "docker compose";
