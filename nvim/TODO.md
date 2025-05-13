@@ -13,7 +13,9 @@ lazy cb22355
 - https://github.com/folke/todo-comments.nvim
 - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 - https://github.com/mfussenegger/nvim-lint
-- https://github.com/dmmulroy/ts-error-translator.nvim
+- typescript pretty pretty-ts-errors
+  - https://github.com/dmmulroy/ts-error-translator.nvim
+  - https://github.com/youyoumu/pretty-ts-errors.nvim
 
 ## Misc
 
