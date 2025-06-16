@@ -1,4 +1,4 @@
-{ config, dotfilesDir, lib, pkgs, pkgsUnstable, ... }: {
+{ config, dotfilesDir, lib, pkgs, ... }: {
   home.packages = with pkgs; [
     amber
     asciinema
@@ -9,6 +9,7 @@
     delta
     direnv
     dockutil
+    elixir
     erlang
     eza
     fd
@@ -23,10 +24,7 @@
     rustup
     starship
     zoxide
-  ] ++ (with pkgsUnstable; [
-    # TODO: Using latest version (elixir@1.17.3), replace once stable
-    elixir
-  ]);
+  ];
   home.file = {
     ".ignore".source = ../files/ignore;
     ".ssh/tom.pub".source = ../files/tom.pub;
