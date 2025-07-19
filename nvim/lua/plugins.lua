@@ -507,8 +507,7 @@ return {
     opts_extend = { "ensure_installed" },
     opts = {
       ensure_installed = {
-        -- FIXME: Add back after biome@2 is released
-        -- "biome",
+        "biome",
         "js-debug-adapter",
         "shfmt",
         "stylua",
@@ -520,12 +519,6 @@ return {
     config = function(_, opts)
       require("mason").setup(opts)
       local mr = require("mason-registry")
-
-      -- FIXME: Remove after biome@2 is released
-      local pkg = mr.get_package("biome")
-      if not pkg:is_installed() then
-        pkg:install({ version = "2.0.0-beta.5" })
-      end
 
       mr:on("package:install:success", function()
         vim.defer_fn(function()
