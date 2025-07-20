@@ -39,6 +39,7 @@
   imports = [
     ./ghostty.nix
     ./git.nix
+    ./opencode.nix
     ./shell.nix
   ];
   programs.bat.enable = true;

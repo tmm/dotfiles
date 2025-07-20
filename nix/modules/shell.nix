@@ -44,7 +44,6 @@
     ];
     shellAbbrs = {
       a = "ambr";
-      c = "claude";
       d = "docker";
       de = "delta";
       dc = "docker compose";
@@ -52,6 +51,7 @@
       i = "iex";
       lsd = "eza -d .*";
       m = "mix";
+      o = "opencode";
       p = "pnpm";
       v = "nvim";
     };
