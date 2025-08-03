@@ -8,6 +8,14 @@ in
   xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
     "$schema" = "https://opencode.ai/config.json";
     disabled_providers = [ "openai" "gemini" ];
+    "keybinds" = {
+      "messages_page_up" = "ctrl+u";
+      "messages_page_down" = "ctrl+d";
+      "messages_half_page_up" = "ctrl+alt+u";
+      "messages_half_page_down" = "ctrl+alt+d";
+      "messages_previous" = "ctrl+alt+up";
+      "messages_next" = "ctrl+alt+down";
+    };
     theme = "tmm";
   };
 
@@ -234,8 +242,8 @@ in
         light = "lightOrange";
       };
       syntaxType = {
-        dark = "darkYellow";
-        light = "lightYellow";
+        dark = "darkFgBase";
+        light = "lightFgBase";
       };
       syntaxOperator = {
         dark = "darkOrange";

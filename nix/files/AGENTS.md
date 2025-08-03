@@ -282,6 +282,7 @@ Reduces state root time from 120ms to 35ms on 16-core machines.
 - Commit secrets, API keys, or sensitive information
 - Break existing functionality without proper testing
 - Ignore linting or formatting tools when available
+- Never use emojis unless asked to do so
 
 ### ALWAYS
 
