@@ -22,7 +22,6 @@
       "daisydisk"
       "discord"
       "dropbox"
-      "expressvpn"
       "figma"
       "firefox"
       "flux"

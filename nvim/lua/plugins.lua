@@ -490,9 +490,10 @@ return {
     end,
   },
 
-  -- mason.nvim (https://github.com/williamboman/mason.nvim)
+  -- mason.nvim (https://github.com/mason-org/mason.nvim)
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
+    version = "^1.0.0",
     cmd = "Mason",
     keys = {
       { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
@@ -793,9 +794,9 @@ return {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
     dependencies = {
-      -- https://github.com/williamboman/mason.nvim
-      "williamboman/mason.nvim",
-      { "williamboman/mason-lspconfig.nvim", config = function() end },
+      -- https://github.com/mason-org/mason.nvim
+      { "mason-org/mason.nvim", version = "^1.0.0" },
+      { "mason-org/mason-lspconfig.nvim", version = "^1.0.0", config = function() end },
     },
     opts = function()
       local ret = {
