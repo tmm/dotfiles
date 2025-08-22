@@ -20,7 +20,6 @@ lazy cb22355
 ## Misc
 
 - emmet-like plugin
-- dap firefox https://github.com/firefox-devtools/vscode-firefox-debug
 - add recording macro to statusline
 - add lazyvim news https://www.lazyvim.org/news
 

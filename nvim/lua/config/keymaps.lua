@@ -167,10 +167,19 @@ Snacks.toggle
 Snacks.toggle.treesitter():map("<leader>uT")
 Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
 Snacks.toggle.dim():map("<leader>uD")
-Snacks.toggle.indent():map("<leader>ug")
+Snacks.toggle.indent():map("<leader>uG")
 if vim.lsp.inlay_hint then
   Snacks.toggle.inlay_hints():map("<leader>uh")
 end
+Snacks.toggle({
+  name = "Git Blame Line",
+  get = function()
+    return require("gitsigns.config").config.current_line_blame
+  end,
+  set = function()
+    require("gitsigns").toggle_current_line_blame()
+  end,
+}):map("<leader>ug")
 
 -- TODO: lazygit
 map("n", "<leader>gb", function()

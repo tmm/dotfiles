@@ -201,114 +201,6 @@ return {
     end,
   },
 
-  -- edgy.nvim (https://github.com/folke/edgy.nvim)
-  {
-    "folke/edgy.nvim",
-    event = "VeryLazy",
-    keys = {
-      {
-        "<leader>ue",
-        function()
-          require("edgy").toggle()
-        end,
-        desc = "Edgy Toggle",
-      },
-      -- stylua: ignore
-      { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
-    },
-    opts = function()
-      local opts = {
-        animate = { enabled = false },
-        bottom = {
-          {
-            ft = "noice",
-            size = { height = 0.4 },
-            filter = function(_, win)
-              return vim.api.nvim_win_get_config(win).relative == ""
-            end,
-          },
-          "Trouble",
-          { ft = "qf", title = "QuickFix" },
-          {
-            ft = "help",
-            size = { height = 20 },
-            -- don't open help files in edgy that we're editing
-            filter = function(buf)
-              return vim.bo[buf].buftype == "help"
-            end,
-          },
-        },
-        left = {},
-        right = {
-          -- { title = "Grug Far", ft = "grug-far", size = { width = 0.4 } },
-        },
-        keys = {
-          -- increase width
-          ["<c-Right>"] = function(win)
-            win:resize("width", 2)
-          end,
-          -- decrease width
-          ["<c-Left>"] = function(win)
-            win:resize("width", -2)
-          end,
-          -- increase height
-          ["<c-Up>"] = function(win)
-            win:resize("height", 2)
-          end,
-          -- decrease height
-          ["<c-Down>"] = function(win)
-            win:resize("height", -2)
-          end,
-        },
-        wo = {
-          winbar = false,
-          winhighlight = "",
-        },
-      }
-
-      if require("util.init").has("neo-tree.nvim") then
-        local sources = require("util.init").opts("neo-tree.nvim").sources or {}
-        local pos = {
-          filesystem = "left",
-          buffers = "top",
-          git_status = "right",
-          document_symbols = "bottom",
-          diagnostics = "bottom",
-        }
-        for i, v in ipairs(sources) do
-          table.insert(opts.left, i, {
-            title = "Neo-Tree " .. v:gsub("_", " "):gsub("^%l", string.upper),
-            ft = "neo-tree",
-            filter = function(buf)
-              return vim.b[buf].neo_tree_source == v
-            end,
-            pinned = true,
-            open = function()
-              vim.cmd(("Neotree show position=%s %s dir=%s"):format(pos[v] or "bottom", v, require("util.root").get()))
-            end,
-          })
-        end
-      end
-
-      -- trouble
-      for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
-        opts[pos] = opts[pos] or {}
-        table.insert(opts[pos], {
-          ft = "trouble",
-          filter = function(_, win)
-            return vim.w[win].trouble
-              and vim.w[win].trouble.position == pos
-              and vim.w[win].trouble.type == "split"
-              and vim.w[win].trouble.relative == "editor"
-              and not vim.w[win].trouble_preview
-          end,
-        })
-      end
-
-      return opts
-    end,
-  },
-
   -- gitsigns.nvim (https://github.com/lewis6991/gitsigns.nvim)
   {
     "lewis6991/gitsigns.nvim",
@@ -669,7 +561,7 @@ return {
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
       },
-      open_files_do_not_replace_types = { "edgy", "terminal", "Trouble", "qf", "Outline", "trouble" },
+      open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline", "trouble" },
       sources = { "filesystem" },
       window = {
         mappings = {
