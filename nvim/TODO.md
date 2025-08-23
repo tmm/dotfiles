@@ -2,15 +2,11 @@
 
 lazy cb22355
 
-- neotree to snacks picker
-- symbols viewer
 - trouble lualine
 
 ## Plugins
 
 - https://github.com/MagicDuck/grug-far.nvim
-- https://github.com/folke/persistence.nvim (nvim-lastplace captured by persist?)
-- https://github.com/folke/todo-comments.nvim
 - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 - https://github.com/mfussenegger/nvim-lint
 - typescript pretty pretty-ts-errors

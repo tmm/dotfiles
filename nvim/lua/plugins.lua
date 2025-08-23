@@ -298,13 +298,12 @@ return {
       }
 
       require("lualine").setup({
-        extensions = { "neo-tree", "lazy", "fzf" },
+        extensions = { "lazy", "fzf" },
         options = {
           always_divide_middle = true,
           component_separators = "",
           disabled_filetypes = {
             "gitsigns-blame",
-            "neo-tree",
           },
           globalstatus = false,
           icons_enabled = true,
@@ -460,158 +459,6 @@ return {
         update_n_lines = "gsn", -- Update `n_lines`
       },
     },
-  },
-
-  -- neo-tree.nvim (https://github.com/nvim-neo-tree/neo-tree.nvim)
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    cmd = "Neotree",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-    },
-    -- stylua: ignore
-		keys = {
-			{ "<leader>fe", function() require("neo-tree.command").execute({ toggle = true, dir = require("util.root").get() }) end, desc = "Explorer NeoTree" },
-			{ "<leader>fE", function() require("neo-tree.command").execute({ reveal = true }) end, desc = "Explorer NeoTree (Reveal File)" },
-			{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree", remap = true },
-			{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (Reveal File)", remap = true },
-		},
-    deactivate = function()
-      vim.cmd([[Neotree close]])
-    end,
-    init = function()
-      -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
-      -- because `cwd` is not set up properly.
-      vim.api.nvim_create_autocmd("BufEnter", {
-        group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
-        desc = "Start Neo-tree with directory",
-        once = true,
-        callback = function()
-          if package.loaded["neo-tree"] then
-            return
-          else
-            local stats = vim.uv.fs_stat(vim.fn.argv(0))
-            if stats and stats.type == "directory" then
-              require("neo-tree")
-            end
-          end
-        end,
-      })
-    end,
-    opts = {
-      buffers = {
-        follow_current_file = {
-          enabled = true,
-        },
-        group_empty_dirs = true,
-      },
-      default_component_configs = {
-        diagnostics = {
-          symbols = {
-            hint = icons.diagnostics.Hint,
-            info = icons.diagnostics.Info,
-            warn = icons.diagnostics.Warn,
-            error = icons.diagnostics.Error,
-          },
-        },
-        icon = {
-          folder_closed = icons.tree.Closed,
-          folder_open = icons.tree.Open,
-          folder_empty = icons.tree.Empty,
-        },
-        modified = {
-          symbol = "●",
-        },
-        git_status = {
-          symbols = {
-            added = icons.git.Added,
-            deleted = icons.git.Removed,
-            modified = icons.git.Modified,
-            renamed = "",
-            -- Status type
-            untracked = "",
-            ignored = "",
-            unstaged = "",
-            staged = "",
-            conflict = "",
-          },
-        },
-      },
-      filesystem = {
-        components = {
-          icon = function(config, node, state)
-            -- Disable file icons
-            if node.type == "file" then
-              return {}
-            end
-            return require("neo-tree.sources.common.components").icon(config, node, state)
-          end,
-        },
-        filtered_items = {
-          hide_dotfiles = false,
-          hide_by_name = {
-            ".CFUserTextEncoding",
-            ".manpath",
-          },
-          never_show = {
-            ".DS_Store",
-          },
-        },
-        follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
-      },
-      open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline", "trouble" },
-      sources = { "filesystem" },
-      window = {
-        mappings = {
-          ["O"] = {
-            function(state)
-              if vim.fn.has("macunix") == 1 then
-                local node = state.tree:get_node()
-                local path = node:get_id()
-                vim.fn.jobstart({ "open", "-R", path }, { detach = true })
-              else
-                vim.notify("Command not set up for OS")
-              end
-            end,
-            desc = "Open with System Application",
-          },
-          ["P"] = { "toggle_preview", config = { use_float = false } },
-          ["Y"] = {
-            function(state)
-              local node = state.tree:get_node()
-              local path = node:get_id()
-              vim.fn.setreg("+", path, "c")
-            end,
-            desc = "Copy Path to Clipboard",
-          },
-        },
-        width = 30,
-      },
-    },
-    config = function(_, opts)
-      local function on_move(data)
-        local Snacks = require("snacks")
-        Snacks.rename.on_rename_file(data.source, data.destination)
-      end
-
-      local events = require("neo-tree.events")
-      opts.event_handlers = opts.event_handlers or {}
-      vim.list_extend(opts.event_handlers, {
-        { event = events.FILE_MOVED, handler = on_move },
-        { event = events.FILE_RENAMED, handler = on_move },
-      })
-      require("neo-tree").setup(opts)
-      -- vim.api.nvim_create_autocmd("TermClose", {
-      --   pattern = "*lazygit",
-      --   callback = function()
-      --     if package.loaded["neo-tree.sources.git_status"] then
-      --       require("neo-tree.sources.git_status").refresh()
-      --     end
-      --   end,
-      -- })
-    end,
   },
 
   -- noice.nvim (https://github.com/folke/noice.nvim)
@@ -1268,6 +1115,17 @@ return {
         desc = "Jump to context",
       },
     },
+  },
+
+  -- oil.nvim (https://github.com/stevearc/oil.nvim)
+  {
+    "stevearc/oil.nvim",
+    lazy = false,
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    keys = {
+      { "<leader>e", "<cmd>Oil<cr>", desc = "Explorer Oil", remap = true },
+    },
+    opts = {},
   },
 
   -- snacks.nvim (https://github.com/folke/snacks.nvim)
