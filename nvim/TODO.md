@@ -1,17 +1,12 @@
 # TODO
 
-lazy cb22355
-
-- trouble lualine
+lazy c20c4022958780617424a090eee2360d560eb939
 
 ## Plugins
 
 - https://github.com/MagicDuck/grug-far.nvim
 - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 - https://github.com/mfussenegger/nvim-lint
-- typescript pretty pretty-ts-errors
-  - https://github.com/dmmulroy/ts-error-translator.nvim
-  - https://github.com/youyoumu/pretty-ts-errors.nvim
 
 ## Misc
 

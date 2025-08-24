@@ -1330,7 +1330,7 @@ return {
     opts = {},
   },
 
-  -- marilari88/twoslash-queries.nvim (https://github.com/marilari88/twoslash-queries.nvim)
+  -- twoslash-queries.nvim (https://github.com/marilari88/twoslash-queries.nvim)
   {
     "marilari88/twoslash-queries.nvim",
     opts = {
