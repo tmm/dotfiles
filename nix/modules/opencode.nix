@@ -3,11 +3,15 @@ let
   colors = import ./colors.nix;
 in
 {
-  xdg.configFile."AGENTS.md".source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/files/AGENTS.md";
+  xdg.configFile."AGENTS.md".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/files/AGENTS.md";
 
   xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
     "$schema" = "https://opencode.ai/config.json";
-    disabled_providers = [ "openai" "gemini" ];
+    disabled_providers = [
+      "openai"
+      "gemini"
+    ];
     "keybinds" = {
       "messages_page_up" = "ctrl+u";
       "messages_page_down" = "ctrl+d";
@@ -256,4 +260,3 @@ in
     };
   };
 }
-

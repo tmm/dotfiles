@@ -1,4 +1,11 @@
-{ config, dotfilesDir, lib, pkgs, ... }: {
+{
+  config,
+  dotfilesDir,
+  lib,
+  pkgs,
+  ...
+}:
+{
   home.packages = with pkgs; [
     amber
     asciinema
@@ -20,6 +27,7 @@
     httpie
     jq
     neovim
+    nixfmt-rfc-style
     ripgrep
     rustup
     starship

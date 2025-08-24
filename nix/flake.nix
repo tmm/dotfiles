@@ -10,7 +10,8 @@
     nixpkgs-unstable.url = "github:nixoS/nixpkgs/nixpkgs-unstable";
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     let
       dotfilesDir = "Developer/dotfiles";
       username = "tmm";

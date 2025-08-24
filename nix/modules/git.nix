@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   programs.git = {
     enable = true;
     aliases = {
@@ -36,6 +37,7 @@
     userName = "Tom Meagher";
     userEmail = "tom@meagher.co";
     extraConfig = {
+      branch.sort = "-committerdate";
       color.ui = "auto";
       commit.gpgsign = true;
       core = {
@@ -95,4 +97,3 @@
     };
   };
 }
-

@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -20,6 +21,7 @@
       set -gx FOUNDRY_DIR "$HOME/.foundry"
       set -gx PATH "$FOUNDRY_DIR" $PATH
       set FOUNDRY_BIN $HOME/.foundry/bin
+      set -gx FOUNDRY_DISABLE_NIGHTLY_WARNING true
       fish_add_path $FOUNDRY_BIN
 
       # Add `pg_config` to path
@@ -75,4 +77,3 @@
     };
   };
 }
-
