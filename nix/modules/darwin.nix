@@ -98,6 +98,7 @@
     enableKeyMapping = true;
     remapCapsLockToEscape = true;
   };
+  system.primaryUser = "tmm";
   system.stateVersion = 6;
   users.users.tmm = {
     home = "/Users/${username}";
