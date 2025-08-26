@@ -5,6 +5,9 @@
   pkgs,
   ...
 }:
+let
+  colors = import ./colors.nix;
+in
 {
   home.packages = with pkgs; [
     amber
@@ -45,7 +48,6 @@
     SSH_AUTH_SOCK = "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
   };
   imports = [
-    ./ghostty.nix
     ./git.nix
     ./opencode.nix
     ./shell.nix
@@ -64,6 +66,59 @@
       gh-copilot
       gh-poi
     ];
+  };
+  programs.ghostty = {
+    enable = true;
+    package = null; # TODO: Add install
+    settings = {
+      copy-on-select = "clipboard";
+      cursor-style = "block";
+      cursor-style-blink = false;
+      font-family = "JetBrains Nerd Font Mono";
+      font-feature = "-calt";
+      font-size = 14;
+      keybind = [
+        "global:control+grave_accent=toggle_quick_terminal"
+        "ctrl+shift+h=goto_split:left"
+        "ctrl+shift+j=goto_split:bottom"
+        "ctrl+shift+k=goto_split:top"
+        "ctrl+shift+l=goto_split:right"
+        "ctrl+shift+enter=toggle_split_zoom"
+        "ctrl+shift+u=scroll_page_up"
+        "ctrl+shift+d=scroll_page_down"
+      ];
+      macos-non-native-fullscreen = true;
+      macos-option-as-alt = "left";
+      macos-titlebar-style = "tabs";
+      mouse-hide-while-typing = true;
+      shell-integration-features = "no-cursor";
+      theme = "tmm-dark";
+      unfocused-split-opacity = 1;
+      window-height = 50;
+      window-padding-balance = true;
+      window-padding-x = 0;
+      window-padding-y = 0;
+      window-width = 178;
+    };
+    themes = {
+      # TODO: Add light theme
+      # https://github.com/mitchellh/ghostty/issues/809
+      tmm-dark = {
+        background = colors.dark.background;
+        cursor-color = colors.dark.cursor;
+        foreground = colors.dark.foreground;
+        palette = [
+          "0=${colors.dark.black}"
+          "1=${colors.dark.red}"
+          "2=${colors.dark.green}"
+          "3=${colors.dark.yellow}"
+          "4=${colors.dark.blue}"
+          "5=${colors.dark.orange}"
+          "6=${colors.dark.cyan}"
+          "7=${colors.dark.white}"
+        ];
+      };
+    };
   };
   programs.home-manager.enable = true;
   programs.ssh = {
