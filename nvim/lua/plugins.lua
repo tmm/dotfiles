@@ -276,6 +276,42 @@ return {
     },
   },
 
+  -- grug-far.nvim (https://github.com/MagicDuck/grug-far.nvim)
+  {
+    "MagicDuck/grug-far.nvim",
+    opts = { headerMaxWidth = 80 },
+    cmd = "GrugFar",
+    keys = {
+      {
+        "<leader>sr",
+        function()
+          local grug = require("grug-far")
+          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+          grug.open({
+            transient = true,
+            prefills = {
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+            },
+          })
+        end,
+        mode = { "n", "v" },
+        desc = "Search and Replace",
+      },
+    },
+    config = function(_, opts)
+      require("grug-far").setup(opts)
+
+      -- add highlight group for grug-far
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("grug_far_hl", { clear = true }),
+        pattern = { "grug-far" },
+        callback = function()
+          vim.wo.winhighlight = "Normal:GrugFarNormal"
+        end,
+      })
+    end,
+  },
+
   -- lualine.nvim (https://github.com/nvim-lualine/lualine.nvim)
   {
     "nvim-lualine/lualine.nvim",
