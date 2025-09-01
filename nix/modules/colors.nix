@@ -1,6 +1,6 @@
 {
   dark = {
-    background = "#1A1A19";
+    background = "#0f0f0e";
     foreground = "#ffffff";
     cursor = "#F76EC9";
 
@@ -16,18 +16,18 @@
   };
 
   bright = {
-    background = "#FDFCF7";
+    background = "#fdfdfc";
     foreground = "#000000";
     cursor = "#F76EC9";
 
     black = "#000000";
-    blue = "#0026FF";
-    cyan = "#87FFC1";
-    green = "#DFFF9E";
+    blue = "#5454a6";
+    cyan = "#85ffbc";
+    green = "#00662d";
     magenta = "#FF00FF";
-    orange = "#F0BC91";
+    orange = "#e6b594";
     red = "#990000";
     white = "#FDFCF7";
-    yellow = "#FFFF00";
+    yellow = "#ffff00";
   };
 }

@@ -5,7 +5,6 @@ lazy c20c4022958780617424a090eee2360d560eb939
 ## Plugins
 
 - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-- https://github.com/mfussenegger/nvim-lint
 
 ## Misc
 

@@ -69,7 +69,7 @@
       hide = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder";
       show = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder";
 
-      drs = "darwin-rebuild switch --flake $DOTFILES_HOME/nix";
+      drs = "sudo darwin-rebuild switch --flake $DOTFILES_HOME/nix";
       dot = "pushd . && cd $DOTFILES_HOME && nvim";
 
       hidedesktop = "defaults write com.apple.finder CreateDesktop -bool false && killall Finder";

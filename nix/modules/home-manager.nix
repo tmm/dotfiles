@@ -92,7 +92,7 @@ in
       macos-titlebar-style = "tabs";
       mouse-hide-while-typing = true;
       shell-integration-features = "no-cursor";
-      theme = "tmm-dark";
+      theme = "light:tmm-bright,dark:tmm-dark";
       unfocused-split-opacity = 1;
       window-height = 50;
       window-padding-balance = true;
@@ -116,6 +116,21 @@ in
           "5=${colors.dark.orange}"
           "6=${colors.dark.cyan}"
           "7=${colors.dark.white}"
+        ];
+      };
+      tmm-bright = {
+        background = colors.bright.background;
+        cursor-color = colors.bright.cursor;
+        foreground = colors.bright.foreground;
+        palette = [
+          "0=${colors.bright.black}"
+          "1=${colors.bright.red}"
+          "2=${colors.bright.green}"
+          "3=${colors.bright.yellow}"
+          "4=${colors.bright.blue}"
+          "5=${colors.bright.orange}"
+          "6=${colors.bright.cyan}"
+          "7=${colors.bright.white}"
         ];
       };
     };
