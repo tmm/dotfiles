@@ -462,9 +462,9 @@ return {
     end,
   },
 
-  -- mini.nvim (https://github.com/echasnovski/mini.nvim)
+  -- mini.nvim (https://github.com/nvim-mini/mini.nvim)
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     event = "VeryLazy",
     init = function()
       package.preload["nvim-web-devicons"] = function()
@@ -474,7 +474,7 @@ return {
     end,
   },
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     event = "VeryLazy",
     opts = {
       -- TODO: https://github.com/LazyVim/LazyVim/blob/3dbace941ee935c89c73fd774267043d12f57fe2/lua/lazyvim/util/mini.lua#L123
@@ -482,7 +482,7 @@ return {
     },
   },
   {
-    "echasnovski/mini.surround",
+    "nvim-mini/mini.surround",
     event = "VeryLazy",
     opts = {
       mappings = {
@@ -1157,7 +1157,7 @@ return {
   {
     "stevearc/oil.nvim",
     lazy = false,
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { { "nvim-mini/mini.icons", opts = {} } },
     keys = {
       { "<leader>e", "<cmd>Oil<cr>", desc = "Explorer Oil", remap = true },
     },
