@@ -27,7 +27,7 @@
     magenta = "#FF00FF";
     orange = "#e6b594";
     red = "#990000";
-    white = "#FDFCF7";
+    white = "#000000";
     yellow = "#ffff00";
   };
 }

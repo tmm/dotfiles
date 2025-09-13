@@ -92,7 +92,7 @@ in
       macos-titlebar-style = "tabs";
       mouse-hide-while-typing = true;
       shell-integration-features = "no-cursor";
-      theme = "light:tmm-bright,dark:tmm-dark";
+      theme = "dark:_dark,light:_light";
       unfocused-split-opacity = 1;
       window-height = 50;
       window-padding-balance = true;
@@ -103,7 +103,7 @@ in
     themes = {
       # TODO: Add light theme
       # https://github.com/mitchellh/ghostty/issues/809
-      tmm-dark = {
+      _dark = {
         background = colors.dark.background;
         cursor-color = colors.dark.cursor;
         foreground = colors.dark.foreground;
@@ -118,7 +118,7 @@ in
           "7=${colors.dark.white}"
         ];
       };
-      tmm-bright = {
+      _light = {
         background = colors.bright.background;
         cursor-color = colors.bright.cursor;
         foreground = colors.bright.foreground;
@@ -131,6 +131,14 @@ in
           "5=${colors.bright.orange}"
           "6=${colors.bright.cyan}"
           "7=${colors.bright.white}"
+          "8=${colors.bright.black}"
+          "9=${colors.bright.black}"
+          "10=${colors.bright.black}"
+          "11=${colors.bright.black}"
+          "12=${colors.bright.black}"
+          "13=${colors.bright.black}"
+          "14=${colors.bright.black}"
+          "15=${colors.bright.black}"
         ];
       };
     };
