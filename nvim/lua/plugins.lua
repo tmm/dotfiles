@@ -1258,16 +1258,6 @@ return {
         },
       },
       picker = {
-        win = {
-          input = {
-            keys = {
-              ["s"] = { "flash" },
-              ["<a-c>"] = { "toggle_cwd", mode = { "n", "i" } },
-              ["<a-s>"] = { "flash", mode = { "n", "i" } },
-              ["<a-t>"] = { "trouble_open", mode = { "n", "i" } },
-            },
-          },
-        },
         actions = {
           flash = function(picker)
             require("flash").jump({
@@ -1297,6 +1287,21 @@ return {
           trouble_open = function(...)
             return require("trouble.sources.snacks").actions.trouble_open.action(...)
           end,
+        },
+        formatters = {
+          file = {
+            truncate = 80,
+          },
+        },
+        win = {
+          input = {
+            keys = {
+              ["s"] = { "flash" },
+              ["<a-c>"] = { "toggle_cwd", mode = { "n", "i" } },
+              ["<a-s>"] = { "flash", mode = { "n", "i" } },
+              ["<a-t>"] = { "trouble_open", mode = { "n", "i" } },
+            },
+          },
         },
       },
       quickfile = { enabled = true },
