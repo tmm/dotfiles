@@ -1,5 +1,7 @@
 # Agent Guidelines for Dotfiles Repository
 
+Be extremely concise. Sacrifice grammar for the sake of concision.
+
 ## Build/Test Commands
 
 - `drs` - Apply Nix configuration with darwin-rebuild

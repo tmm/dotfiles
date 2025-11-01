@@ -4,7 +4,7 @@ return {
   -- blink.cmp (https://github.com/saghen/blink.cmp)
   {
     "saghen/blink.cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     version = not vim.g.lazyvim_blink_main and "*",
     build = vim.g.lazyvim_blink_main and "cargo build --release",
     opts_extend = {
@@ -27,6 +27,20 @@ return {
       },
       cmdline = {
         enabled = false,
+        keymap = {
+          preset = "cmdline",
+          ["<Right>"] = false,
+          ["<Left>"] = false,
+        },
+        completion = {
+          list = { selection = { preselect = false } },
+          menu = {
+            auto_show = function(_ctx)
+              return vim.fn.getcmdtype() == ":"
+            end,
+          },
+          ghost_text = { enabled = true },
+        },
       },
       completion = {
         accept = {
@@ -566,7 +580,7 @@ return {
   -- nvim-lspconfig (https://github.com/neovim/nvim-lspconfig)
   {
     "neovim/nvim-lspconfig",
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile", "BufWritePre" },
     dependencies = {
       -- https://github.com/mason-org/mason.nvim
       { "mason-org/mason.nvim", version = "^1.0.0" },
@@ -703,6 +717,7 @@ return {
             },
           },
           nil_ls = {},
+          rust_analyzer = { enabled = false },
           tailwindcss = {
             filetypes_exclude = { "markdown" },
             filetypes_include = {},
@@ -826,11 +841,10 @@ return {
           -- Specify * to use this function as a fallback for any server
           -- ["*"] = function(server, opts) end,
           tailwindcss = function(_, opts)
-            local tw = require("util.lsp").get_raw_config("tailwindcss")
             opts.filetypes = opts.filetypes or {}
 
             -- Add default filetypes
-            vim.list_extend(opts.filetypes, tw.default_config.filetypes)
+            vim.list_extend(opts.filetypes, vim.lsp.config.tailwindcss.filetypes)
 
             -- Remove excluded filetypes
             --- @param ft string
@@ -859,14 +873,14 @@ return {
                 local action, uri, range = unpack(command.arguments)
 
                 local function move(newf)
-                  client.request("workspace/executeCommand", {
+                  client:request("workspace/executeCommand", {
                     command = command.command,
                     arguments = { action, uri, range, newf },
                   })
                 end
 
                 local fname = vim.uri_to_fname(uri)
-                client.request("workspace/executeCommand", {
+                client:request("workspace/executeCommand", {
                   command = "typescript.tsserverRequest",
                   arguments = {
                     "getMoveToRefactoringFileSuggestions",
@@ -960,14 +974,13 @@ return {
       end
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
-        opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
-          or function(diagnostic)
-            for d, icon in pairs(icons) do
-              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                return icon
-              end
+        opts.diagnostics.virtual_text.prefix = function(diagnostic)
+          for d, icon in pairs(icons.diagnostics) do
+            if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+              return icon
             end
           end
+        end
       end
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
@@ -1084,6 +1097,7 @@ return {
         "nix",
         "regex",
         "rust",
+        "ron",
         "svelte",
         "toml",
         "tsx",
@@ -1091,6 +1105,7 @@ return {
         "vim",
         "vimdoc",
         "vue",
+        "yaml",
       },
       highlight = { enable = true },
       indent = { enable = true },
@@ -1229,6 +1244,76 @@ return {
       }
 
       require("oil").setup(opts)
+    end,
+  },
+
+  -- rustaceanvim (https://github.com/mrcjkb/rustaceanvim)
+  {
+    "mrcjkb/rustaceanvim",
+    ft = { "rust" },
+    opts = {
+      server = {
+        on_attach = function(_, bufnr)
+          vim.keymap.set("n", "<leader>cR", function()
+            vim.cmd.RustLsp("codeAction")
+          end, { desc = "Code Action", buffer = bufnr })
+          vim.keymap.set("n", "<leader>dr", function()
+            vim.cmd.RustLsp("debuggables")
+          end, { desc = "Rust Debuggables", buffer = bufnr })
+        end,
+        default_settings = {
+          -- rust-analyzer language server configuration
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              buildScripts = {
+                enable = true,
+              },
+            },
+            checkOnSave = true,
+            diagnostics = {
+              enable = true,
+            },
+            procMacro = {
+              enable = true,
+            },
+            files = {
+              exclude = {
+                ".direnv",
+                ".git",
+                ".jj",
+                ".github",
+                ".gitlab",
+                "bin",
+                "node_modules",
+                "target",
+                "venv",
+                ".venv",
+              },
+              -- Avoid Roots Scanned hanging, see https://github.com/rust-lang/rust-analyzer/issues/12613#issuecomment-2096386344
+              watcher = "client",
+            },
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      -- if LazyVim.has("mason.nvim") then
+      --   local codelldb = vim.fn.exepath("codelldb")
+      --   local codelldb_lib_ext = io.popen("uname"):read("*l") == "Linux" and ".so" or ".dylib"
+      --   local library_path = vim.fn.expand("$MASON/opt/lldb/lib/liblldb" .. codelldb_lib_ext)
+      --   opts.dap = {
+      --     adapter = require("rustaceanvim.config").get_codelldb_adapter(codelldb, library_path),
+      --   }
+      -- end
+      vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
+      if vim.fn.executable("rust-analyzer") == 0 then
+        require("util.init").error(
+          "**rust-analyzer** not found in PATH, please install it.\nhttps://rust-analyzer.github.io/",
+          { title = "rustaceanvim" }
+        )
+      end
     end,
   },
 

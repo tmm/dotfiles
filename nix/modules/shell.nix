@@ -13,6 +13,9 @@
       # disable welcome message
       set -g fish_greeting
 
+      # cargo
+      fish_add_path $HOME/.cargo/bin
+
       # pnpm
       set -gx PNPM_HOME "$HOME/.local/share/pnpm"
       set -gx PATH "$PNPM_HOME" $PATH

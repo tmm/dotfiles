@@ -29,6 +29,7 @@ in
     git
     httpie
     jq
+    just
     neovim
     nixfmt-rfc-style
     ripgrep
