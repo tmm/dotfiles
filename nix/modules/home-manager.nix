@@ -87,6 +87,7 @@ in
         "ctrl+shift+enter=toggle_split_zoom"
         "ctrl+shift+u=scroll_page_up"
         "ctrl+shift+d=scroll_page_down"
+        "super+enter=unbind"
       ];
       macos-non-native-fullscreen = true;
       macos-option-as-alt = "left";
