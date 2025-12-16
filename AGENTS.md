@@ -1,6 +1,8 @@
 # Agent Guidelines for Dotfiles Repository
 
-Be extremely concise. Sacrifice grammar for the sake of concision.
+Agent guidance for this repository.
+
+> **Communication Style**: Be brief, concise. Maximize information density, minimize tokens. Incomplete sentences acceptable when clear. Remove filler words. Prioritize clarity over grammar.
 
 ## Build/Test Commands
 

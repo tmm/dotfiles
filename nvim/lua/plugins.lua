@@ -1,6 +1,14 @@
 local icons = require("config").icons
 
 return {
+  -- amp.nvim (https://github.com/sourcegraph/amp.nvim)
+  {
+    "sourcegraph/amp.nvim",
+    branch = "main",
+    lazy = false,
+    opts = { auto_start = true, log_level = "info" },
+  },
+
   -- blink.cmp (https://github.com/saghen/blink.cmp)
   {
     "saghen/blink.cmp",
@@ -718,11 +726,12 @@ return {
           },
           nil_ls = {},
           rust_analyzer = { enabled = false },
+          volar = { enabled = false },
           tailwindcss = {
             filetypes_exclude = { "markdown" },
             filetypes_include = {},
           },
-          volar = {
+          vue_ls = {
             init_options = {
               vue = {
                 hybridMode = true,
@@ -844,7 +853,10 @@ return {
             opts.filetypes = opts.filetypes or {}
 
             -- Add default filetypes
-            vim.list_extend(opts.filetypes, vim.lsp.config.tailwindcss.filetypes)
+            local default_config = vim.lsp.config["tailwindcss"]
+            if default_config and default_config.filetypes then
+              vim.list_extend(opts.filetypes, default_config.filetypes)
+            end
 
             -- Remove excluded filetypes
             --- @param ft string
@@ -1012,7 +1024,8 @@ return {
             return
           end
         end
-        require("lspconfig")[server].setup(server_opts)
+        vim.lsp.config(server, server_opts)
+        vim.lsp.enable(server)
       end
 
       -- get all the servers that are available through mason-lspconfig
