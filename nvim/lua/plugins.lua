@@ -1188,7 +1188,15 @@ return {
     keys = {
       { "<leader>e", "<cmd>Oil<cr>", desc = "Explorer Oil", remap = true },
     },
-    opts = {},
+    opts = {
+      keymaps = {
+        ["<C-h>"] = false,
+        ["<C-l>"] = false,
+        ["<C-r>"] = "actions.refresh",
+        ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
+        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
+      },
+    },
     config = function(_, opts)
       -- helper function to parse output
       local function parse_output(proc)
