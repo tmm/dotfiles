@@ -108,11 +108,18 @@ function M.get_pkg_path(pkg, path, opts)
   opts = opts or {}
   opts.warn = opts.warn == nil and true or opts.warn
   path = path or ""
-  local ret = root .. "/packages/" .. pkg .. "/" .. path
-  if opts.warn and not vim.loop.fs_stat(ret) and not require("lazy.core.config").headless() then
-    M.warn(
-      ("Mason package path not found for **%s**:\n- `%s`\nYou may need to force update the package."):format(pkg, path)
-    )
+  local ret = vim.fs.normalize(root .. "/packages/" .. pkg .. "/" .. path)
+  if opts.warn then
+    vim.schedule(function()
+      if not require("lazy.core.config").headless() and not vim.loop.fs_stat(ret) then
+        M.warn(
+          ("Mason package path not found for **%s**:\n- `%s`\nYou may need to force update the package."):format(
+            pkg,
+            path
+          )
+        )
+      end
+    end)
   end
   return ret
 end
@@ -122,8 +129,10 @@ end
 -- It will also set `silent` to true by default.
 function M.safe_keymap_set(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
+  ---@cast keys LazyKeysHandler
   local modes = type(mode) == "string" and { mode } or mode
 
+  ---@param m string
   modes = vim.tbl_filter(function(m)
     return not (keys.have and keys:have(lhs, m))
   end, modes)
@@ -136,7 +145,7 @@ function M.safe_keymap_set(mode, lhs, rhs, opts)
       ---@diagnostic disable-next-line: no-unknown
       opts.remap = nil
     end
-    vim.keymap.set(modes, lhs, rhs, opts)
+    Snacks.keymap.set(modes, lhs, rhs, opts)
   end
 end
 
@@ -218,7 +227,7 @@ function M.try(fn, opts)
   local msg = opts.msg
   -- error handler
   local error_handler = function(err)
-    msg = (msg and (msg .. "\n\n") or "") .. err .. M.pretty_trace()
+    msg = (msg and (msg .. "\n\n") or "") .. err
     if opts.on_error then
       opts.on_error(msg)
     else
@@ -276,42 +285,5 @@ function M.set_default(option, value)
   vim.api.nvim_set_option_value(option, value, { scope = "local" })
   return true
 end
-
----@type table<string, string[]|boolean>?
-M.kind_filter = {
-  default = {
-    "Class",
-    "Constructor",
-    "Enum",
-    "Field",
-    "Function",
-    "Interface",
-    "Method",
-    "Module",
-    "Namespace",
-    "Package",
-    "Property",
-    "Struct",
-    "Trait",
-  },
-  markdown = false,
-  help = false,
-  -- you can specify a different filter for each filetype
-  lua = {
-    "Class",
-    "Constructor",
-    "Enum",
-    "Field",
-    "Function",
-    "Interface",
-    "Method",
-    "Module",
-    "Namespace",
-    -- "Package", -- remove package since luals uses it for control flow structures
-    "Property",
-    "Struct",
-    "Trait",
-  },
-}
 
 return M

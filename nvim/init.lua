@@ -47,5 +47,6 @@ vim.api.nvim_create_autocmd("User", {
     require("config.autocmds")
 
     require("util.format").setup()
+    require("util.root").setup()
   end,
 })

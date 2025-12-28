@@ -96,6 +96,13 @@ return {
       if opts.snippets and opts.snippets.preset == "default" then
         opts.snippets.expand = require("util.cmp").expand
       end
+
+      -- override <Tab> to use custom snippet_forward
+      opts.keymap["<Tab>"] = {
+        require("util.cmp").map({ "snippet_forward" }),
+        "fallback",
+      }
+
       -- setup compat sources
       local enabled = opts.sources.default
       for _, source in ipairs(opts.sources.compat or {}) do

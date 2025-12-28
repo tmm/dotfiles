@@ -2,11 +2,11 @@
 
 lazy c64a61734fc9d45470a72603395c02137802bc6f
 
+- custom snippets
 - yank history
 
 ## Misc
 
-- add snippets
 - emmet-like plugin
 - add recording macro to statusline
 
