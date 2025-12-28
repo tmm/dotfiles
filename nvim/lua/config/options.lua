@@ -40,7 +40,7 @@ opt.fillchars = {
 }
 opt.foldlevel = 99
 opt.foldmethod = "indent"
-opt.foldtext = ""
+opt.foldtext = "v:lua.require'util.ui'.foldtext()"
 opt.formatexpr = "v:lua.require'util.format'.formatexpr()"
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"

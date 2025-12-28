@@ -545,6 +545,9 @@ return {
         },
       },
       lsp = {
+        hover = {
+          silent = true, -- suppress "No information available" when multiple LSP clients are attached
+        },
         -- override markdown rendering so plugins use **Treesitter**
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

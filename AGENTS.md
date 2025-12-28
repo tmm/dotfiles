@@ -26,12 +26,30 @@ Agent guidance for this repository.
 - Use PascalCase for modules/classes
 - Return module table at end of files
 
-**IMPORTANT: When updating Neovim config based on LazyVim:**
-- Config is inspired by LazyVim but does NOT use LazyVim directly
-- When consolidating LazyVim changes, copy code EXACTLY line-by-line from LazyVim source
-- Do NOT modify, simplify, or "improve" LazyVim code during migration
-- Any internal LazyVim utilities or APIs must be replicated in util/ directory
-- Test thoroughly after each change - avoid making assumptions about compatibility
+### Upgrading from LazyVim
+
+Config is inspired by LazyVim but does NOT use LazyVim directly.
+
+**Steps to upgrade:**
+
+1. Clone LazyVim repo (if not already present):
+   ```sh
+   gh repo clone LazyVim/LazyVim
+   ```
+
+2. Check diff between commits to identify changes:
+   ```sh
+   cd LazyVim
+   git log --oneline --since="<last-upgrade-date>"
+   git diff <old-commit> <new-commit>
+   ```
+
+3. Consolidate changes into dotfiles:
+   - Copy code EXACTLY line-by-line from LazyVim source
+   - Do NOT modify, simplify, or "improve" during migration
+   - Any internal LazyVim utilities or APIs must be replicated in util/ directory
+
+4. Test thoroughly after each change - avoid assumptions about compatibility
 
 ## Tool-Specific Configuration
 
