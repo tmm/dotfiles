@@ -26,7 +26,26 @@ Agent guidance for this repository.
 - Use PascalCase for modules/classes
 - Return module table at end of files
 
-### General Conventions
+**IMPORTANT: When updating Neovim config based on LazyVim:**
+- Config is inspired by LazyVim but does NOT use LazyVim directly
+- When consolidating LazyVim changes, copy code EXACTLY line-by-line from LazyVim source
+- Do NOT modify, simplify, or "improve" LazyVim code during migration
+- Any internal LazyVim utilities or APIs must be replicated in util/ directory
+- Test thoroughly after each change - avoid making assumptions about compatibility
+
+## Tool-Specific Configuration
+
+### Starship
+
+- For custom modules (`[custom.*]`), always set `shell = ["sh"]` to avoid parsing entire shell config on each prompt (7.7x perf improvement)
+- Example:
+  ```toml
+  [custom.example]
+  command = "echo foo"
+  shell = ["sh"]
+  ```
+
+## General Conventions
 
 - No trailing whitespace
 - Unix line endings (LF)

@@ -34,7 +34,7 @@ return {
         nerd_font_variant = "mono",
       },
       cmdline = {
-        enabled = false,
+        enabled = true,
         keymap = {
           preset = "cmdline",
           ["<Right>"] = false,
@@ -81,9 +81,7 @@ return {
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
       },
       snippets = {
-        expand = function(snippet, _)
-          return require("util.cmp").expand(snippet)
-        end,
+        preset = "default",
       },
       -- experimental signature help support
       signature = { enabled = true },
@@ -95,6 +93,9 @@ return {
       },
     },
     config = function(_, opts)
+      if opts.snippets and opts.snippets.preset == "default" then
+        opts.snippets.expand = require("util.cmp").expand
+      end
       -- setup compat sources
       local enabled = opts.sources.default
       for _, source in ipairs(opts.sources.compat or {}) do
@@ -154,7 +155,7 @@ return {
         function()
           require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
         end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Format Injected Langs",
       },
     },
@@ -233,7 +234,7 @@ return {
         local gs = package.loaded.gitsigns
 
         local function map(mode, l, r, desc)
-          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc, silent = true })
         end
 
         -- stylua: ignore start
@@ -253,8 +254,8 @@ return {
         end, "Prev Hunk")
         map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
         map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
-        map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-        map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+        map({ "n", "x" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+        map({ "n", "x" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
         map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
         map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
         map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
@@ -302,7 +303,7 @@ return {
   {
     "MagicDuck/grug-far.nvim",
     opts = { headerMaxWidth = 80 },
-    cmd = "GrugFar",
+    cmd = { "GrugFar", "GrugFarWithin" },
     keys = {
       {
         "<leader>sr",
@@ -316,7 +317,7 @@ return {
             },
           })
         end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Search and Replace",
       },
     },
@@ -442,7 +443,6 @@ return {
   -- mason.nvim (https://github.com/mason-org/mason.nvim)
   {
     "mason-org/mason.nvim",
-    version = "^1.0.0",
     cmd = "Mason",
     keys = {
       { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
@@ -590,10 +590,10 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile", "BufWritePre" },
     dependencies = {
-      -- https://github.com/mason-org/mason.nvim
-      { "mason-org/mason.nvim", version = "^1.0.0" },
-      { "mason-org/mason-lspconfig.nvim", version = "^1.0.0", config = function() end },
+      "mason.nvim",
+      { "mason-org/mason-lspconfig.nvim", config = function() end },
     },
+    opts_extend = { "servers.*.keys" },
     opts = function()
       local ret = {
         diagnostics = {
@@ -604,7 +604,6 @@ return {
             source = "if_many",
             prefix = "●",
             -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-            -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
             -- prefix = "icons",
           },
           severity_sort = true,
@@ -617,27 +616,24 @@ return {
             },
           },
         },
-        -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+        -- Enable this to enable the builtin LSP inlay hints on Neovim.
         -- Be aware that you also will need to properly configure your LSP server to
         -- provide the inlay hints.
         inlay_hints = {
           enabled = false,
           exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
         },
-        -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+        -- Enable this to enable the builtin LSP code lenses on Neovim.
         -- Be aware that you also will need to properly configure your LSP server to
         -- provide the code lenses.
         codelens = {
           enabled = false,
         },
-        -- add any global capabilities here
-        capabilities = {
-          workspace = {
-            fileOperations = {
-              didRename = true,
-              willRename = true,
-            },
-          },
+        -- Enable this to enable the builtin LSP folding on Neovim.
+        -- Be aware that you also will need to properly configure your LSP server to
+        -- provide the folds.
+        folds = {
+          enabled = true,
         },
         -- options for vim.lsp.buf.format
         -- `bufnr` and `filter` is handled by the LazyVim formatter,
@@ -647,7 +643,48 @@ return {
           timeout_ms = nil,
         },
         -- LSP Server Settings
+        -- Sets the default configuration for an LSP client (or all clients if the special name "*" is used).
         servers = {
+          -- configuration for all lsp servers
+          ["*"] = {
+            capabilities = {
+              workspace = {
+                fileOperations = {
+                  didRename = true,
+                  willRename = true,
+                },
+              },
+            },
+            -- stylua: ignore
+            keys = {
+              { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+              { "gd", function() require("snacks").picker.lsp_definitions() end, desc = "Goto Definition", has = "definition" },
+              { "gr", function() require("snacks").picker.lsp_references() end, nowait = true, desc = "References" },
+              { "gI", function() require("snacks").picker.lsp_implementations() end, desc = "Goto Implementation" },
+              { "gy", function() require("snacks").picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+              { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+              { "<leader>ss", function() require("snacks").picker.lsp_symbols({ filter = require("config").kind_filter }) end, desc = "LSP Symbols", has = "documentSymbol" },
+              { "<leader>sS", function() require("snacks").picker.lsp_workspace_symbols({ filter = require("config").kind_filter }) end, desc = "LSP Workspace Symbols", has = "workspace/symbols" },
+              { "\\", function() return vim.lsp.buf.hover() end, desc = "Hover" },
+              { "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature Help", has = "signatureHelp" },
+              { "<c-k>", function() vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+              { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "x" }, has = "codeAction" },
+              { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "x" }, has = "codeLens" },
+              { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+              { "<leader>cR", function() require("snacks").rename.rename_file() end, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
+              { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+              { "<leader>cA", require("util.lsp").action.source, desc = "Source Action", has = "codeAction" },
+              { "]]", function() require("snacks").words.jump(vim.v.count1) end, has = "documentHighlight",
+                desc = "Next Reference", enabled = function() return require("snacks").words.is_enabled() end },
+              { "[[", function() require("snacks").words.jump(-vim.v.count1) end, has = "documentHighlight",
+                desc = "Prev Reference", enabled = function() return require("snacks").words.is_enabled() end },
+              { "<a-n>", function() require("snacks").words.jump(vim.v.count1, true) end, has = "documentHighlight",
+                desc = "Next Reference", enabled = function() return require("snacks").words.is_enabled() end },
+              { "<a-p>", function() require("snacks").words.jump(-vim.v.count1, true) end, has = "documentHighlight",
+                desc = "Prev Reference", enabled = function() return require("snacks").words.is_enabled() end },
+            },
+          },
+          stylua = { enabled = false },
           biome = {
             settings = {},
           },
@@ -730,6 +767,19 @@ return {
           tailwindcss = {
             filetypes_exclude = { "markdown" },
             filetypes_include = {},
+            -- additional settings for the server, e.g:
+            -- tailwindCSS = { includeLanguages = { someLang = "html" } }
+            -- can be addeded to the settings table and will be merged with
+            -- this defaults for Phoenix projects
+            settings = {
+              tailwindCSS = {
+                includeLanguages = {
+                  elixir = "html-eex",
+                  eelixir = "html-eex",
+                  heex = "html-eex",
+                },
+              },
+            },
           },
           vue_ls = {
             init_options = {
@@ -853,10 +903,7 @@ return {
             opts.filetypes = opts.filetypes or {}
 
             -- Add default filetypes
-            local default_config = vim.lsp.config["tailwindcss"]
-            if default_config and default_config.filetypes then
-              vim.list_extend(opts.filetypes, default_config.filetypes)
-            end
+            vim.list_extend(opts.filetypes, vim.lsp.config.tailwindcss.filetypes)
 
             -- Remove excluded filetypes
             --- @param ft string
@@ -864,22 +911,11 @@ return {
               return not vim.tbl_contains(opts.filetypes_exclude or {}, ft)
             end, opts.filetypes)
 
-            -- Additional settings for Phoenix projects
-            opts.settings = {
-              tailwindCSS = {
-                includeLanguages = {
-                  elixir = "html-eex",
-                  eelixir = "html-eex",
-                  heex = "html-eex",
-                },
-              },
-            }
-
             -- Add additional filetypes
             vim.list_extend(opts.filetypes, opts.filetypes_include or {})
           end,
           vtsls = function(_, opts)
-            require("util.lsp").on_attach(function(client, _buf)
+            require("snacks").util.lsp.on({ name = "vtsls" }, function(_buffer, client)
               client.commands["_typescript.moveToFileRefactoring"] = function(command, _ctx)
                 ---@diagnostic disable-next-line: deprecated
                 local action, uri, range = unpack(command.arguments)
@@ -928,7 +964,7 @@ return {
                   end)
                 end)
               end
-            end, "vtsls")
+            end)
             -- copy typescript settings to javascript
             opts.settings.javascript =
               vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
@@ -937,18 +973,16 @@ return {
       }
       return ret
     end,
-    config = function(_, opts)
-      local lsp = require("util.lsp")
+    config = vim.schedule_wrap(function(_, opts)
       -- setup autoformat
-      require("util.format").register(lsp.formatter())
+      require("util.format").register(require("util.lsp").formatter())
 
       -- setup keymaps
-      lsp.on_attach(function(client, buffer)
-        require("util.keymaps").on_attach(client, buffer)
-      end)
-
-      lsp.setup()
-      lsp.on_dynamic_capability(require("util.keymaps").on_attach)
+      for server, server_opts in pairs(opts.servers) do
+        if type(server_opts) == "table" and server_opts.keys then
+          require("util.keymaps").set({ name = server ~= "*" and server or nil }, server_opts.keys)
+        end
+      end
 
       -- diagnostics signs
       if vim.fn.has("nvim-0.10.0") == 0 then
@@ -963,7 +997,7 @@ return {
 
       -- inlay hints
       if opts.inlay_hints.enabled then
-        lsp.on_supports_method("textDocument/inlayHint", function(_, buffer)
+        require("snacks").util.lsp.on({ method = "textDocument/inlayHint" }, function(buffer)
           if
             vim.api.nvim_buf_is_valid(buffer)
             and vim.bo[buffer].buftype == ""
@@ -974,9 +1008,18 @@ return {
         end)
       end
 
+      -- folds
+      if opts.folds.enabled then
+        require("snacks").util.lsp.on({ method = "textDocument/foldingRange" }, function()
+          if require("util.init").set_default("foldmethod", "expr") then
+            require("util.init").set_default("foldexpr", "v:lua.vim.lsp.foldexpr()")
+          end
+        end)
+      end
+
       -- code lens
       if opts.codelens.enabled and vim.lsp.codelens then
-        lsp.on_supports_method("textDocument/codeLens", function(_, buffer)
+        require("snacks").util.lsp.on({ method = "textDocument/codeLens" }, function(buffer)
           vim.lsp.codelens.refresh()
           vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
             buffer = buffer,
@@ -992,136 +1035,101 @@ return {
               return icon
             end
           end
+          return "●"
         end
       end
-
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-      local servers = opts.servers
-      local has_blink, blink = pcall(require, "blink.cmp")
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        has_blink and blink.get_lsp_capabilities() or {},
-        opts.capabilities or {}
-      )
+      if opts.capabilities then
+        require("util.init").warn(
+          "lsp-config.opts.capabilities is deprecated. Use lsp-config.opts.servers['*'].capabilities instead"
+        )
+        opts.servers["*"] = vim.tbl_deep_extend("force", opts.servers["*"] or {}, {
+          capabilities = opts.capabilities,
+        })
+      end
 
-      local function setup(server)
-        local server_opts = vim.tbl_deep_extend("force", {
-          capabilities = vim.deepcopy(capabilities),
-        }, servers[server] or {})
-        if server_opts.enabled == false then
-          return
-        end
-
-        if opts.setup[server] then
-          if opts.setup[server](server, server_opts) then
-            return
-          end
-        elseif opts.setup["*"] then
-          if opts.setup["*"](server, server_opts) then
-            return
-          end
-        end
-        vim.lsp.config(server, server_opts)
-        vim.lsp.enable(server)
+      if opts.servers["*"] then
+        vim.lsp.config("*", opts.servers["*"])
       end
 
       -- get all the servers that are available through mason-lspconfig
-      local have_mason, mlsp = pcall(require, "mason-lspconfig")
-      local all_mslp_servers = {}
-      if have_mason then
-        all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
-      end
+      local have_mason = require("util.init").has("mason-lspconfig.nvim")
+      local mason_all = have_mason
+          and vim.tbl_keys(require("mason-lspconfig.mappings").get_mason_map().lspconfig_to_package)
+        or {}
+      local mason_exclude = {} ---@type string[]
 
-      local ensure_installed = {} ---@type string[]
-      for server, server_opts in pairs(servers) do
-        if server_opts then
-          server_opts = server_opts == true and {} or server_opts
-          if server_opts.enabled ~= false then
-            -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-            if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-              setup(server)
-            else
-              ensure_installed[#ensure_installed + 1] = server
-            end
+      ---@return boolean? exclude automatic setup
+      local function configure(server)
+        if server == "*" then
+          return false
+        end
+        local sopts = opts.servers[server]
+        sopts = sopts == true and {} or (not sopts) and { enabled = false } or sopts
+
+        if sopts.enabled == false then
+          mason_exclude[#mason_exclude + 1] = server
+          return
+        end
+
+        local use_mason = sopts.mason ~= false and vim.tbl_contains(mason_all, server)
+        local setup = opts.setup[server] or opts.setup["*"]
+        if setup and setup(server, sopts) then
+          mason_exclude[#mason_exclude + 1] = server
+        else
+          vim.lsp.config(server, sopts) -- configure the server
+          if not use_mason then
+            vim.lsp.enable(server)
           end
         end
+        return use_mason
       end
 
+      local install = vim.tbl_filter(configure, vim.tbl_keys(opts.servers))
       if have_mason then
-        mlsp.setup({
-          ensure_installed = vim.tbl_deep_extend(
-            "force",
-            ensure_installed,
+        require("mason-lspconfig").setup({
+          ensure_installed = vim.list_extend(
+            install,
             require("util.init").opts("mason-lspconfig.nvim").ensure_installed or {}
           ),
-          handlers = { setup },
+          automatic_enable = { exclude = mason_exclude },
         })
       end
-    end,
+    end),
   },
 
   -- nvim-treesitter (https://github.com/nvim-treesitter/nvim-treesitter)
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    branch = "main",
+    version = false,
+    build = function()
+      local TS = require("nvim-treesitter")
+      if not TS.get_installed then
+        require("util.init").error(
+          "Please restart Neovim and run `:TSUpdate` to use the `nvim-treesitter` **main** branch."
+        )
+        return
+      end
+      -- make sure we're using the latest treesitter util
+      package.loaded["util.treesitter"] = nil
+      require("util.treesitter").build(function()
+        TS.update(nil, { summary = true })
+      end)
+    end,
     event = { "VeryLazy" },
-    lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
-    dependencies = {
-      -- https://github.com/windwp/nvim-ts-autotag
-      { "windwp/nvim-ts-autotag", opts = {} },
-    },
-    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
-    init = function(plugin)
-      -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
-      -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
-      -- no longer trigger the **nvim-treesitter** module to be loaded in time.
-      -- Luckily, the only things that those plugins need are the custom queries, which we make available
-      -- during startup.
-      require("lazy.core.loader").add_to_rtp(plugin)
-      require("nvim-treesitter.query_predicates")
-    end,
+    lazy = vim.fn.argc(-1) == 0,
+    cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
     keys = {
-      { "<c-space>", desc = "Increment Selection" },
+      { "<c-space>", desc = "Increment Selection", mode = { "x", "n" } },
       { "<bs>", desc = "Decrement Selection", mode = "x" },
     },
+    opts_extend = { "ensure_installed" },
     opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "css",
-        "elixir",
-        "eex",
-        "fish",
-        "gitignore",
-        "heex",
-        "html",
-        "javascript",
-        "jsdoc",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "nix",
-        "regex",
-        "rust",
-        "ron",
-        "svelte",
-        "toml",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "vue",
-        "yaml",
-      },
-      highlight = { enable = true },
       indent = { enable = true },
+      highlight = { enable = true },
+      folds = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -1131,10 +1139,132 @@ return {
           node_decremental = "<bs>",
         },
       },
-      textobjects = {
-        -- stylua: ignore
-        move = {
-          enable = true,
+      ensure_installed = {
+        "bash",
+        "c",
+        "css",
+        "diff",
+        "elixir",
+        "eex",
+        "fish",
+        "gitignore",
+        "heex",
+        "html",
+        "javascript",
+        "jsdoc",
+        "json",
+        "jsonc",
+        "lua",
+        "luadoc",
+        "luap",
+        "markdown",
+        "markdown_inline",
+        "nix",
+        "printf",
+        "query",
+        "regex",
+        "ron",
+        "rust",
+        "svelte",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "vue",
+        "xml",
+        "yaml",
+      },
+    },
+    config = function(_, opts)
+      local TS = require("nvim-treesitter")
+
+      setmetatable(require("nvim-treesitter.install"), {
+        __newindex = function(_, k)
+          if k == "compilers" then
+            vim.schedule(function()
+              require("util.init").error({
+                "Setting custom compilers for `nvim-treesitter` is no longer supported.",
+                "",
+                "For more info, see:",
+                "- [compilers](https://docs.rs/cc/latest/cc/#compile-time-requirements)",
+              })
+            end)
+          end
+        end,
+      })
+
+      -- some quick sanity checks
+      if not TS.get_installed then
+        return require("util.init").error("Please use `:Lazy` and update `nvim-treesitter`")
+      elseif type(opts.ensure_installed) ~= "table" then
+        return require("util.init").error("`nvim-treesitter` opts.ensure_installed must be a table")
+      end
+
+      -- setup treesitter
+      TS.setup(opts)
+      require("util.treesitter").get_installed(true) -- initialize the installed langs
+
+      -- install missing parsers
+      local install = vim.tbl_filter(function(lang)
+        return not require("util.treesitter").have(lang)
+      end, opts.ensure_installed or {})
+      if #install > 0 then
+        require("util.treesitter").build(function()
+          TS.install(install, { summary = true }):await(function()
+            require("util.treesitter").get_installed(true) -- refresh the installed langs
+          end)
+        end)
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("tmm_treesitter", { clear = true }),
+        callback = function(ev)
+          local ft, lang = ev.match, vim.treesitter.language.get_lang(ev.match)
+          if not require("util.treesitter").have(ft) then
+            return
+          end
+
+          ---@param feat string
+          ---@param query string
+          local function enabled(feat, query)
+            local f = opts[feat] or {}
+            return f.enable ~= false
+              and not (type(f.disable) == "table" and vim.tbl_contains(f.disable, lang))
+              and require("util.treesitter").have(ft, query)
+          end
+
+          -- highlighting
+          if enabled("highlight", "highlights") then
+            pcall(vim.treesitter.start, ev.buf)
+          end
+
+          -- indents
+          if enabled("indent", "indents") then
+            require("util.init").set_default("indentexpr", "v:lua.require'util.treesitter'.indentexpr()")
+          end
+
+          -- folds
+          if enabled("folds", "folds") then
+            if require("util.init").set_default("foldmethod", "expr") then
+              require("util.init").set_default("foldexpr", "v:lua.require'util.treesitter'.foldexpr()")
+            end
+          end
+        end,
+      })
+    end,
+  },
+
+  -- nvim-treesitter-textobjects (https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    event = "VeryLazy",
+    opts = {
+      move = {
+        enable = true,
+        set_jumps = true,
+        keys = {
           goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
           goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
           goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
@@ -1142,6 +1272,62 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      local TS = require("nvim-treesitter-textobjects")
+      if not TS.setup then
+        require("util.init").error("Please use `:Lazy` and update `nvim-treesitter`")
+        return
+      end
+      TS.setup(opts)
+
+      local function attach(buf)
+        local ft = vim.bo[buf].filetype
+        if not (vim.tbl_get(opts, "move", "enable") and require("util.treesitter").have(ft, "textobjects")) then
+          return
+        end
+        ---@type table<string, table<string, string>>
+        local moves = vim.tbl_get(opts, "move", "keys") or {}
+
+        for method, keymaps in pairs(moves) do
+          for key, query in pairs(keymaps) do
+            local queries = type(query) == "table" and query or { query }
+            local parts = {}
+            for _, q in ipairs(queries) do
+              local part = q:gsub("@", ""):gsub("%..*", "")
+              part = part:sub(1, 1):upper() .. part:sub(2)
+              table.insert(parts, part)
+            end
+            local desc = table.concat(parts, " or ")
+            desc = (key:sub(1, 1) == "[" and "Prev " or "Next ") .. desc
+            desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and " End" or " Start")
+            if not (vim.wo.diff and key:find("[cC]")) then
+              vim.keymap.set({ "n", "x", "o" }, key, function()
+                require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
+              end, {
+                buffer = buf,
+                desc = desc,
+                silent = true,
+              })
+            end
+          end
+        end
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("tmm_treesitter_textobjects", { clear = true }),
+        callback = function(ev)
+          attach(ev.buf)
+        end,
+      })
+      vim.tbl_map(attach, vim.api.nvim_list_bufs())
+    end,
+  },
+
+  -- nvim-ts-autotag (https://github.com/windwp/nvim-ts-autotag)
+  {
+    "windwp/nvim-ts-autotag",
+    event = "VeryLazy",
+    opts = {},
   },
 
   -- nvim-treesitter-context (https://github.com/nvim-treesitter/nvim-treesitter-context)
@@ -1445,8 +1631,13 @@ return {
         { "<leader>fp", function() snacks.picker.projects() end, desc = "Projects" },
         -- git
         { "<leader>gd", function() snacks.picker.git_diff() end, desc = "Git Diff (hunks)" },
+        { "<leader>gD", function() snacks.picker.git_diff({ base = "origin", group = true }) end, desc = "Git Diff (origin)" },
         { "<leader>gs", function() snacks.picker.git_status() end, desc = "Git Status" },
         { "<leader>gS", function() snacks.picker.git_stash() end, desc = "Git Stash" },
+        { "<leader>gi", function() snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
+        { "<leader>gI", function() snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
+        { "<leader>gp", function() snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+        { "<leader>gP", function() snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
         -- Grep
         { "<leader>sb", function() snacks.picker.lines() end, desc = "Buffer Lines" },
         { "<leader>sB", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
@@ -1555,9 +1746,9 @@ return {
     config = function(_, opts)
       local twoslash_queries = require("twoslash-queries")
       twoslash_queries.setup(opts)
-      require("util.lsp").on_attach(function(client, bufnr)
-        require("twoslash-queries").attach(client, bufnr)
-      end, "vtsls")
+      require("snacks").util.lsp.on({ name = "vtsls" }, function(buffer, client)
+        require("twoslash-queries").attach(client, buffer)
+      end)
     end,
   },
 

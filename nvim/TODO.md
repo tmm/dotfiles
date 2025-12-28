@@ -1,10 +1,14 @@
 # TODO
 
-lazy 3aa2916569df2664cb68e1c7c38882868f36f8d0
+lazy c64a61734fc9d45470a72603395c02137802bc6f
 
-## Plugins
+- agents instructions for how to update to latest lazyvim
+- says no information available on lsp hover
+- foldtext: +x lines
+    - Based on https://github.com/Wansmer/nvim-config/blob/main/lua/modules/foldtext.lua
+    - Which is based on https://www.reddit.com/r/neovim/comments/16sqyjz/finally_we_can_have_highlighted_folds/
 
-- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+- yank history
 
 ## Misc
 
