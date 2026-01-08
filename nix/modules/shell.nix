@@ -48,7 +48,7 @@
       }
     ];
     shellAbbrs = {
-      a = "ambr";
+      a = "amp";
       b = "bun";
       d = "docker";
       de = "delta";
