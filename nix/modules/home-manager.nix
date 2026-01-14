@@ -7,6 +7,170 @@
 }:
 let
   colors = import ./colors.nix;
+  mkBatTheme =
+    { c, name }:
+    ''
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>name</key>
+        <string>${name}</string>
+        <key>settings</key>
+        <array>
+          <dict>
+            <key>settings</key>
+            <dict>
+              <key>background</key>
+              <string>${c.background}</string>
+              <key>foreground</key>
+              <string>${c.foreground}</string>
+              <key>caret</key>
+              <string>${c.cursor}</string>
+              <key>selection</key>
+              <string>${c.black}</string>
+              <key>lineHighlight</key>
+              <string>${c.black}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Comment</string>
+            <key>scope</key>
+            <string>comment, punctuation.definition.comment</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.cyan}</string>
+              <key>fontStyle</key>
+              <string>italic</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>String</string>
+            <key>scope</key>
+            <string>string, constant.other.symbol</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.green}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Number</string>
+            <key>scope</key>
+            <string>constant.numeric</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.orange}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Constant</string>
+            <key>scope</key>
+            <string>constant, constant.language, constant.character</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.orange}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Keyword</string>
+            <key>scope</key>
+            <string>keyword, storage.type, storage.modifier</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.magenta}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Function</string>
+            <key>scope</key>
+            <string>entity.name.function, support.function</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.blue}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Class</string>
+            <key>scope</key>
+            <string>entity.name.class, entity.name.type, support.class</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.yellow}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Variable</string>
+            <key>scope</key>
+            <string>variable, variable.parameter</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.foreground}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Operator</string>
+            <key>scope</key>
+            <string>keyword.operator</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.cyan}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Tag</string>
+            <key>scope</key>
+            <string>entity.name.tag</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.red}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Attribute</string>
+            <key>scope</key>
+            <string>entity.other.attribute-name</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.orange}</string>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>Invalid</string>
+            <key>scope</key>
+            <string>invalid</string>
+            <key>settings</key>
+            <dict>
+              <key>foreground</key>
+              <string>${c.red}</string>
+            </dict>
+          </dict>
+        </array>
+      </dict>
+      </plist>
+    '';
 in
 {
   home.packages = with pkgs; [
@@ -38,6 +202,8 @@ in
     zoxide
   ];
   home.file = {
+    ".config/bat/themes/dotfiles_dark.tmTheme".text = mkBatTheme { c = colors.dark; name = "Dotfiles Dark"; };
+    ".config/bat/themes/dotfiles_light.tmTheme".text = mkBatTheme { c = colors.bright; name = "Dotfiles Light"; };
     ".ignore".source = ../files/ignore;
     ".ssh/tom.pub".source = ../files/tom.pub;
   };
@@ -230,6 +396,9 @@ in
       nvim = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nvim";
         recursive = true;
+      };
+      "amp/settings.json".text = builtins.toJSON {
+        "amp.git.commit.coauthor.enabled" = false;
       };
     };
   };

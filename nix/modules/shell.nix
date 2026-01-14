@@ -63,7 +63,7 @@
       v = "nvim";
     };
     shellAliases = {
-      cat = "bat --style=numbers,changes --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo tokyonight_night || echo tokyonight_day)";
+      cat = "bat --style=numbers,changes --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dotfiles_dark || echo dotfiles_light)";
       find = "fd";
       fup = "echo $fish_user_paths | tr \" \" \"\n\" | nl";
       ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
