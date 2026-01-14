@@ -2,43 +2,8 @@
 {
   programs.nushell = {
     enable = true;
-    configFile.text = ''
-      $env.config = {
-        show_banner: false
-        edit_mode: "vi"
-        shell_integration: {
-          osc2: true
-          osc7: true
-          osc8: true
-          osc9_9: false
-          osc133: true
-          osc633: true
-          reset_application_mode: true
-        }
-      }
-    '';
-    envFile.text = ''
-      # Ghostty shell integration
-      if ($env.GHOSTTY_RESOURCES_DIR? | is-not-empty) {
-        # Nushell doesn't have native Ghostty integration yet
-        # Using OSC sequences via shell_integration config instead
-      }
-
-      # cargo
-      $env.PATH = ($env.PATH | prepend $"($env.HOME)/.cargo/bin")
-
-      # pnpm
-      $env.PNPM_HOME = $"($env.HOME)/.local/share/pnpm"
-      $env.PATH = ($env.PATH | prepend $env.PNPM_HOME)
-
-      # foundry
-      $env.FOUNDRY_DIR = $"($env.HOME)/.foundry"
-      $env.FOUNDRY_DISABLE_NIGHTLY_WARNING = "true"
-      $env.PATH = ($env.PATH | prepend $"($env.FOUNDRY_DIR)/bin")
-
-      # pg_config
-      $env.PATH = ($env.PATH | prepend "/Applications/Postgres.app/Contents/Versions/latest/bin")
-    '';
+    configFile.source = ../files/nushell/config.nu;
+    envFile.source = ../files/nushell/env.nu;
     shellAliases = {
       a = "amp";
       b = "bun";
