@@ -12,7 +12,6 @@ in
   home.packages = with pkgs; [
     amber
     asciinema
-    babelfish
     bat
     btop
     cachix
@@ -32,6 +31,7 @@ in
     just
     neovim
     nixfmt-rfc-style
+    nushell
     ripgrep
     rustup
     starship
@@ -41,7 +41,7 @@ in
     ".ignore".source = ../files/ignore;
     ".ssh/tom.pub".source = ../files/tom.pub;
   };
-  home.shell.enableFishIntegration = true;
+  home.shell.enableNushellIntegration = true;
   home.stateVersion = "23.05";
   home.sessionVariables = {
     EDITOR = "nvim";
