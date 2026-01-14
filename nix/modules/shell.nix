@@ -1,53 +1,45 @@
 { pkgs, ... }:
 {
-  programs.fish = {
+  programs.nushell = {
     enable = true;
-    interactiveShellInit = ''
-      # Ghostty supports auto-injection but Nix-darwin hard overwrites XDG_DATA_DIRS
-      # which make it so that we can't use the auto-injection. We have to source
-      # manually.
-      if set -q GHOSTTY_RESOURCES_DIR
-        source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
-      end
-
-      # disable welcome message
-      set -g fish_greeting
+    configFile.text = ''
+      $env.config = {
+        show_banner: false
+        edit_mode: "vi"
+        shell_integration: {
+          osc2: true
+          osc7: true
+          osc8: true
+          osc9_9: false
+          osc133: true
+          osc633: true
+          reset_application_mode: true
+        }
+      }
+    '';
+    envFile.text = ''
+      # Ghostty shell integration
+      if ($env.GHOSTTY_RESOURCES_DIR? | is-not-empty) {
+        # Nushell doesn't have native Ghostty integration yet
+        # Using OSC sequences via shell_integration config instead
+      }
 
       # cargo
-      fish_add_path $HOME/.cargo/bin
+      $env.PATH = ($env.PATH | prepend $"($env.HOME)/.cargo/bin")
 
       # pnpm
-      set -gx PNPM_HOME "$HOME/.local/share/pnpm"
-      set -gx PATH "$PNPM_HOME" $PATH
+      $env.PNPM_HOME = $"($env.HOME)/.local/share/pnpm"
+      $env.PATH = ($env.PATH | prepend $env.PNPM_HOME)
 
       # foundry
-      set -gx FOUNDRY_DIR "$HOME/.foundry"
-      set -gx PATH "$FOUNDRY_DIR" $PATH
-      set FOUNDRY_BIN $HOME/.foundry/bin
-      set -gx FOUNDRY_DISABLE_NIGHTLY_WARNING true
-      fish_add_path $FOUNDRY_BIN
+      $env.FOUNDRY_DIR = $"($env.HOME)/.foundry"
+      $env.FOUNDRY_DISABLE_NIGHTLY_WARNING = "true"
+      $env.PATH = ($env.PATH | prepend $"($env.FOUNDRY_DIR)/bin")
 
-      # Add `pg_config` to path
-      # https://fishshell.com/docs/current/tutorial.html?highlight=fish_user_path#path
-      set PG_CONFIG /Applications/Postgres.app/Contents/Versions/latest/bin
-      fish_add_path $PG_CONFIG
-
-      fnm env | source
-      fzf --fish | source
+      # pg_config
+      $env.PATH = ($env.PATH | prepend "/Applications/Postgres.app/Contents/Versions/latest/bin")
     '';
-    plugins = [
-      # https://github.com/jorgebucaran/autopair.fish
-      {
-        name = "autopair.fish";
-        src = pkgs.fetchFromGitHub {
-          owner = "jorgebucaran";
-          repo = "autopair.fish";
-          rev = "4d1752ff5b39819ab58d7337c69220342e9de0e2";
-          sha256 = "sha256-s1o188TlwpUQEN3X5MxUlD/2CFCpEkWu83U9O+wg3VU=";
-        };
-      }
-    ];
-    shellAbbrs = {
+    shellAliases = {
       a = "amp";
       b = "bun";
       d = "docker";
@@ -61,24 +53,22 @@
       o = "opencode";
       p = "pnpm";
       v = "nvim";
-    };
-    shellAliases = {
-      cat = "bat --style=numbers,changes --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo tokyonight_night || echo tokyonight_day)";
+
+      cat = "bat --style=numbers,changes --theme=$(if (defaults read -globalDomain AppleInterfaceStyle | complete).exit_code == 0 { 'tokyonight_night' } else { 'tokyonight_day' })";
       find = "fd";
-      fup = "echo $fish_user_paths | tr \" \" \"\n\" | nl";
       ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
       howto = "gh copilot suggest -t shell";
       ls = "eza";
-      reload = "exec $SHELL -l";
+      reload = "exec $env.SHELL";
       vim = "nvim";
-      hide = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder";
-      show = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder";
+      hide = "defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder";
+      show = "defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder";
 
-      drs = "sudo darwin-rebuild switch --flake $DOTFILES_HOME/nix";
-      dot = "pushd . && cd $DOTFILES_HOME && nvim";
+      drs = "sudo darwin-rebuild switch --flake $env.DOTFILES_HOME/nix";
+      dot = "cd $env.DOTFILES_HOME; nvim";
 
-      hidedesktop = "defaults write com.apple.finder CreateDesktop -bool false && killall Finder";
-      showdesktop = "defaults write com.apple.finder CreateDesktop -bool true && killall Finder";
+      hidedesktop = "defaults write com.apple.finder CreateDesktop -bool false; killall Finder";
+      showdesktop = "defaults write com.apple.finder CreateDesktop -bool true; killall Finder";
     };
   };
 }
