@@ -25,6 +25,19 @@ Use conventional commits (`feat:`, `fix:`, `perf:`, `chore:`, `docs:`, `test:`, 
 
 Be specific: `perf: add specialized multiplication for 8 limbs` not `perf: optimize mul`
 
+## Public GitHub Content Policy
+
+When creating or editing anything publicly visible on GitHub (issues, PRs, code, comments):
+
+### DO NOT
+- Include direct quotations from Slack messages
+- Mention specific partners or companies by name
+
+### ALWAYS
+- Ask for user confirmation before mentioning anything that could pose a security risk to the network (vulnerabilities, exploits, attack vectors - even minor ones)
+- Paraphrase internal discussions rather than quoting them
+- Use generic descriptions instead of partner names (e.g., "a partner" or "an integration partner")
+
 ## Critical Reminders
 
 **DO NOT:**
