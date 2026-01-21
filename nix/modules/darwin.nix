@@ -28,6 +28,7 @@
       "flux-app"
       "ghostty"
       "google-chrome"
+      "lookaway"
       "numi"
       "orbstack"
       "pixelsnap"

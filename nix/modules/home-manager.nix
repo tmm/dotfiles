@@ -195,15 +195,21 @@ in
     jq
     just
     neovim
-    nixfmt-rfc-style
+    nixfmt
     ripgrep
     rustup
     starship
     zoxide
   ];
   home.file = {
-    ".config/bat/themes/dotfiles_dark.tmTheme".text = mkBatTheme { c = colors.dark; name = "Dotfiles Dark"; };
-    ".config/bat/themes/dotfiles_light.tmTheme".text = mkBatTheme { c = colors.bright; name = "Dotfiles Light"; };
+    ".config/bat/themes/dotfiles_dark.tmTheme".text = mkBatTheme {
+      c = colors.dark;
+      name = "Dotfiles Dark";
+    };
+    ".config/bat/themes/dotfiles_light.tmTheme".text = mkBatTheme {
+      c = colors.bright;
+      name = "Dotfiles Light";
+    };
     ".ignore".source = ../files/ignore;
     ".ssh/tom.pub".source = ../files/tom.pub;
   };
@@ -230,7 +236,6 @@ in
   programs.gh = {
     enable = true;
     extensions = with pkgs; [
-      gh-copilot
       gh-poi
     ];
   };
@@ -314,11 +319,16 @@ in
   programs.home-manager.enable = true;
   programs.ssh = {
     enable = true;
-    forwardAgent = true;
+    enableDefaultConfig = false;
     extraConfig = ''
       IdentityAgent "${config.home.sessionVariables.SSH_AUTH_SOCK}"
-      StrictHostKeyChecking no
     '';
+    matchBlocks."*" = {
+      forwardAgent = true;
+      extraOptions = {
+        StrictHostKeyChecking = "no";
+      };
+    };
   };
   programs.starship = {
     enable = true;
