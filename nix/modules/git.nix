@@ -36,9 +36,9 @@
         unstage = "reset HEAD --";
       };
       user = {
-        name = "Tom Meagher";
-        email = "tom@meagher.co";
-        signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHLwl9HCwJ1+kNCbrx3N15oIcNfW7SgZBTFlmQnQEVn4";
+        name = "tmm";
+        email = "tmm@tmm.dev";
+        signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFuIScU+299QwZ5IkK48wS6Fi713aruyZTGE1NILUTJ8";
       };
       branch.sort = "-committerdate";
       color.ui = "auto";

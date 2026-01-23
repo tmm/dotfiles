@@ -15,8 +15,8 @@ in
     "keybinds" = {
       # TODO: Swap newline and submit
       # https://github.com/sst/opencode/issues/653
-      # "input_newline" = "enter";
-      # "input_submit" = "cmd+enter";
+      "input_newline" = "enter";
+      "input_submit" = "super+enter";
       "messages_page_up" = "ctrl+u";
       "messages_page_down" = "ctrl+d";
       "messages_half_page_up" = "ctrl+alt+u";

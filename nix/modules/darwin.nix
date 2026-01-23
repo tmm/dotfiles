@@ -4,10 +4,6 @@
     systemPackages = with pkgs; [
       fish
     ];
-    variables = {
-      NEXT_TELEMETRY_DISABLED = "1";
-      NUXT_TELEMETRY_DISABLED = "1";
-    };
   };
   fonts = {
     packages = [ pkgs.nerd-fonts.jetbrains-mono ];
@@ -17,6 +13,7 @@
     casks = [
       "1password"
       "1password-cli"
+      "aldente"
       "betterdisplay"
       "cleanshot"
       "contexts"
@@ -28,7 +25,6 @@
       "flux-app"
       "ghostty"
       "google-chrome"
-      "lookaway"
       "numi"
       "orbstack"
       "pixelsnap"
