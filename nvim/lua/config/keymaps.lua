@@ -221,3 +221,57 @@ map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+-- amp
+map("n", "<leader>as", function()
+  vim.ui.input({ prompt = "Amp: " }, function(input)
+    if input and input ~= "" then
+      require("amp.message").send_message(input)
+    end
+  end)
+end, { desc = "Send Message" })
+map("n", "<leader>ab", function()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  require("amp.message").send_message(table.concat(lines, "\n"))
+end, { desc = "Send Buffer" })
+map("v", "<leader>as", function()
+  local start_line = vim.fn.line("v")
+  local end_line = vim.fn.line(".")
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+  require("amp.message").send_message(table.concat(lines, "\n"))
+end, { desc = "Send Selection" })
+map("v", "<leader>ap", function()
+  local start_line = vim.fn.line("v")
+  local end_line = vim.fn.line(".")
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+  require("amp.message").send_to_prompt(table.concat(lines, "\n"))
+end, { desc = "Add Selection to Prompt" })
+map({ "n", "v" }, "<leader>ar", function()
+  local bufname = vim.api.nvim_buf_get_name(0)
+  if bufname == "" then
+    vim.notify("Current buffer has no filename", vim.log.levels.WARN)
+    return
+  end
+  local relative_path = vim.fn.fnamemodify(bufname, ":.")
+  local ref = "@" .. relative_path
+  local mode = vim.fn.mode()
+  if mode == "v" or mode == "V" then
+    local start_line = vim.fn.line("v")
+    local end_line = vim.fn.line(".")
+    if start_line > end_line then
+      start_line, end_line = end_line, start_line
+    end
+    if start_line ~= end_line then
+      ref = ref .. "#L" .. start_line .. "-" .. end_line
+    else
+      ref = ref .. "#L" .. start_line
+    end
+  end
+  require("amp.message").send_to_prompt(ref)
+end, { desc = "Add File Ref to Prompt" })
