@@ -274,6 +274,7 @@ in
         recursive = true;
       };
       "amp/settings.json".text = builtins.toJSON {
+        "amp.experimental.modes" = [ "bombadil" ];
         "amp.experimental.walkthroughs" = true;
         "amp.git.commit.coauthor.enabled" = false;
         "amp.mcpServers" = {

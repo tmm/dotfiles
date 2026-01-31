@@ -25,12 +25,7 @@ return {
     },
     opts = {
       appearance = {
-        -- sets the fallback highlight groups to nvim-cmp's highlight groups
-        -- useful for when your theme doesn't support blink.cmp
-        -- will be removed in a future release, assuming themes add support
         use_nvim_cmp_as_default = false,
-        -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-        -- adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
       },
       cmdline = {
@@ -90,6 +85,22 @@ return {
         -- with blink.compat
         compat = {},
         default = { "lsp", "path", "snippets", "buffer" },
+        providers = {
+          snippets = {
+            transform_items = function(_, items)
+              local excluded = {
+                  "rcc", "rcjc", "rccp", "rcfc",          -- react.json
+                  "tsrcc", "tsrce", "tsrpc", "tsrpce", "tsrcredux", -- react-es7.json (TS)
+                  "rcredux", "rcreduxp", "rce", "rcep",   -- react-es7.json (JS)
+                  "rpc", "rpcp", "rpce",                  -- react-es7.json (PureComponent)
+                  "rnc", "rnce", "rncs", "rnpc", "rnpce", "rnrc", -- react-native
+                }
+              return vim.tbl_filter(function(item)
+                return not vim.tbl_contains(excluded, item.label)
+              end, items)
+            end,
+          },
+        },
       },
     },
     config = function(_, opts)
@@ -772,7 +783,6 @@ return {
             },
           },
           nil_ls = {},
-          rust_analyzer = { enabled = false },
           volar = { enabled = false },
           tailwindcss = {
             filetypes_exclude = { "markdown" },
@@ -1275,10 +1285,10 @@ return {
         enable = true,
         set_jumps = true,
         keys = {
-          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+          goto_next_start = { ["]f"] = "@function.outer", ["]a"] = "@parameter.inner" },
+          goto_next_end = { ["]F"] = "@function.outer", ["]A"] = "@parameter.inner" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[a"] = "@parameter.inner" },
+          goto_previous_end = { ["[F"] = "@function.outer", ["[A"] = "@parameter.inner" },
         },
       },
     },
