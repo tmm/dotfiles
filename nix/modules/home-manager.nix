@@ -274,17 +274,21 @@ in
         recursive = true;
       };
       "amp/settings.json".text = builtins.toJSON {
-        "amp.experimental.modes" = [ "bombadil" ];
         "amp.experimental.walkthroughs" = true;
         "amp.git.commit.coauthor.enabled" = false;
         "amp.mcpServers" = {
           cloudflare = {
             url = "https://docs.mcp.cloudflare.com/mcp";
           };
+          playwright = {
+            command = "npx";
+            args = ["@playwright/mcp@latest"];
+          };
           tempo = {
             url = "https://docs.tempo.xyz/api/mcp";
           };
         };
+        "amp.showCosts" = false;
       };
     };
   };

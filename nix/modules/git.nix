@@ -54,7 +54,7 @@
         # hyperlinks = true;
         navigate = true;
         line-numbers = true;
-        side-by-side = true;
+        side-by-side = false;
         file-added-label = " ";
         file-decoration-style = "#272725 ul";
         file-modified-label = " ";

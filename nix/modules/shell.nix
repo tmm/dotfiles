@@ -63,6 +63,7 @@
       v = "nvim";
     };
     shellAliases = {
+      amp = "amp --visibility private";
       cat = "bat --style=numbers,changes --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dotfiles_dark || echo dotfiles_light)";
       find = "fd";
       fup = "echo $fish_user_paths | tr \" \" \"\n\" | nl";
