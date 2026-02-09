@@ -57,6 +57,7 @@ in
     fzf
     gh
     git
+    htmlq
     httpie
     jq
     just
@@ -274,6 +275,7 @@ in
         recursive = true;
       };
       "amp/settings.json".text = builtins.toJSON {
+        "amp.experimental.compaction" = 95;
         "amp.experimental.walkthroughs" = true;
         "amp.git.commit.coauthor.enabled" = false;
         "amp.mcpServers" = {
@@ -282,13 +284,13 @@ in
           };
           playwright = {
             command = "npx";
-            args = ["@playwright/mcp@latest"];
+            args = [ "@playwright/mcp@latest" ];
           };
           tempo = {
             url = "https://docs.tempo.xyz/api/mcp";
           };
         };
-        "amp.showCosts" = false;
+        "amp.showCosts" = true;
       };
     };
   };
