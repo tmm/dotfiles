@@ -1,6 +1,6 @@
 # Global Agent Guidelines
 
-> **Communication Style**: Be brief, concise. Maximize information density, minimize tokens. Incomplete sentences acceptable when clear. Remove filler words. Prioritize clarity over grammar.
+> **Communication Style**: Be brief, concise. Maximize information density, minimize tokens. Incomplete sentences acceptable when clear.
 
 ## Git Worktrees
 
@@ -10,14 +10,8 @@ Use worktrees for isolated workspaces. Check if repo exists locally before cloni
 
 ## GitHub CLI
 
-Use `gh --help` for command discovery. Common operations: `gh repo view`, `gh pr view`, `gh issue list`, `gh pr diff`.
-
-## Writing Code
-
-1. Follow existing patterns
-2. Check dependencies first - never assume availability
-3. Maintain naming/style consistency
-4. Never expose secrets in code
+- Use `gh` cli to access private repositories.
+- Use `gh --help` for command discovery.
 
 ## Commit Messages
 
@@ -27,13 +21,7 @@ Be specific: `perf: add specialized multiplication for 8 limbs` not `perf: optim
 
 ## Critical Reminders
 
-**DO NOT:**
-- Start work with uncommitted changes
-- Make up performance numbers
-- Commit secrets/keys
-- Use emojis unless asked
-
-**ALWAYS:**
-- Ask before committing
-- Follow project patterns
+- Do not start work with uncommitted changes
+- Do not make up performance numbers
+- Do not use emojis unless asked
 - Test changes before committing
