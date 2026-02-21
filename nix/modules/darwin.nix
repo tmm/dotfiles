@@ -13,6 +13,7 @@
     casks = [
       "1password"
       "1password-cli"
+      "alcove"
       "aldente"
       "betterdisplay"
       "cleanshot"
@@ -23,7 +24,7 @@
       "figma"
       "firefox"
       "flux-app"
-      "ghostty"
+      "ghostty@tip"
       "google-chrome"
       "lookaway"
       "numi"

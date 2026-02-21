@@ -108,7 +108,7 @@ in
   };
   programs.ghostty = {
     enable = true;
-    package = null; # TODO: Add install
+    package = null;
     settings = {
       copy-on-select = "clipboard";
       cursor-style = "block";
@@ -138,6 +138,7 @@ in
       window-padding-balance = true;
       window-padding-x = 0;
       window-padding-y = 0;
+      auto-update-channel = "tip";
       window-width = 178;
     };
     themes = {
@@ -275,7 +276,6 @@ in
         recursive = true;
       };
       "amp/settings.json".text = builtins.toJSON {
-        "amp.experimental.compaction" = 95;
         "amp.experimental.walkthroughs" = true;
         "amp.git.commit.coauthor.enabled" = false;
         "amp.mcpServers" = {
