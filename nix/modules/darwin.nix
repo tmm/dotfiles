@@ -28,6 +28,7 @@
       "google-chrome"
       "lookaway"
       "numi"
+      "obsidian"
       "orbstack"
       "pixelsnap"
       "raycast"

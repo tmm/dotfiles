@@ -205,37 +205,41 @@ return {
           lsp_format = "fallback", -- not recommended to change
         },
         formatters_by_ft = {
-          css = { "biome-check" },
+          css = { "oxfmt", "biome-check", stop_after_first = true },
           eex = { "mix" },
           elixir = { "mix" },
           fish = { "fish_indent" },
           heex = { "mix" },
-          json = { "biome-check" },
-          jsonc = { "biome-check" },
+          json = { "oxfmt", "biome-check", stop_after_first = true },
+          jsonc = { "oxfmt", "biome-check", stop_after_first = true },
           lua = { "stylua" },
           nix = { "nixfmt" },
           sh = { "shfmt" },
-          svelte = { "biome-check" },
-          typescript = { "biome-check" },
-          typescriptreact = { "biome-check" },
-          vue = { "biome-check" },
+          svelte = { "oxfmt", "biome-check", stop_after_first = true },
+          typescript = { "oxfmt", "biome-check", stop_after_first = true },
+          typescriptreact = { "oxfmt", "biome-check", stop_after_first = true },
+          vue = { "oxfmt", "biome-check", stop_after_first = true },
         },
-        -- The options you set here will be merged with the builtin formatters.
-        -- You can also define any custom formatters here.
         formatters = {
-          biome = { require_cwd = true },
           injected = { options = { ignore_errors = true } },
-          -- # Example of using dprint only when a dprint.json file is present
-          -- dprint = {
-          --   condition = function(ctx)
-          --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[1]
-          --   end,
-          -- },
-          --
-          -- # Example of using shfmt with extra args
-          -- shfmt = {
-          --   prepend_args = { "-i", "2", "-ci" },
-          -- },
+          ["biome-check"] = {
+            command = function(self, ctx)
+              return vim.fs.find("node_modules/.bin/biome", { path = ctx.filename, upward = true })[1] or "biome"
+            end,
+            condition = function(self, ctx)
+              return vim.fs.find("node_modules/.bin/biome", { path = ctx.filename, upward = true })[1] ~= nil
+            end,
+          },
+          oxfmt = {
+            command = function(self, ctx)
+              return vim.fs.find("node_modules/.bin/oxfmt", { path = ctx.filename, upward = true })[1] or "oxfmt"
+            end,
+            args = { "--stdin-filepath", "$FILENAME" },
+            stdin = true,
+            condition = function(self, ctx)
+              return vim.fs.find("node_modules/.bin/oxfmt", { path = ctx.filename, upward = true })[1] ~= nil
+            end,
+          },
         },
       }
       return opts

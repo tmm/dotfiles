@@ -96,6 +96,7 @@
         autoSetupRemote = true;
         default = "current";
       };
+      submodule.recurse = true;
     };
   };
 }
