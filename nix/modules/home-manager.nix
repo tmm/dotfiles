@@ -86,6 +86,7 @@ in
     ".config/agents/skills" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/files/agents/skills";
     };
+
   };
   home.shell.enableFishIntegration = true;
   home.stateVersion = "23.05";
@@ -125,10 +126,7 @@ in
       font-size = 14;
       keybind = [
         "global:control+grave_accent=toggle_quick_terminal"
-        "ctrl+shift+h=goto_split:left"
-        "ctrl+shift+j=goto_split:bottom"
-        "ctrl+shift+k=goto_split:top"
-        "ctrl+shift+l=goto_split:right"
+
         "ctrl+shift+enter=toggle_split_zoom"
         "ctrl+shift+u=scroll_page_up"
         "ctrl+shift+d=scroll_page_down"

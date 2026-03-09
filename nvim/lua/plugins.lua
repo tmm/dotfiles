@@ -1,5 +1,7 @@
 local icons = require("config").icons
 
+local dev_ghostty_navigator = false
+
 return {
   -- amp.nvim (https://github.com/sourcegraph/amp.nvim)
   {
@@ -7,6 +9,14 @@ return {
     branch = "main",
     lazy = false,
     opts = { auto_start = true, log_level = "info" },
+  },
+
+  -- ghostty-navigator.nvim (https://github.com/tmm/ghostty-navigator.nvim)
+  {
+    "tmm/ghostty-navigator.nvim",
+    dev = dev_ghostty_navigator,
+    build = "make",
+    opts = {},
   },
 
   -- blink.cmp (https://github.com/saghen/blink.cmp)
