@@ -1,0 +1,7 @@
+{
+  "showRibbon": false,
+  "accentColor": "#94D1B3",
+  "enabledCssSnippets": [
+    "dotfiles"
+  ]
+}

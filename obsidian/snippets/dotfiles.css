@@ -1,0 +1,11 @@
+.theme-dark {
+  --background-primary: #1D1D1B;
+  --background-secondary: #0f0f0e;
+  --modal-background: #0f0f0e;
+  --prompt-background: #0f0f0e;
+}
+
+.theme-light {
+  --background-primary: #fcfcf7;
+  --background-secondary: #ffffff;
+}

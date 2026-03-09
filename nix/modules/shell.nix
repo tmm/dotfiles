@@ -32,6 +32,9 @@
       set PG_CONFIG /Applications/Postgres.app/Contents/Versions/latest/bin
       fish_add_path $PG_CONFIG
 
+      # local bin (curl.md, etc.)
+      fish_add_path $HOME/.local/bin
+
       # obsidian cli
       fish_add_path /Applications/Obsidian.app/Contents/MacOS
 
