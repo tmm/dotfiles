@@ -44,6 +44,8 @@ Config is inspired by LazyVim but does NOT use LazyVim directly.
 
 4. Test thoroughly after each change - avoid assumptions about compatibility
 
+5. Clean up cloned LazyVim/LazyVim
+
 ## Tool-Specific Configuration
 
 ### Starship

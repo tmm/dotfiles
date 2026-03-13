@@ -16,18 +16,18 @@
   };
 
   bright = {
-    background = "#fcfcf7";
+    background = "#fefefc";
     foreground = "#000000";
-    cursor = "#0000ff";
+    cursor = "#0028ff";
 
     black = "#333333";
-    blue = "#0055aa";
-    cyan = "#0a5c3b";
-    green = "#2b4a2f";
-    magenta = "#750047";
-    orange = "#e6b594";
+    blue = "#0055a8";
+    cyan = "#0f6332";
+    green = "#3d6b09";
+    magenta = "#760049";
+    orange = "#e8b88a";
     red = "#990000";
-    white = "#ffffff";
-    yellow = "#ffff00";
+    white = "#666666";
+    yellow = "#b59a00";
   };
 }

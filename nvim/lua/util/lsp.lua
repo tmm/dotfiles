@@ -43,7 +43,7 @@ function M.format(opts)
   -- use conform for formatting with LSP when available,
   -- since it has better format diffing
   if ok then
-    opts.formatters = {}
+    opts.formatters = nil
     conform.format(opts)
   else
     vim.lsp.buf.format(opts)

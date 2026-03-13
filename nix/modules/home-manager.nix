@@ -128,6 +128,10 @@ in
         "global:control+grave_accent=toggle_quick_terminal"
 
         "ctrl+shift+enter=toggle_split_zoom"
+        "ctrl+shift+h=goto_split:left"
+        "ctrl+shift+j=goto_split:bottom"
+        "ctrl+shift+k=goto_split:top"
+        "ctrl+shift+l=goto_split:right"
         "ctrl+shift+u=scroll_page_up"
         "ctrl+shift+d=scroll_page_down"
         "super+enter=unbind"
@@ -178,13 +182,13 @@ in
           "6=${colors.bright.cyan}"
           "7=${colors.bright.white}"
           "8=${colors.bright.black}"
-          "9=${colors.bright.black}"
-          "10=${colors.bright.black}"
-          "11=${colors.bright.black}"
-          "12=${colors.bright.black}"
-          "13=${colors.bright.black}"
-          "14=${colors.bright.black}"
-          "15=${colors.bright.black}"
+          "9=${colors.bright.red}"
+          "10=${colors.bright.green}"
+          "11=${colors.bright.yellow}"
+          "12=${colors.bright.blue}"
+          "13=${colors.bright.orange}"
+          "14=${colors.bright.cyan}"
+          "15=${colors.bright.white}"
         ];
       };
     };

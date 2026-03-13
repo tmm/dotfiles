@@ -19,6 +19,12 @@ Use conventional commits (`feat:`, `fix:`, `perf:`, `chore:`, `docs:`, `test:`, 
 
 Be specific: `perf: add specialized multiplication for 8 limbs` not `perf: optimize mul`
 
+## Browser Automation
+
+- Prefer `agent-browser` CLI (via skill) over Playwright MCP tools (`mcp__playwright__*`)
+- Load the `agent-browser` skill first, then use `agent-browser` commands via Bash
+- `agent-browser` uses `--native` mode by default (configured in `~/.agent-browser/config.json`)
+
 ## Critical Reminders
 
 - Do not start work with uncommitted changes

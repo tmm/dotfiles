@@ -1,7 +1,5 @@
 local icons = require("config").icons
 
-local dev_ghostty_navigator = false
-
 return {
   -- amp.nvim (https://github.com/sourcegraph/amp.nvim)
   {
@@ -9,14 +7,6 @@ return {
     branch = "main",
     lazy = false,
     opts = { auto_start = true, log_level = "info" },
-  },
-
-  -- ghostty-navigator.nvim (https://github.com/tmm/ghostty-navigator.nvim)
-  {
-    "tmm/ghostty-navigator.nvim",
-    dev = dev_ghostty_navigator,
-    build = "make",
-    opts = {},
   },
 
   -- blink.cmp (https://github.com/saghen/blink.cmp)
@@ -98,12 +88,18 @@ return {
         providers = {
           snippets = {
             transform_items = function(_, items)
+              -- stylua: ignore
               local excluded = {
-                  "rcc", "rcjc", "rccp", "rcfc",          -- react.json
-                  "tsrcc", "tsrce", "tsrpc", "tsrpce", "tsrcredux", -- react-es7.json (TS)
-                  "rcredux", "rcreduxp", "rce", "rcep",   -- react-es7.json (JS)
-                  "rpc", "rpcp", "rpce",                  -- react-es7.json (PureComponent)
-                  "rnc", "rnce", "rncs", "rnpc", "rnpce", "rnrc", -- react-native
+                  -- react.json
+                  "rcc", "rcjc", "rccp", "rcfc",
+                  -- react-es7.json (TS)
+                  "tsrcc", "tsrce", "tsrpc", "tsrpce", "tsrcredux",
+                  -- react-es7.json (JS)
+                  "rcredux", "rcreduxp", "rce", "rcep",
+                  -- react-es7.json (PureComponent)
+                  "rpc", "rpcp", "rpce",
+                  -- react-native
+                  "rnc", "rnce", "rncs", "rnpc", "rnpce", "rnrc",
                 }
               return vim.tbl_filter(function(item)
                 return not vim.tbl_contains(excluded, item.label)
@@ -1187,7 +1183,6 @@ return {
         "javascript",
         "jsdoc",
         "json",
-        "jsonc",
         "lua",
         "luadoc",
         "luap",
@@ -1212,6 +1207,8 @@ return {
     },
     config = function(_, opts)
       local TS = require("nvim-treesitter")
+
+      vim.treesitter.language.register("json", "jsonc")
 
       setmetatable(require("nvim-treesitter.install"), {
         __newindex = function(_, k)
@@ -1334,15 +1331,16 @@ return {
             local desc = table.concat(parts, " or ")
             desc = (key:sub(1, 1) == "[" and "Prev " or "Next ") .. desc
             desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and " End" or " Start")
-            if not (vim.wo.diff and key:find("[cC]")) then
-              vim.keymap.set({ "n", "x", "o" }, key, function()
-                require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
-              end, {
-                buffer = buf,
-                desc = desc,
-                silent = true,
-              })
-            end
+            vim.keymap.set({ "n", "x", "o" }, key, function()
+              if vim.wo.diff and key:find("[cC]") then
+                return vim.cmd("normal! " .. key)
+              end
+              require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
+            end, {
+              buffer = buf,
+              desc = desc,
+              silent = true,
+            })
           end
         end
       end
@@ -1404,7 +1402,13 @@ return {
   {
     "stevearc/oil.nvim",
     lazy = false,
-    dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+    dependencies = {
+      { "nvim-mini/mini.icons", opts = {} },
+      {
+        "malewicz1337/oil-git.nvim",
+        opts = {},
+      },
+    },
     keys = {
       { "<leader>e", "<cmd>Oil<cr>", desc = "Explorer Oil", remap = true },
     },
