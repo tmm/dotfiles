@@ -167,17 +167,6 @@ return {
     end,
   },
 
-  -- nvim-colorizer.lua (https://github.com/catgoose/nvim-colorizer.lua)
-  {
-    "catgoose/nvim-colorizer.lua",
-    event = "BufReadPre",
-    opts = {
-      user_default_options = {
-        names = false,
-      },
-    },
-  },
-
   -- conform.nvim (https://github.com/stevearc/conform.nvim)
   {
     "stevearc/conform.nvim",
@@ -401,7 +390,14 @@ return {
           bg = hl.bg and string.format("#%06x", hl.bg),
           fg = hl.fg and string.format("#%06x", hl.fg),
         }
-        return { normal = { c = c }, insert = { c = c }, visual = { c = c }, replace = { c = c }, command = { c = c }, inactive = { c = c } }
+        return {
+          normal = { c = c },
+          insert = { c = c },
+          visual = { c = c },
+          replace = { c = c },
+          command = { c = c },
+          inactive = { c = c },
+        }
       end
 
       vim.api.nvim_create_autocmd("ColorScheme", {
@@ -1899,13 +1895,25 @@ return {
     end,
   },
 
-  -- rsms colorscheme (local, no plugin needed)
+  -- tmm colorscheme (local, no plugin needed)
   {
     dir = vim.fn.stdpath("config"),
+    dependencies = {
+      -- nvim-colorizer.lua (https://github.com/catgoose/nvim-colorizer.lua)
+      {
+        "catgoose/nvim-colorizer.lua",
+        event = "BufReadPre",
+        opts = {
+          user_default_options = {
+            names = false,
+          },
+        },
+      },
+    },
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("rsms")
+      vim.cmd.colorscheme("tmm")
     end,
   },
 }

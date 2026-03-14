@@ -29,7 +29,7 @@ require("lazy").setup({
   dev = {
     path = "~/Developer",
   },
-  install = { colorscheme = { "rsms" } },
+  install = { colorscheme = { "tmm" } },
   spec = {
     { import = "plugins" },
   },

@@ -1,5 +1,5 @@
-local ns = vim.api.nvim_create_namespace("rsms_color_preview")
-local group = vim.api.nvim_create_augroup("rsms_dev", { clear = true })
+local ns = vim.api.nvim_create_namespace("tmm_color_preview")
+local group = vim.api.nvim_create_augroup("tmm_dev", { clear = true })
 
 local M = {}
 
@@ -18,7 +18,7 @@ function M.preview()
         local preview_name
         if next(hl) ~= nil then
           local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
-          preview_name = "RsmsPreview_" .. name
+          preview_name = "TmmPreview_" .. name
           vim.api.nvim_set_hl(0, preview_name, vim.tbl_extend("keep", hl, { fg = normal.fg }))
         else
           preview_name = "Normal"
@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = group,
-  pattern = "rsms",
+  pattern = "tmm",
   callback = function()
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
       local name = vim.api.nvim_buf_get_name(buf)
@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   group = group,
   pattern = { "*/colors/highlights.lua", "*/colors/palette.lua" },
   callback = function()
-    vim.cmd.colorscheme("rsms")
+    vim.cmd.colorscheme("tmm")
     vim.defer_fn(M.preview, 50)
   end,
 })

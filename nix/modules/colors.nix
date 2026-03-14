@@ -1,3 +1,6 @@
+# Based on
+# https://github.com/rsms/sublime-theme
+# https://github.com/rsms/vscode-theme
 {
   dark = {
     background = "#0f0f0e";
@@ -5,6 +8,7 @@
     cursor = "#F76EC9";
 
     black = "#1D1D1B";
+    brightBlack = "#6b6b6a"; # fg (#fff) at 40% alpha on bg — "unimportant" in sublime-theme
     blue = "#95b3d0";
     cyan = "#7DE8E8";
     green = "#94D1B3";
@@ -21,6 +25,7 @@
     cursor = "#0044ff";
 
     black = "#333333";
+    brightBlack = "#989897"; # fg (#000) at 40% alpha on bg
     blue = "#0043a8";
     cyan = "#116b3a";
     green = "#116432";

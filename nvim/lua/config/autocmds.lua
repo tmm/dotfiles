@@ -127,8 +127,8 @@ vim.api.nvim_create_autocmd("OptionSet", {
   group = augroup("background_change"),
   pattern = "background",
   callback = function()
-    if vim.g.colors_name == "rsms" and vim.v.option_old ~= vim.v.option_new then
-      vim.cmd.colorscheme("rsms")
+    if vim.g.colors_name == "tmm" and vim.v.option_old ~= vim.v.option_new then
+      vim.cmd.colorscheme("tmm")
     end
   end,
 })

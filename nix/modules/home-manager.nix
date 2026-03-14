@@ -10,36 +10,14 @@ let
   batThemeTemplate = builtins.readFile ../files/bat-theme.tmTheme;
   mkBatTheme =
     { c, name }:
-    builtins.replaceStrings
-      [
-        "@name@"
-        "@background@"
-        "@foreground@"
-        "@cursor@"
-        "@black@"
-        "@cyan@"
-        "@green@"
-        "@orange@"
-        "@magenta@"
-        "@blue@"
-        "@yellow@"
-        "@red@"
-      ]
-      [
-        name
-        c.background
-        c.foreground
-        c.cursor
-        c.black
-        c.cyan
-        c.green
-        c.orange
-        c.magenta
-        c.blue
-        c.yellow
-        c.red
-      ]
-      batThemeTemplate;
+    let
+      attrs = {
+        inherit name;
+      }
+      // c;
+      keys = builtins.attrNames attrs;
+    in
+    builtins.replaceStrings (map (k: "@${k}@") keys) (map (k: attrs.${k}) keys) batThemeTemplate;
 in
 {
   home.packages = with pkgs; [
@@ -126,7 +104,6 @@ in
       font-size = 14;
       keybind = [
         "global:control+grave_accent=toggle_quick_terminal"
-
         "ctrl+shift+enter=toggle_split_zoom"
         "ctrl+shift+h=goto_split:left"
         "ctrl+shift+j=goto_split:bottom"
@@ -166,6 +143,14 @@ in
           "5=${colors.dark.orange}"
           "6=${colors.dark.cyan}"
           "7=${colors.dark.white}"
+          "8=${colors.dark.brightBlack}"
+          "9=${colors.dark.red}"
+          "10=${colors.dark.green}"
+          "11=${colors.dark.yellow}"
+          "12=${colors.dark.blue}"
+          "13=${colors.dark.orange}"
+          "14=${colors.dark.cyan}"
+          "15=${colors.dark.white}"
         ];
       };
       _light = {
@@ -181,7 +166,7 @@ in
           "5=${colors.bright.orange}"
           "6=${colors.bright.cyan}"
           "7=${colors.bright.white}"
-          "8=${colors.bright.black}"
+          "8=${colors.bright.brightBlack}"
           "9=${colors.bright.red}"
           "10=${colors.bright.green}"
           "11=${colors.bright.yellow}"
@@ -258,7 +243,7 @@ in
           "$stashed"
           "$renamed"
           "$deleted"
-          ")](218)"
+          ")](purple)"
           "[( "
           "$ahead_behind"
           ")](cyan)"
@@ -290,18 +275,8 @@ in
         "amp.git.commit.coauthor.enabled" = false;
         "amp.git.commit.trailer.enabled" = false;
         "amp.mcpServers" = {
-          cloudflare = {
-            url = "https://docs.mcp.cloudflare.com/mcp";
-          };
           cloudflare-api = {
             url = "https://mcp.cloudflare.com/mcp";
-          };
-          playwright = {
-            command = "npx";
-            args = [ "@playwright/mcp@latest" ];
-          };
-          tempo = {
-            url = "https://docs.tempo.xyz/api/mcp";
           };
         };
         "amp.showCosts" = true;

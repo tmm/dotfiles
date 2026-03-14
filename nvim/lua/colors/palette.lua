@@ -1,3 +1,7 @@
+-- Based on
+-- https://github.com/rsms/sublime-theme
+-- https://github.com/rsms/vscode-theme
+
 local M = {}
 
 M.dark = {
