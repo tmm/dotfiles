@@ -121,3 +121,14 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
+
+-- reload colorscheme when background changes (e.g. Ghostty dark/light switch)
+vim.api.nvim_create_autocmd("OptionSet", {
+  group = augroup("background_change"),
+  pattern = "background",
+  callback = function()
+    if vim.g.colors_name == "rsms" and vim.v.option_old ~= vim.v.option_new then
+      vim.cmd.colorscheme("rsms")
+    end
+  end,
+})

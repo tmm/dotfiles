@@ -8,4 +8,9 @@
 .theme-light {
   --background-primary: #fcfcf7;
   --background-secondary: #ffffff;
+  --modal-background: #ffffff;
+  --prompt-background: #ffffff;
+  --color-accent: #324832;
+  --color-accent-1: #324832;
+  --color-accent-2: #3a5a3a;
 }

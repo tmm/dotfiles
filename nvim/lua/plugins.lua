@@ -167,6 +167,17 @@ return {
     end,
   },
 
+  -- nvim-colorizer.lua (https://github.com/catgoose/nvim-colorizer.lua)
+  {
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = {
+      user_default_options = {
+        names = false,
+      },
+    },
+  },
+
   -- conform.nvim (https://github.com/stevearc/conform.nvim)
   {
     "stevearc/conform.nvim",
@@ -384,6 +395,24 @@ return {
         end,
       }
 
+      local function msg_area_theme()
+        local hl = vim.api.nvim_get_hl(0, { name = "MsgArea" })
+        local c = {
+          bg = hl.bg and string.format("#%06x", hl.bg),
+          fg = hl.fg and string.format("#%06x", hl.fg),
+        }
+        return { normal = { c = c }, insert = { c = c }, visual = { c = c }, replace = { c = c }, command = { c = c }, inactive = { c = c } }
+      end
+
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function()
+          local ok, lualine = pcall(require, "lualine")
+          if ok then
+            lualine.setup({ options = { theme = msg_area_theme() } })
+          end
+        end,
+      })
+
       require("lualine").setup({
         extensions = { "lazy", "fzf" },
         options = {
@@ -395,6 +424,7 @@ return {
           globalstatus = false,
           icons_enabled = true,
           section_separators = "",
+          theme = msg_area_theme(),
         },
         sections = {
           lualine_a = {},
@@ -1869,15 +1899,13 @@ return {
     end,
   },
 
-  -- rsms (https://github.com/tmm/rsms)
+  -- rsms colorscheme (local, no plugin needed)
   {
-    "tmm/rsms",
-    dev = true,
-    dependencies = { "rktjmp/lush.nvim" },
+    dir = vim.fn.stdpath("config"),
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme rsms]])
+      vim.cmd.colorscheme("rsms")
     end,
   },
 }

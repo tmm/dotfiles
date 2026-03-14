@@ -46,7 +46,7 @@
       core = {
         editor = "nvim";
         excludesfile = "~/.config/git/ignore_global";
-        pager = "delta";
+        pager = "sh -c 'delta --features \"$(if defaults read -globalDomain AppleInterfaceStyle >/dev/null 2>&1; then echo dark; else echo light; fi)\"'";
       };
       credential.helper = "osxkeychain";
       delta = {
@@ -56,25 +56,46 @@
         line-numbers = true;
         side-by-side = false;
         file-added-label = " ";
-        file-decoration-style = "#272725 ul";
         file-modified-label = " ";
         file-removed-label = " ";
         file-renamed-label = " ";
-        file-style = "#BFBFBF";
         hunk-header-style = "omit";
-        line-numbers-left-style = "#272725";
-        line-numbers-minus-style = "#F0F6FC #552527";
-        line-numbers-plus-style = "#F0F6FC #1F4429";
-        line-numbers-right-style = "#272725";
-        line-numbers-zero-style = "#4A4945";
-        minus-emph-style = "#F0F6FC #7F302F";
-        minus-empty-line-marker-style = "syntax #301B1E";
-        minus-non-emph-style = "syntax #301B1E";
-        minus-style = "syntax #301B1E";
-        plus-emph-style = "#F0F6FC #1D572D";
-        plus-empty-line-marker-style = "syntax #14261D";
-        plus-non-emph-style = "syntax #14261D";
-        plus-style = "syntax #14261D";
+        dark = {
+          syntax-theme = "dotfiles_dark";
+          file-decoration-style = "#272725 ul";
+          file-style = "#BFBFBF";
+          line-numbers-left-style = "#272725";
+          line-numbers-minus-style = "#F0F6FC #552527";
+          line-numbers-plus-style = "#F0F6FC #1F4429";
+          line-numbers-right-style = "#272725";
+          line-numbers-zero-style = "#4A4945";
+          minus-emph-style = "#F0F6FC #7F302F";
+          minus-empty-line-marker-style = "syntax #301B1E";
+          minus-non-emph-style = "syntax #301B1E";
+          minus-style = "syntax #301B1E";
+          plus-emph-style = "#F0F6FC #1D572D";
+          plus-empty-line-marker-style = "syntax #14261D";
+          plus-non-emph-style = "syntax #14261D";
+          plus-style = "syntax #14261D";
+        };
+        light = {
+          syntax-theme = "dotfiles_light";
+          file-decoration-style = "#d0d0d0 ul";
+          file-style = "#444444";
+          line-numbers-left-style = "#d0d0d0";
+          line-numbers-minus-style = "#b08080 #fce8e8";
+          line-numbers-plus-style = "#80b080 #e8fce8";
+          line-numbers-right-style = "#d0d0d0";
+          line-numbers-zero-style = "#b0b0b0";
+          minus-emph-style = "#330000 #f8c0c0";
+          minus-empty-line-marker-style = "syntax #fce8e8";
+          minus-non-emph-style = "syntax #fce8e8";
+          minus-style = "syntax #fce8e8";
+          plus-emph-style = "#003300 #b8e8c0";
+          plus-empty-line-marker-style = "syntax #e8fce8";
+          plus-non-emph-style = "syntax #e8fce8";
+          plus-style = "syntax #e8fce8";
+        };
       };
       github.user = "tmm";
       gpg = {
@@ -86,7 +107,7 @@
       };
       init.defaultBranch = "main";
       interactive = {
-        diffFilter = "delta --color-only";
+        diffFilter = "sh -c 'delta --color-only --features \"$(if defaults read -globalDomain AppleInterfaceStyle >/dev/null 2>&1; then echo dark; else echo light; fi)\"'";
       };
       merge = {
         conflictstyle = "zdiff3";

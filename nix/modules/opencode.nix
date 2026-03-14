@@ -47,18 +47,18 @@ in
       darkYellow = "${colors.dark.yellow}";
 
       lightBg = "${colors.bright.background}";
-      lightBgMenu = "#272726";
-      lightBgSidebar = "#000000";
+      lightBgMenu = "#e8e8e6";
+      lightBgSidebar = "#f5f5f3";
       lightBlue = "${colors.bright.blue}";
-      lightCursor = "${colors.dark.cursor}";
+      lightCursor = "${colors.bright.cursor}";
       lightCyan = "${colors.bright.cyan}";
       lightFg = "${colors.bright.foreground}";
-      lightFgBase = "#d1d1d1";
+      lightFgBase = "#333333";
       lightGreen = "${colors.bright.green}";
       lightMagenta = "${colors.bright.magenta}";
       lightOrange = "${colors.bright.orange}";
       lightRed = "${colors.bright.red}";
-      lightUnimportant = "#757575";
+      lightUnimportant = "#999999";
       lightYellow = "${colors.bright.yellow}";
     };
     theme = {
