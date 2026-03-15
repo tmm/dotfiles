@@ -65,8 +65,9 @@
           file-decoration-style = "#272725 ul";
           file-style = "#BFBFBF";
           line-numbers-left-style = "#272725";
-          line-numbers-minus-style = "#F0F6FC #552527";
-          line-numbers-plus-style = "#F0F6FC #1F4429";
+          # TODO: delta doesn't support per-line-type coloring of both columns (styles are per-column, not per-line-type)
+          line-numbers-minus-style = "#4A4945";
+          line-numbers-plus-style = "#4A4945";
           line-numbers-right-style = "#272725";
           line-numbers-zero-style = "#4A4945";
           minus-emph-style = "#F0F6FC #7F302F";
@@ -83,8 +84,9 @@
           file-decoration-style = "#d0d0d0 ul";
           file-style = "#444444";
           line-numbers-left-style = "#d0d0d0";
-          line-numbers-minus-style = "#b08080 #fce8e8";
-          line-numbers-plus-style = "#80b080 #e8fce8";
+          # TODO: delta doesn't support per-line-type coloring of both columns (styles are per-column, not per-line-type)
+          line-numbers-minus-style = "#b0b0b0";
+          line-numbers-plus-style = "#b0b0b0";
           line-numbers-right-style = "#d0d0d0";
           line-numbers-zero-style = "#b0b0b0";
           minus-emph-style = "#330000 #f8c0c0";

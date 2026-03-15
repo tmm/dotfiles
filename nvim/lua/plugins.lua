@@ -745,6 +745,7 @@ return {
           biome = {
             settings = {},
           },
+          oxlint = {},
           elixirls = {
             keys = {
               {
