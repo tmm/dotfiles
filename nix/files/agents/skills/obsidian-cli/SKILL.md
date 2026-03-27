@@ -1,11 +1,22 @@
 ---
 name: obsidian-cli
 description: Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.
+source: https://github.com/kepano/obsidian-skills/blob/main/skills/obsidian-cli/SKILL.md
 ---
 
 # Obsidian CLI
 
 Use the `obsidian` CLI to interact with a running Obsidian instance. Requires Obsidian to be open.
+
+## CLI fallback
+
+If the `obsidian` CLI fails because the app is not running or cannot be reached, do not stop there.
+
+- For note reads and writes, operate directly on the vault path with normal filesystem tools when the user has given the vault path or it can be determined safely.
+- Do not try to launch Obsidian by calling the `obsidian` CLI itself as a fallback path; use `open -a Obsidian` instead.
+- If CLI-specific behavior is still needed, suggest or run `open -a Obsidian` and retry once the app is running.
+- If a specific vault should be opened, use `open -a Obsidian /path/to/Vault`.
+- Prefer direct vault-path edits over blocking on the CLI when the task only needs file access.
 
 ## Command reference
 

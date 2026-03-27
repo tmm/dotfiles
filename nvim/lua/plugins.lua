@@ -203,6 +203,16 @@ return {
       end)
     end,
     opts = function()
+      local function find_node_binary(bin, ctx)
+        return vim.fs.find("node_modules/.bin/" .. bin, { path = ctx.filename, upward = true })[1]
+      end
+
+      local function get_oxfmt_command(ctx)
+        return find_node_binary("vp", ctx)
+          or find_node_binary("oxfmt", ctx)
+          or (vim.fn.executable("oxfmt") == 1 and "oxfmt" or nil)
+      end
+
       local opts = {
         default_format_opts = {
           timeout_ms = 3000,
@@ -238,12 +248,17 @@ return {
           },
           oxfmt = {
             command = function(self, ctx)
-              return vim.fs.find("node_modules/.bin/oxfmt", { path = ctx.filename, upward = true })[1] or "oxfmt"
+              return get_oxfmt_command(ctx) or "oxfmt"
             end,
-            args = { "--stdin-filepath", "$FILENAME" },
+            args = function(self, ctx)
+              if vim.fs.basename(get_oxfmt_command(ctx) or "") == "vp" then
+                return { "fmt", "--stdin-filepath", "$FILENAME" }
+              end
+              return { "--stdin-filepath", "$FILENAME" }
+            end,
             stdin = true,
             condition = function(self, ctx)
-              return vim.fs.find("node_modules/.bin/oxfmt", { path = ctx.filename, upward = true })[1] ~= nil
+              return get_oxfmt_command(ctx) ~= nil
             end,
           },
         },
@@ -745,7 +760,9 @@ return {
           biome = {
             settings = {},
           },
-          oxlint = {},
+          oxlint = {
+            root_markers = { ".oxlintrc.json", "oxlint.config.ts", "vite.config.ts" },
+          },
           elixirls = {
             keys = {
               {

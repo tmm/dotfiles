@@ -35,6 +35,7 @@
       "remarkable"
       "sublime-text"
       "signal"
+      "slack"
       "telegram"
       "thunderbird"
       "vlc"
