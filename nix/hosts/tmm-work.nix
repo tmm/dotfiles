@@ -1,0 +1,6 @@
+{ ... }:
+{
+  homebrew.casks = [
+    "tailscale-app"
+  ];
+}

@@ -4,7 +4,7 @@ let
 in
 {
   xdg.configFile."AGENTS.md".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/files/AGENTS.md";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/agents/AGENTS.md";
 
   xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
     "$schema" = "https://opencode.ai/config.json";

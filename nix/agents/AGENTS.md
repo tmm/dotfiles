@@ -27,7 +27,7 @@ Be specific: `perf: add specialized multiplication for 8 limbs` not `perf: optim
 
 ## Critical Reminders
 
-- Do not start work with uncommitted changes
+- Do not discard or overwrite uncommitted changes unless explicitly asked
 - Do not make up performance numbers
 - Do not use emojis unless asked
 - Test changes before committing

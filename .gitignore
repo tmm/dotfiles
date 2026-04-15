@@ -1,3 +1,7 @@
 .DS_Store
-undo
+result
+result-*
+nix/result
+nix/result-*
 obsidian/workspace.json
+undo

@@ -1,0 +1,44 @@
+#!/bin/sh
+set -eu
+
+if [ "$(uname -s)" != "Darwin" ]; then
+  echo "script/bootstrap only supports macOS" >&2
+  exit 1
+fi
+
+DOTFILES_HOME=${DOTFILES_HOME:-$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)}
+HOST_NAME=${1:-$(scutil --get LocalHostName 2>/dev/null || true)}
+
+if [ -z "$HOST_NAME" ]; then
+  echo "Could not determine LocalHostName. Pass it explicitly: script/bootstrap <host>" >&2
+  exit 1
+fi
+
+if ! xcode-select -p >/dev/null 2>&1; then
+  echo "Installing Xcode Command Line Tools..."
+  xcode-select --install || true
+  echo "Finish the Command Line Tools install, then rerun script/bootstrap." >&2
+  exit 1
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Installing Homebrew..."
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+if ! command -v nix >/dev/null 2>&1; then
+  echo "Installing Nix..."
+  curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install | sh
+fi
+
+if ! command -v nix >/dev/null 2>&1 && [ -r /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
+if ! command -v nix >/dev/null 2>&1; then
+  echo "Nix is installed but not available in this shell. Open a new shell and rerun script/bootstrap." >&2
+  exit 1
+fi
+
+sudo nix --extra-experimental-features "nix-command flakes" \
+  run nix-darwin -- switch --flake "path:$DOTFILES_HOME/nix#$HOST_NAME"

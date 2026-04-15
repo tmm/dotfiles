@@ -1,13 +1,15 @@
 {
   config,
   dotfilesDir,
+  host,
+  hostName,
   lib,
   pkgs,
   ...
 }:
 let
   colors = import ./colors.nix;
-  batThemeTemplate = builtins.readFile ../files/bat-theme.tmTheme;
+  batThemeTemplate = builtins.readFile ../files/templates/bat-theme.tmTheme;
   mkBatTheme =
     { c, name }:
     let
@@ -20,32 +22,37 @@ let
     builtins.replaceStrings (map (k: "@${k}@") keys) (map (k: attrs.${k}) keys) batThemeTemplate;
 in
 {
-  home.packages = with pkgs; [
-    babelfish
-    bat
-    cachix
-    delta
-    direnv
-    dockutil
-    elixir
-    erlang
-    eza
-    fd
-    fnm
-    fzf
-    gh
-    git
-    htmlq
-    httpie
-    jq
-    just
-    neovim
-    nixfmt
-    ripgrep
-    rustup
-    starship
-    zoxide
-  ];
+  home.packages =
+    with pkgs;
+    [
+      babelfish
+      bat
+      cachix
+      delta
+      direnv
+      dockutil
+      elixir
+      erlang
+      eza
+      fd
+      fnm
+      fzf
+      gh
+      git
+      htmlq
+      httpie
+      jq
+      just
+      neovim
+      nixfmt
+      ripgrep
+      rustup
+      starship
+      zoxide
+    ]
+    ++ lib.optionals (host.profile == "personal") [
+      pscale
+    ];
   home.file = {
     ".config/bat/themes/dotfiles_dark.tmTheme".text = mkBatTheme {
       c = colors.dark;
@@ -55,20 +62,22 @@ in
       c = colors.bright;
       name = "Dotfiles Light";
     };
-    ".ignore".source = ../files/ignore;
-    ".ssh/tom.pub".source = ../files/tom.pub;
-    "Documents/Obsidian Vault/.obsidian" = {
+    ".config/git/ignore_global".source = ../files/home/git-ignore-global;
+    ".ignore".source = ../files/home/ignore;
+    ".ssh/tom.pub".source = ../files/home/ssh/tom.pub;
+    "Documents/Obsidian Vault/.obsidian" = lib.mkIf (host.profile == "personal") {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/obsidian";
       recursive = true;
     };
     ".config/agents/skills" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/files/agents/skills";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/agents/skills";
     };
 
   };
   home.shell.enableFishIntegration = true;
   home.stateVersion = "23.05";
   home.sessionVariables = {
+    DARWIN_HOST = hostName;
     EDITOR = "nvim";
     DOTFILES_HOME = "${config.home.homeDirectory}/${dotfilesDir}";
     SSH_AUTH_SOCK = "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";

@@ -14,35 +14,70 @@
     inputs:
     let
       dotfilesDir = "Developer/dotfiles";
-      username = "tmm";
-    in
-    {
-      darwinConfigurations.${username} = inputs.darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit username;
-        };
-        system = "aarch64-darwin";
-        pkgs = import inputs.nixpkgs {
+      hosts = {
+        tmm = {
+          profile = "personal";
           system = "aarch64-darwin";
-          config.allowUnfree = true;
+          username = "tmm";
+          git = {
+            name = "tmm";
+            email = "tmm@tmm.dev";
+            githubUser = "tmm";
+            signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFuIScU+299QwZ5IkK48wS6Fi713aruyZTGE1NILUTJ8";
+            signingProgram = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+          };
         };
-        modules = [
-          ./modules/darwin.nix
-          inputs.home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${username} = import ./modules/home-manager.nix;
-              extraSpecialArgs = {
-                inherit dotfilesDir;
-                pkgsUnstable = import inputs.nixpkgs-unstable {
-                  system = "aarch64-darwin";
+        tmm-work = {
+          profile = "work";
+          system = "aarch64-darwin";
+          username = "tmm";
+          git = {
+            name = "tmm";
+            email = "tmm@tmm.dev";
+            githubUser = "tmm";
+            signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFuIScU+299QwZ5IkK48wS6Fi713aruyZTGE1NILUTJ8";
+            signingProgram = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+          };
+        };
+      };
+      mkDarwinConfiguration =
+        hostName: host:
+        let
+          hostModule = ./hosts + "/${hostName}.nix";
+          pkgs = import inputs.nixpkgs {
+            inherit (host) system;
+            config.allowUnfree = true;
+          };
+        in
+        inputs.darwin.lib.darwinSystem {
+          inherit pkgs;
+          inherit (host) system;
+          specialArgs = {
+            inherit dotfilesDir host hostName;
+          };
+          modules = [
+            ./modules/darwin.nix
+          ]
+          ++ (if builtins.pathExists hostModule then [ hostModule ] else [ ])
+          ++ [
+            inputs.home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${host.username} = import ./modules/home-manager.nix;
+                extraSpecialArgs = {
+                  inherit dotfilesDir host hostName;
+                  pkgsUnstable = import inputs.nixpkgs-unstable {
+                    inherit (host) system;
+                  };
                 };
               };
-            };
-          }
-        ];
-      };
+            }
+          ];
+        };
+    in
+    {
+      darwinConfigurations = builtins.mapAttrs mkDarwinConfiguration hosts;
     };
 }

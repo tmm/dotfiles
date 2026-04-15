@@ -1,4 +1,4 @@
-{ ... }:
+{ host, ... }:
 {
   programs.git = {
     enable = true;
@@ -36,9 +36,9 @@
         unstage = "reset HEAD --";
       };
       user = {
-        name = "tmm";
-        email = "tmm@tmm.dev";
-        signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFuIScU+299QwZ5IkK48wS6Fi713aruyZTGE1NILUTJ8";
+        name = host.git.name;
+        email = host.git.email;
+        signingkey = host.git.signingKey;
       };
       branch.sort = "-committerdate";
       color.ui = "auto";
@@ -99,10 +99,10 @@
           plus-style = "syntax #e8fce8";
         };
       };
-      github.user = "tmm";
+      github.user = host.git.githubUser;
       gpg = {
         format = "ssh";
-        ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        ssh.program = host.git.signingProgram;
       };
       include = {
         path = "~/.config/delta/themes.gitconfig";

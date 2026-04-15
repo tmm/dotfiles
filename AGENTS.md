@@ -2,7 +2,10 @@
 
 ## Build/Test Commands
 
-- `drs` - Apply Nix configuration with darwin-rebuild
+- `./script/bootstrap <host>` - Bootstrap a fresh macOS machine (`tmm` or `tmm-work`)
+- `sudo darwin-rebuild switch --flake ~/Developer/dotfiles/nix#<host>` - Apply Nix configuration
+- `drs [host]` - Rebuild current host, or a specific host when passed explicitly
+- `drb [host]` - Build current host, or a specific host when passed explicitly
 
 ## Code Style Guidelines
 
@@ -40,13 +43,20 @@ Config is inspired by LazyVim but does NOT use LazyVim directly.
 3. Consolidate changes into dotfiles:
    - Copy code EXACTLY line-by-line from LazyVim source
    - Do NOT modify, simplify, or "improve" during migration
-   - Any internal LazyVim utilities or APIs must be replicated in util/ directory
+   - Any internal LazyVim utilities or APIs must be replicated in `nvim/lua/util/`
 
 4. Test thoroughly after each change - avoid assumptions about compatibility
 
 5. Clean up cloned LazyVim/LazyVim
 
 ## Tool-Specific Configuration
+
+## Nix Layout
+
+- Shared Darwin behavior belongs in `nix/modules/darwin.nix`
+- Shared home-manager behavior belongs in `nix/modules/home-manager.nix`
+- Host-specific overrides belong in `nix/hosts/<host>.nix`
+- Prefer host/profile data in `nix/flake.nix` over adding extra module layers
 
 ### Starship
 

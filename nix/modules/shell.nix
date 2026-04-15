@@ -27,11 +27,6 @@
       set -gx FOUNDRY_DISABLE_NIGHTLY_WARNING true
       fish_add_path $FOUNDRY_BIN
 
-      # Add `pg_config` to path
-      # https://fishshell.com/docs/current/tutorial.html?highlight=fish_user_path#path
-      set PG_CONFIG /Applications/Postgres.app/Contents/Versions/latest/bin
-      fish_add_path $PG_CONFIG
-
       # local bin (curl.md, etc.)
       fish_add_path $HOME/.local/bin
 
@@ -40,6 +35,54 @@
 
       fnm env | source
       fzf --fish | source
+
+      function amp --wraps amp --description 'Run amp with PLUGINS=all and private visibility by default'
+        env PLUGINS=all command amp --visibility private $argv
+      end
+
+      function drs --description 'Rebuild a darwin host'
+        set -l darwin_host
+        set -l extra_args $argv
+
+        if test (count $argv) -gt 0
+          if not string match -qr '^-' -- $argv[1]
+            set darwin_host $argv[1]
+            set extra_args $argv[2..-1]
+          end
+        end
+
+        if test -z "$darwin_host"
+          set darwin_host $DARWIN_HOST
+        end
+
+        if test -z "$darwin_host"
+          set darwin_host (scutil --get LocalHostName)
+        end
+
+        sudo darwin-rebuild switch --flake "path:$DOTFILES_HOME/nix#$darwin_host" $extra_args
+      end
+
+      function drb --description 'Build a darwin host'
+        set -l darwin_host
+        set -l extra_args $argv
+
+        if test (count $argv) -gt 0
+          if not string match -qr '^-' -- $argv[1]
+            set darwin_host $argv[1]
+            set extra_args $argv[2..-1]
+          end
+        end
+
+        if test -z "$darwin_host"
+          set darwin_host $DARWIN_HOST
+        end
+
+        if test -z "$darwin_host"
+          set darwin_host (scutil --get LocalHostName)
+        end
+
+        darwin-rebuild build --flake "path:$DOTFILES_HOME/nix#$darwin_host" $extra_args
+      end
     '';
     plugins = [
       # https://github.com/jorgebucaran/autopair.fish
@@ -69,7 +112,6 @@
       v = "nvim";
     };
     shellAliases = {
-      amp = "amp --visibility private";
       cat = "bat --style=numbers,changes --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dotfiles_dark || echo dotfiles_light)";
       find = "fd";
       fup = "echo $fish_user_paths | tr \" \" \"\n\" | nl";
@@ -80,7 +122,6 @@
       hide = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder";
       show = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder";
 
-      drs = "sudo darwin-rebuild switch --flake $DOTFILES_HOME/nix";
       dot = "pushd . && cd $DOTFILES_HOME && nvim";
 
       hidedesktop = "defaults write com.apple.finder CreateDesktop -bool false && killall Finder";
