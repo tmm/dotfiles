@@ -1,9 +1,8 @@
 ## Install
 
 ```fish
-xcode-select --install
 git clone https://github.com/tmm/dotfiles ~/Developer/dotfiles
-~/Developer/dotfiles/script/bootstrap tmm
+~/Developer/dotfiles/bootstrap tmm
 ```
 
 <details>
@@ -17,13 +16,11 @@ git clone https://github.com/tmm/dotfiles ~/Developer/dotfiles
   ```fish
   gh auth login
   ```
-
 - Optionally switch the repo remote to SSH once 1Password SSH is working:
 
   ```fish
   git -C ~/Developer/dotfiles remote set-url origin git@github.com:tmm/dotfiles.git
   ```
-
 - Use `tmm-work` instead of `tmm` for the work laptop.
 
 </details>
@@ -31,8 +28,10 @@ git clone https://github.com/tmm/dotfiles ~/Developer/dotfiles
 ## Commands
 
 ```fish
-drs      # rebuild current host
-drs tmm  # rebuild a specific host
-drb      # build current host without switching
-drb tmm  # build a specific host without switching
+drs [host]  # rebuild current host or named host
+drb [host]  # build current host or named host
 ```
+
+## License
+
+MIT. See [LICENSE](../LICENSE).

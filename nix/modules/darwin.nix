@@ -70,9 +70,6 @@
         { }
     );
   };
-
-  ids.gids.nixbld = 30000;
-
   nix = {
     settings = {
       substituters = [ "https://cache.nixos.org" ];
