@@ -1,0 +1,54 @@
+name: Nix
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/nix.yml
+      - nix/**
+      - script/bootstrap
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/nix.yml
+      - nix/**
+      - script/bootstrap
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bootstrap:
+    name: Bootstrap Script
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Check bootstrap script syntax
+        run: sh -n script/bootstrap
+
+  build:
+    name: Build ${{ matrix.host }}
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        host:
+          - tmm
+          - tmm-work
+    defaults:
+      run:
+        working-directory: nix
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build darwin configuration
+        run: nix build .#darwinConfigurations.${{ matrix.host }}.system
