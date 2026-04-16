@@ -2,6 +2,7 @@
 {
   programs.git = {
     enable = true;
+    signing.format = "ssh";
     ignores = [
       "*.un~"
       ".*.sw[a-z]"

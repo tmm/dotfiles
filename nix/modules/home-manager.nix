@@ -69,10 +69,6 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/obsidian";
       recursive = true;
     };
-    ".config/agents/skills" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/agents/skills";
-    };
-
   };
   home.shell.enableFishIntegration = true;
   home.stateVersion = "23.05";
