@@ -1,6 +1,19 @@
 local icons = require("config").icons
 
 return {
+  -- pi.nvim
+  {
+    dir = "~/Developer/pi.nvim",
+    lazy = false,
+    opts = {
+      auto_start = true,
+      auto_install_pi_extension = true,
+    },
+    config = function(_, opts)
+      require("pi").setup(opts)
+    end,
+  },
+
   -- amp.nvim (https://github.com/sourcegraph/amp.nvim)
   {
     "sourcegraph/amp.nvim",
