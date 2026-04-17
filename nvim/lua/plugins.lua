@@ -1,9 +1,17 @@
 local icons = require("config").icons
 
 return {
-  -- pi.nvim
+  -- amp.nvim (https://github.com/sourcegraph/amp.nvim)
   {
-    dir = "~/Developer/pi.nvim",
+    "sourcegraph/amp.nvim",
+    branch = "main",
+    lazy = false,
+    opts = { auto_start = true, log_level = "info" },
+  },
+
+  -- pi.nvim (https://github.com/tmm/pi.nvim)
+  {
+    "tmm/pi.nvim",
     lazy = false,
     opts = {
       auto_start = true,
@@ -12,14 +20,6 @@ return {
     config = function(_, opts)
       require("pi").setup(opts)
     end,
-  },
-
-  -- amp.nvim (https://github.com/sourcegraph/amp.nvim)
-  {
-    "sourcegraph/amp.nvim",
-    branch = "main",
-    lazy = false,
-    opts = { auto_start = true, log_level = "info" },
   },
 
   -- blink.cmp (https://github.com/saghen/blink.cmp)

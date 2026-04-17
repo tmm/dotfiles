@@ -23,6 +23,8 @@
         c = "commit -m";
         cn = "commit --no-verify -m";
         ch = "checkout";
+        d = "diff";
+        ds = "diff --staged";
         l = "log";
         p = "push";
         pf = "push --force";

@@ -117,6 +117,7 @@ in
         "ctrl+shift+u=scroll_page_up"
         "ctrl+shift+d=scroll_page_down"
         "super+enter=unbind"
+        "super+backspace=text:\\x15"
       ];
       macos-non-native-fullscreen = true;
       macos-option-as-alt = "left";
