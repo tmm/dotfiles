@@ -115,6 +115,12 @@
     dock.show-recents = false;
     dock.tilesize = 48;
     CustomUserPreferences = {
+      NSGlobalDomain = {
+        NSGlassDiffusionSetting = 1;
+      };
+      "com.apple.desktopsettings.menubar" = {
+        _showOpaqueMenuBar = true;
+      };
       "com.apple.finder" = {
         ShowRecentTags = false;
       };
@@ -131,8 +137,7 @@
     NSGlobalDomain."com.apple.trackpad.scaling" = 3.0;
     NSGlobalDomain._HIHideMenuBar = false;
     NSGlobalDomain.AppleICUForce24HourTime = true;
-    NSGlobalDomain.AppleInterfaceStyle = "Dark";
-    NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
+    NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = true;
     NSGlobalDomain.AppleScrollerPagingBehavior = true;
     NSGlobalDomain.AppleShowAllExtensions = true;
     NSGlobalDomain.AppleShowAllFiles = true;

@@ -46,6 +46,7 @@ in
       just
       neovim
       nixfmt
+      postgresql
       ripgrep
       rustup
       starship

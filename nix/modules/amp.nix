@@ -1,12 +1,17 @@
 { config, ... }:
 let
   ampProtectedCommands = [
-    "*&&*"
-    "*;*"
+    # Match shell operator tokens rather than any literal character in the
+    # command string, so quoted regexes like `rg "foo|bar"` stay read-only.
+    "/&&(?=\\s|$)/"
+    "/;(?:\\s|$)/"
     "*$(*"
-    "*>*"
+    "/>>(?:\\s|$)/"
+    "/>(?=\\s|$)/"
+    "/<<(?:\\s|$)/"
+    "/<(?=\\s|$)/"
     "*`*"
-    "*|*"
+    "/\\|(?=\\s|$)/"
     "*git*commit*"
     "*git*push*"
     "*git*rebase*"
@@ -26,74 +31,6 @@ let
     "*tee *"
     "*sed -i*"
   ];
-  ampSafeCommands = [
-    "pwd"
-    "pwd -P"
-    "ls"
-    "ls *"
-    "eza"
-    "eza *"
-    "fd"
-    "fd *"
-    "rg"
-    "rg *"
-    "*/rg"
-    "*/rg *"
-    "* rg"
-    "* rg *"
-    "cat"
-    "cat *"
-    "head"
-    "head *"
-    "tail"
-    "tail *"
-    "nl"
-    "nl *"
-    "wc"
-    "wc *"
-    "file"
-    "file *"
-    "stat"
-    "stat *"
-    "sed -n *"
-    "git status*"
-    "git diff*"
-    "git show*"
-    "git log*"
-    "git rev-parse*"
-    "git ls-files*"
-    "git grep*"
-    "git blame*"
-    "git branch"
-    "git branch --show-current"
-    "git branch --list*"
-    "git remote -v"
-    "git remote show*"
-    "gh auth status*"
-    "gh pr view*"
-    "gh pr list*"
-    "gh pr status*"
-    "gh pr checks*"
-    "gh pr diff*"
-    "gh issue view*"
-    "gh issue list*"
-    "gh issue status*"
-    "gh repo view*"
-    "gh run view*"
-    "gh run list*"
-    "gh workflow view*"
-    "gh workflow list*"
-    "gh search *"
-    "nix build*"
-    "nix eval*"
-    "nix flake show*"
-    "nix flake metadata*"
-    "nix flake check*"
-    "darwin-rebuild build*"
-    "sh -n *"
-    "bash -n *"
-    "fish -n *"
-  ];
 in
 {
   xdg.configFile."amp/settings.json".text = builtins.toJSON {
@@ -110,8 +47,8 @@ in
         tool = "mcp__cloudflare_api__execute";
         action = "ask";
       }
-      # Add explicit overrides for risky commands and a small read-only
-      # allowlist (notably rg), then let Amp's built-in defaults handle the rest.
+      # Ask before risky shell commands, but otherwise allow shell usage by
+      # default instead of falling back to Amp's conservative built-in rules.
       {
         tool = "Bash";
         matches.cmd = ampProtectedCommands;
@@ -119,7 +56,7 @@ in
       }
       {
         tool = "Bash";
-        matches.cmd = ampSafeCommands;
+        matches.cmd = "*";
         action = "allow";
       }
       {
@@ -129,7 +66,7 @@ in
       }
       {
         tool = "shell_command";
-        matches.command = ampSafeCommands;
+        matches.command = "*";
         action = "allow";
       }
     ];
