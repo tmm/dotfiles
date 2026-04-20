@@ -7,10 +7,10 @@ if [ "$(uname -s)" != "Darwin" ]; then
 fi
 
 DOTFILES_HOME=${DOTFILES_HOME:-$(CDPATH= cd -- "$(dirname "$0")" && pwd)}
-HOST_NAME=${1:-$(scutil --get LocalHostName 2>/dev/null || true)}
+HOST_NAME=${1:-}
 
 if [ -z "$HOST_NAME" ]; then
-  echo "Could not determine LocalHostName. Pass it explicitly: ./bootstrap <host>" >&2
+  echo "Usage: ./bootstrap <host>" >&2
   exit 1
 fi
 

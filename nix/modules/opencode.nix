@@ -13,6 +13,37 @@ in
       disabled_providers = [
         "gemini"
       ];
+      permission = {
+        # Let OpenCode's default allowlist handle ordinary shell usage and only
+        # interrupt for commands that look risky or mutate state.
+        bash = {
+          "* > *" = "ask";
+          "*>*" = "ask";
+          "*&&*" = "ask";
+          "*;*" = "ask";
+          "*$(*" = "ask";
+          "*`*" = "ask";
+          "*|*" = "ask";
+          "chmod *" = "ask";
+          "chown *" = "ask";
+          "find *-delete*" = "ask";
+          "find *-exec*" = "ask";
+          "find *-execdir*" = "ask";
+          "git checkout*" = "ask";
+          "git clean*" = "ask";
+          "git commit*" = "ask";
+          "git push*" = "ask";
+          "git rebase*" = "ask";
+          "git reset*" = "ask";
+          "git switch*" = "ask";
+          "install *" = "ask";
+          "ln -sf*" = "ask";
+          "rm *" = "ask";
+          "sed -i*" = "ask";
+          "sudo *" = "ask";
+          "tee *" = "ask";
+        };
+      };
     };
 
     tui = {

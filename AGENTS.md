@@ -4,8 +4,8 @@
 
 - `./bootstrap <host>` - Bootstrap a fresh macOS machine (`tmm` or `tmm-work`)
 - `sudo darwin-rebuild switch --flake ~/Developer/dotfiles/nix#<host>` - Apply Nix configuration
-- `drs [host]` - Rebuild current host, or a specific host when passed explicitly
-- `drb [host]` - Build current host, or a specific host when passed explicitly
+- `drs <host>` - Rebuild specific host, or use `DARWIN_HOST` if set
+- `drb <host>` - Build specific host, or use `DARWIN_HOST` if set
 
 ## Code Style Guidelines
 

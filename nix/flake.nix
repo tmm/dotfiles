@@ -3,11 +3,10 @@
 
   inputs = {
     darwin.inputs.nixpkgs.follows = "nixpkgs";
-    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.url = "github:nix-darwin/nix-darwin/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/master";
-    nixpkgs.url = "github:nixos/nixpkgs/master";
-    nixpkgs-unstable.url = "github:nixoS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
   outputs =
@@ -68,9 +67,6 @@
                 users.${host.username} = import ./modules/home-manager.nix;
                 extraSpecialArgs = {
                   inherit dotfilesDir host hostName;
-                  pkgsUnstable = import inputs.nixpkgs-unstable {
-                    inherit (host) system;
-                  };
                 };
               };
             }

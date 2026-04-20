@@ -28,8 +28,8 @@ git clone https://github.com/tmm/dotfiles ~/Developer/dotfiles
 ## Commands
 
 ```fish
-drs [host]  # rebuild current host or named host
-drb [host]  # build current host or named host
+drs [host]  # rebuild named host, or use `DARWIN_HOST` if set
+drb [host]  # build named host, or use `DARWIN_HOST` if set
 ```
 
 ## License

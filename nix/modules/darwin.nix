@@ -11,6 +11,12 @@
   homebrew = {
     enable = true;
 
+    onActivation = {
+      cleanup = "uninstall";
+      autoUpdate = false;
+      upgrade = false;
+    };
+
     casks = [
       "1password"
       "1password-cli"
@@ -20,6 +26,7 @@
       "ghostty@tip"
       "google-chrome"
       "orbstack"
+      "paper-design"
       "raycast"
       "slack"
       "sublime-text"

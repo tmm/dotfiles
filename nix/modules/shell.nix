@@ -56,7 +56,9 @@
         end
 
         if test -z "$darwin_host"
-          set darwin_host (scutil --get LocalHostName)
+          echo "Usage: drs <host> [darwin-rebuild args]" >&2
+          echo "Or set DARWIN_HOST to a host defined in nix/flake.nix." >&2
+          return 1
         end
 
         sudo darwin-rebuild switch --flake "path:$DOTFILES_HOME/nix#$darwin_host" $extra_args
@@ -78,7 +80,9 @@
         end
 
         if test -z "$darwin_host"
-          set darwin_host (scutil --get LocalHostName)
+          echo "Usage: drb <host> [darwin-rebuild args]" >&2
+          echo "Or set DARWIN_HOST to a host defined in nix/flake.nix." >&2
+          return 1
         end
 
         darwin-rebuild build --flake "path:$DOTFILES_HOME/nix#$darwin_host" $extra_args
