@@ -17,6 +17,21 @@ in
         # Let OpenCode's default allowlist handle ordinary shell usage and only
         # interrupt for commands that look risky or mutate state.
         bash = {
+          "gh auth status*" = "allow";
+          "gh pr view*" = "allow";
+          "gh pr list*" = "allow";
+          "gh pr status*" = "allow";
+          "gh pr checks*" = "allow";
+          "gh pr diff*" = "allow";
+          "gh issue view*" = "allow";
+          "gh issue list*" = "allow";
+          "gh issue status*" = "allow";
+          "gh repo view*" = "allow";
+          "gh run view*" = "allow";
+          "gh run list*" = "allow";
+          "gh workflow view*" = "allow";
+          "gh workflow list*" = "allow";
+          "gh search *" = "allow";
           "* > *" = "ask";
           "*>*" = "ask";
           "*&&*" = "ask";
