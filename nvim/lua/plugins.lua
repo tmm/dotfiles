@@ -216,14 +216,20 @@ return {
       end)
     end,
     opts = function()
+      local format_util = require("util.format")
+
       local function find_node_binary(bin, ctx)
         return vim.fs.find("node_modules/.bin/" .. bin, { path = ctx.filename, upward = true })[1]
+      end
+
+      local function find_root(config_files, ctx)
+        local config = vim.fs.find(config_files, { path = ctx.filename, upward = true })[1]
+        return config and vim.fs.dirname(config) or nil
       end
 
       local function get_oxfmt_command(ctx)
         return find_node_binary("vp", ctx)
           or find_node_binary("oxfmt", ctx)
-          or (vim.fn.executable("oxfmt") == 1 and "oxfmt" or nil)
       end
 
       local opts = {
@@ -270,8 +276,21 @@ return {
               return { "--stdin-filepath", "$FILENAME" }
             end,
             stdin = true,
+            cwd = function(self, ctx)
+              if vim.fs.basename(get_oxfmt_command(ctx) or "") == "vp" then
+                return find_root(format_util.vite_config_files, ctx) or find_root({ "package.json" }, ctx)
+              end
+              return find_root(format_util.oxfmt_config_files, ctx)
+            end,
             condition = function(self, ctx)
-              return get_oxfmt_command(ctx) ~= nil
+              local command = get_oxfmt_command(ctx)
+              if command == nil then
+                return false
+              end
+              if vim.fs.basename(command) == "vp" then
+                return #vim.lsp.get_clients({ bufnr = ctx.buf, name = "oxfmt" }) == 0
+              end
+              return true
             end,
           },
         },
@@ -680,6 +699,7 @@ return {
     },
     opts_extend = { "servers.*.keys" },
     opts = function()
+      local format_util = require("util.format")
       local ret = {
         diagnostics = {
           underline = true,
@@ -772,6 +792,23 @@ return {
           stylua = { enabled = false },
           biome = {
             settings = {},
+          },
+          oxfmt = {
+            mason = false,
+            cmd = function(dispatchers, config)
+              local cmd = (config or {}).root_dir and config.root_dir .. "/node_modules/.bin/oxfmt"
+              if cmd and vim.fn.executable(cmd) == 1 then
+                return vim.lsp.rpc.start({ cmd, "--lsp" }, dispatchers)
+              end
+            end,
+            root_dir = function(bufnr, on_dir)
+              local fname = vim.api.nvim_buf_get_name(bufnr)
+              local root_file = vim.fs.find(format_util.oxfmt_root_files, { path = fname, upward = true })[1]
+              local root = root_file and vim.fs.dirname(root_file) or nil
+              if root and vim.fn.executable(root .. "/node_modules/.bin/oxfmt") == 1 then
+                on_dir(root)
+              end
+            end,
           },
           oxlint = {
             root_markers = { ".oxlintrc.json", "oxlint.config.ts", "vite.config.ts" },
@@ -1062,6 +1099,11 @@ return {
     end,
     config = vim.schedule_wrap(function(_, opts)
       -- setup autoformat
+      require("util.format").register(require("util.lsp").formatter({
+        name = "oxfmt LSP",
+        filter = "oxfmt",
+        priority = 50,
+      }))
       require("util.format").register(require("util.lsp").formatter())
 
       -- setup keymaps

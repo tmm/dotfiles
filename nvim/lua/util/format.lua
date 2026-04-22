@@ -6,6 +6,23 @@ local M = setmetatable({}, {
   end,
 })
 
+M.oxfmt_config_files = {
+  ".oxfmtrc.json",
+  ".oxfmtrc.jsonc",
+}
+
+M.vite_config_files = {
+  "vite.config.ts",
+  "vite.config.mts",
+  "vite.config.cts",
+  "vite.config.js",
+  "vite.config.mjs",
+  "vite.config.cjs",
+}
+
+M.oxfmt_root_files = vim.list_extend(vim.list_extend({}, M.oxfmt_config_files), M.vite_config_files)
+M.oxfmt_root_files[#M.oxfmt_root_files + 1] = "package.json"
+
 ---@class LazyFormatter
 ---@field name string
 ---@field primary? boolean
@@ -135,12 +152,72 @@ function M.format(opts)
   end
 end
 
+---@param buf? number
+---@return boolean
+function M.use_format_after_save(buf)
+  buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
+  local ok, conform = pcall(require, "conform")
+  if not ok then
+    return false
+  end
+
+  local formatters = conform.list_formatters_to_run(buf)
+  for _, formatter in ipairs(formatters) do
+    if vim.fs.basename(formatter.command) == "vp" then
+      return true
+    end
+  end
+
+  return false
+end
+
+---@param buf? number
+function M.format_after_save(buf)
+  buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
+  if not M.enabled(buf) then
+    return
+  end
+
+  local ok, conform = pcall(require, "conform")
+  if not ok then
+    return
+  end
+
+  conform.format({ bufnr = buf, async = true }, function(err, did_edit)
+    if err or not did_edit or not vim.api.nvim_buf_is_valid(buf) then
+      return
+    end
+
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(buf) or vim.bo[buf].buftype ~= "" then
+        return
+      end
+      vim.api.nvim_buf_call(buf, function()
+        vim.cmd("silent noautocmd update")
+      end)
+    end)
+  end)
+end
+
 function M.setup()
   -- Autoformat autocmd
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("TmmFormat", {}),
     callback = function(event)
+      if M.use_format_after_save(event.buf) then
+        return
+      end
       M.format({ buf = event.buf })
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    group = vim.api.nvim_create_augroup("TmmFormatAfterSave", {}),
+    callback = function(event)
+      if not M.use_format_after_save(event.buf) then
+        return
+      end
+      M.format_after_save(event.buf)
     end,
   })
 
