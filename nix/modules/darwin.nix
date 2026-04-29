@@ -2,6 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     fish
+    _1password-cli
   ];
 
   fonts = {
@@ -19,7 +20,6 @@
 
     casks = [
       "1password"
-      "1password-cli"
       "betterdisplay"
       "figma"
       "firefox"

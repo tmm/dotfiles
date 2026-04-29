@@ -14,49 +14,29 @@ in
         "gemini"
       ];
       permission = {
-        # Let OpenCode's default allowlist handle ordinary shell usage and only
-        # interrupt for commands that look risky or mutate state.
+        # Keep normal development flows unprompted and only interrupt for
+        # commands that can permanently delete data, change remote state, or
+        # escalate privileges.
         bash = {
-          "gh auth status*" = "allow";
-          "gh pr view*" = "allow";
-          "gh pr list*" = "allow";
-          "gh pr status*" = "allow";
-          "gh pr checks*" = "allow";
-          "gh pr diff*" = "allow";
-          "gh issue view*" = "allow";
-          "gh issue list*" = "allow";
-          "gh issue status*" = "allow";
-          "gh repo view*" = "allow";
-          "gh run view*" = "allow";
-          "gh run list*" = "allow";
-          "gh workflow view*" = "allow";
-          "gh workflow list*" = "allow";
-          "gh search *" = "allow";
-          "* > *" = "ask";
-          "*>*" = "ask";
-          "*&&*" = "ask";
-          "*;*" = "ask";
-          "*$(*" = "ask";
-          "*`*" = "ask";
-          "*|*" = "ask";
-          "chmod *" = "ask";
-          "chown *" = "ask";
-          "find *-delete*" = "ask";
-          "find *-exec*" = "ask";
-          "find *-execdir*" = "ask";
-          "git checkout*" = "ask";
-          "git clean*" = "ask";
-          "git commit*" = "ask";
-          "git push*" = "ask";
-          "git rebase*" = "ask";
-          "git reset*" = "ask";
-          "git switch*" = "ask";
-          "install *" = "ask";
-          "ln -sf*" = "ask";
-          "rm *" = "ask";
-          "sed -i*" = "ask";
+          "*" = "allow";
+          "sudo" = "ask";
           "sudo *" = "ask";
-          "tee *" = "ask";
+          "rm *" = "ask";
+          "rm -*" = "ask";
+          "find *-delete*" = "ask";
+          "git clean" = "ask";
+          "git clean *" = "ask";
+          "git clean -*" = "ask";
+          "git reset --hard" = "ask";
+          "git reset --hard *" = "ask";
+          "git reset * --hard" = "ask";
+          "git reset * --hard *" = "ask";
+          "git push" = "ask";
+          "git push *" = "ask";
+          "dd *of=/dev/*" = "ask";
+          "diskutil erase*" = "ask";
+          "mkfs*" = "ask";
+          "newfs*" = "ask";
         };
       };
     };
