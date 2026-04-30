@@ -7,11 +7,14 @@ in
     enable = true;
 
     context = ../agents/AGENTS.md;
-    skills = ../agents/skills;
 
     settings = {
       disabled_providers = [
         "gemini"
+        "github-copilot"
+      ];
+      plugin = [
+        "@curl.md/opencode@0.0.9"
       ];
       permission = {
         # Keep normal development flows unprompted and only interrupt for
@@ -42,6 +45,9 @@ in
     };
 
     tui = {
+      plugin = [
+        "@curl.md/opencode@0.0.9"
+      ];
       theme = "tmm";
       keybinds = {
         input_newline = "enter";

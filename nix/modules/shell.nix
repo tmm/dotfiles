@@ -37,7 +37,7 @@
       fzf --fish | source
 
       function amp --wraps amp --description 'Run amp with PLUGINS=all and private visibility by default'
-        env PLUGINS=all command amp --visibility private $argv
+        env PLUGINS=all command amp $argv
       end
 
       function drs --description 'Rebuild a darwin host'

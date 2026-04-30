@@ -9,6 +9,7 @@
 }:
 let
   colors = import ./colors.nix;
+  lightpanda = pkgs.callPackage ../pkgs/lightpanda.nix { };
   batThemeTemplate = builtins.readFile ../files/templates/bat-theme.tmTheme;
   mkBatTheme =
     { c, name }:
@@ -25,6 +26,8 @@ in
   home.packages =
     with pkgs;
     [
+      agent-browser
+      lightpanda
       babelfish
       bat
       cachix
@@ -76,6 +79,8 @@ in
   home.shell.enableFishIntegration = true;
   home.stateVersion = "23.05";
   home.sessionVariables = {
+    AGENT_BROWSER_ENGINE = "lightpanda";
+    AGENT_BROWSER_EXECUTABLE_PATH = "${lightpanda}/bin/lightpanda";
     DARWIN_HOST = hostName;
     EDITOR = "nvim";
     DOTFILES_HOME = "${config.home.homeDirectory}/${dotfilesDir}";
