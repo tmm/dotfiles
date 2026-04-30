@@ -26,37 +26,37 @@
 
     casks = [
       "1password"
+      "alcove"
+      "aldente"
       "betterdisplay"
+      "cleanshot"
+      "contexts"
+      "daisydisk"
+      "dropbox"
       "figma"
       "firefox"
+      "flux-app"
       "ghostty@tip"
       "google-chrome"
+      "lookaway"
       "orbstack"
       "paper-design"
+      "pixelsnap"
       "raycast"
       "slack"
       "sublime-text"
-      "thunderbird"
+      "vlc"
       "zoom"
     ]
     ++ (
       if host.profile == "personal" then
         [
-          "alcove"
-          "aldente"
-          "cleanshot"
-          "contexts"
-          "daisydisk"
           "discord"
-          "dropbox"
-          "flux-app"
-          "lookaway"
           "numi"
           "obsidian"
-          "pixelsnap"
           "signal"
           "telegram"
-          "vlc"
+          "thunderbird"
         ]
       else
         [ ]
@@ -64,8 +64,10 @@
 
     masApps = {
       "1Password for Safari" = 1569813296;
+      "Pure Paste" = 1611378436;
       BetterSnapTool = 417375580;
       Dato = 1470584107;
+      Flighty = 1358823008;
       Velja = 1607635845;
       Xcode = 497799835;
     }
@@ -74,8 +76,6 @@
         {
           Craft = 1487937127;
           "Day One" = 1055511498;
-          Flighty = 1358823008;
-          "Pure Paste" = 1611378436;
           "reMarkable desktop" = 1276493162;
         }
       else
