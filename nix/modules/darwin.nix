@@ -1,5 +1,7 @@
 { pkgs, host, ... }:
 {
+  environment.shells = with pkgs; [ fish ];
+
   environment.systemPackages = with pkgs; [
     fish
     _1password-cli
@@ -11,6 +13,10 @@
 
   homebrew = {
     enable = true;
+
+    brews = [
+      "mas"
+    ];
 
     onActivation = {
       cleanup = "uninstall";
@@ -48,7 +54,6 @@
           "numi"
           "obsidian"
           "pixelsnap"
-          "remarkable"
           "signal"
           "telegram"
           "vlc"

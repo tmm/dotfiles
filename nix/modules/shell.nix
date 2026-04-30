@@ -121,7 +121,7 @@
       fup = "echo $fish_user_paths | tr \" \" \"\n\" | nl";
       ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
       ls = "eza";
-      reload = "exec $SHELL -l";
+      reload = "exec /run/current-system/sw/bin/fish -l";
       vim = "nvim";
       hide = "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder";
       show = "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder";

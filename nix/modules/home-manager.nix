@@ -27,6 +27,7 @@ in
     with pkgs;
     [
       agent-browser
+      amp-cli
       lightpanda
       babelfish
       bat
