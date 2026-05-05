@@ -14,7 +14,7 @@ in
         "github-copilot"
       ];
       plugin = [
-        "@curl.md/opencode@0.0.9"
+        "@curl.md/opencode@0.1.1"
       ];
       permission = {
         # Keep normal development flows unprompted and only interrupt for
@@ -46,7 +46,7 @@ in
 
     tui = {
       plugin = [
-        "@curl.md/opencode@0.0.9"
+        "@curl.md/opencode@0.1.1"
       ];
       theme = "tmm";
       keybinds = {

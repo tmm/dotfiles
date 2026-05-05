@@ -50,6 +50,11 @@ in
         matches.command = "*";
         action = "allow";
       }
+      {
+        tool = "curl_md";
+        matches.url = "*";
+        action = "allow";
+      }
     ];
     "amp.defaultVisibility" = {
       "github.com/tmm/dotfiles" = "private";

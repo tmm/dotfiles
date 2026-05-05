@@ -1505,7 +1505,130 @@ return {
       { "nvim-mini/mini.icons", opts = {} },
       {
         "malewicz1337/oil-git.nvim",
-        opts = {},
+        opts = {
+          ignore_gitsigns_update = true,
+        },
+        config = function(_, opts)
+          require("oil-git").setup(opts)
+
+          -- oil-git.nvim defaults to `git status --porcelain --ignored` from
+          -- the repo root. In large repositories that can take a long time
+          -- before any status appears. Scope status to the Oil directory and
+          -- avoid ignored files; this keeps current-directory file and child
+          -- directory statuses fast without changing the Oil UI integration.
+          local git = require("oil-git.git")
+          local path = require("oil-git.path")
+          local trie = require("oil-git.trie")
+          local get_root_async = git.get_root_async
+          local invalidate_cache = git.invalidate_cache
+          local uv = vim.uv or vim.loop
+          local cache = {
+            dir = nil,
+            git_root = nil,
+            timestamp = 0,
+            status = {},
+            status_trie = nil,
+          }
+
+          local function relative_path(root, dir)
+            dir = path.remove_trailing_slash(dir)
+            local rel = vim.fs.relpath(root, dir)
+            if not rel or rel == "" then
+              return "."
+            end
+            return rel
+          end
+
+          local function parse_status(output, git_root)
+            local status = {}
+            local status_trie = trie.create_node()
+
+            for line in output:gmatch("[^\r\n]+") do
+              if #line >= 4 then
+                local status_code = line:sub(1, 2)
+                local filepath = line:sub(4)
+
+                if status_code:sub(1, 1) == "R" or status_code:sub(1, 1) == "C" then
+                  local arrow_pos = filepath:find(" %-> ")
+                  if arrow_pos then
+                    filepath = filepath:sub(arrow_pos + 4)
+                  end
+                end
+
+                if filepath:sub(1, 2) == "./" then
+                  filepath = filepath:sub(3)
+                end
+
+                local is_directory = filepath:sub(-1) == "/"
+                local abs_path = path.join(git_root, path.git_to_os(filepath))
+                abs_path = path.remove_trailing_slash(abs_path)
+                status[abs_path] = status_code
+                trie.insert(status_trie, abs_path, status_code, git_root, is_directory)
+              end
+            end
+
+            return status, status_trie
+          end
+
+          git.invalidate_cache = function(...)
+            cache.dir = nil
+            cache.git_root = nil
+            cache.timestamp = 0
+            cache.status = {}
+            cache.status_trie = nil
+            return invalidate_cache(...)
+          end
+
+          git.get_status_async = function(dir, callback)
+            get_root_async(dir, function(git_root)
+              if not git_root then
+                callback({}, nil, nil)
+                return
+              end
+
+              local now = uv.now()
+              if
+                cache.dir == dir
+                and cache.git_root == git_root
+                and now - cache.timestamp < 500
+              then
+                callback(cache.status, cache.status_trie, cache.git_root)
+                return
+              end
+
+              local rel_dir = relative_path(git_root, dir)
+              vim.system({
+                "git",
+                "-c",
+                "core.quotepath=false",
+                "status",
+                "--porcelain=v1",
+                "--untracked-files=normal",
+                "--ignored=no",
+                "--",
+                rel_dir,
+              }, { cwd = git_root, text = true }, function(result)
+                if result.code ~= 0 then
+                  vim.schedule(function()
+                    callback({}, nil, nil)
+                  end)
+                  return
+                end
+
+                local status, status_trie = parse_status(result.stdout or "", git_root)
+                cache.dir = dir
+                cache.git_root = git_root
+                cache.timestamp = uv.now()
+                cache.status = status
+                cache.status_trie = status_trie
+
+                vim.schedule(function()
+                  callback(status, status_trie, git_root)
+                end)
+              end)
+            end)
+          end
+        end,
       },
     },
     keys = {
