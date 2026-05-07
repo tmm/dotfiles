@@ -36,23 +36,14 @@ in
         action = "ask";
       }
       {
-        tool = "Bash";
-        matches.cmd = "*";
-        action = "allow";
-      }
-      {
         tool = "shell_command";
         matches.command = ampProtectedCommands;
         action = "ask";
       }
+      # Do not fall through to Amp's built-in permission prompts. The rules
+      # above are the complete set of commands that should interrupt.
       {
-        tool = "shell_command";
-        matches.command = "*";
-        action = "allow";
-      }
-      {
-        tool = "curl_md";
-        matches.url = "*";
+        tool = "*";
         action = "allow";
       }
     ];
