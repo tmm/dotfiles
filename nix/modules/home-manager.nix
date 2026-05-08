@@ -31,6 +31,7 @@ in
       lightpanda
       babelfish
       bat
+      bun
       cachix
       delta
       direnv
