@@ -9,19 +9,6 @@ return {
     opts = { auto_start = true, log_level = "info" },
   },
 
-  -- pi.nvim (https://github.com/tmm/pi.nvim)
-  {
-    "tmm/pi.nvim",
-    lazy = false,
-    opts = {
-      auto_start = true,
-      auto_install_pi_extension = true,
-    },
-    config = function(_, opts)
-      require("pi").setup(opts)
-    end,
-  },
-
   -- blink.cmp (https://github.com/saghen/blink.cmp)
   {
     "saghen/blink.cmp",
@@ -228,8 +215,7 @@ return {
       end
 
       local function get_oxfmt_command(ctx)
-        return find_node_binary("vp", ctx)
-          or find_node_binary("oxfmt", ctx)
+        return find_node_binary("vp", ctx) or find_node_binary("oxfmt", ctx)
       end
 
       local opts = {
@@ -798,7 +784,7 @@ return {
             cmd = function(dispatchers, config)
               local cmd = (config or {}).root_dir and config.root_dir .. "/node_modules/.bin/oxfmt"
               if cmd and vim.fn.executable(cmd) == 1 then
-                return vim.lsp.rpc.start({ cmd, "--lsp" }, dispatchers)
+                return vim.lsp.rpc.start({ cmd, "--lsp" }, dispatchers, { env = { VP_COMMAND = "fmt" } })
               end
             end,
             root_dir = function(bufnr, on_dir)
@@ -811,6 +797,7 @@ return {
             end,
           },
           oxlint = {
+            cmd_env = { VP_COMMAND = "lint" },
             root_markers = { ".oxlintrc.json", "oxlint.config.ts", "vite.config.ts" },
           },
           elixirls = {
@@ -1587,11 +1574,7 @@ return {
               end
 
               local now = uv.now()
-              if
-                cache.dir == dir
-                and cache.git_root == git_root
-                and now - cache.timestamp < 500
-              then
+              if cache.dir == dir and cache.git_root == git_root and now - cache.timestamp < 500 then
                 callback(cache.status, cache.status_trie, cache.git_root)
                 return
               end
