@@ -32,7 +32,6 @@
       "cleanshot"
       "contexts"
       "daisydisk"
-      "dropbox"
       "figma"
       "firefox"
       "flux-app"
@@ -52,6 +51,7 @@
       if host.profile == "personal" then
         [
           "discord"
+          "dropbox"
           "numi"
           "obsidian"
           "signal"
