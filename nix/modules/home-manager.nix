@@ -46,6 +46,7 @@ in
       gh
       git
       htmlq
+      htop
       httpie
       jq
       just
