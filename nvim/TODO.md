@@ -1,9 +1,10 @@
 # TODO
 
-lazy c64a61734fc9d45470a72603395c02137802bc6f
+lazy 459a4c3b1059671e766a46c7cc223827dc67e3d0
 
 - custom snippets
 - yank history
+- clean up local oxlint config: replace ineffective `root_markers`/`cmd_env` with LazyVim-style `root_dir` and `settings.fixKind = "all"`; keep custom `oxfmt`/`vp` conform behavior
 
 ## Misc
 

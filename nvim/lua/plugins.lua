@@ -765,6 +765,13 @@ return {
               { "<leader>cR", function() require("snacks").rename.rename_file() end, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
               { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
               { "<leader>cA", require("util.lsp").action.source, desc = "Source Action", has = "codeAction" },
+              { "<leader>co", require("util.lsp").action["source.organizeImports"], desc = "Organize Imports", has = "codeAction",
+                enabled = function(buf)
+                  local code_actions = vim.tbl_filter(function(action)
+                    return action:find("^source%.organizeImports%.?$")
+                  end, require("util.lsp").code_actions({ bufnr = buf }))
+                  return #code_actions > 0
+                end },
               { "]]", function() require("snacks").words.jump(vim.v.count1) end, has = "documentHighlight",
                 desc = "Next Reference", enabled = function() return require("snacks").words.is_enabled() end },
               { "[[", function() require("snacks").words.jump(-vim.v.count1) end, has = "documentHighlight",
@@ -807,6 +814,7 @@ return {
                 function()
                   local params = vim.lsp.util.make_position_params()
                   require("util.lsp").execute({
+                    filter = "elixirls",
                     command = "manipulatePipes:serverid",
                     arguments = { "toPipe", params.textDocument.uri, params.position.line, params.position.character },
                   })
@@ -818,6 +826,7 @@ return {
                 function()
                   local params = vim.lsp.util.make_position_params()
                   require("util.lsp").execute({
+                    filter = "elixirls",
                     command = "manipulatePipes:serverid",
                     arguments = { "fromPipe", params.textDocument.uri, params.position.line, params.position.character },
                   })
@@ -985,14 +994,17 @@ return {
                 desc = "File References",
               },
               -- stylua: ignore
-              { "<leader>co", require("util.lsp").action["source.organizeImports"], desc = "Organize Imports" },
               { "<leader>cM", require("util.lsp").action["source.addMissingImports.ts"], desc = "Add missing imports" },
               { "<leader>cu", require("util.lsp").action["source.removeUnused.ts"], desc = "Remove unused imports" },
               { "<leader>cD", require("util.lsp").action["source.fixAll.ts"], desc = "Fix all diagnostics" },
               {
                 "<leader>cV",
                 function()
-                  require("util.lsp").execute({ command = "typescript.selectTypeScriptVersion" })
+                  require("util.lsp").execute({
+                    title = "Select TypeScript Version",
+                    filter = "vtsls",
+                    command = "typescript.selectTypeScriptVersion",
+                  })
                 end,
                 desc = "Select TS workspace version",
               },
@@ -1026,6 +1038,35 @@ return {
             vim.list_extend(opts.filetypes, opts.filetypes_include or {})
           end,
           vtsls = function(_, opts)
+            local function workspace_tsdk(root_dir)
+              if not root_dir then
+                return nil
+              end
+
+              local tsdk = root_dir .. "/node_modules/typescript/lib"
+              if
+                vim.uv.fs_stat(tsdk .. "/tsserverlibrary.js")
+                or vim.uv.fs_stat(tsdk .. "/typescript.js")
+                or vim.uv.fs_stat(tsdk .. "/tsserver.js")
+              then
+                return tsdk
+              end
+            end
+
+            local before_init = opts.before_init
+            opts.before_init = function(params, config)
+              local tsdk = workspace_tsdk(config.root_dir)
+              if tsdk then
+                config.settings = config.settings or {}
+                config.settings.typescript = config.settings.typescript or {}
+                config.settings.typescript.tsdk = tsdk
+              end
+
+              if before_init then
+                before_init(params, config)
+              end
+            end
+
             require("snacks").util.lsp.on({ name = "vtsls" }, function(_buffer, client)
               client.commands["_typescript.moveToFileRefactoring"] = function(command, _ctx)
                 ---@diagnostic disable-next-line: deprecated
@@ -1094,7 +1135,10 @@ return {
       require("util.format").register(require("util.lsp").formatter())
 
       -- setup keymaps
-      for server, server_opts in pairs(opts.servers) do
+      local names = vim.tbl_keys(opts.servers) ---@type string[]
+      table.sort(names)
+      for _, server in ipairs(names) do
+        local server_opts = opts.servers[server]
         if type(server_opts) == "table" and server_opts.keys then
           require("util.keymaps").set({ name = server ~= "*" and server or nil }, server_opts.keys)
         end

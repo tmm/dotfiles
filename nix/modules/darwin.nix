@@ -19,7 +19,7 @@
     ];
 
     onActivation = {
-      cleanup = "uninstall";
+      cleanup = "none";
       autoUpdate = false;
       upgrade = false;
     };
