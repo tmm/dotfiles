@@ -71,10 +71,6 @@ in
     ".config/git/ignore_global".source = ../files/home/git-ignore-global;
     ".ignore".source = ../files/home/ignore;
     ".ssh/tom.pub".source = ../files/home/ssh/tom.pub;
-    "Documents/Obsidian Vault/.obsidian" = lib.mkIf (host.profile == "personal") {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/obsidian";
-      recursive = true;
-    };
   };
   home.shell.enableFishIntegration = true;
   home.stateVersion = "23.05";

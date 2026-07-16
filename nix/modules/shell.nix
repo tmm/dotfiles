@@ -37,9 +37,6 @@
       # local bin (curl.md, etc.)
       fish_add_path $HOME/.local/bin
 
-      # obsidian cli
-      fish_add_path /Applications/Obsidian.app/Contents/MacOS
-
       fnm env | source
       fzf --fish | source
 

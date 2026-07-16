@@ -53,7 +53,6 @@
           "discord"
           "dropbox"
           "numi"
-          "obsidian"
           "signal"
           "telegram"
           "thunderbird"

@@ -49,8 +49,12 @@ in
     ];
     "amp.defaultVisibility" = {
       "github.com/tmm/dotfiles" = "private";
+      "github.com/wevm/abitype" = "private";
       "github.com/wevm/cove" = "private";
       "github.com/wevm/curl.md" = "private";
+      "github.com/wevm/ox" = "private";
+      "github.com/wevm/viem" = "private";
+      "github.com/wevm/wagmi" = "private";
     };
     "amp.showCosts" = true;
   };
