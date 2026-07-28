@@ -70,6 +70,8 @@ in
     };
     ".config/git/ignore_global".source = ../files/home/git-ignore-global;
     ".ignore".source = ../files/home/ignore;
+    ".local/state/skills/.skill-lock.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/agents/.skill-lock.json";
     ".ssh/tom.pub".source = ../files/home/ssh/tom.pub;
   };
   home.shell.enableFishIntegration = true;
