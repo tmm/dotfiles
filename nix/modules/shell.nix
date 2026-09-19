@@ -115,7 +115,6 @@
       lsd = "eza -d .*";
       m = "mix";
       n = "npm";
-      o = "opencode";
       p = "pnpm";
       v = "nvim";
     };

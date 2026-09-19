@@ -25,7 +25,6 @@ in
   home.packages =
     with pkgs;
     [
-      amp-cli
       babelfish
       bat
       bun
@@ -33,11 +32,10 @@ in
       delta
       direnv
       dockutil
-      elixir
-      erlang
+      beamPackages.elixir
+      beamPackages.erlang
       eza
       fd
-      flyctl
       fnm
       fzf
       gh
@@ -86,9 +84,59 @@ in
     ./amp.nix
     ./ghostty.nix
     ./git.nix
-    ./opencode.nix
     ./shell.nix
   ];
+  programs.atuin = {
+    daemon.enable = true;
+    enable = true;
+    settings = {
+      ai.enabled = true;
+      auto_sync = true;
+      auto_hide_height = 8;
+      daemon.autostart = false;
+      inline_height = 8;
+      invert = true;
+      show_help = false;
+      show_numeric_shortcuts = false;
+      show_preview = false;
+      show_tabs = false;
+      style = "compact";
+      sync_frequency = "5m";
+      search_mode = "daemon-fuzzy";
+      theme.name = "dotfiles";
+      ui = {
+        columns = [
+          "time"
+          "command"
+        ];
+        syntax_highlight = true;
+      };
+    };
+    themes.dotfiles = {
+      theme = {
+        name = "dotfiles";
+        parent = "default";
+      };
+      colors = {
+        # Atuin also uses AlertError for the selected history command. It only
+        # supports foreground colors, so keep the selection neutral rather than red.
+        AlertError = "@ansi_(7)";
+        AlertInfo = "@ansi_(2)";
+        AlertWarn = "@ansi_(5)";
+        Annotation = "@ansi_(8)";
+        Guidance = "@ansi_(8)";
+        Important = "@ansi_(7)";
+        Muted = "@ansi_(8)";
+        SyntaxCommand = "@ansi_(4)";
+        SyntaxComment = "@ansi_(8)";
+        SyntaxFlag = "@ansi_(6)";
+        SyntaxOperator = "@ansi_(14)";
+        SyntaxString = "@ansi_(3)";
+        SyntaxVariable = "@ansi_(14)";
+        Title = "@ansi_(6)";
+      };
+    };
+  };
   programs.bat.enable = true;
   programs.direnv = {
     enable = true;
@@ -110,11 +158,9 @@ in
     extraConfig = ''
       IdentityAgent "${config.home.sessionVariables.SSH_AUTH_SOCK}"
     '';
-    matchBlocks."*" = {
-      forwardAgent = false;
-      extraOptions = {
-        StrictHostKeyChecking = "accept-new";
-      };
+    settings."*" = {
+      ForwardAgent = false;
+      StrictHostKeyChecking = "accept-new";
     };
   };
   programs.starship = {
