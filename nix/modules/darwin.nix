@@ -16,6 +16,7 @@
 
     brews = [
       "mas"
+      "xcode-build-server"
     ];
 
     onActivation = {

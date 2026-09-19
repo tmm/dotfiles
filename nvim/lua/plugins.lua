@@ -237,6 +237,7 @@ return {
           nix = { "nixfmt" },
           sh = { "shfmt" },
           svelte = { "oxfmt", "biome-check", stop_after_first = true },
+          swift = { "swift" },
           typescript = { "oxfmt", "biome-check", stop_after_first = true },
           typescriptreact = { "oxfmt", "biome-check", stop_after_first = true },
           vue = { "oxfmt", "biome-check", stop_after_first = true },
@@ -786,6 +787,10 @@ return {
           biome = {
             settings = {},
           },
+          sourcekit = {
+            mason = false,
+            cmd = { "xcrun", "sourcekit-lsp" },
+          },
           oxfmt = {
             mason = false,
             cmd = function(dispatchers, config)
@@ -1325,6 +1330,7 @@ return {
         "ron",
         "rust",
         "svelte",
+        "swift",
         "toml",
         "tsx",
         "typescript",
