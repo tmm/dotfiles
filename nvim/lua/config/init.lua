@@ -1,5 +1,7 @@
 local M = {}
 
+M._options = {}
+
 M.icons = {
   dap = {
     Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },

@@ -261,7 +261,7 @@ local _defaults = {} ---@type table<string, boolean>
 ---@return boolean was_set
 function M.set_default(option, value)
   local l = vim.api.nvim_get_option_value(option, { scope = "local" })
-  local g = vim.api.nvim_get_option_value(option, { scope = "global" })
+  local g = require("config")._options[option] or vim.api.nvim_get_option_value(option, { scope = "global" })
 
   _defaults[("%s=%s"):format(option, value)] = true
   local key = ("%s=%s"):format(option, l)

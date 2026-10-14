@@ -358,6 +358,16 @@ return {
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      -- Simulate nvim-treesitter incremental selection
+      { "<c-space>", mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter({
+            actions = {
+              ["<c-space>"] = "next",
+              ["<BS>"] = "prev"
+            }
+          })
+        end, desc = "Treesitter Incremental Selection" },
     },
   },
 
@@ -587,9 +597,20 @@ return {
     "nvim-mini/mini.pairs",
     event = "VeryLazy",
     opts = {
-      -- TODO: https://github.com/LazyVim/LazyVim/blob/3dbace941ee935c89c73fd774267043d12f57fe2/lua/lazyvim/util/mini.lua#L123
       modes = { insert = true, command = true, terminal = false },
+      -- skip autopair when next character is one of these
+      skip_next = [=[[%w%%%'%[%\"%.%`%$]]=],
+      -- skip autopair when the cursor is inside these treesitter nodes
+      skip_ts = { "string" },
+      -- skip autopair when next character is closing pair
+      -- and there are more closing pairs than opening pairs
+      skip_unbalanced = true,
+      -- better deal with markdown code blocks
+      markdown = true,
     },
+    config = function(_, opts)
+      require("util.mini").pairs(opts)
+    end,
   },
   {
     "nvim-mini/mini.surround",
@@ -809,15 +830,26 @@ return {
             end,
           },
           oxlint = {
-            cmd_env = { VP_COMMAND = "lint" },
-            root_markers = { ".oxlintrc.json", "oxlint.config.ts", "vite.config.ts" },
+            root_dir = function(bufnr, on_dir)
+              -- prefer the top-level oxlint config if it exists (monorepo support)
+              local git = vim.fs.root(bufnr, ".git")
+              local markers = { ".oxlintrc.json", ".oxlintrc.jsonc", "oxlint.config.ts", "vite.config.ts" }
+              local root = git and vim.fs.root(git, markers) or vim.fs.root(bufnr, markers)
+              if root then
+                on_dir(root)
+              end
+            end,
+            settings = {
+              fixKind = "all",
+            },
           },
           elixirls = {
             keys = {
               {
                 "<leader>cp",
                 function()
-                  local params = vim.lsp.util.make_position_params()
+                  local client = vim.lsp.get_clients({ bufnr = 0, name = "elixirls" })[1]
+                  local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
                   require("util.lsp").execute({
                     filter = "elixirls",
                     command = "manipulatePipes:serverid",
@@ -829,7 +861,8 @@ return {
               {
                 "<leader>cP",
                 function()
-                  local params = vim.lsp.util.make_position_params()
+                  local client = vim.lsp.get_clients({ bufnr = 0, name = "elixirls" })[1]
+                  local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
                   require("util.lsp").execute({
                     filter = "elixirls",
                     command = "manipulatePipes:serverid",
@@ -978,7 +1011,8 @@ return {
               {
                 "gD",
                 function()
-                  local params = vim.lsp.util.make_position_params()
+                  local win = vim.api.nvim_get_current_win()
+                  local params = vim.lsp.util.make_position_params(win, "utf-16")
                   require("util.lsp").execute({
                     command = "typescript.goToSourceDefinition",
                     arguments = { params.textDocument.uri, params.position },
@@ -1286,24 +1320,11 @@ return {
     event = { "VeryLazy" },
     lazy = vim.fn.argc(-1) == 0,
     cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
-    keys = {
-      { "<c-space>", desc = "Increment Selection", mode = { "x", "n" } },
-      { "<bs>", desc = "Decrement Selection", mode = "x" },
-    },
     opts_extend = { "ensure_installed" },
     opts = {
       indent = { enable = true },
       highlight = { enable = true },
       folds = { enable = true },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
       ensure_installed = {
         "bash",
         "c",
@@ -1580,16 +1601,18 @@ return {
             local status = {}
             local status_trie = trie.create_node()
 
-            for line in output:gmatch("[^\r\n]+") do
-              if #line >= 4 then
-                local status_code = line:sub(1, 2)
-                local filepath = line:sub(4)
+            local records = vim.split(output, "\0", { plain = true, trimempty = true })
+            local index = 1
 
-                if status_code:sub(1, 1) == "R" or status_code:sub(1, 1) == "C" then
-                  local arrow_pos = filepath:find(" %-> ")
-                  if arrow_pos then
-                    filepath = filepath:sub(arrow_pos + 4)
-                  end
+            while index <= #records do
+              local record = records[index]
+              if #record >= 4 then
+                local status_code = record:sub(1, 2)
+                local filepath = record:sub(4)
+
+                -- With -z, the destination comes first; skip the source record.
+                if status_code:find("[RC]") then
+                  index = index + 1
                 end
 
                 if filepath:sub(1, 2) == "./" then
@@ -1602,6 +1625,7 @@ return {
                 status[abs_path] = status_code
                 trie.insert(status_trie, abs_path, status_code, git_root, is_directory)
               end
+              index = index + 1
             end
 
             return status, status_trie
@@ -1632,15 +1656,14 @@ return {
               local rel_dir = relative_path(git_root, dir)
               vim.system({
                 "git",
-                "-c",
-                "core.quotepath=false",
                 "status",
                 "--porcelain=v1",
+                "-z",
                 "--untracked-files=normal",
                 "--ignored=no",
                 "--",
                 rel_dir,
-              }, { cwd = git_root, text = true }, function(result)
+              }, { cwd = git_root }, function(result)
                 if result.code ~= 0 then
                   vim.schedule(function()
                     callback({}, nil, nil)
@@ -1908,18 +1931,18 @@ return {
         { "<leader>un", function() snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
 
         { "<leader>,", function() snacks.picker.buffers() end, desc = "Buffers" },
-        { "<leader>/", pick.open("grep"), desc = "Grep (Root Dir)" },
+        { "<leader>/", pick("grep"), desc = "Grep (Root Dir)" },
         { "<leader>:", function() snacks.picker.command_history() end, desc = "Command History" },
-        { "<leader><space>", pick.open("files"), desc = "Find Files (Root Dir)" },
+        { "<leader><space>", pick("files"), desc = "Find Files (Root Dir)" },
         { "<leader>n", function() snacks.picker.notifications() end, desc = "Notification History" },
         -- find
         { "<leader>fb", function() snacks.picker.buffers() end, desc = "Buffers" },
         { "<leader>fB", function() snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = "Buffers (all)" },
         { "<leader>fc", pick.config_files(), desc = "Find Config File" },
-        { "<leader>ff", pick.open("files"), desc = "Find Files (Root Dir)" },
-        { "<leader>fF", pick.open("files", { root = false }), desc = "Find Files (cwd)" },
+        { "<leader>ff", pick("files"), desc = "Find Files (Root Dir)" },
+        { "<leader>fF", pick("files", { root = false }), desc = "Find Files (cwd)" },
         { "<leader>fg", function() snacks.picker.git_files() end, desc = "Find Files (git-files)" },
-        { "<leader>fr", pick.open("recent"), desc = "Recent" },
+        { "<leader>fr", pick("recent"), desc = "Recent" },
         { "<leader>fR", function() snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
         { "<leader>fp", function() snacks.picker.projects() end, desc = "Projects" },
         -- git
@@ -1934,11 +1957,11 @@ return {
         -- Grep
         { "<leader>sb", function() snacks.picker.lines() end, desc = "Buffer Lines" },
         { "<leader>sB", function() snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
-        { "<leader>sg", pick.open("grep"), desc = "Grep (Root Dir)" },
-        { "<leader>sG", pick.open("grep", { root = false }), desc = "Grep (cwd)" },
+        { "<leader>sg", pick("grep"), desc = "Grep (Root Dir)" },
+        { "<leader>sG", pick("grep", { root = false }), desc = "Grep (cwd)" },
         { "<leader>sp", function() snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
-        { "<leader>sw", pick.open("grep_word"), desc = "Visual selection or word (Root Dir)", mode = { "n", "x" } },
-        { "<leader>sW", pick.open("grep_word", { root = false }), desc = "Visual selection or word (cwd)", mode = { "n", "x" } },
+        { "<leader>sw", pick("grep_word"), desc = "Visual selection or word (Root Dir)", mode = { "n", "x" } },
+        { "<leader>sW", pick("grep_word", { root = false }), desc = "Visual selection or word (cwd)", mode = { "n", "x" } },
         -- search
         { '<leader>s"', function() snacks.picker.registers() end, desc = "Registers" },
         { '<leader>s/', function() snacks.picker.search_history() end, desc = "Search History" },

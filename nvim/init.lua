@@ -1,5 +1,11 @@
 require("config.options")
 
+-- save some options to track defaults
+local config = require("config")
+config._options.indentexpr = vim.o.indentexpr
+config._options.foldmethod = vim.o.foldmethod
+config._options.foldexpr = vim.o.foldexpr
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -38,13 +44,21 @@ require("lazy").setup({
 -- delay notifications till vim.notify was replaced or after 500ms
 require("util.init").lazy_notify()
 
+-- autocmds can be loaded lazily when not opening a file
+local lazy_autocmds = vim.fn.argc(-1) == 0
+if not lazy_autocmds then
+  require("config.autocmds")
+end
+
 local group = vim.api.nvim_create_augroup("TmmVim", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = group,
   pattern = "VeryLazy",
   callback = function()
+    if lazy_autocmds then
+      require("config.autocmds")
+    end
     require("config.keymaps")
-    require("config.autocmds")
 
     require("util.format").setup()
     require("util.root").setup()
