@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Dependencies survive snapshots. Check them without installing anything on wake.
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
+# Expand tool names in the new login shell, not in this process.
+# shellcheck disable=SC2016
+env -u IN_NIX_SHELL /bin/bash -lc '
+  set -euo pipefail
+  for tool in nix nvim luajit nixfmt stylua shellcheck shfmt fish tree-sitter cc; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+      echo "Missing $tool; rerun .agents/setup to repair the orb." >&2
+      exit 1
+    fi
+  done
+'
+echo "Orb development tools ready."

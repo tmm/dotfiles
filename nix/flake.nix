@@ -75,5 +75,24 @@
     in
     {
       darwinConfigurations = builtins.mapAttrs mkDarwinConfiguration hosts;
+
+      # Linux tooling for editing and validating the dotfiles, not applying them.
+      devShells.x86_64-linux.default =
+        let
+          pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+        in
+        pkgs.mkShell {
+          packages = with pkgs; [
+            fish
+            luajit
+            neovim
+            nix
+            nixfmt
+            shellcheck
+            shfmt
+            stylua
+            tree-sitter
+          ];
+        };
     };
 }

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cache_dir="$HOME/.cache/dotfiles-orb"
+mkdir -p "$cache_dir"
+
+echo "Preparing Nix"
+start=$SECONDS
+if ! command -v nix >/dev/null 2>&1; then
+  if [[ ! -x "$HOME/.nix-profile/bin/nix" ]]; then
+    installer="$(mktemp)"
+    trap 'rm -f "$installer"' EXIT
+    curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install -o "$installer"
+    sh "$installer" --no-daemon --no-channel-add
+  fi
+  # shellcheck disable=SC1091
+  source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+nix_bin="$(command -v nix)"
+echo "Nix ready in $((SECONDS - start))s"
+
+echo "Caching locked flake inputs and Linux development tools"
+start=$SECONDS
+"$nix_bin" --extra-experimental-features 'nix-command flakes' \
+  flake archive --no-write-lock-file "path:$repo_root/nix" >/dev/null
+"$nix_bin" --extra-experimental-features 'nix-command flakes' \
+  print-dev-env --no-write-lock-file --profile "$cache_dir/dev-shell" \
+  "path:$repo_root/nix" >"$cache_dir/environment.tmp"
+mv "$cache_dir/environment.tmp" "$cache_dir/environment"
+echo "Dependencies ready in $((SECONDS - start))s"
+
+# Activate the full shell environment for Amp and non-interactive login shells.
+# Keep it scoped to this checkout, including commands run in subdirectories.
+# Use the cached export so waking an orb never downloads or builds dependencies.
+marker="# dotfiles orb development shell"
+if ! grep -Fqx "$marker" "$HOME/.bash_profile" 2>/dev/null; then
+  cat >>"$HOME/.bash_profile" <<EOF
+
+$marker
+if [[ -z "\${IN_NIX_SHELL:-}" && ( "\$PWD" == "$repo_root" || "\$PWD" == "$repo_root/"* ) ]]; then
+  source "$cache_dir/environment"
+fi
+EOF
+fi
+
+echo "Orb setup ready; macOS activation remains on your Mac or macOS CI."

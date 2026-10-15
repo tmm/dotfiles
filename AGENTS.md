@@ -7,6 +7,16 @@
 - `drs <host>` - Rebuild specific host, or use `DARWIN_HOST` if set
 - `drb <host>` - Build specific host, or use `DARWIN_HOST` if set
 
+## Linux Orbs
+
+- `.agents/setup` caches the locked Nix inputs and Linux development shell; `.agents/resume` checks that tools are available without reinstalling them.
+- New Bash login shells inside this checkout automatically load the complete cached development environment. After changing the development shell or `nix/flake.lock`, rerun `.agents/setup` and start a new login shell.
+- Available tools include Neovim, LuaJIT, Fish, nixfmt, StyLua, ShellCheck, shfmt, tree-sitter, and a C compiler. Outside orbs, enter the same environment with `nix develop ./nix` on x86_64 Linux.
+- Useful checks: `bash -n .agents/setup && bash -n .agents/resume`, `shellcheck .agents/setup .agents/resume`, `sh -n bootstrap`, `nixfmt --check nix/flake.nix`, and `stylua --check nvim`.
+- Do not run `bootstrap` or apply the Darwin configurations in a Linux orb. Full Darwin builds still require macOS or the existing macOS CI workflow.
+- Setup does not activate the personal Neovim configuration or download its plugin-managed language servers and parsers. Use `nvim --headless -u NONE` for isolated Lua checks; full editor tests need the Neovim configuration and its plugins installed separately.
+- No application services, databases, or personal credentials are needed for repository validation.
+
 ## Code Style Guidelines
 
 ### Nix Files
