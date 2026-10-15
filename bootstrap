@@ -1,12 +1,75 @@
 #!/bin/sh
 set -eu
 
-if [ "$(uname -s)" != "Darwin" ]; then
-  echo "bootstrap only supports macOS" >&2
-  exit 1
-fi
-
 DOTFILES_HOME=${DOTFILES_HOME:-$(CDPATH= cd -- "$(dirname "$0")" && pwd)}
+case "$(uname -s)" in
+  Linux)
+    tools_dir="$HOME/.local/share/dotfiles"
+    config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+    mkdir -p "$tools_dir" "$(dirname "$config_dir")"
+    if [ -e "$config_dir" ] || [ -L "$config_dir" ]; then
+      if [ "$(readlink -f "$config_dir")" != "$DOTFILES_HOME/nvim" ]; then
+        echo "Refusing to replace $config_dir; move it aside before installing." >&2
+        exit 1
+      fi
+    fi
+
+    echo "Preparing Nix tools"
+    start=$(date +%s)
+    if ! command -v nix >/dev/null 2>&1; then
+      if [ ! -x "$HOME/.nix-profile/bin/nix" ]; then
+        installer="$(mktemp)"
+        trap 'rm -f "$installer"' EXIT
+        curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install -o "$installer"
+        sh "$installer" --no-daemon --no-channel-add
+      fi
+      # shellcheck disable=SC1091
+      . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+    fi
+    nix --extra-experimental-features 'nix-command flakes' \
+      build --no-write-lock-file --out-link "$tools_dir/tools" "path:$DOTFILES_HOME/nix"
+    echo "Tools ready in $(($(date +%s) - start))s"
+
+    # Retire the old checkout-scoped development-shell hook, preserving other setup.
+    if grep -Fqx '# dotfiles orb development shell' "$HOME/.bash_profile" 2>/dev/null; then
+      sed '/^# dotfiles orb development shell$/,/^fi$/d' "$HOME/.bash_profile" >"$tools_dir/profile.tmp"
+      cat "$tools_dir/profile.tmp" >"$HOME/.bash_profile"
+      rm "$tools_dir/profile.tmp"
+    fi
+    for profile in "$HOME/.bash_profile" "$HOME/.bashrc"; do
+      if ! grep -Fqx '# dotfiles CLI tools' "$profile" 2>/dev/null; then
+        cat >>"$profile" <<'EOF'
+
+# dotfiles CLI tools
+case ":$PATH:" in
+  *":$HOME/.local/share/dotfiles/tools/bin:"*) ;;
+  *) export PATH="$HOME/.local/share/dotfiles/tools/bin:$PATH" ;;
+esac
+EOF
+      fi
+    done
+
+    if [ ! -L "$config_dir" ]; then
+      ln -s "$DOTFILES_HOME/nvim" "$config_dir"
+    fi
+
+    echo "Preparing Neovim plugins, parsers, and language tools"
+    start=$(date +%s)
+    # Restart after restoring plugins so tool installation loads the restored code.
+    for phase in plugins tools; do
+      PATH="$tools_dir/tools/bin:$PATH" timeout 10m \
+        "$tools_dir/tools/bin/nvim" --headless -u NONE -l "$DOTFILES_HOME/nvim/bootstrap.lua" "$phase"
+    done
+    echo "Neovim ready in $(($(date +%s) - start))s"
+    exit 0
+    ;;
+  Darwin) ;;
+  *)
+    echo "bootstrap only supports macOS and Linux" >&2
+    exit 1
+    ;;
+esac
+
 HOST_NAME=${1:-}
 
 load_homebrew() {

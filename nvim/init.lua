@@ -24,12 +24,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  lockfile = vim.g.dotfiles_bootstrap and (vim.fn.stdpath("state") .. "/bootstrap-lock.json") or nil,
+  headless = { process = not vim.g.dotfiles_bootstrap },
   change_detection = {
     enabled = true,
     notify = false,
   },
   checker = {
-    enabled = true,
+    enabled = not vim.g.dotfiles_bootstrap,
     notify = false,
   },
   dev = {

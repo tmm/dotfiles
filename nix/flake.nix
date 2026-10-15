@@ -13,6 +13,28 @@
     inputs:
     let
       dotfilesDir = "Developer/dotfiles";
+      linuxPkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+      linuxPackages = with linuxPkgs; [
+        beamPackages.elixir
+        curl
+        fd
+        fish
+        gcc
+        git
+        gnumake
+        luajit
+        neovim
+        nil
+        nix
+        nixfmt
+        nodejs
+        ripgrep
+        shellcheck
+        shfmt
+        stylua
+        tree-sitter
+        unzip
+      ];
       hosts = {
         tmm = {
           profile = "personal";
@@ -76,22 +98,14 @@
     {
       darwinConfigurations = builtins.mapAttrs mkDarwinConfiguration hosts;
 
-      devShells.x86_64-linux.default =
-        let
-          pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
-        in
-        pkgs.mkShell {
-          packages = with pkgs; [
-            fish
-            luajit
-            neovim
-            nix
-            nixfmt
-            shellcheck
-            shfmt
-            stylua
-            tree-sitter
-          ];
-        };
+      packages.x86_64-linux.default = linuxPkgs.buildEnv {
+        name = "dotfiles-tools";
+        paths = linuxPackages;
+        pathsToLink = [ "/bin" ];
+      };
+
+      devShells.x86_64-linux.default = linuxPkgs.mkShell {
+        packages = linuxPackages;
+      };
     };
 }

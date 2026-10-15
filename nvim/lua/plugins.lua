@@ -6,7 +6,7 @@ return {
     "sourcegraph/amp.nvim",
     branch = "main",
     lazy = false,
-    opts = { auto_start = true, log_level = "info" },
+    opts = { auto_start = not vim.g.dotfiles_bootstrap, log_level = "info" },
   },
 
   -- blink.cmp (https://github.com/saghen/blink.cmp)
@@ -559,6 +559,9 @@ return {
     },
     config = function(_, opts)
       require("mason").setup(opts)
+      if vim.g.dotfiles_bootstrap then
+        return
+      end
       local mr = require("mason-registry")
 
       mr:on("package:install:success", function()
@@ -809,6 +812,7 @@ return {
             settings = {},
           },
           sourcekit = {
+            enabled = vim.fn.has("macunix") == 1,
             mason = false,
             cmd = { "xcrun", "sourcekit-lsp" },
           },
@@ -920,7 +924,7 @@ return {
               },
             },
           },
-          nil_ls = {},
+          nil_ls = { mason = vim.fn.executable("nil") == 0 },
           volar = { enabled = false },
           tailwindcss = {
             filetypes_exclude = { "markdown" },
@@ -1304,6 +1308,9 @@ return {
     branch = "main",
     version = false,
     build = function()
+      if vim.g.dotfiles_bootstrap then
+        return
+      end
       local TS = require("nvim-treesitter")
       if not TS.get_installed then
         require("util.init").error(
@@ -1397,7 +1404,7 @@ return {
       local install = vim.tbl_filter(function(lang)
         return not require("util.treesitter").have(lang)
       end, opts.ensure_installed or {})
-      if #install > 0 then
+      if #install > 0 and not vim.g.dotfiles_bootstrap then
         require("util.treesitter").build(function()
           TS.install(install, { summary = true }):await(function()
             require("util.treesitter").get_installed(true) -- refresh the installed langs
