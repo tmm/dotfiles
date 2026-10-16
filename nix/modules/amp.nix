@@ -1,20 +1,17 @@
 { config, lib, ... }:
 {
-  # Finder custom icons leave Amp's signed Contents untouched. Reapply on each
-  # rebuild because an Amp update can replace the application bundle.
+  # Clear the previous Finder override to restore Amp's bundled icon.
   home.activation.ampIcon = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [[ -d /Applications/Amp.app ]]; then
-      run /usr/bin/osascript - ${../files/amp/puck.png} /Applications/Amp.app <<'APPLESCRIPT'
+      run /usr/bin/osascript - /Applications/Amp.app <<'APPLESCRIPT'
     use framework "AppKit"
     on run argv
-      set iconImage to current application's NSImage's alloc()'s initWithContentsOfFile:(item 1 of argv)
-      if iconImage is missing value then error "Could not load the Puck icon"
-      set didSetIcon to current application's NSWorkspace's sharedWorkspace()'s setIcon:iconImage forFile:(item 2 of argv) options:0
-      if not (didSetIcon as boolean) then error "Could not set Amp's custom icon"
+      set didResetIcon to current application's NSWorkspace's sharedWorkspace()'s setIcon:(missing value) forFile:(item 1 of argv) options:0
+      if not (didResetIcon as boolean) then error "Could not restore Amp's default icon"
     end run
     APPLESCRIPT
     else
-      echo "Skipping Puck icon: /Applications/Amp.app is not installed."
+      echo "Skipping Amp icon reset: /Applications/Amp.app is not installed."
     fi
   '';
 
