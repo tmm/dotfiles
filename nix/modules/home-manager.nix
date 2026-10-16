@@ -1,7 +1,6 @@
 {
   config,
   dotfilesDir,
-  host,
   hostName,
   lib,
   pkgs,
@@ -22,41 +21,36 @@ let
     builtins.replaceStrings (map (k: "@${k}@") keys) (map (k: attrs.${k}) keys) batThemeTemplate;
 in
 {
-  home.packages =
-    with pkgs;
-    [
-      babelfish
-      bat
-      bun
-      cachix
-      delta
-      direnv
-      dockutil
-      beamPackages.elixir
-      beamPackages.erlang
-      eza
-      fd
-      fnm
-      fzf
-      gh
-      git
-      htmlq
-      htop
-      httpie
-      jq
-      just
-      neovim
-      nixfmt
-      postgresql
-      ripgrep
-      rustup
-      starship
-      yt-dlp
-      zoxide
-    ]
-    ++ lib.optionals (host.profile == "personal") [
-      pscale
-    ];
+  home.packages = with pkgs; [
+    babelfish
+    bat
+    bun
+    cachix
+    delta
+    direnv
+    dockutil
+    beamPackages.elixir
+    beamPackages.erlang
+    eza
+    fd
+    fnm
+    fzf
+    gh
+    git
+    htmlq
+    htop
+    httpie
+    jq
+    just
+    neovim
+    nixfmt
+    postgresql
+    ripgrep
+    rustup
+    starship
+    yt-dlp
+    zoxide
+  ];
   home.file = {
     ".config/bat/themes/dotfiles_dark.tmTheme".text = mkBatTheme {
       c = colors.dark;

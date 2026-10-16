@@ -1,4 +1,9 @@
-{ pkgs, host, ... }:
+{
+  pkgs,
+  host,
+  lib,
+  ...
+}:
 {
   environment.shells = with pkgs; [ fish ];
 
@@ -14,10 +19,13 @@
   homebrew = {
     enable = true;
 
+    taps = lib.optionals (host.profile == "personal") [ "planetscale/tap" ];
+
     brews = [
       "mas"
       "xcode-build-server"
-    ];
+    ]
+    ++ lib.optionals (host.profile == "personal") [ "planetscale/tap/pscale" ];
 
     onActivation = {
       cleanup = "none";
