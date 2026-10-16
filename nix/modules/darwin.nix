@@ -122,7 +122,7 @@
         app = "/Applications/Firefox.app";
       }
       {
-        app = "/Applications/Ghostty.app";
+        app = "/Applications/Rex Beta.app";
       }
     ];
     dock.show-process-indicators = true;
@@ -137,6 +137,9 @@
       };
       "com.apple.finder" = {
         ShowRecentTags = false;
+      };
+      "com.superlogical.rex" = {
+        "Workspace.terminalFontPointSize" = 13.0;
       };
     };
     finder._FXShowPosixPathInTitle = true;

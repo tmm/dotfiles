@@ -62,11 +62,14 @@ in
     };
     ".config/git/ignore_global".source = ../files/home/git-ignore-global;
     ".ignore".source = ../files/home/ignore;
+    ".local/bin/rex".source =
+      config.lib.file.mkOutOfStoreSymlink "/Applications/Rex Beta.app/Contents/Helpers/Rex Server.app/Contents/MacOS/rex";
     ".local/state/skills/.skill-lock.json".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nix/agents/.skill-lock.json";
     ".ssh/tom.pub".source = ../files/home/ssh/tom.pub;
   };
   home.shell.enableFishIntegration = true;
+  home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
   home.stateVersion = "23.05";
   home.sessionVariables = {
     DARWIN_HOST = hostName;
@@ -230,6 +233,15 @@ in
   xdg = {
     enable = true;
     configFile = {
+      "rex/init.lua".text = ''
+        rex.bind("ctrl+shift+enter", "pane.zoom")
+        rex.bind("ctrl+shift+h", "pane.focus", { direction = "left" })
+        rex.bind("ctrl+shift+j", "pane.focus", { direction = "down" })
+        rex.bind("ctrl+shift+k", "pane.focus", { direction = "up" })
+        rex.bind("ctrl+shift+l", "pane.focus", { direction = "right" })
+        rex.bind("cmd+backspace", "pane.send_key", { key = "ctrl+u" })
+        rex.unbind("cmd+enter")
+      '';
       nvim = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.sessionVariables.DOTFILES_HOME}/nvim";
         recursive = true;
