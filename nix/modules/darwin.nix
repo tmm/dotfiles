@@ -38,7 +38,7 @@
       "alcove"
       "aldente"
       "amp-app"
-      "bettercmdtab"
+      "bettercmdtab@beta"
       "betterdisplay"
       "cleanshot"
       "daisydisk"
