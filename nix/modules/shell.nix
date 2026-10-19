@@ -41,7 +41,11 @@
       fzf --fish | source
 
       function amp --wraps amp --description 'Run amp with PLUGINS=all and private visibility by default'
-        env PLUGINS=all command amp $argv
+        if test "$TERM_PROGRAM" = rex
+          env PLUGINS=all command amp --settings-file "$HOME/.config/amp/rex-settings.json" $argv
+        else
+          env PLUGINS=all command amp $argv
+        end
       end
 
       function drs --description 'Rebuild a darwin host'
