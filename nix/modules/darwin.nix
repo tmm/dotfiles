@@ -139,7 +139,7 @@
         ShowRecentTags = false;
       };
       "com.superlogical.rex" = {
-        "Workspace.terminalFontPointSize" = 13.0;
+        "Workspace.terminalFontPointSize" = 13.5;
       };
     };
     finder._FXShowPosixPathInTitle = true;
