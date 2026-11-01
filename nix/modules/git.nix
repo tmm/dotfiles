@@ -106,6 +106,8 @@
       gpg = {
         format = "ssh";
         ssh.program = host.git.signingProgram;
+        # Lets `git log --show-signature` verify this machine's own commits.
+        ssh.allowedSignersFile = "~/.config/git/allowed_signers";
       };
       include = {
         path = "~/.config/delta/themes.gitconfig";
@@ -125,4 +127,8 @@
       submodule.recurse = true;
     };
   };
+
+  xdg.configFile."git/allowed_signers".text = ''
+    ${host.git.email} namespaces="git" ${host.git.signingKey}
+  '';
 }

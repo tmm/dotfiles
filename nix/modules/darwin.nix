@@ -19,7 +19,7 @@
   homebrew = {
     enable = true;
 
-    taps = lib.optionals (host.profile == "personal") [ "planetscale/tap" ];
+    taps = [ "anomalyco/tap" ] ++ lib.optionals (host.profile == "personal") [ "planetscale/tap" ];
 
     brews = [
       "mas"
@@ -38,6 +38,7 @@
       "alcove"
       "aldente"
       "amp-app"
+      "anomalyco/tap/hex"
       "bettercmdtab@beta"
       "betterdisplay"
       "cleanshot"
