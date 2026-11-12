@@ -21,7 +21,7 @@ permissions:
 jobs:
   bootstrap:
     name: Bootstrap Script
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -31,7 +31,7 @@ jobs:
 
   build:
     name: Build ${{ matrix.host }}
-    runs-on: macos-14
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
